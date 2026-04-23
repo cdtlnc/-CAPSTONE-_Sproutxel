@@ -8,7 +8,6 @@ public class PlantBase : ScriptableObject
 
     [Header("Health")]
     public int maxHP;
-    public int cropHP;
 
     [Header("Maturation Window")]
     public Vector2 maturationWindow;
@@ -16,14 +15,11 @@ public class PlantBase : ScriptableObject
 
     [Header("Growth Speed")]
     public int standardGrowthSpeed;
-    public float cropGrowthSpeed;
-    public float cropGrowth;
 
-    [Header("Harvest")]
+    [Header("Harvest")] // These store a range of values using the Vector2 variable. The x value represents the minimum, the y value represents the maximum.
     public Vector2 badCropYield;
     public Vector2 averageCropYield;
     public Vector2 goodCropYield;
-    public float harvestQuality;
 
     [Header("Resistances")]
     public float[] seasonalAffinities; // 0 - Dry, 1 - Wet
