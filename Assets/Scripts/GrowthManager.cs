@@ -3,12 +3,12 @@ using UnityEngine;
 public class GrowthManager : MonoBehaviour
 {
     public SpriteRenderer plantRenderer;
-    public Sprite[] eggplantStages; // Put your 4 sprites here (0=Seed, 3=Mature) //Problem to be able to change to different sprites
+    public Sprite[] eggplantStages; // Put your 4 sprites here (0=Seed, 3=Mature)
 
     [HideInInspector] public bool isPlanted = false;
-    public int currentStage = 0;
-    public float timer = 0;
-    public float timeToGrow = 3f; // 3 seconds per stage
+    private int currentStage = 0;
+    private float timer = 0;
+    private float timeToGrow = 3f; // 3 seconds per stage
 
     void Update()
     {
@@ -34,11 +34,9 @@ public class GrowthManager : MonoBehaviour
     }
 
     // THIS IS THE HARVEST LOGIC
-    
-    /*
     void OnMouseDown()
     {
-        if (isPlanted && currentStage == 3) // Only harvest if fully grown // And No Minigame needed
+        if (isPlanted && currentStage == 3) // Only harvest if fully grown
         {
             // Tell the GoalManager we got one!
             Object.FindAnyObjectByType<GoalManager>().AddEggplant();
@@ -47,34 +45,11 @@ public class GrowthManager : MonoBehaviour
             ResetPlot();
         }
     }
-    */
+
     void ResetPlot()
     {
         isPlanted = false;
         currentStage = 0;
         plantRenderer.sprite = null;
-    }
-
-    private void OnMouseDown()
-    {
-        MaintenceOpen();
-            
-    }
-    public void MaintenceOpen()
-    {
-        Debug.Log("Step 1 Opening Maintenence");
-        if (currentStage == 3 && isPlanted == true)
-        {
-            Debug.Log("Step 2 Opening Panel");
-            MaintenencePopUp main = GameObject.FindFirstObjectByType<MaintenencePopUp>();
-            if (main != null)
-            {
-                Debug.Log("Step 3.A not null");
-                main.OpenMaintenence();
-            }
-            else
-                Debug.Log("Step 3.B null");
-
-        }
     }
 }
