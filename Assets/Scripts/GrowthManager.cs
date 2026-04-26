@@ -34,6 +34,8 @@ public class GrowthManager : MonoBehaviour
     }
 
     // THIS IS THE HARVEST LOGIC
+
+    /*
     void OnMouseDown()
     {
         if (isPlanted && currentStage == 3) // Only harvest if fully grown
@@ -43,6 +45,30 @@ public class GrowthManager : MonoBehaviour
 
             // Clear the plot
             ResetPlot();
+        }
+    }
+    */// Removed this for now so that we can focus on making the maintenence screen open.
+
+    private void OnMouseDown()
+    {
+        MaintenceOpen();
+
+    }
+    public void MaintenceOpen()
+    {
+        Debug.Log("Step 1 Opening Maintenence");
+        if (currentStage == 3 && isPlanted == true)
+        {
+            Debug.Log("Step 2 Opening Panel");
+            MaintenencePopUp main = GameObject.FindFirstObjectByType<MaintenencePopUp>();
+            if (main != null)
+            {
+                Debug.Log("Step 3.A not null");
+                main.OpenMaintenence();
+            }
+            else
+                Debug.Log("Step 3.B null");
+
         }
     }
 
