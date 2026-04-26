@@ -19,22 +19,26 @@ public class BasePlant
     public int seasonIndex { private get; set; }  // This is either 0 or 1. 0 - Dry, 1 - Wet
     public int dayIndex { private get; set; }     // This is either 0 or 1. 0 - Day, 1 - Night
     public int weatherIndex { private get; set; } // This is either 0, 1 or 2. 0 - No weather event, 1 - Heat Wave, 2 - Typhoon
+    public int bugIndex { private get; set; }     // This is either 0 or 1. 0 - No infestation, 1 - Infested
 
     // These values manage how much these stats change per tick by default. These are NOT external modifiers. Be careful when tinkering with them.
-    [SerializeField] private float _soilQualityMultiplier    = 2.3f; // 2.3f by default
-    [SerializeField] private float _cropHealthMultiplier     = 0.6f; // 0.6f by default
-    [SerializeField] private float _harvestQualityMultiplier = 1.9f; // 1.9f by default
+    private float _cropMoistureMultiplier   = 2f;   // 2.0f by default
+    private float _soilMoistureMultiplier   = 2f;   // 2.0f by default
+    private float _soilSoftnessMultiplier   = 2f;   // 2.0f by default
+    private float _soilQualityMultiplier    = 2.3f; // 2.3f by default
+    private float _cropHealthMultiplier     = 0.6f; // 0.6f by default
+    private float _harvestQualityMultiplier = 1.9f; // 1.9f by default
 
     public void GetStatsOvertime() // This calculates the depreciation of the cropMoisture, soilMoisture and soilSoftness stats
     {
-        float cropMoistureMultiplier = 1; // This is set to 1 if we want the stat to go up, -1 if we want it to go down
-        float soilMoistureMultiplier = 1; // This is set to 1 if we want the stat to go up, -1 if we want it to go down
-        float soilSoftnessMultiplier = 1; // This is set to 1 if we want the stat to go up, -1 if we want it to go down
+        float cropMoistureMultiplier = 1; 
+        float soilMoistureMultiplier = 1; 
+        float soilSoftnessMultiplier = 1; 
 
         // The following if-else statements affect the changes in the following stats depending on the season and the weather.
-        // Setting it to -1.00 / 1.00 makes the stat go down and up respectively.
-        // Setting it below 1 makes the change slower. I recommend keeping it between 0 and 1.
-        // Setting it above 1 makes it faster. I recommend keeping it between 1 and 2.
+        // Setting it to a negative or a positive number makes the stat go down and up respectively.
+        // Setting it below 1 makes the change slower. I recommend keeping it between 0 and 1. Think of it as 0% and 100%.
+        // Setting it above 1 makes it faster. I recommend keeping it between 1 and 2. Think of it as 100% and 200%.
         // Tinker with the values to achieve the rate of change that you want.
         if (seasonIndex == 0)
         {
@@ -60,12 +64,11 @@ public class BasePlant
             cropMoistureMultiplier = -1.35f;
             soilMoistureMultiplier = -1.35f;
             soilSoftnessMultiplier = 1.35f;
-
         }
 
-        cropMoisture += 2 * (100 + cropMoisture) / 100 * cropMoistureMultiplier;
-        soilMoisture += 2 * (100 + soilMoisture) / 100 * soilMoistureMultiplier;
-        soilSoftness += 2 * (100 + soilSoftness) / 100 * soilSoftnessMultiplier;
+        cropMoisture += _cropMoistureMultiplier * (100 + cropMoisture) / 100 * cropMoistureMultiplier;
+        soilMoisture += _soilMoistureMultiplier * (100 + soilMoisture) / 100 * soilMoistureMultiplier;
+        soilSoftness += _soilSoftnessMultiplier * (100 + soilSoftness) / 100 * soilSoftnessMultiplier;
 
         cropMoisture = Mathf.Clamp(cropMoisture, -100f, 100f);
         soilMoisture = Mathf.Clamp(soilMoisture, -100f, 100f);
@@ -79,7 +82,7 @@ public class BasePlant
 
         float rawSoilQualityChange = _soilQualityMultiplier * (soilMoistureBonus + soilSoftnessBonus) / 50;
 
-        soilQuality += (rawSoilQualityChange / 100) * 100;
+        soilQuality += (rawSoilQualityChange / 100) * stats.bugResistances[bugIndex] * 100;
         soilQuality = Mathf.Clamp(soilQuality, -100f, 100f);
     }
 
@@ -102,7 +105,7 @@ public class BasePlant
 
         float rawHealthChange = _cropHealthMultiplier * (soilQualityBonus + soilMoistureBonus + soilSoftnessBonus + cropMoistureBonus) / 100;
 
-        cropHP += rawHealthChange * stats.seasonalAffinities[seasonIndex] * stats.weatherAffinities[weatherIndex] * stats.cycleAffinities[dayIndex] / stats.maxHP;
+        cropHP += rawHealthChange * stats.seasonalAffinities[seasonIndex] * stats.weatherAffinities[weatherIndex] * stats.cycleAffinities[dayIndex] * stats.bugResistances[bugIndex] / stats.maxHP;
         // The affinities are hardcoded to the first element for now, but what we want to happen is for this script to receive a signal that will tell it what the time of day is, what the weather is, what the season is, and set the index of the affinities accordingly.
         cropHP = Mathf.Clamp(cropHP, 0f, stats.maxHP);
     }

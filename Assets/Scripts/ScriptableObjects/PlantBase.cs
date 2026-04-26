@@ -22,4 +22,5 @@ public class PlantBase : ScriptableObject
     public float[] seasonalAffinities; // 0 - Dry, 1 - Wet
     public float[] weatherAffinities;  // 0 - Clear, 1 - Heat Wave, 2 - Typhoon
     public float[] cycleAffinities;    // 0 - Day, 1 - Night
+    public float[] bugResistances;     // 0 - No bugs, 1 - Infested with bugs
 }

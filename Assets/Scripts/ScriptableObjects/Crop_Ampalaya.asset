@@ -14,8 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlantBase
   plantName: Ampalaya
   maxHP: 20
-  maturationWindow: {x: 10, y: 20}
-  decayRate: 3
   standardGrowthSpeed: 6
   badCropYield: {x: 0, y: 32}
   averageCropYield: {x: 33, y: 66}
@@ -25,7 +23,11 @@ MonoBehaviour:
   - 1
   weatherAffinities:
   - 1
-  - 1
+  - 0.8
+  - 0.5
   cycleAffinities:
   - 1
   - 1
+  bugResistances:
+  - 1
+  - 0.2
