@@ -9,7 +9,7 @@ public class GoalManager : MonoBehaviour
 
     void Start() { UpdateUI(); }
 
-    public void AddEggplant()
+    public void AddEggplant()// Need to update this with its parameters
     {
         eggplantsHarvested++;
         UpdateUI();
