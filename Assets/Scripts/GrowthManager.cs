@@ -60,7 +60,7 @@ public class GrowthManager : MonoBehaviour
         if (currentStage == 3 && isPlanted == true)
         {
             Debug.Log("Step 2 Opening Panel");
-            MaintenencePopUp main = GameObject.FindFirstObjectByType<MaintenencePopUp>();
+            MaintenencePopUp main = FindAnyObjectByType<MaintenencePopUp>();
             if (main != null)
             {
                 Debug.Log("Step 3.A not null");
