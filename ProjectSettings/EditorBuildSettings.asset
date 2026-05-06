@@ -38,6 +38,23 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Level_10.unity
     guid: 661b120f4f3153a4898fadeeab6d7415
+  - enabled: 1
+    path: Assets/Scenes/NettingProtectionMinigame.unity
+    guid: e93fe6cd6014371498c7b38e78f85cda
+  - enabled: 1
+    path: Assets/Scenes/StructuralSupportMinigame.unity
+    guid: 716bf03452af9b1438765bb8a5f10a24
+  - enabled: 1
+    path: Assets/Scenes/SoilEnrichmentMinigame.unity
+    guid: 80ea3487c95504e429d7d9adb2d6f841
+  - enabled: 1
+    path: Assets/Scenes/WeedRemovalMinigame.unity
+    guid: 6e2b0446b136faf40970c70d3aa24ca8
+  - enabled: 1
+    path: Assets/Scenes/PestControlMinigame.unity
+    guid: ac63fff31ab908c4290aa684ec4f54bf
+  - enabled: 1
+    path: Assets/Scenes/PrecisionWateringMinigame.unity
+    guid: 4db5d2ee1fe50844992862c573f33576
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
-  m_UseUCBPForAssetBundles: 0
