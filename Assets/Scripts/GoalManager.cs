@@ -3,20 +3,21 @@ using TMPro;
 
 public class GoalManager : MonoBehaviour
 {
-    public int eggplantGoal = 10;
-    private int eggplantsHarvested = 0;
-    public TMP_Text goalText; // Drag your TMP text here
+    public string targetCropName; // e.g., "Corn"
+    public int targetGoal;
+    private int currentHarvested = 0;
+    public TMP_Text goalText;
 
     void Start() { UpdateUI(); }
 
-    public void AddEggplant()
+    public void AddCrop(string cropName)
     {
-        eggplantsHarvested++;
-        UpdateUI();
+        if (cropName == targetCropName)
+        {
+            currentHarvested++;
+            UpdateUI();
+        }
     }
 
-    void UpdateUI()
-    {
-        goalText.text = $"Goal: {eggplantsHarvested} / {eggplantGoal} Eggplants";
-    }
+    void UpdateUI() { goalText.text = $"Harvest {currentHarvested}/{targetGoal} {targetCropName}"; }
 }

@@ -3,79 +3,54 @@ using UnityEngine;
 public class GrowthManager : MonoBehaviour
 {
     public SpriteRenderer plantRenderer;
-    public Sprite[] eggplantStages; // Put your 4 sprites here (0=Seed, 3=Mature)
+    private SeedData currentSeed;
 
     [HideInInspector] public bool isPlanted = false;
     private int currentStage = 0;
-    private float timer = 0;
-    private float timeToGrow = 3f; // 3 seconds per stage
+    private int ticksElapsed = 0;
 
-    void Update()
+    void OnEnable() { TimeManager.OnTick += HandleTick; }
+    void OnDisable() { TimeManager.OnTick -= HandleTick; }
+
+    void HandleTick()
     {
-        if (isPlanted && currentStage < 3)
+        if (!isPlanted || currentSeed == null) return;
+
+        if (currentStage < currentSeed.growthStages.Length - 1)
         {
-            timer += Time.deltaTime;
-            if (timer >= timeToGrow)
+            ticksElapsed++;
+            if (ticksElapsed >= currentSeed.ticksPerStage)
             {
-                timer = 0;
+                ticksElapsed = 0;
                 currentStage++;
-                plantRenderer.sprite = eggplantStages[currentStage];
+                plantRenderer.sprite = currentSeed.growthStages[currentStage];
             }
         }
     }
 
-    public void PlantSeed()
+    public void PlantSeed(SeedData data)
     {
         if (isPlanted) return;
+        currentSeed = data;
         isPlanted = true;
         currentStage = 0;
-        timer = 0;
-        plantRenderer.sprite = eggplantStages[0];
+        ticksElapsed = 0;
+        plantRenderer.sprite = currentSeed.growthStages[0];
     }
 
-    // THIS IS THE HARVEST LOGIC
-
-    /*
-    void OnMouseDown()
+    void OnMouseDown() // Works for mobile taps
     {
-        if (isPlanted && currentStage == 3) // Only harvest if fully grown
+        if (isPlanted && currentStage == currentSeed.growthStages.Length - 1)
         {
-            // Tell the GoalManager we got one!
-            Object.FindAnyObjectByType<GoalManager>().AddEggplant();
-
-            // Clear the plot
+            FindObjectOfType<GoalManager>().AddCrop(currentSeed.cropName);
             ResetPlot();
-        }
-    }
-    */// Removed this for now so that we can focus on making the maintenence screen open.
-
-    private void OnMouseDown()
-    {
-        MaintenceOpen();
-
-    }
-    public void MaintenceOpen()
-    {
-        Debug.Log("Step 1 Opening Maintenence");
-        if (currentStage == 3 && isPlanted == true)
-        {
-            Debug.Log("Step 2 Opening Panel");
-            MaintenencePopUp main = FindAnyObjectByType<MaintenencePopUp>();
-            if (main != null)
-            {
-                Debug.Log("Step 3.A not null");
-                main.OpenMaintenence();
-            }
-            else
-                Debug.Log("Step 3.B null");
-
         }
     }
 
     void ResetPlot()
     {
         isPlanted = false;
-        currentStage = 0;
+        currentSeed = null;
         plantRenderer.sprite = null;
     }
 }
