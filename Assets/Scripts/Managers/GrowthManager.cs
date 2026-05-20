@@ -73,7 +73,7 @@ public class GrowthManager : MonoBehaviour
 #if UNITY_6_0_OR_NEWER
             GoalManager goalManager = Object.FindFirstObjectByType<GoalManager>();
 #else
-            GoalManager goalManager = FindObjectOfType<GoalManager>();
+            GoalManager goalManager = FindFirstObjectByType<GoalManager>();
 #endif
 
             if (goalManager != null)
