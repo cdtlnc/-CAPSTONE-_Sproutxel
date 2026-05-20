@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class GrowthManager : MonoBehaviour
+public class GrowthManagerOld : MonoBehaviour
 {
     public SpriteRenderer plantRenderer;
     private SeedData currentSeed;
