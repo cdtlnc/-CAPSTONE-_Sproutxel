@@ -9,7 +9,7 @@ public class GrowthManager : MonoBehaviour
     [SerializeField] private SeedData currentSeed;
     [SerializeField] private int currentStage = 0;
 
-    // The core connection to Lance's statistics backend simulation
+    // Connects directly to Lance's math backend script
     public BasePlant plantSimulationInstance;
 
     [HideInInspector] public bool isPlanted = false;
@@ -24,47 +24,73 @@ public class GrowthManager : MonoBehaviour
 
     public void HandleTick()
     {
+        // Don't do calculations if nothing is planted yet
         if (!isPlanted || currentSeed == null || plantSimulationInstance == null) return;
 
-        // 1. Run the calculations provided by Lance
-        plantSimulationInstance.GetStatsOvertime();
-        plantSimulationInstance.GetSoilQuality();
-        plantSimulationInstance.GetHealth();
-        plantSimulationInstance.GetGrowth();
-        plantSimulationInstance.GetHarvestQuality();
+        // SAFE PASS: If your team hasn't assigned a Plant Stats Template yet, fake the growth so it doesn't crash!
+        if (plantSimulationInstance.stats == null)
+        {
+            // Just manually tick up the growth number by 1.0f every simulation tick so we can test sprites
+            plantSimulationInstance.cropGrowth += 1.0f;
+            plantSimulationInstance.cropGrowth = Mathf.Clamp(plantSimulationInstance.cropGrowth, 0f, 10f);
+        }
+        else
+        {
+            // 1. Run Lance's formulas normally if data template actually exists!
+            plantSimulationInstance.GetStatsOvertime();
 
-        // 2. Map the simulation growth value (0 to 10) to the sprite array frames
+            // (Soil quality line skipped since it's not implemented yet anyway)
+            plantSimulationInstance.soilQuality = 50f;
+
+            plantSimulationInstance.GetHealth();
+            plantSimulationInstance.GetGrowth();
+            plantSimulationInstance.GetHarvestQuality();
+        }
+
+        // 2. Math to map the 0-10 growth value to our sprite array frames
+        if (currentSeed.growthStages == null || currentSeed.growthStages.Length == 0) return;
+
         int totalSpritesAvailable = currentSeed.growthStages.Length;
         int finalStageIndex = totalSpritesAvailable - 1;
 
-        // Calculate stage dynamically based on crop growth percentage (0.0 to 10.0 scale)
-        float growthRatio = plantSimulationInstance.cropGrowth / 10f;
-        int targetStage = Mathf.FloorToInt(growthRatio * finalStageIndex);
+        // If there's only 1 sprite total, index is always 0. Otherwise, do the math.
+        if (finalStageIndex > 0)
+        {
+            // Convert 0.0 - 10.0 scale to a percentage for the current sprite index
+            float growthRatio = plantSimulationInstance.cropGrowth / 10f;
+            int targetStage = Mathf.FloorToInt(growthRatio * finalStageIndex);
 
-        // Ensure we never go out of bounds of our sprite array
-        currentStage = Mathf.Clamp(targetStage, 0, finalStageIndex);
+            // Keep it safe so it never goes out of bounds of the array
+            currentStage = Mathf.Clamp(targetStage, 0, finalStageIndex);
+        }
+        else
+        {
+            currentStage = 0;
+        }
 
         UpdatePlantSprite();
     }
 
+    // Tapping/clicking the plot to harvest
     void OnMouseDown()
     {
-        if (!isPlanted || currentSeed == null) return;
+        // SAFETY: Ignore clicks if the plot is empty or data isn't set up yet
+        if (!isPlanted || currentSeed == null || currentSeed.growthStages == null || currentSeed.growthStages.Length == 0) return;
 
         int finalStageIndex = currentSeed.growthStages.Length - 1;
 
-        // Process actual crop yield when fully matured based on simulation results
+        // Only harvest if it's completely fully grown (at the last sprite stage)
         if (currentStage == finalStageIndex)
         {
             int yieldAmount = plantSimulationInstance.GetCropYield();
             Debug.Log($"Harvested {yieldAmount} items of {currentSeed.cropName}!");
 
-            // Using the latest modern Unity 6 lookup command directly!
+            // Grab the GoalManager directly using the modern Unity 6 command
             GoalManager goalManager = Object.FindFirstObjectByType<GoalManager>();
 
             if (goalManager != null && yieldAmount > 0)
             {
-                // Adds crop quantities into the collection parameters
+                // Loop to add the correct amount of items to the level objectives
                 for (int i = 0; i < yieldAmount; i++)
                 {
                     goalManager.AddCrop(currentSeed.cropName);
@@ -74,53 +100,51 @@ public class GrowthManager : MonoBehaviour
         }
     }
 
+    // Called explicitly by our seed item/drag system to start planting
     public void PlantSeed(SeedData data)
     {
         if (isPlanted || data == null) return;
+
+        // Catch-all if someone forgot to put even a single sprite in the asset file
+        if (data.growthStages == null || data.growthStages.Length == 0)
+        {
+            Debug.LogError($"[GrowthManager] Can't plant {data.cropName}! Your SeedData needs at least 1 sprite in the array.");
+            return;
+        }
 
         currentSeed = data;
         isPlanted = true;
         currentStage = 0;
 
-        // Instantiate structural class memory allocation container
+        // Initialize a new data instance using Lance's script setup
         plantSimulationInstance = new BasePlant();
         plantSimulationInstance.stats = data.plantStatsTemplate;
         plantSimulationInstance.growthStages = data.growthStages;
 
-        // Initialize basic start parameters inside structural logic containers
+        // Set up the starting values for the soil and plant parameters
         if (data.plantStatsTemplate != null)
         {
             plantSimulationInstance.cropHP = data.plantStatsTemplate.maxHP;
         }
         plantSimulationInstance.cropGrowth = 0f;
-        plantSimulationInstance.cropMoisture = 20f; // Safe default start setting zone
+        plantSimulationInstance.cropMoisture = 20f;
         plantSimulationInstance.soilMoisture = 20f;
         plantSimulationInstance.soilSoftness = 20f;
         plantSimulationInstance.soilQuality = 50f;
 
         UpdatePlantSprite();
+        Debug.Log($"Successfully planted {data.cropName}! Calculations started.");
     }
 
     private void UpdatePlantSprite()
     {
-        if (plantRenderer != null && currentSeed != null && currentSeed.growthStages[currentStage] != null)
+        if (plantRenderer != null && currentSeed != null && currentSeed.growthStages != null && currentStage < currentSeed.growthStages.Length)
         {
-<<<<<<< HEAD
-            // Clean fallback support for both old and new Unity engine versions
-#if UNITY_6_0_OR_NEWER
-            GoalManager goalManager = Object.FindFirstObjectByType<GoalManager>();
-#else
-            GoalManager goalManager = FindFirstObjectByType<GoalManager>();
-#endif
-
-            if (goalManager != null)
+            // Only swap the sprite if the slot isn't empty, otherwise keep whatever it's currently showing
+            if (currentSeed.growthStages[currentStage] != null)
             {
-                goalManager.AddCrop(currentSeed.cropName);
+                plantRenderer.sprite = currentSeed.growthStages[currentStage];
             }
-            ResetPlot();
-=======
-            plantRenderer.sprite = currentSeed.growthStages[currentStage];
->>>>>>> 28309f45ad5492284838237408886ca238e7dc2e
         }
     }
 
