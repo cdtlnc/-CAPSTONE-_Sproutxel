@@ -3,8 +3,19 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "NewSeed", menuName = "Sproutxel/SeedData")]
 public class SeedData : ScriptableObject
 {
+    [Header("Basic Information")]
     public string cropName;
     public Sprite seedBagIcon;      // Show this in the hotbar
-    public Sprite[] growthStages;   // Drag your 4 sprites here (Seed to Harvest)
-    public int ticksPerStage = 1;   // How many 20s ticks needed to grow
-}   
+
+    [Header("Visual Growth States")]
+    [Tooltip("Drag your 4 sprites here (0 = Seed, 3 = Mature Harvest Stage)")]
+    public Sprite[] growthStages;
+
+    [Header("Simulation Architecture Connection")]
+    [Tooltip("Drag the specific PlantBase scriptable object asset created by your classmate here.")]
+    public PlantBase plantStatsTemplate;
+
+    [Header("Legacy/Fallback Settings")]
+    [Tooltip("Keep this field to prevent other inventory scripts from breaking, though growth is now governed by stats math.")]
+    public int ticksPerStage = 1;
+}
