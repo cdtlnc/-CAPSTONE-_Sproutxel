@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.Experimental.GlobalIllumination;
 
 public class TimeOfDayUI : MonoBehaviour
 {
@@ -16,6 +17,10 @@ public class TimeOfDayUI : MonoBehaviour
     [SerializeField] private int startHour = 5;    // What hour of the day to start
     [SerializeField] private int seasonTimer = 1; // How many days will pass before the seasons change. I set it to 1 for testing purposes. Feel free to tinker with it as you wish.
 
+
+    [Header("Directional Light")]
+    [SerializeField] public Light thelight;
+
     // equal to timeCycleTickTimer * _TICK_TIMER_MAX in TickManager
     // timeCycleTickTimer = 2, _TICK_TIMER_MAX = 0.2 -> 2 * 0.2 = 0.4
     // If you change timeCycleTickTimer in TickManager, change this as well to match
@@ -29,6 +34,7 @@ public class TimeOfDayUI : MonoBehaviour
 
     private void Start()
     {
+        
         isDrySeason = true; // THIS SETS THE SEASON TO DRY BY DEFAULT. IF YOU WANT THE LEVEL TO START IN WET SEASON, CHANGE THIS VALUE.
         currentTime = startHour * 60f;
 
@@ -44,11 +50,12 @@ public class TimeOfDayUI : MonoBehaviour
     {
         // Advance time by the fixed tick interval * scale
         currentTime += TICK_INTERVAL * timeScale;
-
+        thelight.transform.Rotate(Vector3.left  * timeScale/12);
         if (currentTime >= 1440f)
         {
             currentTime -= 1440f;
             daysPassed++;
+
         }
 
         UpdateUI();
