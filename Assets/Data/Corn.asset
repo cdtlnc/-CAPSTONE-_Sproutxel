@@ -18,5 +18,5 @@ MonoBehaviour:
   - {fileID: 2114958096, guid: c6ef9c885a5fbe440913f560981425d6, type: 3}
   - {fileID: -420918523, guid: c6ef9c885a5fbe440913f560981425d6, type: 3}
   - {fileID: -1135741775, guid: c6ef9c885a5fbe440913f560981425d6, type: 3}
-  - {fileID: 1439020070, guid: c6ef9c885a5fbe440913f560981425d6, type: 3}
+  plantStatsTemplate: {fileID: 0}
   ticksPerStage: 1
