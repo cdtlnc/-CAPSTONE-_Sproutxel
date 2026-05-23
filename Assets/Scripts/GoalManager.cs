@@ -3,21 +3,27 @@ using TMPro;
 
 public class GoalManager : MonoBehaviour
 {
-    public string targetCropName; // e.g., "Corn"
-    public int targetGoal;
-    private int currentHarvested = 0;
-    public TMP_Text goalText;
+    [Header("Goal Settings")]
+    [SerializeField]  public string[] targetCropName; // e.g., "Corn"
+    [SerializeField] public int targetGoal;
+    [SerializeField] private int currentHarvested = 0;
+    [SerializeField] public TMP_Text goalText;
 
     void Start() { UpdateUI(); }
 
     public void AddCrop(string cropName)
     {
-        if (cropName == targetCropName)
-        {
-            currentHarvested++;
-            UpdateUI();
-        }
+        
+            if (cropName == targetCropName[0])// Need to update to be more dynamic
+            {
+                currentHarvested++;
+                UpdateUI();
+            }
+        
+        
     }
 
-    void UpdateUI() { goalText.text = $"Harvest {currentHarvested}/{targetGoal} {targetCropName}"; }
+    void UpdateUI() { 
+        goalText.text = $"Harvest {currentHarvested}/{targetGoal} {targetCropName}"; 
+    }
 }

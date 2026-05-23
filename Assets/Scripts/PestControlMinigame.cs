@@ -42,7 +42,7 @@ public class PestControlMinigame : MinigameBase
 
         // beat indicator
         float t = Mathf.PingPong(_beatTimer / beatInterval * 2f, 1f);
-        beatIndicator.transform.localScale = Vector3.one * Mathf.Lerp(0.85f, 1.15f, t);
+        beatIndicator.transform.localScale = Vector3.one * Mathf.Lerp(0.85f, 1.15f, t);//Need to update, too big
 
         if (_beatTimer >= beatInterval)
         {
