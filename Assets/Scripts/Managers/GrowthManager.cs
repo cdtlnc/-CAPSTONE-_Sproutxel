@@ -108,10 +108,18 @@ public class GrowthManager : MonoBehaviour
                 // Loop to add the items to my level objectives
                 for (int i = 0; i < yieldAmount; i++)
                 {
-                    goalManager.AddCrop(currentSeed.cropName);
+                    MaintenencePopUp ui = Object.FindFirstObjectByType<MaintenencePopUp>();
+                    if (ui != null)
+                    {
+                        ui.OpenWindow(this); // Passes this specific crop's data to the screen
+                    }
+
+                    //Disable for now
+                    //goalManager.AddCrop(currentSeed.cropName);
                 }
             }
-            ResetPlot();
+            
+           // ResetPlot();
         }
     }
 

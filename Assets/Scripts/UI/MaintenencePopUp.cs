@@ -1,28 +1,86 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MaintenencePopUp : MonoBehaviour
 {
+    [Header("Game Panels")]
     public GameObject panels; //Just to open up the panels
     public Camera cam; // Maybe to change cam positions when its time
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+                       // Start is called once before the first execution of Update after the MonoBehaviour is created
+    [Header("Plant Stats")]
+    [SerializeField] private string name;
+    [SerializeField] private float cropHP;
+    [SerializeField] private Slider hpSlider;
+    [SerializeField] private Sprite plantSprite;
+    [SerializeField] private SpriteRenderer plantSpriteShower;
+
+    [Header("Crop Moisture")]
+    [SerializeField] private float cropMoisture;
+    [SerializeField] private Slider cropMoisterSlider;
+
+    [Header("Soil Quality")]
+    [SerializeField] private float soilQuality;
+    [SerializeField] private Slider soilQualitySlider;
+
+    [Header("Soil Moisture")]
+    [SerializeField] private float soilMoisture;
+    [SerializeField] private Slider soilMoistureSlider;
+
+    [Header("Soil Softness")]
+    [SerializeField] private float soilSoftness;
+    [SerializeField] private Slider soilSoftnessSlider;
+
+    private GrowthManager targetedPlot;
     void Start()
     {
-
         panels.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        RefreshUI();
     }
 
-    public void OpenMaintenence()
+    public void OpenWindow(GrowthManager plot)
     {
-        panels.SetActive(true);
+        targetedPlot = plot;
+
+        if (panels != null) panels.SetActive(true);
+
+        RefreshUI();
     }
-    public void CloseMaintenence()
+
+    public void CloseWindow()
     {
-        panels.SetActive(false);
+        targetedPlot = null;
+        if (panels != null) panels.SetActive(false);
     }
+
+    private void RefreshUI()
+    {
+        // Safety exit if nothing is selected, panel is closed, or plant was harvested
+        if (targetedPlot == null || !targetedPlot.isPlanted || targetedPlot.plantSimulationInstance == null) return;
+
+        var sim = targetedPlot.plantSimulationInstance;
+
+        // Sync variables
+        plantSprite = sim.growthStages[3];
+        cropHP = sim.cropHP;
+        cropMoisture = sim.cropMoisture;
+        soilMoisture = sim.soilMoisture;
+        soilSoftness = sim.soilSoftness;
+        soilQuality = sim.soilQuality;
+
+        // Push values directly into sliders
+       
+        if (hpSlider != null) hpSlider.value = cropHP;
+        if (soilMoistureSlider != null) soilMoistureSlider.value = cropMoisture;
+        if (soilQualitySlider != null) soilQualitySlider.value = soilQuality;
+        if (soilMoistureSlider != null) soilMoistureSlider.value = soilMoisture;
+        if (soilSoftnessSlider != null) soilSoftnessSlider.value = soilSoftness;
+        Debug.Log("HpSlider" + hpSlider.value+" "+cropMoisterSlider.value+" "+soilQualitySlider.value+" "+soilMoistureSlider.value+" "+soilSoftnessSlider.value);
+    }
+
+  
 }
