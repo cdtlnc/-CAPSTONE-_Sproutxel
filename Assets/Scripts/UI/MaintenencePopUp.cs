@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,10 +10,11 @@ public class MaintenencePopUp : MonoBehaviour
                        // Start is called once before the first execution of Update after the MonoBehaviour is created
     [Header("Plant Stats")]
     [SerializeField] private string name;
+    [SerializeField] private TextMeshProUGUI nameText;
     [SerializeField] private float cropHP;
     [SerializeField] private Slider hpSlider;
     [SerializeField] private Sprite plantSprite;
-    [SerializeField] private SpriteRenderer plantSpriteShower;
+    [SerializeField] private Image plantSpriteShower;
 
     [Header("Crop Moisture")]
     [SerializeField] private float cropMoisture;
@@ -65,7 +67,9 @@ public class MaintenencePopUp : MonoBehaviour
         var sim = targetedPlot.plantSimulationInstance;
 
         // Sync variables
+        //name=sim.cur // Add in the names
         plantSprite = sim.growthStages[3];
+        plantSpriteShower.sprite = plantSprite;
         cropHP = sim.cropHP;
         cropMoisture = sim.cropMoisture;
         soilMoisture = sim.soilMoisture;

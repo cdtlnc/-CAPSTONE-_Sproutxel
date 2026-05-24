@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 3
   tags:
   - Soil
+  - PlantView
   layers:
   - Default
   - TransparentFX

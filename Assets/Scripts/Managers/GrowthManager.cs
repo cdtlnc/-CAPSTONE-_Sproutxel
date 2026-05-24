@@ -1,3 +1,4 @@
+using Unity.Android.Gradle.Manifest;
 using UnityEngine;
 
 public class GrowthManager : MonoBehaviour
@@ -8,6 +9,26 @@ public class GrowthManager : MonoBehaviour
     [Header("Live Growth Debugger (Visible for Testing)")]
     [SerializeField] private SeedData currentSeed;
     [SerializeField] private int currentStage = 0;
+
+    [Header("Plant Stats")]
+    [SerializeField] private string name;
+    [SerializeField] private float cropHP;
+    [SerializeField] private bool wonMinigame,hasNoBadStats;
+
+    [Header("Crop Moisture")]
+    [SerializeField] private float cropMoisture;
+
+    [Header("Soil Quality")]
+    [SerializeField] private float soilQuality;
+
+
+    [Header("Soil Moisture")]
+    [SerializeField] private float soilMoisture;
+
+
+    [Header("Soil Softness")]
+    [SerializeField] private float soilSoftness;
+
 
     // Direct link to the math backend script
     public BasePlant plantSimulationInstance;
@@ -40,7 +61,8 @@ public class GrowthManager : MonoBehaviour
             plantSimulationInstance.GetStatsOvertime();
 
             // Skipping the soil quality calculation for now since it isn't built yet anyway
-            plantSimulationInstance.soilQuality = 50f;
+            //plantSimulationInstance.soilQuality = 50f;
+            plantSimulationInstance.GetSoilQuality();
 
             plantSimulationInstance.GetHealth();
             plantSimulationInstance.GetGrowth();
@@ -114,12 +136,17 @@ public class GrowthManager : MonoBehaviour
                         ui.OpenWindow(this); // Passes this specific crop's data to the screen
                     }
 
-                    //Disable for now
-                    //goalManager.AddCrop(currentSeed.cropName);
+                    if (!wonMinigame&hasNoBadStats)
+                    {
+                        goalManager.AddCrop(currentSeed.cropName);
+                        ResetPlot();
+                    }
+
                 }
+                    
             }
             
-           // ResetPlot();
+        
         }
     }
 
@@ -178,5 +205,18 @@ public class GrowthManager : MonoBehaviour
         plantSimulationInstance = null;
         currentStage = 0;
         if (plantRenderer != null) plantRenderer.sprite = null;
+    }
+    private void FixedUpdate()
+    {
+        name = currentSeed.cropName;
+        cropHP =plantSimulationInstance.cropHP;
+        cropMoisture = plantSimulationInstance.cropMoisture;
+        soilQuality = plantSimulationInstance.soilQuality;
+        soilMoisture = plantSimulationInstance.soilMoisture;
+        soilSoftness = plantSimulationInstance.soilSoftness;
+    }
+    private void winMinigame()
+    {
+        wonMinigame = true;
     }
 }
