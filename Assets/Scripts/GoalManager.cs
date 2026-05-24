@@ -13,17 +13,30 @@ public class GoalManager : MonoBehaviour
 
     public void AddCrop(string cropName)
     {
-        
-            if (cropName == targetCropName[0])// Need to update to be more dynamic
+   
+            if (cropName == "Ampalaya")// Need to update to be more dynamic
             {
+                Debug.Log("IM GIVING HOW MUCH?");
                 currentHarvested++;
                 UpdateUI();
+                checkObjectives();
             }
         
         
     }
 
     void UpdateUI() { 
-        goalText.text = $"Harvest {currentHarvested}/{targetGoal} {targetCropName}"; 
+        goalText.text = $"Harvest {currentHarvested}/{targetGoal} {targetCropName[0]}"; 
+    }
+
+    public void checkObjectives()
+    {
+        Debug.Log("CHECKING OBJECTIVESS");
+        if (currentHarvested >= targetGoal)
+        {
+            Debug.Log("SENDING TO THE WIN MANAGER");
+            WinOrLoseManager w = FindAnyObjectByType<WinOrLoseManager>();
+            w.onWin();
+        }
     }
 }

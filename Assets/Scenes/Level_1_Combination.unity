@@ -1437,7 +1437,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 238465325}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: MaintenencePopUp, Assembly-CSharp
         m_MethodName: CloseMaintenence
         m_Mode: 1
@@ -2605,14 +2605,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 238465324}
-  - component: {fileID: 238465325}
   m_Layer: 0
   m_Name: Win/LoseScreen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &238465324
 Transform:
   m_ObjectHideFlags: 0
@@ -2622,28 +2621,14 @@ Transform:
   m_GameObject: {fileID: 238465323}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -105.12378, y: -162.30984, z: 207.05553}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -76, y: -133, z: 207.05553}
+  m_LocalScale: {x: 0.80199, y: 0.80199, z: 0.80199}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 124893636}
   - {fileID: 2092750595}
   m_Father: {fileID: 867878918}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &238465325
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 238465323}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: af37e68adaaf1b541a23ca8f0f569629, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::MaintenencePopUp
-  panels: {fileID: 124893633}
-  cam: {fileID: 0}
 --- !u!1 &240204919
 GameObject:
   m_ObjectHideFlags: 0
@@ -2889,7 +2874,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 238465325}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: MaintenencePopUp, Assembly-CSharp
         m_MethodName: CloseMaintenence
         m_Mode: 1
@@ -5974,6 +5959,52 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 537443935}
   m_CullTransparentMesh: 1
+--- !u!1 &537871243
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 537871244}
+  - component: {fileID: 537871245}
+  m_Layer: 0
+  m_Name: UI Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &537871244
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 537871243}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 550.4859, y: -146.99995, z: 205.00862}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &537871245
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 537871243}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5b0f9f200e030948bd7e2255e3bdb4a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WinOrLoseManager
+  winScreen: {fileID: 124893633}
+  loseScreen: {fileID: 2092750594}
 --- !u!1 &539554646
 GameObject:
   m_ObjectHideFlags: 0
@@ -7260,7 +7291,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 238465325}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: MaintenencePopUp, Assembly-CSharp
         m_MethodName: CloseMaintenence
         m_Mode: 1
@@ -7383,119 +7414,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 703298580}
   m_CullTransparentMesh: 1
---- !u!1 &703397729
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 703397730}
-  - component: {fileID: 703397733}
-  - component: {fileID: 703397732}
-  - component: {fileID: 703397731}
-  m_Layer: 0
-  m_Name: Grass (1)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &703397730
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 703397729}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 511, y: -147, z: 0}
-  m_LocalScale: {x: 756.0919, y: 756.0919, z: 756.0919}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1608789247}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!64 &703397731
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 703397729}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
---- !u!23 &703397732
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 703397729}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
-  m_ForceMeshLod: -1
-  m_MeshLodSelectionBias: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: c621141c648bd2141bfe19fd43130fa1, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_MaskInteraction: 0
-  m_AdditionalVertexStreams: {fileID: 0}
---- !u!33 &703397733
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 703397729}
-  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &705190553
 GameObject:
   m_ObjectHideFlags: 0
@@ -8018,7 +7936,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 238465325}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: MaintenencePopUp, Assembly-CSharp
         m_MethodName: CloseMaintenence
         m_Mode: 1
@@ -9608,7 +9526,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 238465325}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: MaintenencePopUp, Assembly-CSharp
         m_MethodName: CloseMaintenence
         m_Mode: 1
@@ -16034,7 +15952,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 923892693}
-  - {fileID: 703397730}
   - {fileID: 3800516274651060746}
   - {fileID: 2057552439}
   - {fileID: 1162534127}
@@ -18503,6 +18420,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GoalManager
   targetCropName:
   - Ampalaya
+  - Tomato
+  - Lettuce
   targetGoal: 10
   currentHarvested: 0
   goalText: {fileID: 304643910}
@@ -21328,3 +21247,4 @@ SceneRoots:
   - {fileID: 471249782}
   - {fileID: 1083857685}
   - {fileID: 558465134}
+  - {fileID: 537871244}

@@ -79,9 +79,10 @@ public class GrowthManager : MonoBehaviour
 
         // Dynamic harvest check based purely on whatever the final sprite index actually is
         int lastConfiguredStageIndex = currentSeed.growthStages.Length - 1;
+        int MatureStageIndex = currentSeed.growthStages.Length - 2;
 
         // Only let me harvest if it hits the final index slot of this specific seed data asset
-        if (currentStage == lastConfiguredStageIndex)
+        if (currentStage == MatureStageIndex|| currentStage==lastConfiguredStageIndex)
         {
             int yieldAmount = 0;
 

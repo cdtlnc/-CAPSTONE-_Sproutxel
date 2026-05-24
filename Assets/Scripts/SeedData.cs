@@ -8,7 +8,7 @@ public class SeedData : ScriptableObject
     public Sprite seedBagIcon;      // Show this in the hotbar
 
     [Header("Visual Growth States")]
-    [Tooltip("Drag your 4 sprites here (0 = Seed, 3 = Mature Harvest Stage)")]
+    [Tooltip("Drag your 5 sprites here (0 = Seed, 4 = Mature Harvest Stage, 3 is wilting stage, 5 is death stage)")]
     public Sprite[] growthStages;
 
     [Header("Simulation Architecture Connection")]
