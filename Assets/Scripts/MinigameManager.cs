@@ -5,9 +5,11 @@ using UnityEngine.UI;
 public class MinigameManager : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
     //public SeedData seedType;
-    private Vector3 startPos;
-    private Transform originalParent;
-    private CanvasGroup canvasGroup;
+    [Header("Visual Components")]
+
+    [SerializeField] private Vector3 startPos;
+    [SerializeField] private Transform originalParent;
+    [SerializeField] private CanvasGroup canvasGroup;
 
     void Awake()
     {
@@ -20,7 +22,7 @@ public class MinigameManager : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     {
         startPos = transform.position;
         originalParent = transform.parent;
-        transform.SetParent(GameObject.Find("GameplayCanvas").transform);
+        transform.SetParent(GameObject.Find("PlaceholderUI").transform);
         canvasGroup.blocksRaycasts = false; // Essential for the raycast to see the soil
         canvasGroup.alpha = 0.6f;
     }

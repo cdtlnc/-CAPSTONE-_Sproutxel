@@ -134,6 +134,8 @@ public class GrowthManager : MonoBehaviour
                     if (ui != null)
                     {
                         ui.OpenWindow(this); // Passes this specific crop's data to the screen
+                        //goalManager.AddCrop(currentSeed.cropName);
+                        ResetPlot();
                     }
 
                     if (!wonMinigame&hasNoBadStats)
