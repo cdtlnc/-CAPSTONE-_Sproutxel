@@ -42,7 +42,7 @@ public class PestControlMinigame : MinigameBase
 
         // beat indicator
         float t = Mathf.PingPong(_beatTimer / beatInterval * 2f, 1f);
-        beatIndicator.transform.localScale = Vector3.one * Mathf.Lerp(0.85f, 1.15f, t);//Need to update, too big
+        beatIndicator.transform.localScale = Vector3.one * Mathf.Lerp(0.55f, 1f, t);//Need to update, too big
 
         if (_beatTimer >= beatInterval)
         {
@@ -68,14 +68,23 @@ public class PestControlMinigame : MinigameBase
             RefreshUI();
 
             if (_pestsLeft <= 0)
+            {
+                Invoke(nameof(DisableThisPanel), 10f);
                 EndGame(true);
+
+                
+            }
+
         }
         else
         {
             AddMistake("Off beat!");
         }
     }
-
+          private void DisableThisPanel()
+    {
+        gameObject.SetActive(false);
+    }
     private void AddMistake(string reason)
     {
         _mistakes++;

@@ -75,7 +75,10 @@ public class NettingProtectionMinigame : MinigameBase
 
         HandleDraw();
     }
-
+    private void DisableThisPanel()
+    {
+        gameObject.SetActive(false);
+    }
     private void HandleDraw()
     {
         Vector2 screenPos = Input.touchCount > 0
@@ -122,7 +125,12 @@ public class NettingProtectionMinigame : MinigameBase
 
                 // All anchors connected = win
                 if (_nextAnchor == 0 && _lines.Count >= _anchors.Count)
+                {
+                    Invoke(nameof(DisableThisPanel), 5f);
                     EndGame(true);
+                    
+                }
+                    
             }
             else
             {

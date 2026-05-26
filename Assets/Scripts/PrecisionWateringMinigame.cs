@@ -21,15 +21,20 @@ public class PrecisionWateringMinigame : MinigameBase
     private float _fillAmount = 0f;
     private float _timeLeft;
 
-    private void Start()
+    private void OnEnable()
     {
+        // Cancel any pending closure invocations just in case
+        CancelInvoke(nameof(DisableThisPanel));
+
         _timeLeft = gameDuration;
+        _fillAmount = 0f; // Reset fill amount
         waterFillImage.fillAmount = 0f;
-        resultText.gameObject.SetActive(false);
-        instructionText.text = "Hold to fill - keep the level in the green zone when time runs out!";
+
+        if (resultText != null) resultText.gameObject.SetActive(false);
+        if (instructionText != null) instructionText.text = "Hold to fill - keep the level in the green zone when time runs out!";
+
         PositionGreenZone();
     }
-
     private void Update()
     {
         if (GameOver) return;
@@ -49,8 +54,17 @@ public class PrecisionWateringMinigame : MinigameBase
         if (_timeLeft <= 0f)
         {
             bool won = _fillAmount >= zoneMin && _fillAmount <= zoneMax;
+            Debug.Log("Went Into here");
+            Invoke(nameof(DisableThisPanel), 10f);
             EndGame(won);
+           
         }
+    }
+    private void DisableThisPanel()
+    {
+        Debug.Log("Disabling Minigame");
+        transform.parent.gameObject.SetActive(false);
+        
     }
 
     protected override string GetWinMessage() => "Great watering!";

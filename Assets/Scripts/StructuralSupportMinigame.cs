@@ -98,7 +98,13 @@ public class StructuralSupportMinigame : MinigameBase
                 _promptsLeft--;
                 RefreshUI();
 
-                if (_promptsLeft <= 0) EndGame(true);
+                if (_promptsLeft <= 0)
+                {
+                    Invoke(nameof(DisableThisPanel), 5f);
+                    EndGame(true);
+                    //Change Conditions when ending the minigame
+                 
+                } 
                 else NextPrompt();
             }
             else
@@ -109,6 +115,10 @@ public class StructuralSupportMinigame : MinigameBase
         }
     }
 
+    private void DisableThisPanel()
+    {
+        gameObject.SetActive(false);
+    }
     private void RefreshUI()
     {
         if (progressText)

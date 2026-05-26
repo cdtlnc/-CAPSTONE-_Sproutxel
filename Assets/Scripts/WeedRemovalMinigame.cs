@@ -82,7 +82,16 @@ public class WeedRemovalMinigame : MinigameBase
         RefreshUI();
 
         if (_weedsLeft <= 0)
+        {
+            Invoke(nameof(DisableThisPanel), 10f);
             EndGame(true);
+           
+        }
+            
+    }
+    private void DisableThisPanel()
+    {
+        gameObject.SetActive(false);
     }
 
     private void OnPlantTapped()

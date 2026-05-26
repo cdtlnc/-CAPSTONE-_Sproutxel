@@ -130,7 +130,13 @@ public class SoilEnrichmentMinigame : MinigameBase
                 _itemsLeft--;
                 RefreshUI();
 
-                if (_itemsLeft <= 0) EndGame(true);
+                if (_itemsLeft <= 0)
+                {
+                    Invoke(nameof(DisableThisPanel), 5f);
+                    EndGame(true);
+                   
+                }
+
             }
             else
             {
@@ -146,6 +152,10 @@ public class SoilEnrichmentMinigame : MinigameBase
     private void RefreshUI()
     {
         if (remainingText) remainingText.text = $"Items left: {_itemsLeft}";
+    }
+    private void DisableThisPanel()
+    {
+        gameObject.SetActive(false);
     }
 
     protected override string GetWinMessage() => "Soil enriched!";
