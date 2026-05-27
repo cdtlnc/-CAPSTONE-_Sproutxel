@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -32,10 +33,16 @@ public class MaintenencePopUp : MonoBehaviour
     [SerializeField] private float soilSoftness;
     [SerializeField] private Slider soilSoftnessSlider;
 
+    [Header("Game Controllers")]
+    [Description("To be used when setting parameters on levels or testing")]
+    [SerializeField] private bool enStart;
+   
+
     private GrowthManager targetedPlot;
     void Start()
     {
-        panels.SetActive(false);
+       
+        
     }
 
     // Update is called once per frame

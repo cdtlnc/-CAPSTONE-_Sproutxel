@@ -82,9 +82,10 @@ public class PestControlMinigame : MinigameBase
         }
     }
           private void DisableThisPanel()
-    {
-        gameObject.SetActive(false);
-    }
+        {
+        Debug.Log("Disabling Pest Control Minigame");
+        transform.parent.gameObject.SetActive(false);
+        }
     private void AddMistake(string reason)
     {
         _mistakes++;

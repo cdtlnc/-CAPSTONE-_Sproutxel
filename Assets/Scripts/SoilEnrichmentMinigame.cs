@@ -155,7 +155,8 @@ public class SoilEnrichmentMinigame : MinigameBase
     }
     private void DisableThisPanel()
     {
-        gameObject.SetActive(false);
+        Debug.Log("Disabling Soil Enrichment Minigame");
+        transform.parent.gameObject.SetActive(false);
     }
 
     protected override string GetWinMessage() => "Soil enriched!";

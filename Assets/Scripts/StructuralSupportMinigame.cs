@@ -117,7 +117,8 @@ public class StructuralSupportMinigame : MinigameBase
 
     private void DisableThisPanel()
     {
-        gameObject.SetActive(false);
+        Debug.Log("Disabling Structural Support Minigame");
+        transform.parent.gameObject.SetActive(false);
     }
     private void RefreshUI()
     {

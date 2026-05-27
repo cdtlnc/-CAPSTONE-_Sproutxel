@@ -77,7 +77,8 @@ public class NettingProtectionMinigame : MinigameBase
     }
     private void DisableThisPanel()
     {
-        gameObject.SetActive(false);
+        Debug.Log("Disabling NettingProtection Minigame");
+        transform.parent.gameObject.SetActive(false);
     }
     private void HandleDraw()
     {

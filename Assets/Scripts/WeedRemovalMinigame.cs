@@ -91,7 +91,8 @@ public class WeedRemovalMinigame : MinigameBase
     }
     private void DisableThisPanel()
     {
-        gameObject.SetActive(false);
+        Debug.Log("Disabling Weed Removal Minigame");
+        transform.parent.gameObject.SetActive(false);
     }
 
     private void OnPlantTapped()

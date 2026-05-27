@@ -55,14 +55,14 @@ public class PrecisionWateringMinigame : MinigameBase
         {
             bool won = _fillAmount >= zoneMin && _fillAmount <= zoneMax;
             Debug.Log("Went Into here");
-            Invoke(nameof(DisableThisPanel), 10f);
+            Invoke(nameof(DisableThisPanel), 3f);
             EndGame(won);
            
         }
     }
     private void DisableThisPanel()
     {
-        Debug.Log("Disabling Minigame");
+        Debug.Log("Disabling Watering Minigame");
         transform.parent.gameObject.SetActive(false);
         
     }

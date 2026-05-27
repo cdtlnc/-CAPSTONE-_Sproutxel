@@ -1686,6 +1686,38 @@ RectTransform:
   m_AnchoredPosition: {x: 105.12378, y: 162.30984}
   m_SizeDelta: {x: 865.2, y: 419.4}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &126115876
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 126115877}
+  m_Layer: 0
+  m_Name: Pest Control Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &126115877
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 126115876}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 24.503761, y: -369.62946, z: 2630.4646}
+  m_LocalScale: {x: 0.94777846, y: 0.94777846, z: 0.94777846}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 743259999}
+  m_Father: {fileID: 1189987275}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &143253929
 GameObject:
   m_ObjectHideFlags: 0
@@ -7368,6 +7400,38 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: a32b5c47298adaf40a2138f9be8955ca, type: 3}
   m_PrefabInstance: {fileID: 591275316}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &614739019
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 614739020}
+  m_Layer: 0
+  m_Name: WeedManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &614739020
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 614739019}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 24.503761, y: -369.62946, z: 2630.4646}
+  m_LocalScale: {x: 0.94777846, y: 0.94777846, z: 0.94777846}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1055716863}
+  m_Father: {fileID: 1189987275}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &616795406
 GameObject:
   m_ObjectHideFlags: 0
@@ -8716,12 +8780,12 @@ GameObject:
   - component: {fileID: 743259999}
   - component: {fileID: 743260000}
   m_Layer: 0
-  m_Name: Pest Control Manager
+  m_Name: 'Pest Control '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &743259999
 Transform:
   m_ObjectHideFlags: 0
@@ -8731,8 +8795,8 @@ Transform:
   m_GameObject: {fileID: 743259998}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 225.633, y: -284.92194, z: 3793.2742}
-  m_LocalScale: {x: 0.94777834, y: 0.94777834, z: 0.94777834}
+  m_LocalPosition: {x: 212.21118, y: 89.37479, z: 1226.8792}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 186978911}
@@ -8742,7 +8806,7 @@ Transform:
   - {fileID: 1323739866}
   - {fileID: 571956480}
   - {fileID: 997835694}
-  m_Father: {fileID: 1189987275}
+  m_Father: {fileID: 126115877}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &743260000
 MonoBehaviour:
@@ -12093,7 +12157,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1055716863
 Transform:
   m_ObjectHideFlags: 0
@@ -12103,8 +12167,8 @@ Transform:
   m_GameObject: {fileID: 1055716862}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 225.63293, y: -284.92188, z: 3793.2737}
-  m_LocalScale: {x: 0.9477783, y: 0.9477783, z: 0.9477783}
+  m_LocalPosition: {x: 212.21118, y: 89.37488, z: 1226.8792}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1094831977}
@@ -12114,7 +12178,7 @@ Transform:
   - {fileID: 985742253}
   - {fileID: 235417988}
   - {fileID: 1762779337}
-  m_Father: {fileID: 1189987275}
+  m_Father: {fileID: 614739020}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1055716864
 MonoBehaviour:
@@ -13347,11 +13411,11 @@ RectTransform:
   - {fileID: 312237865}
   - {fileID: 995903111}
   - {fileID: 1385685033}
-  - {fileID: 1055716863}
+  - {fileID: 614739020}
   - {fileID: 2066958579}
   - {fileID: 1678629948}
   - {fileID: 2109525245}
-  - {fileID: 743259999}
+  - {fileID: 126115877}
   m_Father: {fileID: 2023478793}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -14993,7 +15057,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1385685033}
   m_Layer: 0
-  m_Name: NettingProtection
+  m_Name: NettingProtection Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -17867,7 +17931,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1678629948}
   m_Layer: 0
-  m_Name: SoilEnrichment
+  m_Name: SoilEnrichment Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -19642,9 +19706,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlantViewDrop
   Watering: {fileID: 2109525244}
   SoilEnrichment: {fileID: 1678629947}
-  PestControl: {fileID: 743259998}
+  PestControl: {fileID: 126115876}
   Structural_support: {fileID: 2066958578}
-  Weed_Manager: {fileID: 1055716862}
+  Weed_Manager: {fileID: 614739019}
   Netting: {fileID: 1385685032}
 --- !u!4 &1776315470 stripped
 Transform:
@@ -22347,6 +22411,7 @@ MonoBehaviour:
   soilMoistureSlider: {fileID: 1450079953}
   soilSoftness: 0
   soilSoftnessSlider: {fileID: 173038500}
+  enStart: 1
 --- !u!1 &2040955594
 GameObject:
   m_ObjectHideFlags: 0
@@ -22702,7 +22767,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2066958579}
   m_Layer: 0
-  m_Name: StructuralSupport
+  m_Name: StructuralSupport Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -23187,7 +23252,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2109525245}
   m_Layer: 0
-  m_Name: PrecisionWater
+  m_Name: PrecisionWater Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
