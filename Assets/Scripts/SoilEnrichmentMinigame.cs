@@ -15,8 +15,19 @@ public class SoilEnrichmentMinigame : MinigameBase
     [SerializeField] private TMP_Text timerText;
     [SerializeField] private TMP_Text remainingText;
 
-    private float _timeLeft;
-    private int _itemsLeft;
+    [Header("Netting Visuals")]
+    [SerializeField] private Sprite[] SoilTextures;
+    [SerializeField] private Sprite[] TrashTextures;
+    
+
+    [Header("SoilEnrichment Parameters")]
+    [SerializeField] private float _timeLeft;
+    [SerializeField] private float ItemSize;
+    [SerializeField] private float XField;
+  
+    [SerializeField] private float YField;
+
+    [SerializeField] private int _itemsLeft;
 
     // Track each item: is it organic, current rect, drag state
     private class ItemEntry
@@ -65,16 +76,36 @@ public class SoilEnrichmentMinigame : MinigameBase
             obj.transform.SetParent(itemContainer, false);
 
             var rt = obj.GetComponent<RectTransform>();
-            rt.sizeDelta = new Vector2(70f, 70f);
+            rt.sizeDelta = new Vector2(ItemSize, ItemSize);
             rt.anchoredPosition = new Vector2(
-                Random.Range(-120f, 120f),
-                Random.Range(-80f, 80f)
+                Random.Range(-XField, XField),
+                Random.Range(-YField, YField)
             );
 
-            // Green = organic, grey = inorganic
-            obj.GetComponent<Image>().color = organic
-                ? new Color(0.3f, 0.75f, 0.25f)
-                : new Color(0.55f, 0.55f, 0.6f);
+            // 1. Get the Image component reference
+            Image img = obj.GetComponent<Image>();
+
+            if (organic)
+            {
+                if (SoilTextures != null && SoilTextures.Length > 0)
+                {
+                    // Picks a random index from 0 to the size of the array
+                    int randomIndex = Random.Range(0, SoilTextures.Length);
+                    img.sprite = SoilTextures[randomIndex];
+                }
+                img.color = Color.white;
+            }
+            else
+            {
+                if (TrashTextures != null && TrashTextures.Length > 0)
+                {
+                    // Picks a random index from 0 to the size of the array
+                    int randomIndex = Random.Range(0, TrashTextures.Length);
+                    img.sprite = TrashTextures[randomIndex];
+
+                }
+                //img.color = Color.red;
+            }
 
             _items.Add(new ItemEntry { isOrganic = organic, rect = rt });
         }
