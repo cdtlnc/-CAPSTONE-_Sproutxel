@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 4ce592f5aff69624d9cd40a9d86137d1
+guid: fedc800df32c3564eacc61769404ee38
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -123,13 +123,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: CabbageBag_0
+      name: Arrow_0
       rect:
         serializedVersion: 2
-        x: 14
-        y: 8
-        width: 83
-        height: 82
+        x: 41
+        y: 17
+        width: 162
+        height: 221
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -138,8 +138,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7b4a27477eab40c48b49a8da431097a1
-      internalID: -375498624
+      spriteID: c7ecbb1a2eb229643aa28fbbee3f2d3a
+      internalID: -1730870625
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
+    spriteID: 3bc730682444b6245a0cd1afe97fc0e0
     internalID: 0
     vertices: []
     indices: 
@@ -160,7 +160,7 @@ TextureImporter:
       - key: SpriteEditor.SliceSettings
         value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      CabbageBag_0: -375498624
+      Arrow_0: -1730870625
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
