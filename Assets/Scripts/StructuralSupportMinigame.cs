@@ -18,7 +18,14 @@ public class StructuralSupportMinigame : MinigameBase
 
     // Directions: 0=Up, 1=Down, 2=Left, 3=Right
     // ArrowImage is rotated to point the right way (0°=Up, 90°=Left, 180°=Down, 270°=Right)
+    [Header("Arrow Rotations")]
     private static readonly float[] ArrowRotations = { 0f, 180f, 90f, 270f };
+
+    [Header("Dirt Sprite")]
+    [SerializeField] private Sprite[] soilplot;
+    [SerializeField] private float soilStatus;
+    [SerializeField] private Image soilImage;
+
 
     private int _promptsLeft;
     private int _currentDirection;
@@ -32,6 +39,7 @@ public class StructuralSupportMinigame : MinigameBase
     {
         _promptsLeft = totalPrompts;
         _overallTimeLeft = overallDuration;
+        soilStatus= 1f;
 
         resultText.gameObject.SetActive(false);
         instructionText.text = "Swipe in the direction of the arrow!";
@@ -46,6 +54,9 @@ public class StructuralSupportMinigame : MinigameBase
 
         _overallTimeLeft -= Time.deltaTime;
         _promptTimeLeft -= Time.deltaTime;
+        changeSoil();
+
+
 
         if (overallTimerText)
             overallTimerText.text = Mathf.CeilToInt(Mathf.Max(_overallTimeLeft, 0f)).ToString();
@@ -57,6 +68,16 @@ public class StructuralSupportMinigame : MinigameBase
         if (_promptTimeLeft <= 0f) NextPrompt(); // missed this one, move to next (no penalty for now)
 
         DetectSwipe();
+    }
+    private void changeSoil()
+    {
+        soilStatus -= Time.deltaTime;
+        Debug.Log(soilStatus + " Soil Status ");
+        int currentPlotIndex = Mathf.FloorToInt(soilStatus);
+        currentPlotIndex = Mathf.Clamp(currentPlotIndex, 0, soilplot.Length - 1);
+        var currentPlot = soilplot[currentPlotIndex];
+        soilImage.sprite = soilplot[currentPlotIndex];
+
     }
 
     private void NextPrompt()
@@ -96,6 +117,8 @@ public class StructuralSupportMinigame : MinigameBase
             if (dir == _currentDirection)
             {
                 _promptsLeft--;
+                soilStatus += 1;
+                soilStatus += 1;
                 RefreshUI();
 
                 if (_promptsLeft <= 0)
@@ -129,3 +152,7 @@ public class StructuralSupportMinigame : MinigameBase
     protected override string GetWinMessage() => "Soil mounded!";
     protected override string GetLoseMessage() => "Not fast enough!";
 }
+
+
+
+  
