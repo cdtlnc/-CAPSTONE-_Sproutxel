@@ -34,13 +34,17 @@ public class NettingProtectionMinigame : MinigameBase
     [SerializeField] private RectTransform lineContainer;    // where drawn lines appear
     [SerializeField] private TMP_Text timerText;
 
-    private float _timeLeft;
-    private List<RectTransform> _anchors = new List<RectTransform>();
-    private int _nextAnchor = 0;   // index of the anchor to connect to next
-    private bool _dragging = false;
-    private Vector2 _dragStart;
-    private GameObject _activeLine;              // the line currently being drawn
+    [Header("Netting Parameters")]
+    [SerializeField] private float _timeLeft;
+    [SerializeField] private List<RectTransform> _anchors = new List<RectTransform>();
+    [SerializeField] private int _nextAnchor = 0;   // index of the anchor to connect to next
+    [SerializeField] private bool _dragging = false;
+    [SerializeField] private Vector2 _dragStart;
+    [SerializeField] private GameObject _activeLine;              // the line currently being drawn
 
+     [Header("Netting Visuals")]
+    [SerializeField] private Sprite lineTexture;             // <-- Add your line sprite here
+    [SerializeField] private float lineWidth = 20f;  
     // All completed line GameObjects (kept for visual)
     private List<GameObject> _lines = new List<GameObject>();
 
@@ -147,7 +151,12 @@ public class NettingProtectionMinigame : MinigameBase
     {
         var line = new GameObject("Line", typeof(RectTransform), typeof(Image));
         line.transform.SetParent(lineContainer, false);
-        line.GetComponent<Image>().color = new Color(0.9f, 0.8f, 0.2f, 0.85f); // yellow line
+
+        Image img = line.GetComponent<Image>();
+        img.sprite = lineTexture;
+        img.color = Color.white; // Keeps original texture colors intact
+        img.type = Image.Type.Sliced; // Use Sliced or Tiled depending on your asset
+
         UpdateLine(line, from, to);
         return line;
     }
@@ -167,7 +176,7 @@ public class NettingProtectionMinigame : MinigameBase
         float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
 
         rt.anchoredPosition = fromLocal + dir * 0.5f;
-        rt.sizeDelta = new Vector2(length, 6f);
+        rt.sizeDelta = new Vector2(length, lineWidth);
         rt.localRotation = Quaternion.Euler(0f, 0f, angle);
     }
 
