@@ -15,9 +15,9 @@ MonoBehaviour:
   plantName: Ampalaya
   maxHP: 20
   standardGrowthSpeed: 6
-  badCropYield: {x: 0, y: 32}
-  averageCropYield: {x: 33, y: 66}
-  goodCropYield: {x: 67, y: 100}
+  badCropYield: {x: 0, y: 1}
+  averageCropYield: {x: 2, y: 4}
+  goodCropYield: {x: 5, y: 7}
   seasonalAffinities:
   - 1
   - 1
