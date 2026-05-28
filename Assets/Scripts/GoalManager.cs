@@ -11,13 +11,13 @@ public class GoalManager : MonoBehaviour
 
     void Start() { UpdateUI(); }
 
-    public void AddCrop(string cropName)
+    public void AddCrop(string cropName, int yield)
     {
    
             if (cropName == "Ampalaya")// Need to update to be more dynamic
             {
                 Debug.Log("IM GIVING HOW MUCH?");
-                currentHarvested++;
+                currentHarvested+=yield;
                 UpdateUI();
                 checkObjectives();
             }

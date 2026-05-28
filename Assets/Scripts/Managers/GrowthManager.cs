@@ -1,10 +1,21 @@
+#if UNITY_EDITOR
 using Unity.Android.Gradle.Manifest;
+using UnityEditor;
+using UnityEditor.EditorTools;
+
+
+#endif
+
 using UnityEngine;
 
 public class GrowthManager : MonoBehaviour
 {
     [Header("Visual Components")]
-    public SpriteRenderer plantRenderer;
+    [SerializeField] public SpriteRenderer plantRenderer;
+    [SerializeField] public SpriteRenderer PlantSadBG;
+    [SerializeField] public SpriteRenderer PlantSadFG;
+    [SerializeField] public Sprite PlantSadBGTexture;
+    [SerializeField] public Sprite PlantSadFGTexture;
 
     [Header("Live Growth Debugger (Visible for Testing)")]
     [SerializeField] private SeedData currentSeed;
@@ -35,7 +46,13 @@ public class GrowthManager : MonoBehaviour
 
     [HideInInspector] public bool isPlanted = false;
 
-    void OnEnable() { TickManager.OnPlantCalcTick += LinkToOfficialClock; }
+    private void Start()
+    {
+        disableSadParts();
+    }
+    void OnEnable() { 
+        TickManager.OnPlantCalcTick += LinkToOfficialClock; 
+    }
     void OnDisable() { TickManager.OnPlantCalcTick -= LinkToOfficialClock; }
 
     private void LinkToOfficialClock(object sender, TickManager.OnTickEventArgs e)
@@ -89,7 +106,7 @@ public class GrowthManager : MonoBehaviour
         {
             currentStage = 0;
         }
-
+        CheckStats();
         UpdatePlantSprite();
     }
 
@@ -131,19 +148,19 @@ public class GrowthManager : MonoBehaviour
                 for (int i = 0; i < yieldAmount; i++)
                 {
                     MaintenencePopUp ui = Object.FindFirstObjectByType<MaintenencePopUp>();
-                    if (ui != null)
+
+                    
+                    if (hasNoBadStats)
+                    { int yield = plantSimulationInstance.GetCropYield();
+                        goalManager.AddCrop(currentSeed.cropName,yield);
+                        ResetPlot();
+                    }
+                    else if (ui != null)
                     {
                         ui.OpenWindow(this); // Passes this specific crop's data to the screen
                         //goalManager.AddCrop(currentSeed.cropName);
-                        ResetPlot();
+                        
                     }
-
-                    if (!wonMinigame&hasNoBadStats)
-                    {
-                        goalManager.AddCrop(currentSeed.cropName);
-                        ResetPlot();
-                    }
-
                 }
                     
             }
@@ -207,18 +224,87 @@ public class GrowthManager : MonoBehaviour
         plantSimulationInstance = null;
         currentStage = 0;
         if (plantRenderer != null) plantRenderer.sprite = null;
+        disableSadParts();
     }
     private void FixedUpdate()
     {
+        // SAFETY SHIELD: Stops the code from running and crashing if the plot is empty!
+        if (!isPlanted || currentSeed == null || plantSimulationInstance == null)
+        {
+            name = "Empty Plot";
+            cropHP = 0f;
+            cropMoisture = 0f;
+            soilQuality = 0f;
+            soilMoisture = 0f;
+            soilSoftness = 0f;
+            return; // Exits the function early
+        }
+
+        // This updates the inspector display LIVE when values change from watering
         name = currentSeed.cropName;
-        cropHP =plantSimulationInstance.cropHP;
+        cropHP = plantSimulationInstance.cropHP;
         cropMoisture = plantSimulationInstance.cropMoisture;
         soilQuality = plantSimulationInstance.soilQuality;
         soilMoisture = plantSimulationInstance.soilMoisture;
         soilSoftness = plantSimulationInstance.soilSoftness;
+        
     }
-    private void winMinigame()
+    public void winMinigame()
     {
-        wonMinigame = true;
+        GoalManager goalManager = Object.FindFirstObjectByType<GoalManager>();
+        int yield = plantSimulationInstance.GetCropYield();
+        goalManager.AddCrop(currentSeed.cropName, yield);
+        ResetPlot();
+    }
+    public void LoseMinigame()
+    {
+        GoalManager goalManager = Object.FindFirstObjectByType<GoalManager>();
+        int yield = plantSimulationInstance.GetCropYield();
+        goalManager.AddCrop(currentSeed.cropName, yield/2);
+        ResetPlot();
+    }
+
+    private void CheckStats()
+    {
+        // Safety check to prevent crashes if nothing is planted yet
+        if (!isPlanted || currentSeed == null || plantSimulationInstance == null)
+        {
+            hasNoBadStats = false;
+            return;
+        }
+
+        // 1. Sync the display variables from the simulation backend
+        
+        cropMoisture = plantSimulationInstance.cropMoisture;
+        soilQuality = plantSimulationInstance.soilQuality;
+        soilMoisture = plantSimulationInstance.soilMoisture;
+        soilSoftness = plantSimulationInstance.soilSoftness;
+
+        // 2. Set the threshold limits (80% of 100 is 80)
+        float maxLimit = 80f;
+        float minLimit = -80f;
+
+        // 3. Check if ANY of the tracked stats have gone outside the safe -80 to 80 range
+        if (
+            cropMoisture < minLimit || cropMoisture > maxLimit ||
+            soilQuality < minLimit || soilQuality > maxLimit ||
+            soilMoisture < minLimit || soilMoisture > maxLimit ||
+            soilSoftness < minLimit || soilSoftness > maxLimit)
+        {
+            // At least one stat is bad (outside the 80% range)
+            hasNoBadStats = false;
+            PlantSadFG.color = new Color(1f, 1f, 1f, 1f);
+            PlantSadBG.color = new Color(1f, 1f, 1f, 1f);
+        }
+        else
+        {
+            // All stats are safely within the -80 to 80 range!
+            hasNoBadStats = true;
+        }
+    }
+    private void disableSadParts()
+    {
+        PlantSadBG.color = new Color(1f, 1f, 1f, 0f);
+        PlantSadFG.color = new Color(1f, 1f, 1f, 0f);
     }
 }

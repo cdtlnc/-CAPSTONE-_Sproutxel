@@ -3,6 +3,8 @@ using UnityEngine.EventSystems;
 
 public class PlantViewDrop : MonoBehaviour, IDropHandler
 {
+    public GrowthManager CurrentPlot { get; set; }
+
     [Header("Plant Minigames")]
     [SerializeField] public GameObject Watering;
     [SerializeField] public GameObject SoilEnrichment;
@@ -10,6 +12,9 @@ public class PlantViewDrop : MonoBehaviour, IDropHandler
     [SerializeField] public GameObject Structural_support;
     [SerializeField] public GameObject Weed_Manager;
     [SerializeField] public GameObject Netting;
+
+    [Header("Minigame Scripts")]
+    [SerializeField] public PrecisionWateringMinigame WateringScript;
 
     private void Start()
     {
@@ -40,8 +45,13 @@ public class PlantViewDrop : MonoBehaviour, IDropHandler
 
                 case "Watering":
                     Debug.Log("Going to Watering");
-                    Watering.SetActive(true);
 
+                    // 1. Pass the active plot down to the watering minigame
+                    if (Watering != null)
+                    {
+                        WateringScript.CurrentPlot = CurrentPlot;
+                        Watering.gameObject.SetActive(true);
+                    }
                     break;
 
                 case "SoilEnrichment":

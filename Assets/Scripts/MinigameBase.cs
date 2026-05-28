@@ -10,7 +10,7 @@ public abstract class MinigameBase : MonoBehaviour
     [SerializeField] protected float returnDelay = 2f;
 
     protected bool GameOver { get; private set; } = false;
-
+    public GrowthManager CurrentPlot { get; set; }
     protected void EndGame(bool won)
     {
         if (GameOver) return;

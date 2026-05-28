@@ -55,6 +55,24 @@ public class PrecisionWateringMinigame : MinigameBase
         {
             bool won = _fillAmount >= zoneMin && _fillAmount <= zoneMax;
             Debug.Log("Went Into here");
+            Debug.Log("Minigame Finished. Result Won: " + won);
+
+            if (CurrentPlot != null)
+            {
+                if (won)
+                {
+                    CurrentPlot.winMinigame();
+                }
+                else
+                {
+                    CurrentPlot.LoseMinigame();
+                }
+            }
+            else
+            {
+                Debug.LogWarning("Minigame ended, but no CurrentPlot reference was passed!");
+            }
+
             Invoke(nameof(DisableThisPanel), 3f);
             EndGame(won);
            

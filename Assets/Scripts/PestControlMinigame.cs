@@ -1,9 +1,11 @@
 using System.Collections.Generic;
 using TMPro;
+#if UNITY_EDITOR
+using UnityEditor;
 using UnityEditor.ShaderGraph.Internal;
+#endif
 using UnityEngine;
 using UnityEngine.UI;
-using static UnityEditor.Progress;
 
 public class PestControlMinigame : MinigameBase
 {
@@ -85,7 +87,7 @@ public class PestControlMinigame : MinigameBase
         {
             if (!_tappedThisBeat)
                 AddMistake("Missed the beat!");
-
+            
             _beatTimer -= beatInterval;
             _tappedThisBeat = false;
         }

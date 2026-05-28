@@ -17,6 +17,7 @@ public class MaintenencePopUp : MonoBehaviour
     [SerializeField] private Sprite plantSprite;
     [SerializeField] private Image plantSpriteShower;
 
+    
     [Header("Crop Moisture")]
     [SerializeField] private float cropMoisture;
     [SerializeField] private Slider cropMoisterSlider;
@@ -36,7 +37,10 @@ public class MaintenencePopUp : MonoBehaviour
     [Header("Game Controllers")]
     [Description("To be used when setting parameters on levels or testing")]
     [SerializeField] private bool enStart;
-   
+
+    [Header("Drop Handler")]
+    [SerializeField] private PlantViewDrop dropHandler;
+
 
     private GrowthManager targetedPlot;
     void Start()
@@ -55,6 +59,12 @@ public class MaintenencePopUp : MonoBehaviour
     {
         targetedPlot = plot;
 
+        // Pass the plot data to the drop zone so it knows which plant is being worked on
+        if (dropHandler != null)
+        {
+            dropHandler.CurrentPlot = plot;
+        }
+
         if (panels != null) panels.SetActive(true);
 
         RefreshUI();
@@ -63,6 +73,13 @@ public class MaintenencePopUp : MonoBehaviour
     public void CloseWindow()
     {
         targetedPlot = null;
+
+        // Clear out the plot data when the window closes to prevent accidental bugs
+        if (dropHandler != null)
+        {
+            dropHandler.CurrentPlot = null;
+        }
+
         if (panels != null) panels.SetActive(false);
     }
 
