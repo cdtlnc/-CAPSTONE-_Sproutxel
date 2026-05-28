@@ -20,5 +20,5 @@ MonoBehaviour:
   - {fileID: 249953565, guid: 18bada0f178c8fc4fb464a03715766b1, type: 3}
   - {fileID: -2090389467, guid: 18bada0f178c8fc4fb464a03715766b1, type: 3}
   - {fileID: -1606095246, guid: 18bada0f178c8fc4fb464a03715766b1, type: 3}
-  plantStatsTemplate: {fileID: 11400000, guid: 06a671cd5425d34488fa3ad1e6700f32, type: 2}
+  plantStatsTemplate: {fileID: 11400000, guid: 34311d12af24bbd47807916b187ebe80, type: 2}
   ticksPerStage: 1

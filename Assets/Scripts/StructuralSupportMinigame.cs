@@ -64,7 +64,17 @@ public class StructuralSupportMinigame : MinigameBase
         if (promptTimerBar)
             promptTimerBar.fillAmount = Mathf.Clamp01(_promptTimeLeft / promptDuration);
 
-        if (_overallTimeLeft <= 0f) { EndGame(false); return; }
+        if (_overallTimeLeft <= 0f) {
+
+            CurrentPlot.LoseMinigame();
+            Invoke(nameof(DisableThisPanel), 5f);
+            EndGame(false);
+            
+            
+            return; 
+        
+        
+        }
         if (_promptTimeLeft <= 0f) NextPrompt(); // missed this one, move to next (no penalty for now)
 
         DetectSwipe();
@@ -123,6 +133,7 @@ public class StructuralSupportMinigame : MinigameBase
 
                 if (_promptsLeft <= 0)
                 {
+                    CurrentPlot.winMinigame();
                     Invoke(nameof(DisableThisPanel), 5f);
                     EndGame(true);
                     //Change Conditions when ending the minigame

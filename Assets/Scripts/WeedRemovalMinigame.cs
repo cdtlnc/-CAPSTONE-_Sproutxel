@@ -127,8 +127,18 @@ public class WeedRemovalMinigame : MinigameBase
 
         if (_weedsLeft <= 0)
         {
-            Invoke(nameof(DisableThisPanel), 10f);
-            EndGame(true);
+            if (CurrentPlot != null)
+            {
+                CurrentPlot.winMinigame();
+                Invoke(nameof(DisableThisPanel), 5f);
+                EndGame(true);
+            }
+ 
+            else
+            {
+                Debug.LogWarning("Minigame ended, but no CurrentPlot reference was passed!");
+            }
+           
            
         }
             
@@ -147,7 +157,12 @@ public class WeedRemovalMinigame : MinigameBase
         RefreshUI();
 
         if (_plantTaps >= maxPlantTaps)
+        {
+            CurrentPlot.LoseMinigame();
+            Invoke(nameof(DisableThisPanel), 10f);
             EndGame(false);
+        }
+            
     }
     private void SetupVisualizer()
     {

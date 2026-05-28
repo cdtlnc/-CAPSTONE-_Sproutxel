@@ -109,10 +109,11 @@ public class PestControlMinigame : MinigameBase
 
             if (_pestsLeft <= 0)
             {
-                Invoke(nameof(DisableThisPanel), 10f);
+                CurrentPlot.winMinigame();
+                Invoke(nameof(DisableThisPanel), 5f);
                 EndGame(true);
 
-                
+
             }
 
         }
@@ -133,7 +134,13 @@ public class PestControlMinigame : MinigameBase
         RefreshUI();
 
         if (_mistakes >= mistakeLimit)
+        {
+            CurrentPlot.winMinigame();
+            Invoke(nameof(DisableThisPanel), 5f);
             EndGame(false);
+
+        }
+           
     }
 
     private void RefreshUI()

@@ -15,6 +15,11 @@ public class PlantViewDrop : MonoBehaviour, IDropHandler
 
     [Header("Minigame Scripts")]
     [SerializeField] public PrecisionWateringMinigame WateringScript;
+    [SerializeField] public WeedRemovalMinigame WeedScript;
+    [SerializeField] public NettingProtectionMinigame NettingScript;
+    [SerializeField] public StructuralSupportMinigame StructScript;
+    [SerializeField] public SoilEnrichmentMinigame SoilScript;
+    [SerializeField] public PestControlMinigame pestScript;
 
     private void Start()
     {
@@ -55,31 +60,66 @@ public class PlantViewDrop : MonoBehaviour, IDropHandler
                     break;
 
                 case "SoilEnrichment":
-                    SoilEnrichment.SetActive(true);
+                    Debug.Log("Going to Soil Enrichment");
+
+                    // 1. Pass the active plot down to the watering minigame
+                    if (SoilEnrichment != null)
+                    {
+                        SoilScript.CurrentPlot = CurrentPlot;
+                        SoilEnrichment.gameObject.SetActive(true);
+                    }
 
 
                     break;
 
                 case "PestControl":
-                    PestControl.SetActive(true);
+                    Debug.Log("Going to Pest Control");
+
+                    // 1. Pass the active plot down to the watering minigame
+                    if (PestControl != null)
+                    {
+                        pestScript.CurrentPlot = CurrentPlot;
+                        PestControl.gameObject.SetActive(true);
+                    }
 
 
                     break;
 
                 case "Struct":
-                    Structural_support.SetActive(true);
+                    Debug.Log("Going to Structure");
+
+                    // 1. Pass the active plot down to the watering minigame
+                    if (Structural_support != null)
+                    {
+                        StructScript.CurrentPlot = CurrentPlot;
+                        Structural_support.gameObject.SetActive(true);
+                    }
 
 
                     break;
 
                 case "Weeding":
-                    Weed_Manager.SetActive(true);
+                    Debug.Log("Going to Weed");
+
+                    // 1. Pass the active plot down to the watering minigame
+                    if (Weed_Manager != null)
+                    {
+                        WeedScript.CurrentPlot = CurrentPlot;
+                        Weed_Manager.gameObject.SetActive(true);
+                    }
 
 
                     break;
 
                 case "Netting":
-                    Netting.SetActive(true);
+                    Debug.Log("Going to Netting");
+
+                    // 1. Pass the active plot down to the watering minigame
+                    if (Netting != null)
+                    {
+                        NettingScript.CurrentPlot = CurrentPlot;
+                        Netting.gameObject.SetActive(true);
+                    }
 
 
                     break;

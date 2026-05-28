@@ -59,6 +59,8 @@ public class NettingProtectionMinigame : MinigameBase
         if (_anchors.Count == 0)
         {
             Debug.LogWarning("[NettingProtection] No anchors found in AnchorContainer.");
+            CurrentPlot.LoseMinigame();
+            Invoke(nameof(DisableThisPanel), 5f);
             EndGame(false);
             return;
         }
@@ -131,6 +133,7 @@ public class NettingProtectionMinigame : MinigameBase
                 // All anchors connected = win
                 if (_nextAnchor == 0 && _lines.Count >= _anchors.Count)
                 {
+                    CurrentPlot.winMinigame();
                     Invoke(nameof(DisableThisPanel), 5f);
                     EndGame(true);
                     

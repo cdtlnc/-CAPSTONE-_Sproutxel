@@ -60,7 +60,16 @@ public class SoilEnrichmentMinigame : MinigameBase
 
         _timeLeft -= Time.deltaTime;
         if (timerText) timerText.text = Mathf.CeilToInt(Mathf.Max(_timeLeft, 0f)).ToString();
-        if (_timeLeft <= 0f) { EndGame(false); return; }
+        if (_timeLeft <= 0f) {
+
+
+            CurrentPlot.LoseMinigame();
+            Invoke(nameof(DisableThisPanel), 5f);
+            EndGame(false);
+
+
+
+            ; }
 
         HandleInput();
     }
@@ -163,9 +172,10 @@ public class SoilEnrichmentMinigame : MinigameBase
 
                 if (_itemsLeft <= 0)
                 {
+                    CurrentPlot.winMinigame();
                     Invoke(nameof(DisableThisPanel), 5f);
                     EndGame(true);
-                   
+
                 }
 
             }
