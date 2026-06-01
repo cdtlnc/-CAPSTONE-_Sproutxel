@@ -217,6 +217,7 @@ public class GrowthManager : MonoBehaviour
         }
     }
 
+    //User Shovel
     void ResetPlot()
     {
         isPlanted = false;
@@ -306,5 +307,33 @@ public class GrowthManager : MonoBehaviour
     {
         PlantSadBG.color = new Color(1f, 1f, 1f, 0f);
         PlantSadFG.color = new Color(1f, 1f, 1f, 0f);
+    }
+    //Water Logged Plots/ Soil Additive
+    public void MoistureCleanse()
+    {
+        
+    }
+
+
+
+    // Remove Bug Stats// Pesticide
+    public void unBug()
+    {
+
+    }
+
+    //Remove Plants / Soil Tiller
+
+    public void RefreshPlot()
+    {
+
+    }
+
+
+
+    //Fertilizer, Super Yield
+    public void SuperCharge()
+    {
+
     }
 }

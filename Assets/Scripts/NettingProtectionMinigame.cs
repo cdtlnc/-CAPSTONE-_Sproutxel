@@ -41,6 +41,7 @@ public class NettingProtectionMinigame : MinigameBase
     [SerializeField] private bool _dragging = false;
     [SerializeField] private Vector2 _dragStart;
     [SerializeField] private GameObject _activeLine;              // the line currently being drawn
+    [SerializeField] private int anchorcount;              // the line currently being drawn
 
      [Header("Netting Visuals")]
     [SerializeField] private Sprite lineTexture;             // <-- Add your line sprite here
@@ -158,7 +159,7 @@ public class NettingProtectionMinigame : MinigameBase
         Image img = line.GetComponent<Image>();
         img.sprite = lineTexture;
         img.color = Color.white; // Keeps original texture colors intact
-        img.type = Image.Type.Sliced; // Use Sliced or Tiled depending on your asset
+        img.type = Image.Type.Simple; // Use Sliced or Tiled depending on your asset
 
         UpdateLine(line, from, to);
         return line;

@@ -4,15 +4,16 @@ using UnityEngine.UI;
 
 public class ItemManager : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
-    public SeedData seedType;
-    private Vector3 startPos;
-    private Transform originalParent;
-    private CanvasGroup canvasGroup;
+    [Header("Item")]
+    [SerializeField] public Sprite _itemSprite;
+    [SerializeField] private Vector3 startPos;
+    [SerializeField] private Transform originalParent;
+    [SerializeField] private CanvasGroup canvasGroup;
 
     void Awake()
     {
         canvasGroup = GetComponent<CanvasGroup>() ?? gameObject.AddComponent<CanvasGroup>();
-        if (seedType != null) GetComponent<Image>().sprite = seedType.seedBagIcon;
+        if (_itemSprite != null) GetComponent<Image>().sprite = _itemSprite;
     }
 
     public void OnBeginDrag(PointerEventData eventData)
@@ -36,7 +37,7 @@ public class ItemManager : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
         {
             if (hit.collider.CompareTag("PlantView"))
             {
-                Debug.Log("Itouchathe plant view");
+                hit.collider.GetComponent<GrowthManager>().unBug() ;
             }
         }
         transform.SetParent(originalParent);
