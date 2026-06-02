@@ -5,9 +5,11 @@ using UnityEngine.UI;
 public class SeedManager : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
     public SeedData seedType;
-    private Vector3 startPos;
-    private Transform originalParent;
     private CanvasGroup canvasGroup;
+
+    // Ghost copy variables so the actual hotbar slot never moves
+    private GameObject dragIconInstance;
+    private Image dragIconImage;
 
     void Awake()
     {
@@ -17,20 +19,42 @@ public class SeedManager : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        startPos = transform.position;
-        originalParent = transform.parent;
-        transform.SetParent(GameObject.Find("GameplayCanvas").transform);
-        canvasGroup.blocksRaycasts = false; // Essential for the raycast to see the soil
-        canvasGroup.alpha = 0.6f;
+        // 1. Create a dummy object to act as our ghost drag visual
+        dragIconInstance = new GameObject("SeedDragGhost");
+        dragIconInstance.transform.SetParent(GameObject.Find("GameplayCanvas").transform, false);
+
+        // 2. Set up its size and position to match this slot exactly
+        RectTransform sourceRect = GetComponent<RectTransform>();
+        RectTransform ghostRect = dragIconInstance.AddComponent<RectTransform>();
+        ghostRect.sizeDelta = sourceRect.sizeDelta;
+        ghostRect.position = transform.position;
+
+        // 3. Match the seed bag icon image and make it see-through
+        dragIconImage = dragIconInstance.AddComponent<Image>();
+        dragIconImage.sprite = seedType != null ? seedType.seedBagIcon : null;
+        dragIconImage.raycastTarget = false; // Makes it completely invisible to physics checks
+
+        // 4. Fade out the ghost copy and the main slot slightly for visual feedback
+        CanvasGroup ghostGroup = dragIconInstance.AddComponent<CanvasGroup>();
+        ghostGroup.alpha = 0.6f;
+        canvasGroup.alpha = 0.4f;
     }
 
-    public void OnDrag(PointerEventData eventData) { transform.position = eventData.position; }
+    public void OnDrag(PointerEventData eventData)
+    {
+        // Track the mouse cursor position using our ghost visual icon instead of the slot
+        if (dragIconInstance != null)
+        {
+            dragIconInstance.transform.position = eventData.position;
+        }
+    }
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        canvasGroup.blocksRaycasts = true;
+        // Restore full opacity to the real hotbar slot box
         canvasGroup.alpha = 1f;
 
+        // Run your existing plant-on-soil raycast validation check
         Ray ray = Camera.main.ScreenPointToRay(eventData.position);
         if (Physics.Raycast(ray, out RaycastHit hit, 5000f))
         {
@@ -39,7 +63,11 @@ public class SeedManager : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
                 hit.collider.GetComponent<GrowthManager>().PlantSeed(seedType);
             }
         }
-        transform.SetParent(originalParent);
-        transform.position = startPos;
+
+        // 5. Clean up and vaporize the ghost drag object from memory
+        if (dragIconInstance != null)
+        {
+            Destroy(dragIconInstance);
+        }
     }
 }
