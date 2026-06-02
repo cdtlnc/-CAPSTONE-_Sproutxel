@@ -41,6 +41,11 @@ public class GrowthManager : MonoBehaviour
     [SerializeField] private float soilSoftness;
 
 
+    [Header("Crop Mechanics")]
+    [SerializeField] private bool Waterlogged;
+    [SerializeField] private float WaterloggedCap;
+
+
     // Direct link to the math backend script
     public BasePlant plantSimulationInstance;
 

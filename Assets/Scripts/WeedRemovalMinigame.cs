@@ -34,9 +34,7 @@ public class WeedRemovalMinigame : MinigameBase
 
     private void Start()
     {
-        _weedsLeft = totalWeeds;
-        _plantTaps = 0;
-        _timeLeft = gameDuration;
+      ResetMinigame();
 
         plantButton.onClick.AddListener(OnPlantTapped);
         resultText.gameObject.SetActive(false);
@@ -45,6 +43,12 @@ public class WeedRemovalMinigame : MinigameBase
 
         SpawnWeeds();
         RefreshUI();
+    }
+    private void ResetMinigame()
+    {
+        _weedsLeft = totalWeeds;
+        _plantTaps = 0;
+        _timeLeft = gameDuration;
     }
 
     private void Update()

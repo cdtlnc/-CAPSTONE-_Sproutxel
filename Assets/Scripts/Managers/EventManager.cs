@@ -6,13 +6,14 @@ public class EventManager : MonoBehaviour
     [SerializeField] private int[] _weatherEventOdds = new int[3]; // The odds of each weather event occuring. 0 - odds that a Heat Wave will happen, 1 - odds that a Typhoon will happen.
     [SerializeField] private int _infestationOdds; // The odds that a bug infestation will occur.
 
-    private int _weatherDuration = 20;     // The duration of a weather event, measured in ticks
-    private int _weatherCooldown = 10;     // The cooldown between weather events, measured in ticks
-    private int _infestationCooldown = 10; // The cooldown between bug infestations, measured in ticks
 
-    private int _weatherDurationTimer = 0;
-    private int _weatherCooldownTimer = 0;
-    private int _infestationTimer     = 0;
+    [Header("Weather Parameters")]
+    [SerializeField] private int _weatherDuration = 20;     // The duration of a weather event, measured in ticks
+    [SerializeField] private int _weatherCooldown = 10;     // The cooldown between weather events, measured in ticks
+    [SerializeField] private int _infestationCooldown = 10; // The cooldown between bug infestations, measured in ticks
+    [SerializeField] private int _weatherDurationTimer = 0;
+    [SerializeField] private int _weatherCooldownTimer = 0;
+    [SerializeField] private int _infestationTimer     = 0;
 
     public static bool isInfested { get; private set; } = false; // This will communicate to other scripts whether or not a plant is infested
     public static int _weatherEvent { get; private set; } = 0;   // This will communicate to other scripts whether or not a typhoon or heat wave is occuring. 0 - Clear weather, 1 - Heat Wave, 2 - Typhoon

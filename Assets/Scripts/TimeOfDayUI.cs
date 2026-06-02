@@ -20,6 +20,7 @@ public class TimeOfDayUI : MonoBehaviour
 
     [Header("Directional Light")]
     [SerializeField] public Light thelight;
+    [SerializeField] private Vector3 sunriseRotation = new Vector3(0f, 0f, 0f);
 
     // equal to timeCycleTickTimer * _TICK_TIMER_MAX in TickManager
     // timeCycleTickTimer = 2, _TICK_TIMER_MAX = 0.2 -> 2 * 0.2 = 0.4
@@ -31,12 +32,31 @@ public class TimeOfDayUI : MonoBehaviour
 
     public static bool isDrySeason { get; private set; } // This variable will be used to communicate to other scripts what season it is.
     public static bool isDay { get; private set; }       // This variable will be used to communicate to other scripts what time of day it is.
+    private void UpdateLightRotation()
+    {
+        // 1. Calculate minutes passed since 6:00 AM (360 minutes)
+        float minutesSinceSunrise = currentTime - 360f;
 
+        // 2. Wrap negative values for the night cycle
+        if (minutesSinceSunrise < 0)
+        {
+            minutesSinceSunrise += 1440f;
+        }
+
+        // 3. Convert time to 360 degrees (1440 mins total = 360 degrees)
+        // This ensures 12 hours later (720 mins) is exactly 180 degrees
+        float currentAngle = (minutesSinceSunrise / 1440f) * 360f;
+
+        // 4. Set absolute rotation along the local right axis
+        thelight.transform.localRotation = Quaternion.Euler(sunriseRotation) * Quaternion.AngleAxis(currentAngle, Vector3.right);
+    }
     private void Start()
     {
         
         isDrySeason = true; // THIS SETS THE SEASON TO DRY BY DEFAULT. IF YOU WANT THE LEVEL TO START IN WET SEASON, CHANGE THIS VALUE.
         currentTime = startHour * 60f;
+
+        UpdateLightRotation();
 
         TickManager.OnTimeCycleTick += TickManager_OnTimeCycleTick;
     }
@@ -50,7 +70,7 @@ public class TimeOfDayUI : MonoBehaviour
     {
         // Advance time by the fixed tick interval * scale
         currentTime += TICK_INTERVAL * timeScale;
-        thelight.transform.Rotate(Vector3.left  * timeScale/12);
+        UpdateLightRotation();
         if (currentTime >= 1440f)
         {
             currentTime -= 1440f;

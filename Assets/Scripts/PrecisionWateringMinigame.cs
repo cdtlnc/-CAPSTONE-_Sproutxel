@@ -25,15 +25,20 @@ public class PrecisionWateringMinigame : MinigameBase
     {
         // Cancel any pending closure invocations just in case
         CancelInvoke(nameof(DisableThisPanel));
-
-        _timeLeft = gameDuration;
-        _fillAmount = 0f; // Reset fill amount
-        waterFillImage.fillAmount = 0f;
+        ResetMinigame();
+       
 
         if (resultText != null) resultText.gameObject.SetActive(false);
         if (instructionText != null) instructionText.text = "Hold to fill - keep the level in the green zone when time runs out!";
 
         PositionGreenZone();
+    }
+
+    private void ResetMinigame()
+    {
+        _timeLeft = gameDuration;
+        _fillAmount = 0f; // Reset fill amount
+        waterFillImage.fillAmount = 0f;
     }
     private void Update()
     {

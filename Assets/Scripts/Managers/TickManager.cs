@@ -19,7 +19,8 @@ public class TickManager : MonoBehaviour
     [SerializeField] public int eventTickTimer;     // Set to happen every four ticks by default.
     [SerializeField] public int plantCalcTickTimer; // Set to happen every six ticks by default.
 
-    private const float _TICK_TIMER_MAX = 0.2f; // This decides when a tick happens. Right now it's set to 0.2,or 200ms. A whole number represents a second (i.e. 1 = 1 second).
+    [Header("Tick Speed")]
+    [SerializeField] private float _TICK_TIMER_MAX = 0.2f; // This decides when a tick happens. Right now it's set to 0.2,or 200ms. A whole number represents a second (i.e. 1 = 1 second).
 
     private int _tick;
     private float _tickTimer;

@@ -49,13 +49,12 @@ public class NettingProtectionMinigame : MinigameBase
     // All completed line GameObjects (kept for visual)
     private List<GameObject> _lines = new List<GameObject>();
 
-    private void Start()
+    private void OnEnable()
     {
-        _timeLeft = gameDuration;
+        ResetMinigame();
 
         // Collect all anchor buttons in order
-        foreach (RectTransform child in anchorContainer)
-            _anchors.Add(child);
+        
 
         if (_anchors.Count == 0)
         {
@@ -72,8 +71,18 @@ public class NettingProtectionMinigame : MinigameBase
         instructionText.text = "Connect all the anchor points around the plant!";
     }
 
+    private void ResetMinigame()
+    {
+        _timeLeft = gameDuration;
+
+        // Collect all anchor buttons in order
+        foreach (RectTransform child in anchorContainer)
+            _anchors.Add(child);
+    }
     private void Update()
     {
+
+
         if (GameOver) return;
 
         _timeLeft -= Time.deltaTime;

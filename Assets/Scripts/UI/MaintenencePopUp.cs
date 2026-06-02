@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class MaintenencePopUp : MonoBehaviour
 {
+    
+
     [Header("Game Panels")]
     public GameObject panels; //Just to open up the panels
     public Camera cam; // Maybe to change cam positions when its time
