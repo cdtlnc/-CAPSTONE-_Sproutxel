@@ -1,5 +1,11 @@
 using UnityEngine;
 
+#if UNITY_EDITOR
+using Unity.Android.Gradle.Manifest;
+using UnityEditor;
+using UnityEditor.EditorTools;
+#endif
+
 [CreateAssetMenu(fileName = "NewSeed", menuName = "Sproutxel/SeedData")]
 public class SeedData : ScriptableObject
 {
@@ -14,6 +20,9 @@ public class SeedData : ScriptableObject
     [Header("Simulation Architecture Connection")]
     [Tooltip("Drag the specific PlantBase scriptable object asset created by your classmate here.")]
     public PlantBase plantStatsTemplate;
+
+    [Header("Level Inventory Limits")]
+    public int remainingSeedBags;
 
     [Header("Legacy/Fallback Settings")]
     [Tooltip("Keep this field to prevent other inventory scripts from breaking, though growth is now governed by stats math.")]

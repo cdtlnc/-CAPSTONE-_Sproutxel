@@ -24,7 +24,7 @@ public class GrowthManager : MonoBehaviour
     [Header("Plant Stats")]
     [SerializeField] private string name;
     [SerializeField] private float cropHP;
-    [SerializeField] private bool wonMinigame,hasNoBadStats;
+    [SerializeField] private bool wonMinigame, hasNoBadStats;
 
     [Header("Crop Moisture")]
     [SerializeField] private float cropMoisture;
@@ -55,8 +55,9 @@ public class GrowthManager : MonoBehaviour
     {
         disableSadParts();
     }
-    void OnEnable() { 
-        TickManager.OnPlantCalcTick += LinkToOfficialClock; 
+    void OnEnable()
+    {
+        TickManager.OnPlantCalcTick += LinkToOfficialClock;
     }
     void OnDisable() { TickManager.OnPlantCalcTick -= LinkToOfficialClock; }
 
@@ -126,7 +127,7 @@ public class GrowthManager : MonoBehaviour
         int MatureStageIndex = currentSeed.growthStages.Length - 2;
 
         // Only let me harvest if it hits the final index slot of this specific seed data asset
-        if (currentStage == MatureStageIndex|| currentStage==lastConfiguredStageIndex)
+        if (currentStage == MatureStageIndex || currentStage == lastConfiguredStageIndex)
         {
             int yieldAmount = 0;
 
@@ -154,23 +155,24 @@ public class GrowthManager : MonoBehaviour
                 {
                     MaintenencePopUp ui = Object.FindFirstObjectByType<MaintenencePopUp>();
 
-                    
+
                     if (hasNoBadStats)
-                    { int yield = plantSimulationInstance.GetCropYield();
-                        goalManager.AddCrop(currentSeed.cropName,yield);
+                    {
+                        int yield = plantSimulationInstance.GetCropYield();
+                        goalManager.AddCrop(currentSeed.cropName, yield);
                         ResetPlot();
                     }
                     else if (ui != null)
                     {
                         ui.OpenWindow(this); // Passes this specific crop's data to the screen
-                        //goalManager.AddCrop(currentSeed.cropName);
-                        
+                                             //goalManager.AddCrop(currentSeed.cropName);
+
                     }
                 }
-                    
+
             }
-            
-        
+
+
         }
     }
 
@@ -178,6 +180,12 @@ public class GrowthManager : MonoBehaviour
     public void PlantSeed(SeedData data)
     {
         if (isPlanted || data == null) return;
+
+        if (data.remainingSeedBags <= 0)
+        {
+            Debug.LogWarning($"[Out of Seeds] Can't plant anymore {data.cropName}! 0 bags remaining.");
+            return;
+        }
 
         // Safety check in case I forgot to add a sprite to the asset file
         if (data.growthStages == null || data.growthStages.Length == 0)
@@ -205,6 +213,8 @@ public class GrowthManager : MonoBehaviour
         plantSimulationInstance.soilMoisture = 20f;
         plantSimulationInstance.soilSoftness = 20f;
         plantSimulationInstance.soilQuality = 50f;
+
+        data.remainingSeedBags--;
 
         UpdatePlantSprite();
         Debug.Log($"Successfully planted {data.cropName}! Calculations started.");
@@ -253,7 +263,7 @@ public class GrowthManager : MonoBehaviour
         soilQuality = plantSimulationInstance.soilQuality;
         soilMoisture = plantSimulationInstance.soilMoisture;
         soilSoftness = plantSimulationInstance.soilSoftness;
-        
+
     }
     public void winMinigame()
     {
@@ -266,7 +276,7 @@ public class GrowthManager : MonoBehaviour
     {
         GoalManager goalManager = Object.FindFirstObjectByType<GoalManager>();
         int yield = plantSimulationInstance.GetCropYield();
-        goalManager.AddCrop(currentSeed.cropName, yield/2);
+        goalManager.AddCrop(currentSeed.cropName, yield / 2);
         ResetPlot();
     }
 
@@ -280,7 +290,7 @@ public class GrowthManager : MonoBehaviour
         }
 
         // 1. Sync the display variables from the simulation backend
-        
+
         cropMoisture = plantSimulationInstance.cropMoisture;
         soilQuality = plantSimulationInstance.soilQuality;
         soilMoisture = plantSimulationInstance.soilMoisture;
@@ -316,7 +326,7 @@ public class GrowthManager : MonoBehaviour
     //Water Logged Plots/ Soil Additive
     public void MoistureCleanse()
     {
-        
+
     }
 
 
