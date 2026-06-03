@@ -15,6 +15,6 @@ MonoBehaviour:
   cropName: 
   seedBagIcon: {fileID: 0}
   growthStages: []
-  plantStatsTemplate: {fileID: 0}
+  plantStatsTemplate: {fileID: 11400000, guid: 06a671cd5425d34488fa3ad1e6700f32, type: 2}
   remainingSeedBags: 0
   ticksPerStage: 1

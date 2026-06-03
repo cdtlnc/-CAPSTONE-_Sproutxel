@@ -45,6 +45,16 @@ public class GrowthManager : MonoBehaviour
     [SerializeField] private bool Waterlogged;
     [SerializeField] private float WaterloggedCap;
 
+    [Header("Seed Class")]
+    [SerializeField] string seasonOutput;
+    [SerializeField] string cycleOutput;
+    [SerializeField] string weatherOutput;
+    [SerializeField] string bugInfestation;
+
+    [SerializeField] int seasonIndex;
+    [SerializeField] int cycleIndex;
+    [SerializeField] int weatherIndex;
+    [SerializeField] int bugIndex;
 
     // Direct link to the math backend script
     public BasePlant plantSimulationInstance;
@@ -112,8 +122,13 @@ public class GrowthManager : MonoBehaviour
         {
             currentStage = 0;
         }
+        CheckWeather();
+        CheckSeason();
+        CheckDay();
+        CheckInfestation();
         CheckStats();
         UpdatePlantSprite();
+        GetMogged();
     }
 
     // Tapping/clicking the plot to harvest
@@ -324,12 +339,91 @@ public class GrowthManager : MonoBehaviour
         PlantSadFG.color = new Color(1f, 1f, 1f, 0f);
     }
     //Water Logged Plots/ Soil Additive
+    //Water Logged Plots/ Soil Additive
     public void MoistureCleanse()
     {
 
     }
+    public void CheckInfestation()
+    {
+        if (EventManager.isInfested)
+        {
+            bugInfestation = "INFESTEDDD";
+            bugIndex = 1;
+            plantSimulationInstance.bugIndex = bugIndex;
+        }
+        else
+        {
+            bugInfestation = "no bugs:(";
+            bugIndex = 0;
+            plantSimulationInstance.bugIndex = bugIndex;
+        }
+    }
+    public void CheckWeather()
+    {
 
 
+        switch (EventManager._weatherEvent)
+        {
+            case 0:
+                weatherOutput = "CLEAR";
+                weatherIndex = 0;
+                plantSimulationInstance.weatherIndex = weatherIndex;
+                break;
+            case 1:
+                weatherOutput = "HEAT HAZE";
+                weatherIndex = 1;
+                plantSimulationInstance.weatherIndex = weatherIndex;
+                break;
+            case 2:
+                weatherOutput = "TYPHOON";
+                weatherIndex = 2;
+                plantSimulationInstance.weatherIndex = weatherIndex;
+                break;
+        }
+
+    }
+
+    public void CheckSeason()
+    {
+        if (TimeOfDayUI.isDrySeason)
+        {
+            seasonOutput = "DRY SEASON";
+            seasonIndex = 0;
+            plantSimulationInstance.seasonIndex = seasonIndex;
+        }
+        else
+        {
+            seasonOutput = "Wet SEASON";
+            seasonIndex = 1;
+            plantSimulationInstance.seasonIndex = seasonIndex;
+        }
+    }
+
+    public void CheckDay()
+    {
+        if (TimeOfDayUI.isDay)
+        {
+            cycleOutput = "Day";
+            cycleIndex = 0;
+            plantSimulationInstance.dayIndex = cycleIndex;
+        }
+        else
+        {
+            cycleOutput = "Night";
+            cycleIndex = 1;
+            plantSimulationInstance.dayIndex = cycleIndex;
+        }
+    }
+
+    public void WaterLogged()
+    {
+
+
+
+
+
+    }
 
     // Remove Bug Stats// Pesticide
     public void unBug()
@@ -349,6 +443,26 @@ public class GrowthManager : MonoBehaviour
     //Fertilizer, Super Yield
     public void SuperCharge()
     {
+
+    }
+
+    public void GetMogged()
+    {
+
+             Debug.Log("Season: " + seasonOutput + " | Resistance: " + plantSimulationInstance.stats.seasonalAffinities[seasonIndex] + "\n"
+                     + "Day: " + cycleOutput + " | Resistance: " + plantSimulationInstance.stats.cycleAffinities[cycleIndex] + "\n"
+                     + "Weather Event: " + weatherOutput + " | Resistance: " + plantSimulationInstance.stats.weatherAffinities[weatherIndex] + "\n"
+                     + "Infested: " + bugInfestation + " | Resistance: " + plantSimulationInstance.stats.bugResistances[bugIndex] + "\n"
+
+                     + "Crop HP: " + plantSimulationInstance.cropHP + "\n"
+                     + "Crop Moisture: " + plantSimulationInstance.cropMoisture + "\n"
+                     + "Crop Growth: " + plantSimulationInstance.cropGrowth + "\n"
+                     + "Soil Quality: " + plantSimulationInstance.soilQuality + "\n"
+                     + "Soil Moisture: " + plantSimulationInstance.soilMoisture + "\n"
+                     + "Soil Softness: " + plantSimulationInstance.soilSoftness + "\n"
+                     + "Harvest Quality: " + plantSimulationInstance.harvestQuality + "\n"
+                     + "Crop Yield: " + plantSimulationInstance.GetCropYield()
+                    );
 
     }
 }

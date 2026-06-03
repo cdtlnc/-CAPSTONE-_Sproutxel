@@ -583,7 +583,38 @@ MonoBehaviour:
   timeCycleTickTimer: 2
   eventTickTimer: 4
   plantCalcTickTimer: 6
-  _TICK_TIMER_MAX: 1
+  _TICK_TIMER_MAX: 0.5
+--- !u!1 &52961224
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 52961225}
+  m_Layer: 0
+  m_Name: ========================================== (4)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &52961225
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 52961224}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 297.76898, y: -0.0001373291, z: -2224.9143}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 537871244}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &54104089
 GameObject:
   m_ObjectHideFlags: 0
@@ -1971,6 +2002,16 @@ MonoBehaviour:
   soilQuality: 0
   soilMoisture: 0
   soilSoftness: 0
+  Waterlogged: 0
+  WaterloggedCap: 0
+  seasonOutput: 
+  cycleOutput: 
+  weatherOutput: 
+  bugInfestation: 
+  seasonIndex: 0
+  cycleIndex: 0
+  weatherIndex: 0
+  bugIndex: 0
   isPlanted: 0
 --- !u!65 &136880554
 BoxCollider:
@@ -3813,6 +3854,16 @@ MonoBehaviour:
   soilQuality: 0
   soilMoisture: 0
   soilSoftness: 0
+  Waterlogged: 0
+  WaterloggedCap: 0
+  seasonOutput: 
+  cycleOutput: 
+  weatherOutput: 
+  bugInfestation: 
+  seasonIndex: 0
+  cycleIndex: 0
+  weatherIndex: 0
+  bugIndex: 0
   isPlanted: 0
 --- !u!1 &303556313
 GameObject:
@@ -4102,6 +4153,16 @@ MonoBehaviour:
   soilQuality: 0
   soilMoisture: 0
   soilSoftness: 0
+  Waterlogged: 0
+  WaterloggedCap: 0
+  seasonOutput: 
+  cycleOutput: 
+  weatherOutput: 
+  bugInfestation: 
+  seasonIndex: 0
+  cycleIndex: 0
+  weatherIndex: 0
+  bugIndex: 0
   isPlanted: 0
 --- !u!65 &310878689
 BoxCollider:
@@ -6619,6 +6680,16 @@ MonoBehaviour:
   soilQuality: 0
   soilMoisture: 0
   soilSoftness: 0
+  Waterlogged: 0
+  WaterloggedCap: 0
+  seasonOutput: 
+  cycleOutput: 
+  weatherOutput: 
+  bugInfestation: 
+  seasonIndex: 0
+  cycleIndex: 0
+  weatherIndex: 0
+  bugIndex: 0
   isPlanted: 0
 --- !u!65 &534530059
 BoxCollider:
@@ -6745,7 +6816,8 @@ Transform:
   m_LocalPosition: {x: 550.4859, y: -146.99995, z: 205.00862}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 52961225}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &537871245
@@ -7092,6 +7164,16 @@ MonoBehaviour:
   soilQuality: 0
   soilMoisture: 0
   soilSoftness: 0
+  Waterlogged: 0
+  WaterloggedCap: 0
+  seasonOutput: 
+  cycleOutput: 
+  weatherOutput: 
+  bugInfestation: 
+  seasonIndex: 0
+  cycleIndex: 0
+  weatherIndex: 0
+  bugIndex: 0
   isPlanted: 0
 --- !u!65 &569933972
 BoxCollider:
@@ -9112,6 +9194,16 @@ MonoBehaviour:
   soilQuality: 0
   soilMoisture: 0
   soilSoftness: 0
+  Waterlogged: 0
+  WaterloggedCap: 0
+  seasonOutput: 
+  cycleOutput: 
+  weatherOutput: 
+  bugInfestation: 
+  seasonIndex: 0
+  cycleIndex: 0
+  weatherIndex: 0
+  bugIndex: 0
   isPlanted: 0
 --- !u!65 &717293843
 BoxCollider:
@@ -14971,16 +15063,16 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1324546540}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1855976203}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 151.11786, y: -60.865143}
+  m_AnchoredPosition: {x: 201.49048, y: 638.84644}
   m_SizeDelta: {x: 262.23572, y: 81.730286}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1324546542
@@ -15037,8 +15129,8 @@ MonoBehaviour:
   clockText: {fileID: 394468683}
   dayColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   nightColor: {r: 0.627451, g: 0.1254902, b: 0.9411765, a: 1}
-  timeScale: 1
-  startHour: 6
+  timeScale: 10
+  startHour: 11
   seasonTimer: 1
   thelight: {fileID: 410087040}
   sunriseRotation: {x: 0, y: 0, z: 0}
@@ -16298,6 +16390,16 @@ MonoBehaviour:
   soilQuality: 0
   soilMoisture: 0
   soilSoftness: 0
+  Waterlogged: 0
+  WaterloggedCap: 0
+  seasonOutput: 
+  cycleOutput: 
+  weatherOutput: 
+  bugInfestation: 
+  seasonIndex: 0
+  cycleIndex: 0
+  weatherIndex: 0
+  bugIndex: 0
   isPlanted: 0
 --- !u!65 &1439802394
 BoxCollider:
@@ -18893,12 +18995,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1687118569}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -303.9246, y: -146.9999, z: 2747.1816}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1761073071}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1687118571
 MonoBehaviour:
@@ -18914,6 +19016,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EventManager
   _weatherEventOdds: 000000002100000021000000
   _infestationOdds: 50
+  _weatherDuration: 20
+  _weatherCooldown: 10
+  _infestationCooldown: 10
+  _weatherDurationTimer: 0
+  _weatherCooldownTimer: 0
+  _infestationTimer: 0
 --- !u!1 &1688668503
 GameObject:
   m_ObjectHideFlags: 0
@@ -19385,6 +19493,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1733622911}
   m_CullTransparentMesh: 1
+--- !u!1 &1734288471
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1734288472}
+  m_Layer: 0
+  m_Name: ========================================== (4)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1734288472
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1734288471}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 848.2549, y: -147.00009, z: -2019.9058}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1736255285
 GameObject:
   m_ObjectHideFlags: 0
@@ -20051,7 +20190,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1687118570}
   - {fileID: 1874815549}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -21235,7 +21373,6 @@ RectTransform:
   m_Children:
   - {fileID: 6235977093206215130}
   - {fileID: 543757403}
-  - {fileID: 1324546541}
   - {fileID: 1864685754}
   - {fileID: 1910488279}
   - {fileID: 25818184}
@@ -21471,7 +21608,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1874815548}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: aa5d2d0e966c5884c92e908f9ea260cc, type: 3}
   m_Name: 
@@ -22824,6 +22961,16 @@ MonoBehaviour:
   soilQuality: 0
   soilMoisture: 0
   soilSoftness: 0
+  Waterlogged: 0
+  WaterloggedCap: 0
+  seasonOutput: 
+  cycleOutput: 
+  weatherOutput: 
+  bugInfestation: 
+  seasonIndex: 0
+  cycleIndex: 0
+  weatherIndex: 0
+  bugIndex: 0
   isPlanted: 0
 --- !u!65 &2003658709
 BoxCollider:
@@ -25159,7 +25306,10 @@ SceneRoots:
   - {fileID: 1391361654}
   - {fileID: 1761073071}
   - {fileID: 471249782}
+  - {fileID: 1734288472}
+  - {fileID: 1687118570}
   - {fileID: 537871244}
   - {fileID: 1875772016}
   - {fileID: 1773070671}
   - {fileID: 29639082}
+  - {fileID: 1324546541}
