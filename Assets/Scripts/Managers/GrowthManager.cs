@@ -44,7 +44,11 @@ public class GrowthManager : MonoBehaviour
 
     [Header("Crop Mechanics")]
     [SerializeField] private bool Waterlogged;
-    [SerializeField] private float WaterloggedCap;
+    [SerializeField] private float WaterloggedMeter;
+    [SerializeField] private float WaterCooldown;
+    [SerializeField] private float WaterloggedMax;
+    [SerializeField] private float WaterFillUpRate;
+    [SerializeField] private GameObject Water;
 
     [Header("Seed Class")]
     [SerializeField] string seasonOutput;
@@ -64,6 +68,8 @@ public class GrowthManager : MonoBehaviour
 
     private void Start()
     {
+        Waterlogged = false;
+        Water.SetActive(false);
         disableSadParts();
     }
     void OnEnable()
@@ -79,6 +85,9 @@ public class GrowthManager : MonoBehaviour
 
     public void HandleTick()
     {
+
+        if (!isPlanted)
+            IsWaterLogged();
         // Don't calculate stuff if the plot is completely empty
         if (!isPlanted || currentSeed == null || plantSimulationInstance == null) return;
 
@@ -128,11 +137,16 @@ public class GrowthManager : MonoBehaviour
         CheckDay();
         CheckInfestation();
         CheckStats();
+        GetMogged();
         UpdatePlantSprite();
-
+        Debug.Log("Coming up on Waterlogged");
+       
+        Debug.Log("Passed Waterlogged");
         Debug.Log("Pickle  "+  plantSimulationInstance.stats.seasonalAffinities[seasonIndex]+ " "+ plantSimulationInstance.stats.weatherAffinities[weatherIndex]+ " "+ plantSimulationInstance.stats.cycleAffinities[cycleIndex]);
      
     }
+
+    //Add script to remove water log I guess
 
     // Tapping/clicking the plot to harvest
     void OnMouseDown()
@@ -198,7 +212,7 @@ public class GrowthManager : MonoBehaviour
     public void PlantSeed(SeedData data)
     {
         if (isPlanted || data == null) return;
-
+        if (Waterlogged) return;
         if (data.remainingSeedBags <= 0)
         {
             Debug.LogWarning($"[Out of Seeds] Can't plant anymore {data.cropName}! 0 bags remaining.");
@@ -422,13 +436,29 @@ public class GrowthManager : MonoBehaviour
         }
     }
 
-    public void WaterLogged()
+    public void IsWaterLogged()
     {
+        Debug.Log("Entered is waterlogged");
+        if (!TimeOfDayUI.isDrySeason)
+        {
+            Debug.Log("Adding To Waterlogged");
+            WaterloggedMeter += WaterFillUpRate;
+        }
 
+        if (WaterloggedMeter >= WaterloggedMax)
+        {
+            Water.SetActive(true);
+            Waterlogged = true;
+        }
+        Debug.Log("Water Logged Meter: " + WaterloggedMeter);
 
-
-
-
+    }
+    public void WaterClear()
+    {
+        Waterlogged = false;
+        WaterloggedMeter = 0;
+        WaterCooldown = 50;
+        Water.SetActive(false);
     }
 
     // Remove Bug Stats// Pesticide
@@ -455,7 +485,10 @@ public class GrowthManager : MonoBehaviour
     public void GetMogged()
     {
 
-             Debug.Log("Season: " + seasonOutput + " | Resistance: " + plantSimulationInstance.stats.seasonalAffinities[seasonIndex] + "\n"
+             Debug.Log(
+                 
+                      "LOOK!!!!!\n"+
+                     "Season: " + seasonOutput + " | Resistance: " + plantSimulationInstance.stats.seasonalAffinities[seasonIndex] + "\n"
                      + "Day: " + cycleOutput + " | Resistance: " + plantSimulationInstance.stats.cycleAffinities[cycleIndex] + "\n"
                      + "Weather Event: " + weatherOutput + " | Resistance: " + plantSimulationInstance.stats.weatherAffinities[weatherIndex] + "\n"
                      + "Infested: " + bugInfestation + " | Resistance: " + plantSimulationInstance.stats.bugResistances[bugIndex] + "\n"
@@ -467,7 +500,8 @@ public class GrowthManager : MonoBehaviour
                      + "Soil Moisture: " + plantSimulationInstance.soilMoisture + "\n"
                      + "Soil Softness: " + plantSimulationInstance.soilSoftness + "\n"
                      + "Harvest Quality: " + plantSimulationInstance.harvestQuality + "\n"
-                     + "Crop Yield: " + plantSimulationInstance.GetCropYield()
+                     + "Crop Yield: " + plantSimulationInstance.GetCropYield() + "\n"
+                     + "Is Water logged?" + Waterlogged 
                     );
 
     }

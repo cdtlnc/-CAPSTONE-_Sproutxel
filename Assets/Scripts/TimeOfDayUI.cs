@@ -22,6 +22,11 @@ public class TimeOfDayUI : MonoBehaviour
     [SerializeField] public Light thelight;
     [SerializeField] private Vector3 sunriseRotation = new Vector3(0f, 0f, 0f);
 
+    [Header("Set Colors")]
+    [SerializeField] private Color nightColorLight = new Color(1f, 0.5f, 0f);
+    [SerializeField] private Color dayColorLight = new Color(1f, 0.5f, 0f);
+    [SerializeField] private Color twilightColor = new Color(1f, 0.5f, 0f);
+
     // equal to timeCycleTickTimer * _TICK_TIMER_MAX in TickManager
     // timeCycleTickTimer = 2, _TICK_TIMER_MAX = 0.2 -> 2 * 0.2 = 0.4
     // If you change timeCycleTickTimer in TickManager, change this as well to match
@@ -31,6 +36,8 @@ public class TimeOfDayUI : MonoBehaviour
     private float currentTime; // stores time in minutes (0 - 1440) 0 = 12:00 AM, 720 = 12:00 PM
     private float daysPassed = 0;
 
+    [Header("Season Initialization")]
+    [SerializeField] public bool startWithDrySeason = true;
     public static bool isDrySeason { get; private set; } // This variable will be used to communicate to other scripts what season it is.
     public static bool isDay { get; private set; }       // This variable will be used to communicate to other scripts what time of day it is.
     private void UpdateLightRotation()
@@ -53,8 +60,8 @@ public class TimeOfDayUI : MonoBehaviour
     }
     private void Start()
     {
-        
-        isDrySeason = true; // THIS SETS THE SEASON TO DRY BY DEFAULT. IF YOU WANT THE LEVEL TO START IN WET SEASON, CHANGE THIS VALUE.
+        isDrySeason = startWithDrySeason;
+        // THIS SETS THE SEASON TO DRY BY DEFAULT. IF YOU WANT THE LEVEL TO START IN WET SEASON, CHANGE THIS VALUE.
         currentTime = startHour * 60f;
 
         UpdateLightRotation();
@@ -75,13 +82,14 @@ public class TimeOfDayUI : MonoBehaviour
         // Advance time by the fixed tick interval * scale
         currentTime += TICK_INTERVAL * timeScale;
         UpdateLightRotation();
+        UpdateLightColor();
         if (currentTime >= 1440f)
         {
             currentTime -= 1440f;
             daysPassed++;
 
         }
-
+       
         UpdateUI();
         
         if (daysPassed >= seasonTimer)
@@ -124,15 +132,32 @@ public class TimeOfDayUI : MonoBehaviour
         //Debug.Log($"{hours12}{(isPM ? "pm" : "am")}");
     }
 
-    public void setRainy()
-    { 
-    
-    }
+   
 
-
-    public void setSunny()
+    public void setDay()
     {
         
     }
+    public void setNight()
+    {
 
+    }
+    private void UpdateLightColor()
+    {
+        // Peaks at 1.0 during noon, drops to 0.0 at midnight
+        float lerpPercent = Mathf.Sin((currentTime / 1440f) * Mathf.PI);
+
+        if (lerpPercent > 0.5f)
+        {
+            // Upper half of the curve: Lerp between Twilight and Day
+            float segmentPercent = (lerpPercent - 0.5f) / 0.5f;
+            thelight.color = Color.Lerp(twilightColor, dayColorLight, segmentPercent);
+        }
+        else
+        {
+            // Lower half of the curve: Lerp between Night and Twilight
+            float segmentPercent = lerpPercent / 0.5f;
+            thelight.color = Color.Lerp(nightColorLight, twilightColor, segmentPercent);
+        }
+    }
 }

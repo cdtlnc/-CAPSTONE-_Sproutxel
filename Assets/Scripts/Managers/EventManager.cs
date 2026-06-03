@@ -1,4 +1,6 @@
+
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EventManager : MonoBehaviour
 {
@@ -26,6 +28,10 @@ public class EventManager : MonoBehaviour
     [Header("Weather Chances")]
     [SerializeField] private int _HeatWaveChance = 0;
     [SerializeField] private int _TyphoonChance = 0;
+
+    [Header("UI Weather Changes")]
+    [SerializeField] private Sprite[] weatherIcons;
+    [SerializeField] private Image weatherIcon;
 
     public static bool isInfested { get; private set; } = false; // This will communicate to other scripts whether or not a plant is infested
     public static int _weatherEvent { get; private set; } = 0;   // This will communicate to other scripts whether or not a typhoon or heat wave is occuring. 0 - Clear weather, 1 - Heat Wave, 2 - Typhoon
@@ -82,6 +88,15 @@ public class EventManager : MonoBehaviour
             CalcInfestationOdds();
             RollForBugInfestations();
         }
+        if (TimeOfDayUI.isDrySeason)
+        {
+            ChangeIcon(0);
+
+        }
+        else
+        {
+            ChangeIcon(1);
+        }
     }
 
     // Calculates the odds of each weather event depending on the season
@@ -94,8 +109,8 @@ public class EventManager : MonoBehaviour
         }
         else
         {
-            _weatherEventOdds[1] += _HeatWaveChance;
-            _weatherEventOdds[2] -= _TyphoonChance;
+            _weatherEventOdds[1] -= _HeatWaveChance;
+            _weatherEventOdds[2] += _TyphoonChance;
         }
 
         for (int i = 0; i < _weatherEventOdds.Length; i++)
@@ -138,12 +153,14 @@ public class EventManager : MonoBehaviour
             // Heat wave
             _weatherEvent = 1;
             Debug.Log($"Player rolled {roll}, triggering a heat wave!");
+            ChangeIcon(0);
         }
         else if (roll >= _weatherEventOdds[1] + 1 && roll <= _weatherEventOdds[1] + _weatherEventOdds[2])
         {
             // Typhoon
             _weatherEvent = 2;
             Debug.Log($"Player rolled {roll}, triggering a typhoon!");
+            ChangeIcon(1);
         }
         else if (roll >= _weatherEventOdds[1] + _weatherEventOdds[2] + 1 && roll <= _weatherEventOdds[1] + _weatherEventOdds[2] + _weatherEventOdds[0])
         {
@@ -170,6 +187,18 @@ public class EventManager : MonoBehaviour
         {
             isInfested = false;
             Debug.Log($"Player rolled {roll}, triggering no infestation!");
+        }
+    }
+
+    public void ChangeIcon(int change)
+    {
+        if (change == 0)
+        {
+            weatherIcon.sprite = weatherIcons[change];
+        }
+        else
+        {
+            weatherIcon.sprite = weatherIcons[change];
         }
     }
 }
