@@ -123,4 +123,16 @@ public class TimeOfDayUI : MonoBehaviour
 
         //Debug.Log($"{hours12}{(isPM ? "pm" : "am")}");
     }
+
+    public void setRainy()
+    { 
+    
+    }
+
+
+    public void setSunny()
+    {
+        
+    }
+
 }

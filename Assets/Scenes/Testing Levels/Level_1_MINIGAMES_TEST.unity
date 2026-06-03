@@ -15129,8 +15129,8 @@ MonoBehaviour:
   clockText: {fileID: 394468683}
   dayColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   nightColor: {r: 0.627451, g: 0.1254902, b: 0.9411765, a: 1}
-  timeScale: 10
-  startHour: 6
+  timeScale: 11
+  startHour: 18
   seasonTimer: 1
   thelight: {fileID: 410087040}
   sunriseRotation: {x: 0, y: 0, z: 0}
@@ -19017,12 +19017,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EventManager
   _weatherEventOdds: 000000002100000021000000
   _infestationOdds: 50
+  _infestationChances: 0
   _weatherDuration: 20
   _weatherCooldown: 10
   _infestationCooldown: 10
   _weatherDurationTimer: 0
   _weatherCooldownTimer: 0
   _infestationTimer: 0
+  _HeatWaveTimer: 0
+  _HeatWaveDuration: 0
+  _TyphoonDuration: 0
+  _TyphoonTimer: 0
+  _HeatWaveChance: 100
+  _TyphoonChance: 15
 --- !u!1 &1688668503
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,5 +1,6 @@
 #if UNITY_EDITOR
 using Unity.Android.Gradle.Manifest;
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEditor;
 using UnityEditor.EditorTools;
 
@@ -128,6 +129,8 @@ public class GrowthManager : MonoBehaviour
         CheckInfestation();
         CheckStats();
         UpdatePlantSprite();
+
+        Debug.Log("Pickle  "+  plantSimulationInstance.stats.seasonalAffinities[seasonIndex]+ " "+ plantSimulationInstance.stats.weatherAffinities[weatherIndex]+ " "+ plantSimulationInstance.stats.cycleAffinities[cycleIndex]);
      
     }
 

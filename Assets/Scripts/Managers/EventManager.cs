@@ -3,8 +3,10 @@ using UnityEngine;
 public class EventManager : MonoBehaviour
 {
     [Header("Base Event Odds")]
-    [SerializeField] private int[] _weatherEventOdds = new int[3]; // The odds of each weather event occuring. 0 - odds that a Heat Wave will happen, 1 - odds that a Typhoon will happen.
+    [SerializeField] private int[] _weatherEventOdds = new int[3]; // The odds of each weather event occuring. 1 - odds that a Heat Wave will happen, 2 - odds that a Typhoon will happen.
+    [Header("Infestation Chances")]
     [SerializeField] private int _infestationOdds; // The odds that a bug infestation will occur.
+    [SerializeField] private int _infestationChances; // 
 
 
     [Header("Weather Parameters")]
@@ -14,6 +16,16 @@ public class EventManager : MonoBehaviour
     [SerializeField] private int _weatherDurationTimer = 0;
     [SerializeField] private int _weatherCooldownTimer = 0;
     [SerializeField] private int _infestationTimer     = 0;
+
+    [Header("Weather Meters")]
+    [SerializeField] private int _HeatWaveTimer     = 0;
+    [SerializeField] private int _HeatWaveDuration     = 0;
+    [SerializeField] private int _TyphoonDuration     = 0;
+    [SerializeField] private int _TyphoonTimer     = 0;
+
+    [Header("Weather Chances")]
+    [SerializeField] private int _HeatWaveChance = 0;
+    [SerializeField] private int _TyphoonChance = 0;
 
     public static bool isInfested { get; private set; } = false; // This will communicate to other scripts whether or not a plant is infested
     public static int _weatherEvent { get; private set; } = 0;   // This will communicate to other scripts whether or not a typhoon or heat wave is occuring. 0 - Clear weather, 1 - Heat Wave, 2 - Typhoon
@@ -77,13 +89,13 @@ public class EventManager : MonoBehaviour
     {
         if (isDrySeason)
         {
-            _weatherEventOdds[1] += 15;
-            _weatherEventOdds[2] -= 15;  
+            _weatherEventOdds[1] += _HeatWaveChance;
+            _weatherEventOdds[2] -= _TyphoonChance;  
         }
         else
         {
-            _weatherEventOdds[1] -= 15;
-            _weatherEventOdds[2] += 15;
+            _weatherEventOdds[1] += _HeatWaveChance;
+            _weatherEventOdds[2] -= _TyphoonChance;
         }
 
         for (int i = 0; i < _weatherEventOdds.Length; i++)
@@ -98,10 +110,10 @@ public class EventManager : MonoBehaviour
         switch (_weatherEvent)
         {
             case 1:
-                _infestationOdds += 15;
+                _infestationOdds += _infestationChances;
                 break;
             case 2:
-                _infestationOdds -= 15;
+                _infestationOdds -= _infestationChances;
                 break;
         }
     }

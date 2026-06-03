@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using UnityEngine;
 
 [CreateAssetMenu(fileName="Plant Base", menuName = "Items/Plant Base")]
@@ -21,8 +22,12 @@ public class PlantBase : ScriptableObject
     //The x value represents the minimum amount, the y value represents the maximum.
 
     [Header("Resistances")]
+    [Description("Dry and Wet | 0 is Dry | 1 is Wet")]
     public float[] seasonalAffinities; // 0 - Dry, 1 - Wet
+    [Description("Clear, Heatwave and Typhoon | 0 is Clear | 1 is HeatWave | 2 is Typhoon")]
     public float[] weatherAffinities;  // 0 - Clear, 1 - Heat Wave, 2 - Typhoon
+    [Description("Day and Night | 0 is Day | 1 is Night")]
     public float[] cycleAffinities;    // 0 - Day, 1 - Night
+    [Description("Not Infested and Infested | 0 is Not | 1 is Is")]
     public float[] bugResistances;     // 0 - No bugs, 1 - Infested with bugs
 }
