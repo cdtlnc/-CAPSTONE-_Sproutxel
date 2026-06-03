@@ -3,6 +3,7 @@ using TMPro;
 
 public class GoalManager : MonoBehaviour
 {
+
     [Header("Goal Settings")]
     [SerializeField]  public string[] targetCropName; // e.g., "Corn"
     [SerializeField] public int targetGoal;

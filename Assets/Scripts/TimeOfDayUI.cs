@@ -25,7 +25,8 @@ public class TimeOfDayUI : MonoBehaviour
     // equal to timeCycleTickTimer * _TICK_TIMER_MAX in TickManager
     // timeCycleTickTimer = 2, _TICK_TIMER_MAX = 0.2 -> 2 * 0.2 = 0.4
     // If you change timeCycleTickTimer in TickManager, change this as well to match
-    private const float TICK_INTERVAL = 0.4f;
+    [Header("Tick Timer")]
+    [SerializeField] private float TICK_INTERVAL = 0.4f;
 
     private float currentTime; // stores time in minutes (0 - 1440) 0 = 12:00 AM, 720 = 12:00 PM
     private float daysPassed = 0;
@@ -65,7 +66,10 @@ public class TimeOfDayUI : MonoBehaviour
     {
         TickManager.OnTimeCycleTick -= TickManager_OnTimeCycleTick;
     }
-
+    public void GetTickSpeed(float tick_speed)
+    {
+        TICK_INTERVAL = tick_speed;
+    }
     private void TickManager_OnTimeCycleTick(object sender, TickManager.OnTickEventArgs e)
     {
         // Advance time by the fixed tick interval * scale
@@ -79,7 +83,7 @@ public class TimeOfDayUI : MonoBehaviour
         }
 
         UpdateUI();
-
+        
         if (daysPassed >= seasonTimer)
         {
             daysPassed = 0;
@@ -88,7 +92,7 @@ public class TimeOfDayUI : MonoBehaviour
 
         Debug.Log($"Current Time: {currentTime:0} | Days Passed: {daysPassed} | Dry Season? {isDrySeason}");
     }
-
+ 
     private void UpdateSeasons()
     {
         isDrySeason = !isDrySeason;
@@ -116,5 +120,7 @@ public class TimeOfDayUI : MonoBehaviour
             dayNightText.text = "Night";
             dayNightText.color = nightColor;
         }
+
+        Debug.Log($"{hours12}{(isPM ? "pm" : "am")}");
     }
 }

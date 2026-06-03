@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class TickManager : MonoBehaviour
 {
@@ -20,7 +21,7 @@ public class TickManager : MonoBehaviour
     [SerializeField] public int plantCalcTickTimer; // Set to happen every six ticks by default.
 
     [Header("Tick Speed")]
-    [SerializeField] private float _TICK_TIMER_MAX = 0.2f; // This decides when a tick happens. Right now it's set to 0.2,or 200ms. A whole number represents a second (i.e. 1 = 1 second).
+    [SerializeField] public float _TICK_TIMER_MAX = 0.2f; // This decides when a tick happens. Right now it's set to 0.2,or 200ms. A whole number represents a second (i.e. 1 = 1 second).
 
     private int _tick;
     private float _tickTimer;
@@ -28,6 +29,11 @@ public class TickManager : MonoBehaviour
     void Awake()
     {
         _tick = 0;
+    }
+    private void Start()
+    {
+        TimeOfDayUI time = GameObject.FindAnyObjectByType<TimeOfDayUI>();
+        time.GetTickSpeed(_TICK_TIMER_MAX);
     }
 
     // This counts the ticks that pass and triggers each tick event on the nth tick
