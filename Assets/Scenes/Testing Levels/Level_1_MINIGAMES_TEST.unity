@@ -583,7 +583,7 @@ MonoBehaviour:
   timeCycleTickTimer: 2
   eventTickTimer: 4
   plantCalcTickTimer: 6
-  _TICK_TIMER_MAX: 0.5
+  _TICK_TIMER_MAX: 0.2
 --- !u!1 &52961224
 GameObject:
   m_ObjectHideFlags: 0
@@ -3844,7 +3844,7 @@ MonoBehaviour:
   PlantSadFG: {fileID: 366418201}
   PlantSadBGTexture: {fileID: -519315468, guid: b3555b7d5edbf72409846ff8e1151499, type: 3}
   PlantSadFGTexture: {fileID: -655741604, guid: 0db34e1b950c11841924b1be12ff5dea, type: 3}
-  currentSeed: {fileID: 11400000, guid: 40555b2e89f72874f88f2ac70af9463e, type: 2}
+  currentSeed: {fileID: 11400000, guid: 8c922d3a85b7e8f42b8cfd32884e40c9, type: 2}
   currentStage: 0
   name: 
   cropHP: 0
@@ -15130,10 +15130,11 @@ MonoBehaviour:
   dayColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   nightColor: {r: 0.627451, g: 0.1254902, b: 0.9411765, a: 1}
   timeScale: 10
-  startHour: 11
+  startHour: 6
   seasonTimer: 1
   thelight: {fileID: 410087040}
   sunriseRotation: {x: 0, y: 0, z: 0}
+  TICK_INTERVAL: 0.4
 --- !u!1 &1325138742
 GameObject:
   m_ObjectHideFlags: 0

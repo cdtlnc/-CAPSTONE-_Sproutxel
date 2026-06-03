@@ -121,6 +121,6 @@ public class TimeOfDayUI : MonoBehaviour
             dayNightText.color = nightColor;
         }
 
-        Debug.Log($"{hours12}{(isPM ? "pm" : "am")}");
+        //Debug.Log($"{hours12}{(isPM ? "pm" : "am")}");
     }
 }

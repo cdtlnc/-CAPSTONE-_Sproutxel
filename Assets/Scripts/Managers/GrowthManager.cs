@@ -128,7 +128,7 @@ public class GrowthManager : MonoBehaviour
         CheckInfestation();
         CheckStats();
         UpdatePlantSprite();
-        GetMogged();
+     
     }
 
     // Tapping/clicking the plot to harvest
@@ -237,11 +237,14 @@ public class GrowthManager : MonoBehaviour
 
     private void UpdatePlantSprite()
     {
+        Debug.Log("Entered Plant Sprite Update");
         if (plantRenderer != null && currentSeed != null && currentSeed.growthStages != null && currentStage < currentSeed.growthStages.Length)
         {
+            Debug.Log("Entered Plant Sprite Update 1st PHASE");
             // Only swap the sprite if the slot isn't empty, otherwise keep whatever it's showing
             if (currentSeed.growthStages[currentStage] != null)
             {
+                Debug.Log("Entered Plant Sprite Update 2nd PHASE");
                 plantRenderer.sprite = currentSeed.growthStages[currentStage];
             }
         }
