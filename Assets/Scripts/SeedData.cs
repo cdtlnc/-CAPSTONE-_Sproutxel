@@ -21,7 +21,7 @@ public class SeedData : ScriptableObject
     [Tooltip("Drag the specific PlantBase scriptable object asset created by your classmate here.")]
     public PlantBase plantStatsTemplate;
 
-    [Header("Level Inventory Limits")]
+   [Header("Level Inventory Limits")]
     public int remainingSeedBags;
 
     [Header("Legacy/Fallback Settings")]

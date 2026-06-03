@@ -6,6 +6,11 @@ TagManager:
   tags:
   - Soil
   - PlantView
+  - Shovel
+  - Soil Tiller
+  - Soil Adder
+  - Fertilizer
+  - Pesticide
   layers:
   - Default
   - TransparentFX

@@ -5,6 +5,7 @@ using UnityEngine.UI;
 public class ItemManager : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
     [Header("Item")]
+    [SerializeField] public int maxPickTime;
     [SerializeField] public Sprite _itemSprite;
     [SerializeField] private Vector3 startPos;
     [SerializeField] private Transform originalParent;
@@ -18,6 +19,9 @@ public class ItemManager : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 
     public void OnBeginDrag(PointerEventData eventData)
     {
+
+        if (maxPickTime <= 0) return;
+
         startPos = transform.position;
         originalParent = transform.parent;
         transform.SetParent(GameObject.Find("GameplayCanvas").transform);
@@ -35,12 +39,41 @@ public class ItemManager : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
         Ray ray = Camera.main.ScreenPointToRay(eventData.position);
         if (Physics.Raycast(ray, out RaycastHit hit, 5000f))
         {
-            if (hit.collider.CompareTag("PlantView"))
+            if (hit.collider.CompareTag("Soil"))
             {
-                hit.collider.GetComponent<GrowthManager>().unBug() ;
+                switch (gameObject.tag)
+                {
+                    case "Soil Adder":
+                        hit.collider.GetComponent<GrowthManager>().WaterClear();
+                        break;
+
+                    case "Shovel":
+                        hit.collider.GetComponent<GrowthManager>().RemovePlant();
+                        break;
+
+                    case "Soil Tiller":
+                        hit.collider.GetComponent<GrowthManager>().RefreshPlot();
+                        break;
+
+                    case "Pesticide":
+                        hit.collider.GetComponent<GrowthManager>().unBug();
+                        break;
+
+                    case "Fertilizer":
+                        hit.collider.GetComponent<GrowthManager>().SuperCharge();
+                        break;
+
+                    default:
+                        break;
+                     
+                }
+                    
+               
+
             }
         }
         transform.SetParent(originalParent);
         transform.position = startPos;
+        maxPickTime--;
     }
 }

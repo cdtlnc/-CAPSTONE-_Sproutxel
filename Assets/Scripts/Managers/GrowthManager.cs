@@ -61,6 +61,12 @@ public class GrowthManager : MonoBehaviour
     [SerializeField] int weatherIndex;
     [SerializeField] int bugIndex;
 
+
+    [Header("Item Checker")]
+    [SerializeField] private bool isplantable;
+
+
+
     // Direct link to the math backend script
     public BasePlant plantSimulationInstance;
 
@@ -192,7 +198,8 @@ public class GrowthManager : MonoBehaviour
                     {
                         int yield = plantSimulationInstance.GetCropYield();
                         goalManager.AddCrop(currentSeed.cropName, yield);
-                        ResetPlot();
+                        IsNotPlantable(); //Used to make sure the soil tiller is used
+                        //ResetPlot();
                     }
                     else if (ui != null)
                     {
@@ -212,7 +219,7 @@ public class GrowthManager : MonoBehaviour
     public void PlantSeed(SeedData data)
     {
         if (isPlanted || data == null) return;
-        if (Waterlogged) return;
+        if (Waterlogged||!isplantable) return;
         if (data.remainingSeedBags <= 0)
         {
             Debug.LogWarning($"[Out of Seeds] Can't plant anymore {data.cropName}! 0 bags remaining.");
@@ -302,17 +309,15 @@ public class GrowthManager : MonoBehaviour
     }
     public void winMinigame()
     {
-        GoalManager goalManager = Object.FindFirstObjectByType<GoalManager>();
-        int yield = plantSimulationInstance.GetCropYield();
-        goalManager.AddCrop(currentSeed.cropName, yield);
-        ResetPlot();
+        SuperCharge();
+        IsNotPlantable(); //Used to make sure the soil tiller is used
     }
     public void LoseMinigame()
     {
         GoalManager goalManager = Object.FindFirstObjectByType<GoalManager>();
         int yield = plantSimulationInstance.GetCropYield();
         goalManager.AddCrop(currentSeed.cropName, yield / 2);
-        ResetPlot();
+        IsNotPlantable(); //Used to make sure the soil tiller is used
     }
 
     private void CheckStats()
@@ -464,22 +469,33 @@ public class GrowthManager : MonoBehaviour
     // Remove Bug Stats// Pesticide
     public void unBug()
     {
-
+        bugIndex = 0;
+        plantSimulationInstance.bugIndex = bugIndex;
     }
 
     //Remove Plants / Soil Tiller
 
     public void RefreshPlot()
     {
-
+        isplantable = true;
     }
-
+    public void IsNotPlantable()
+    {
+        isplantable = false;
+    }
+    public void RemovePlant()
+    {
+        ResetPlot();
+       RefreshPlot();
+    }
 
 
     //Fertilizer, Super Yield
     public void SuperCharge()
     {
-
+        GoalManager goalManager = Object.FindFirstObjectByType<GoalManager>();
+        int super_yield= plantSimulationInstance.GetMaxYield();
+        goalManager.AddCrop(currentSeed.cropName, super_yield);
     }
 
     public void GetMogged()

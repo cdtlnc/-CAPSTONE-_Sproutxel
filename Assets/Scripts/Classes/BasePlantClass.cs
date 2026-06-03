@@ -191,4 +191,12 @@ public class BasePlant
 
         return 0;
     }
+
+    public int GetMaxYield()
+    {
+        System.Random randomValue = new System.Random();
+        return randomValue.Next((int)stats.goodCropYield.x, (int)stats.goodCropYield.y);
+
+        return 0;
+    }
 }
