@@ -583,6 +583,144 @@ MonoBehaviour:
   timeCycleTickTimer: 2
   eventTickTimer: 4
   plantCalcTickTimer: 6
+  _TICK_TIMER_MAX: 0.2
+--- !u!1 &31742945
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 31742946}
+  - component: {fileID: 31742948}
+  - component: {fileID: 31742947}
+  m_Layer: 5
+  m_Name: Text (TMP)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &31742946
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 31742945}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 220016392}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &31742947
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 31742945}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: Change View
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: -1183493901
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 24
+  m_fontSizeBase: 24
+  m_fontWeight: 400
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 18
+  m_fontSizeMax: 72
+  m_fontStyle: 0
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 512
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_characterHorizontalScale: 1
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_TextWrappingMode: 1
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 0
+  m_ActiveFontFeatures: 6e72656b
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_EmojiFallbackSupport: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 0
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!222 &31742948
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 31742945}
+  m_CullTransparentMesh: 1
 --- !u!1 &43610026
 GameObject:
   m_ObjectHideFlags: 0
@@ -950,7 +1088,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -6193881494005093130, guid: ba0a27cd1a10697439b596e9265f93cc, type: 3}
+  - {fileID: 2100000, guid: 629bd9b87b27f974aac179ac2bd86595, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1028,6 +1166,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GrowthManager
   plantRenderer: {fileID: 170725173}
+  PlantSadBG: {fileID: 0}
+  PlantSadFG: {fileID: 0}
+  PlantSadBGTexture: {fileID: 0}
+  PlantSadFGTexture: {fileID: 0}
   currentSeed: {fileID: 11400000, guid: 40555b2e89f72874f88f2ac70af9463e, type: 2}
   currentStage: 0
   name: 
@@ -1038,6 +1180,21 @@ MonoBehaviour:
   soilQuality: 0
   soilMoisture: 0
   soilSoftness: 0
+  Waterlogged: 0
+  WaterloggedMeter: 0
+  WaterCooldown: 0
+  WaterloggedMax: 0
+  WaterFillUpRate: 0
+  Water: {fileID: 0}
+  seasonOutput: 
+  cycleOutput: 
+  weatherOutput: 
+  bugInfestation: 
+  seasonIndex: 0
+  cycleIndex: 0
+  weatherIndex: 0
+  bugIndex: 0
+  isplantable: 0
   isPlanted: 0
 --- !u!65 &66162019
 BoxCollider:
@@ -1746,7 +1903,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -6478536213147159724, guid: ba0a27cd1a10697439b596e9265f93cc, type: 3}
+  - {fileID: 2100000, guid: 4dfdbf50d86ccad4bb9966a98d76dd6d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1913,7 +2070,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -6478536213147159724, guid: ba0a27cd1a10697439b596e9265f93cc, type: 3}
+  - {fileID: 2100000, guid: 4dfdbf50d86ccad4bb9966a98d76dd6d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2752,6 +2909,139 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &220016391
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 220016392}
+  - component: {fileID: 220016395}
+  - component: {fileID: 220016394}
+  - component: {fileID: 220016393}
+  m_Layer: 5
+  m_Name: CameraViewButton
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &220016392
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 220016391}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 31742946}
+  m_Father: {fileID: 867878918}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 110, y: 100}
+  m_SizeDelta: {x: 120, y: 120}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &220016393
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 220016391}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Button
+  m_Navigation:
+    m_Mode: 3
+    m_WrapAround: 0
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 1
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 220016394}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1446726092}
+        m_TargetAssemblyTypeName: CameraViewController, Assembly-CSharp
+        m_MethodName: ToggleView
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &220016394
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 220016391}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 1
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &220016395
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 220016391}
+  m_CullTransparentMesh: 1
 --- !u!1 &224725582
 GameObject:
   m_ObjectHideFlags: 0
@@ -3717,6 +4007,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GrowthManager
   plantRenderer: {fileID: 1373530709}
+  PlantSadBG: {fileID: 0}
+  PlantSadFG: {fileID: 0}
+  PlantSadBGTexture: {fileID: 0}
+  PlantSadFGTexture: {fileID: 0}
   currentSeed: {fileID: 11400000, guid: 40555b2e89f72874f88f2ac70af9463e, type: 2}
   currentStage: 0
   name: 
@@ -3727,6 +4021,21 @@ MonoBehaviour:
   soilQuality: 0
   soilMoisture: 0
   soilSoftness: 0
+  Waterlogged: 0
+  WaterloggedMeter: 0
+  WaterCooldown: 0
+  WaterloggedMax: 0
+  WaterFillUpRate: 0
+  Water: {fileID: 0}
+  seasonOutput: 
+  cycleOutput: 
+  weatherOutput: 
+  bugInfestation: 
+  seasonIndex: 0
+  cycleIndex: 0
+  weatherIndex: 0
+  bugIndex: 0
+  isplantable: 0
   isPlanted: 0
 --- !u!1 &304643909
 GameObject:
@@ -4574,6 +4883,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GrowthManager
   plantRenderer: {fileID: 1443472864}
+  PlantSadBG: {fileID: 0}
+  PlantSadFG: {fileID: 0}
+  PlantSadBGTexture: {fileID: 0}
+  PlantSadFGTexture: {fileID: 0}
   currentSeed: {fileID: 11400000, guid: 40555b2e89f72874f88f2ac70af9463e, type: 2}
   currentStage: 0
   name: 
@@ -4584,6 +4897,21 @@ MonoBehaviour:
   soilQuality: 0
   soilMoisture: 0
   soilSoftness: 0
+  Waterlogged: 0
+  WaterloggedMeter: 0
+  WaterCooldown: 0
+  WaterloggedMax: 0
+  WaterFillUpRate: 0
+  Water: {fileID: 0}
+  seasonOutput: 
+  cycleOutput: 
+  weatherOutput: 
+  bugInfestation: 
+  seasonIndex: 0
+  cycleIndex: 0
+  weatherIndex: 0
+  bugIndex: 0
+  isplantable: 0
   isPlanted: 0
 --- !u!65 &324420285
 BoxCollider:
@@ -4883,7 +5211,8 @@ Transform:
   m_LocalPosition: {x: 12, y: 1335, z: -44}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 825677571}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 68.207, y: 0, z: 0}
 --- !u!114 &330585547
@@ -5218,7 +5547,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -6193881494005093130, guid: ba0a27cd1a10697439b596e9265f93cc, type: 3}
+  - {fileID: 2100000, guid: 629bd9b87b27f974aac179ac2bd86595, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -6506,7 +6835,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -6478536213147159724, guid: ba0a27cd1a10697439b596e9265f93cc, type: 3}
+  - {fileID: 2100000, guid: 4dfdbf50d86ccad4bb9966a98d76dd6d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -7547,6 +7876,15 @@ MonoBehaviour:
   anchorContainer: {fileID: 1634886760}
   lineContainer: {fileID: 1662031436}
   timerText: {fileID: 760326979}
+  _timeLeft: 0
+  _anchors: []
+  _nextAnchor: 0
+  _dragging: 0
+  _dragStart: {x: 0, y: 0}
+  _activeLine: {fileID: 0}
+  anchorcount: 0
+  lineTexture: {fileID: 0}
+  lineWidth: 20
 --- !u!1 &664902672
 GameObject:
   m_ObjectHideFlags: 0
@@ -8385,7 +8723,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -6193881494005093130, guid: ba0a27cd1a10697439b596e9265f93cc, type: 3}
+  - {fileID: 2100000, guid: 629bd9b87b27f974aac179ac2bd86595, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -8763,10 +9101,16 @@ MonoBehaviour:
   mistakeLimit: 3
   beatInterval: 1.2
   tapWindow: 0.35
+  XField: 0
+  YField: 0
+  bugList: []
   pestButton: {fileID: 571956481}
   beatIndicator: {fileID: 1323739867}
   mistakeText: {fileID: 496458505}
   pestCountText: {fileID: 186978912}
+  bugContainer: {fileID: 0}
+  bugSize: 0
+  bugSprite: []
 --- !u!1 &744830496
 GameObject:
   m_ObjectHideFlags: 0
@@ -8892,6 +9236,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GrowthManager
   plantRenderer: {fileID: 1146285767}
+  PlantSadBG: {fileID: 0}
+  PlantSadFG: {fileID: 0}
+  PlantSadBGTexture: {fileID: 0}
+  PlantSadFGTexture: {fileID: 0}
   currentSeed: {fileID: 11400000, guid: 40555b2e89f72874f88f2ac70af9463e, type: 2}
   currentStage: 0
   name: 
@@ -8902,6 +9250,21 @@ MonoBehaviour:
   soilQuality: 0
   soilMoisture: 0
   soilSoftness: 0
+  Waterlogged: 0
+  WaterloggedMeter: 0
+  WaterCooldown: 0
+  WaterloggedMax: 0
+  WaterFillUpRate: 0
+  Water: {fileID: 0}
+  seasonOutput: 
+  cycleOutput: 
+  weatherOutput: 
+  bugInfestation: 
+  seasonIndex: 0
+  cycleIndex: 0
+  weatherIndex: 0
+  bugIndex: 0
+  isplantable: 0
   isPlanted: 0
 --- !u!65 &744929351
 BoxCollider:
@@ -9518,6 +9881,13 @@ MonoBehaviour:
   itemContainer: {fileID: 877790269}
   timerText: {fileID: 1012842943}
   remainingText: {fileID: 503002947}
+  SoilTextures: []
+  TrashTextures: []
+  _timeLeft: 0
+  ItemSize: 0
+  XField: 0
+  YField: 0
+  _itemsLeft: 0
 --- !u!1 &825538074
 GameObject:
   m_ObjectHideFlags: 0
@@ -9554,6 +9924,126 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: -20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &825677568
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 825677571}
+  - component: {fileID: 825677570}
+  - component: {fileID: 825677569}
+  m_Layer: 31
+  m_Name: RainOverlay
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &825677569
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 825677568}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 394f1d6ebc964b8459080ab4fc2af238, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RainScript
+  rainFrames:
+  - {fileID: -1264415515, guid: 67918cd0787032242bbac465de5701a2, type: 3}
+  - {fileID: -303635688, guid: 67918cd0787032242bbac465de5701a2, type: 3}
+  - {fileID: -67172623, guid: 67918cd0787032242bbac465de5701a2, type: 3}
+  - {fileID: 880745224, guid: 67918cd0787032242bbac465de5701a2, type: 3}
+  - {fileID: -285131809, guid: f7461d8a75034ca4682bbd4c39b025e9, type: 3}
+  - {fileID: 192196047, guid: f7461d8a75034ca4682bbd4c39b025e9, type: 3}
+  - {fileID: -2050541977, guid: f7461d8a75034ca4682bbd4c39b025e9, type: 3}
+  - {fileID: -1279411719, guid: f7461d8a75034ca4682bbd4c39b025e9, type: 3}
+  - {fileID: 1000941632, guid: c881e3a20373acf42ad41c8c06c3b81b, type: 3}
+  - {fileID: 599105596, guid: c881e3a20373acf42ad41c8c06c3b81b, type: 3}
+  - {fileID: 192609082, guid: c881e3a20373acf42ad41c8c06c3b81b, type: 3}
+  - {fileID: 533542828, guid: c881e3a20373acf42ad41c8c06c3b81b, type: 3}
+  fps: 12
+  fadeSpeed: 2
+  maxAlpha: 0.7
+--- !u!212 &825677570
+SpriteRenderer:
+  serializedVersion: 2
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 825677568}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_MaskInteraction: 0
+  m_Sprite: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 1, y: 1}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 0
+  m_SpriteSortPoint: 0
+--- !u!4 &825677571
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 825677568}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.13052624, y: 0, z: 0, w: 0.9914449}
+  m_LocalPosition: {x: -15, y: 23, z: 64}
+  m_LocalScale: {x: 12, y: 19, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 330585546}
+  m_LocalEulerAnglesHint: {x: -15, y: 0, z: 0}
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
@@ -9752,6 +10242,7 @@ RectTransform:
   - {fileID: 271100273}
   - {fileID: 2023478793}
   - {fileID: 238465324}
+  - {fileID: 220016392}
   m_Father: {fileID: 897671143}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -9920,7 +10411,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -6478536213147159724, guid: ba0a27cd1a10697439b596e9265f93cc, type: 3}
+  - {fileID: 2100000, guid: 4dfdbf50d86ccad4bb9966a98d76dd6d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -12139,6 +12630,13 @@ MonoBehaviour:
   weedContainer: {fileID: 1919846099}
   timerText: {fileID: 235417989}
   plantTapText: {fileID: 1540657376}
+  plantExclusionRadius: 150
+  maxSpawnAttempts: 10
+  _weedsLeft: 0
+  _plantTaps: 0
+  _timeLeft: 0
+  WeedTexture: {fileID: 0}
+  exclusionVisualizer: {fileID: 0}
 --- !u!1 &1057066126
 GameObject:
   m_ObjectHideFlags: 0
@@ -12283,6 +12781,37 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a32b5c47298adaf40a2138f9be8955ca, type: 3}
+--- !u!1 &1084916782
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1084916783}
+  m_Layer: 0
+  m_Name: CameraFrontView
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1084916783
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1084916782}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.12546758, y: -0, z: -0, w: 0.99209774}
+  m_LocalPosition: {x: 167, y: 648, z: -1231}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 14.416, y: 0, z: 0}
 --- !u!1 &1088936834
 GameObject:
   m_ObjectHideFlags: 0
@@ -12343,7 +12872,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -6478536213147159724, guid: ba0a27cd1a10697439b596e9265f93cc, type: 3}
+  - {fileID: 2100000, guid: 4dfdbf50d86ccad4bb9966a98d76dd6d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -13067,7 +13596,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -6478536213147159724, guid: ba0a27cd1a10697439b596e9265f93cc, type: 3}
+  - {fileID: 2100000, guid: 4dfdbf50d86ccad4bb9966a98d76dd6d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -13596,7 +14125,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -6478536213147159724, guid: ba0a27cd1a10697439b596e9265f93cc, type: 3}
+  - {fileID: 2100000, guid: 4dfdbf50d86ccad4bb9966a98d76dd6d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -14213,6 +14742,12 @@ MonoBehaviour:
   startHour: 6
   seasonTimer: 1
   thelight: {fileID: 410087040}
+  sunriseRotation: {x: 0, y: 0, z: 0}
+  nightColorLight: {r: 1, g: 0.5, b: 0, a: 1}
+  dayColorLight: {r: 1, g: 0.5, b: 0, a: 1}
+  twilightColor: {r: 1, g: 0.5, b: 0, a: 1}
+  TICK_INTERVAL: 0.4
+  startWithDrySeason: 1
 --- !u!1 &1325138742
 GameObject:
   m_ObjectHideFlags: 0
@@ -14860,7 +15395,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -6193881494005093130, guid: ba0a27cd1a10697439b596e9265f93cc, type: 3}
+  - {fileID: 2100000, guid: 629bd9b87b27f974aac179ac2bd86595, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -15082,7 +15617,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -6193881494005093130, guid: ba0a27cd1a10697439b596e9265f93cc, type: 3}
+  - {fileID: 2100000, guid: 629bd9b87b27f974aac179ac2bd86595, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -15470,6 +16005,55 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1446726091
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1446726093}
+  - component: {fileID: 1446726092}
+  m_Layer: 0
+  m_Name: CameraManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1446726092
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1446726091}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31bf9ce857b2a5f4b86b86f7f4fbedd4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CameraViewController
+  mainCamera: {fileID: 330585545}
+  frontView: {fileID: 1084916783}
+  topView: {fileID: 1514240333}
+  moveSpeed: 2
+  isTopView: 0
+--- !u!4 &1446726093
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1446726091}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -92.57777, y: 34.18698, z: 30.5953}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1447012868
 GameObject:
   m_ObjectHideFlags: 0
@@ -15967,6 +16551,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GrowthManager
   plantRenderer: {fileID: 1381387037}
+  PlantSadBG: {fileID: 0}
+  PlantSadFG: {fileID: 0}
+  PlantSadBGTexture: {fileID: 0}
+  PlantSadFGTexture: {fileID: 0}
   currentSeed: {fileID: 11400000, guid: 40555b2e89f72874f88f2ac70af9463e, type: 2}
   currentStage: 0
   name: 
@@ -15977,6 +16565,21 @@ MonoBehaviour:
   soilQuality: 0
   soilMoisture: 0
   soilSoftness: 0
+  Waterlogged: 0
+  WaterloggedMeter: 0
+  WaterCooldown: 0
+  WaterloggedMax: 0
+  WaterFillUpRate: 0
+  Water: {fileID: 0}
+  seasonOutput: 
+  cycleOutput: 
+  weatherOutput: 
+  bugInfestation: 
+  seasonIndex: 0
+  cycleIndex: 0
+  weatherIndex: 0
+  bugIndex: 0
+  isplantable: 0
   isPlanted: 0
 --- !u!65 &1509816700
 BoxCollider:
@@ -15999,6 +16602,37 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &1514240332
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1514240333}
+  m_Layer: 0
+  m_Name: CamerTopView
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1514240333
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1514240332}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 60, y: 1772, z: 593}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!1 &1516693858
 GameObject:
   m_ObjectHideFlags: 0
@@ -16602,6 +17236,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GrowthManager
   plantRenderer: {fileID: 43610028}
+  PlantSadBG: {fileID: 0}
+  PlantSadFG: {fileID: 0}
+  PlantSadBGTexture: {fileID: 0}
+  PlantSadFGTexture: {fileID: 0}
   currentSeed: {fileID: 11400000, guid: 40555b2e89f72874f88f2ac70af9463e, type: 2}
   currentStage: 0
   name: 
@@ -16612,6 +17250,21 @@ MonoBehaviour:
   soilQuality: 0
   soilMoisture: 0
   soilSoftness: 0
+  Waterlogged: 0
+  WaterloggedMeter: 0
+  WaterCooldown: 0
+  WaterloggedMax: 0
+  WaterFillUpRate: 0
+  Water: {fileID: 0}
+  seasonOutput: 
+  cycleOutput: 
+  weatherOutput: 
+  bugInfestation: 
+  seasonIndex: 0
+  cycleIndex: 0
+  weatherIndex: 0
+  bugIndex: 0
+  isplantable: 0
   isPlanted: 0
 --- !u!65 &1545167998
 BoxCollider:
@@ -16680,6 +17333,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GrowthManager
   plantRenderer: {fileID: 1606585786}
+  PlantSadBG: {fileID: 0}
+  PlantSadFG: {fileID: 0}
+  PlantSadBGTexture: {fileID: 0}
+  PlantSadFGTexture: {fileID: 0}
   currentSeed: {fileID: 11400000, guid: 40555b2e89f72874f88f2ac70af9463e, type: 2}
   currentStage: 0
   name: 
@@ -16690,6 +17347,21 @@ MonoBehaviour:
   soilQuality: 0
   soilMoisture: 0
   soilSoftness: 0
+  Waterlogged: 0
+  WaterloggedMeter: 0
+  WaterCooldown: 0
+  WaterloggedMax: 0
+  WaterFillUpRate: 0
+  Water: {fileID: 0}
+  seasonOutput: 
+  cycleOutput: 
+  weatherOutput: 
+  bugInfestation: 
+  seasonIndex: 0
+  cycleIndex: 0
+  weatherIndex: 0
+  bugIndex: 0
+  isplantable: 0
   isPlanted: 0
 --- !u!65 &1563007837
 BoxCollider:
@@ -17537,6 +18209,9 @@ MonoBehaviour:
   promptTimerBar: {fileID: 2084608053}
   overallTimerText: {fileID: 322551976}
   progressText: {fileID: 406314480}
+  soilplot: []
+  soilStatus: 0
+  soilImage: {fileID: 0}
 --- !u!1 &1626584078
 GameObject:
   m_ObjectHideFlags: 0
@@ -17774,7 +18449,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -6193881494005093130, guid: ba0a27cd1a10697439b596e9265f93cc, type: 3}
+  - {fileID: 2100000, guid: 629bd9b87b27f974aac179ac2bd86595, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -17942,6 +18617,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EventManager
   _weatherEventOdds: 000000002100000021000000
   _infestationOdds: 50
+  _infestationChances: 0
+  _weatherDuration: 20
+  _weatherCooldown: 10
+  _infestationCooldown: 10
+  _weatherDurationTimer: 0
+  _weatherCooldownTimer: 0
+  _infestationTimer: 0
+  _HeatWaveTimer: 0
+  _HeatWaveDuration: 0
+  _TyphoonDuration: 0
+  _TyphoonTimer: 0
+  _HeatWaveChance: 0
+  _TyphoonChance: 0
+  weatherIcons: []
+  weatherIcon: {fileID: 0}
 --- !u!1 &1688668503
 GameObject:
   m_ObjectHideFlags: 0
@@ -18139,7 +18829,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -6478536213147159724, guid: ba0a27cd1a10697439b596e9265f93cc, type: 3}
+  - {fileID: 2100000, guid: 4dfdbf50d86ccad4bb9966a98d76dd6d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -18322,7 +19012,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -6193881494005093130, guid: ba0a27cd1a10697439b596e9265f93cc, type: 3}
+  - {fileID: 2100000, guid: 629bd9b87b27f974aac179ac2bd86595, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -18414,7 +19104,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -6193881494005093130, guid: ba0a27cd1a10697439b596e9265f93cc, type: 3}
+  - {fileID: 2100000, guid: 629bd9b87b27f974aac179ac2bd86595, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -19640,6 +20330,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 347e69891236e3f40bb9ba088a006e1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlantViewDrop
+  Watering: {fileID: 0}
+  SoilEnrichment: {fileID: 0}
+  PestControl: {fileID: 0}
+  Structural_support: {fileID: 0}
+  Weed_Manager: {fileID: 0}
+  Netting: {fileID: 0}
+  WateringScript: {fileID: 0}
+  WeedScript: {fileID: 0}
+  NettingScript: {fileID: 0}
+  StructScript: {fileID: 0}
+  SoilScript: {fileID: 0}
+  pestScript: {fileID: 0}
 --- !u!4 &1776315470 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: a32b5c47298adaf40a2138f9be8955ca, type: 3}
@@ -19828,6 +20530,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GrowthManager
   plantRenderer: {fileID: 1711344816}
+  PlantSadBG: {fileID: 0}
+  PlantSadFG: {fileID: 0}
+  PlantSadBGTexture: {fileID: 0}
+  PlantSadFGTexture: {fileID: 0}
   currentSeed: {fileID: 11400000, guid: 40555b2e89f72874f88f2ac70af9463e, type: 2}
   currentStage: 0
   name: 
@@ -19838,6 +20544,21 @@ MonoBehaviour:
   soilQuality: 0
   soilMoisture: 0
   soilSoftness: 0
+  Waterlogged: 0
+  WaterloggedMeter: 0
+  WaterCooldown: 0
+  WaterloggedMax: 0
+  WaterFillUpRate: 0
+  Water: {fileID: 0}
+  seasonOutput: 
+  cycleOutput: 
+  weatherOutput: 
+  bugInfestation: 
+  seasonIndex: 0
+  cycleIndex: 0
+  weatherIndex: 0
+  bugIndex: 0
+  isplantable: 0
   isPlanted: 0
 --- !u!65 &1827505730
 BoxCollider:
@@ -20508,6 +21229,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GrowthManager
   plantRenderer: {fileID: 321145381}
+  PlantSadBG: {fileID: 0}
+  PlantSadFG: {fileID: 0}
+  PlantSadBGTexture: {fileID: 0}
+  PlantSadFGTexture: {fileID: 0}
   currentSeed: {fileID: 11400000, guid: 40555b2e89f72874f88f2ac70af9463e, type: 2}
   currentStage: 0
   name: 
@@ -20518,6 +21243,21 @@ MonoBehaviour:
   soilQuality: 0
   soilMoisture: 0
   soilSoftness: 0
+  Waterlogged: 0
+  WaterloggedMeter: 0
+  WaterCooldown: 0
+  WaterloggedMax: 0
+  WaterFillUpRate: 0
+  Water: {fileID: 0}
+  seasonOutput: 
+  cycleOutput: 
+  weatherOutput: 
+  bugInfestation: 
+  seasonIndex: 0
+  cycleIndex: 0
+  weatherIndex: 0
+  bugIndex: 0
+  isplantable: 0
   isPlanted: 0
 --- !u!65 &1861229312
 BoxCollider:
@@ -20600,7 +21340,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -6478536213147159724, guid: ba0a27cd1a10697439b596e9265f93cc, type: 3}
+  - {fileID: 2100000, guid: 4dfdbf50d86ccad4bb9966a98d76dd6d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -21179,6 +21919,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GrowthManager
   plantRenderer: {fileID: 248936938}
+  PlantSadBG: {fileID: 0}
+  PlantSadFG: {fileID: 0}
+  PlantSadBGTexture: {fileID: 0}
+  PlantSadFGTexture: {fileID: 0}
   currentSeed: {fileID: 11400000, guid: 40555b2e89f72874f88f2ac70af9463e, type: 2}
   currentStage: 0
   name: 
@@ -21189,6 +21933,21 @@ MonoBehaviour:
   soilQuality: 0
   soilMoisture: 0
   soilSoftness: 0
+  Waterlogged: 0
+  WaterloggedMeter: 0
+  WaterCooldown: 0
+  WaterloggedMax: 0
+  WaterFillUpRate: 0
+  Water: {fileID: 0}
+  seasonOutput: 
+  cycleOutput: 
+  weatherOutput: 
+  bugInfestation: 
+  seasonIndex: 0
+  cycleIndex: 0
+  weatherIndex: 0
+  bugIndex: 0
+  isplantable: 0
   isPlanted: 0
 --- !u!65 &1909653010
 BoxCollider:
@@ -21642,6 +22401,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GrowthManager
   plantRenderer: {fileID: 943115815}
+  PlantSadBG: {fileID: 0}
+  PlantSadFG: {fileID: 0}
+  PlantSadBGTexture: {fileID: 0}
+  PlantSadFGTexture: {fileID: 0}
   currentSeed: {fileID: 11400000, guid: 40555b2e89f72874f88f2ac70af9463e, type: 2}
   currentStage: 0
   name: 
@@ -21652,6 +22415,21 @@ MonoBehaviour:
   soilQuality: 0
   soilMoisture: 0
   soilSoftness: 0
+  Waterlogged: 0
+  WaterloggedMeter: 0
+  WaterCooldown: 0
+  WaterloggedMax: 0
+  WaterFillUpRate: 0
+  Water: {fileID: 0}
+  seasonOutput: 
+  cycleOutput: 
+  weatherOutput: 
+  bugInfestation: 
+  seasonIndex: 0
+  cycleIndex: 0
+  weatherIndex: 0
+  bugIndex: 0
+  isplantable: 0
   isPlanted: 0
 --- !u!65 &1976281918
 BoxCollider:
@@ -21983,6 +22761,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GrowthManager
   plantRenderer: {fileID: 198957759}
+  PlantSadBG: {fileID: 0}
+  PlantSadFG: {fileID: 0}
+  PlantSadBGTexture: {fileID: 0}
+  PlantSadFGTexture: {fileID: 0}
   currentSeed: {fileID: 11400000, guid: 40555b2e89f72874f88f2ac70af9463e, type: 2}
   currentStage: 0
   name: 
@@ -21993,6 +22775,21 @@ MonoBehaviour:
   soilQuality: 0
   soilMoisture: 0
   soilSoftness: 0
+  Waterlogged: 0
+  WaterloggedMeter: 0
+  WaterCooldown: 0
+  WaterloggedMax: 0
+  WaterFillUpRate: 0
+  Water: {fileID: 0}
+  seasonOutput: 
+  cycleOutput: 
+  weatherOutput: 
+  bugInfestation: 
+  seasonIndex: 0
+  cycleIndex: 0
+  weatherIndex: 0
+  bugIndex: 0
+  isplantable: 0
   isPlanted: 0
 --- !u!65 &2001370076
 BoxCollider:
@@ -22341,6 +23138,8 @@ MonoBehaviour:
   soilMoistureSlider: {fileID: 1450079953}
   soilSoftness: 0
   soilSoftnessSlider: {fileID: 173038500}
+  enStart: 0
+  dropHandler: {fileID: 0}
 --- !u!1 &2040955594
 GameObject:
   m_ObjectHideFlags: 0
@@ -22401,7 +23200,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -6193881494005093130, guid: ba0a27cd1a10697439b596e9265f93cc, type: 3}
+  - {fileID: 2100000, guid: 629bd9b87b27f974aac179ac2bd86595, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -22493,7 +23292,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -6478536213147159724, guid: ba0a27cd1a10697439b596e9265f93cc, type: 3}
+  - {fileID: 2100000, guid: 4dfdbf50d86ccad4bb9966a98d76dd6d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -22654,7 +23453,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -6478536213147159724, guid: ba0a27cd1a10697439b596e9265f93cc, type: 3}
+  - {fileID: 2100000, guid: 4dfdbf50d86ccad4bb9966a98d76dd6d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -23139,7 +23938,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -6193881494005093130, guid: ba0a27cd1a10697439b596e9265f93cc, type: 3}
+  - {fileID: 2100000, guid: 629bd9b87b27f974aac179ac2bd86595, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -23268,7 +24067,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -6193881494005093130, guid: ba0a27cd1a10697439b596e9265f93cc, type: 3}
+  - {fileID: 2100000, guid: 629bd9b87b27f974aac179ac2bd86595, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -23714,7 +24513,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -6193881494005093130, guid: ba0a27cd1a10697439b596e9265f93cc, type: 3}
+  - {fileID: 2100000, guid: 629bd9b87b27f974aac179ac2bd86595, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -23808,7 +24607,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -6478536213147159724, guid: ba0a27cd1a10697439b596e9265f93cc, type: 3}
+  - {fileID: 2100000, guid: 4dfdbf50d86ccad4bb9966a98d76dd6d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -23986,3 +24785,6 @@ SceneRoots:
   - {fileID: 558465134}
   - {fileID: 537871244}
   - {fileID: 1875772016}
+  - {fileID: 1084916783}
+  - {fileID: 1514240333}
+  - {fileID: 1446726093}

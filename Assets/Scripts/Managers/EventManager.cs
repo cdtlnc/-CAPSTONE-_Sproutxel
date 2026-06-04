@@ -45,6 +45,9 @@ public class EventManager : MonoBehaviour
         };
 
         TickManager.OnEventTick += TickManager_OnEventTick;
+
+        // FORCE RAIN EVENT TO TEST, REMOVE
+        _weatherEvent = 2;
     }
 
     // Everything in this function occurs on an "Event Tick"
