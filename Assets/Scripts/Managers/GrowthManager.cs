@@ -143,13 +143,17 @@ public class GrowthManager : MonoBehaviour
         CheckDay();
         CheckInfestation();
         CheckStats();
+
+        // LINE ADDED HERE: Run real-time condition evaluation checks
+        EvaluatePlotHealth();
+
         GetMogged();
         UpdatePlantSprite();
         Debug.Log("Coming up on Waterlogged");
-       
+
         Debug.Log("Passed Waterlogged");
-        Debug.Log("Pickle  "+  plantSimulationInstance.stats.seasonalAffinities[seasonIndex]+ " "+ plantSimulationInstance.stats.weatherAffinities[weatherIndex]+ " "+ plantSimulationInstance.stats.cycleAffinities[cycleIndex]);
-     
+        Debug.Log("Pickle  " + plantSimulationInstance.stats.seasonalAffinities[seasonIndex] + " " + plantSimulationInstance.stats.weatherAffinities[weatherIndex] + " " + plantSimulationInstance.stats.cycleAffinities[cycleIndex]);
+
     }
 
     //Add script to remove water log I guess
@@ -219,7 +223,7 @@ public class GrowthManager : MonoBehaviour
     public void PlantSeed(SeedData data)
     {
         if (isPlanted || data == null) return;
-        if (Waterlogged||!isplantable) return;
+        if (Waterlogged || !isplantable) return;
         if (data.remainingSeedBags <= 0)
         {
             Debug.LogWarning($"[Out of Seeds] Can't plant anymore {data.cropName}! 0 bags remaining.");
@@ -358,6 +362,27 @@ public class GrowthManager : MonoBehaviour
             hasNoBadStats = true;
         }
     }
+
+    /// <summary>
+    /// Evaluates structural crop health conditions and handles targeted degradation logic.
+    /// </summary>
+    public void EvaluatePlotHealth()
+    {
+        if (plantSimulationInstance == null) return;
+
+        // Check discrete plot parameters
+        bool isThirsty = plantSimulationInstance.soilMoisture < 2.0f;
+        bool isDrowning = Waterlogged;
+        bool isInfested = bugInfestation == "INFESTEDDD";
+
+        // Apply health breakdown modifications if environments are compromised
+        if (isThirsty || isDrowning || isInfested)
+        {
+            hasNoBadStats = false;
+            plantSimulationInstance.cropHP -= 0.5f; // Apply active tick damage penalty
+        }
+    }
+
     private void disableSadParts()
     {
         PlantSadBG.color = new Color(1f, 1f, 1f, 0f);
@@ -486,7 +511,7 @@ public class GrowthManager : MonoBehaviour
     public void RemovePlant()
     {
         ResetPlot();
-       RefreshPlot();
+        RefreshPlot();
     }
 
 
@@ -494,31 +519,31 @@ public class GrowthManager : MonoBehaviour
     public void SuperCharge()
     {
         GoalManager goalManager = Object.FindFirstObjectByType<GoalManager>();
-        int super_yield= plantSimulationInstance.GetMaxYield();
+        int super_yield = plantSimulationInstance.GetMaxYield();
         goalManager.AddCrop(currentSeed.cropName, super_yield);
     }
 
     public void GetMogged()
     {
 
-             Debug.Log(
-                 
-                      "LOOK!!!!!\n"+
-                     "Season: " + seasonOutput + " | Resistance: " + plantSimulationInstance.stats.seasonalAffinities[seasonIndex] + "\n"
-                     + "Day: " + cycleOutput + " | Resistance: " + plantSimulationInstance.stats.cycleAffinities[cycleIndex] + "\n"
-                     + "Weather Event: " + weatherOutput + " | Resistance: " + plantSimulationInstance.stats.weatherAffinities[weatherIndex] + "\n"
-                     + "Infested: " + bugInfestation + " | Resistance: " + plantSimulationInstance.stats.bugResistances[bugIndex] + "\n"
+        Debug.Log(
 
-                     + "Crop HP: " + plantSimulationInstance.cropHP + "\n"
-                     + "Crop Moisture: " + plantSimulationInstance.cropMoisture + "\n"
-                     + "Crop Growth: " + plantSimulationInstance.cropGrowth + "\n"
-                     + "Soil Quality: " + plantSimulationInstance.soilQuality + "\n"
-                     + "Soil Moisture: " + plantSimulationInstance.soilMoisture + "\n"
-                     + "Soil Softness: " + plantSimulationInstance.soilSoftness + "\n"
-                     + "Harvest Quality: " + plantSimulationInstance.harvestQuality + "\n"
-                     + "Crop Yield: " + plantSimulationInstance.GetCropYield() + "\n"
-                     + "Is Water logged?" + Waterlogged 
-                    );
+                 "LOOK!!!!!\n" +
+                "Season: " + seasonOutput + " | Resistance: " + plantSimulationInstance.stats.seasonalAffinities[seasonIndex] + "\n"
+                + "Day: " + cycleOutput + " | Resistance: " + plantSimulationInstance.stats.cycleAffinities[cycleIndex] + "\n"
+                + "Weather Event: " + weatherOutput + " | Resistance: " + plantSimulationInstance.stats.weatherAffinities[weatherIndex] + "\n"
+                + "Infested: " + bugInfestation + " | Resistance: " + plantSimulationInstance.stats.bugResistances[bugIndex] + "\n"
+
+                + "Crop HP: " + plantSimulationInstance.cropHP + "\n"
+                + "Crop Moisture: " + plantSimulationInstance.cropMoisture + "\n"
+                + "Crop Growth: " + plantSimulationInstance.cropGrowth + "\n"
+                + "Soil Quality: " + plantSimulationInstance.soilQuality + "\n"
+                + "Soil Moisture: " + plantSimulationInstance.soilMoisture + "\n"
+                + "Soil Softness: " + plantSimulationInstance.soilSoftness + "\n"
+                + "Harvest Quality: " + plantSimulationInstance.harvestQuality + "\n"
+                + "Crop Yield: " + plantSimulationInstance.GetCropYield() + "\n"
+                + "Is Water logged?" + Waterlogged
+               );
 
     }
 }

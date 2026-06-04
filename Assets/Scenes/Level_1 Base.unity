@@ -466,6 +466,7 @@ MonoBehaviour:
   timeCycleTickTimer: 2
   eventTickTimer: 4
   plantCalcTickTimer: 6
+  _TICK_TIMER_MAX: 0.2
 --- !u!1 &43610026
 GameObject:
   m_ObjectHideFlags: 0
@@ -911,9 +912,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GrowthManager
   plantRenderer: {fileID: 170725173}
-  currentSeed: {fileID: 11400000, guid: 40555b2e89f72874f88f2ac70af9463e, type: 2}
+  PlantSadBG: {fileID: 0}
+  PlantSadFG: {fileID: 0}
+  PlantSadBGTexture: {fileID: 0}
+  PlantSadFGTexture: {fileID: 0}
+  currentSeed: {fileID: 0}
   currentStage: 0
-  ticksElapsed: 0
+  name: 
+  cropHP: 0
+  wonMinigame: 0
+  hasNoBadStats: 0
+  cropMoisture: 0
+  soilQuality: 0
+  soilMoisture: 0
+  soilSoftness: 0
+  Waterlogged: 0
+  WaterloggedCap: 0
   isPlanted: 0
 --- !u!65 &66162019
 BoxCollider:
@@ -2137,6 +2151,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MaintenencePopUp
   panels: {fileID: 124893633}
   cam: {fileID: 0}
+  name: 
+  nameText: {fileID: 0}
+  cropHP: 0
+  hpSlider: {fileID: 0}
+  plantSprite: {fileID: 0}
+  plantSpriteShower: {fileID: 0}
+  cropMoisture: 0
+  cropMoisterSlider: {fileID: 0}
+  soilQuality: 0
+  soilQualitySlider: {fileID: 0}
+  soilMoisture: 0
+  soilMoistureSlider: {fileID: 0}
+  soilSoftness: 0
+  soilSoftnessSlider: {fileID: 0}
+  enStart: 0
+  dropHandler: {fileID: 0}
 --- !u!1 &240204919
 GameObject:
   m_ObjectHideFlags: 0
@@ -2706,9 +2736,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GrowthManager
   plantRenderer: {fileID: 1373530709}
-  currentSeed: {fileID: 11400000, guid: 40555b2e89f72874f88f2ac70af9463e, type: 2}
+  PlantSadBG: {fileID: 0}
+  PlantSadFG: {fileID: 0}
+  PlantSadBGTexture: {fileID: 0}
+  PlantSadFGTexture: {fileID: 0}
+  currentSeed: {fileID: 0}
   currentStage: 0
-  ticksElapsed: 0
+  name: 
+  cropHP: 0
+  wonMinigame: 0
+  hasNoBadStats: 0
+  cropMoisture: 0
+  soilQuality: 0
+  soilMoisture: 0
+  soilSoftness: 0
+  Waterlogged: 0
+  WaterloggedCap: 0
   isPlanted: 0
 --- !u!1 &304643909
 GameObject:
@@ -2984,9 +3027,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GrowthManager
   plantRenderer: {fileID: 1443472864}
-  currentSeed: {fileID: 11400000, guid: 40555b2e89f72874f88f2ac70af9463e, type: 2}
+  PlantSadBG: {fileID: 0}
+  PlantSadFG: {fileID: 0}
+  PlantSadBGTexture: {fileID: 0}
+  PlantSadFGTexture: {fileID: 0}
+  currentSeed: {fileID: 0}
   currentStage: 0
-  ticksElapsed: 0
+  name: 
+  cropHP: 0
+  wonMinigame: 0
+  hasNoBadStats: 0
+  cropMoisture: 0
+  soilQuality: 0
+  soilMoisture: 0
+  soilSoftness: 0
+  Waterlogged: 0
+  WaterloggedCap: 0
   isPlanted: 0
 --- !u!65 &324420285
 BoxCollider:
@@ -3993,6 +4049,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1855976203}
     m_Modifications:
+    - target: {fileID: 450728729853942898, guid: fc15296a40300954f81e7074c66aa685, type: 3}
+      propertyPath: m_Type
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 450728729853942898, guid: fc15296a40300954f81e7074c66aa685, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 9461da9867dce744f87b9332443c020d, type: 3}
     - target: {fileID: 620712570646041620, guid: fc15296a40300954f81e7074c66aa685, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -4017,6 +4081,22 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3343342448107203838, guid: fc15296a40300954f81e7074c66aa685, type: 3}
+      propertyPath: m_Type
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3343342448107203838, guid: fc15296a40300954f81e7074c66aa685, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 9461da9867dce744f87b9332443c020d, type: 3}
+    - target: {fileID: 4079659743317022441, guid: fc15296a40300954f81e7074c66aa685, type: 3}
+      propertyPath: m_Type
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4079659743317022441, guid: fc15296a40300954f81e7074c66aa685, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 9461da9867dce744f87b9332443c020d, type: 3}
     - target: {fileID: 4188515973166208245, guid: fc15296a40300954f81e7074c66aa685, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -4041,6 +4121,14 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4461983643657614735, guid: fc15296a40300954f81e7074c66aa685, type: 3}
+      propertyPath: m_Type
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4461983643657614735, guid: fc15296a40300954f81e7074c66aa685, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 9461da9867dce744f87b9332443c020d, type: 3}
     - target: {fileID: 4465768038645926355, guid: fc15296a40300954f81e7074c66aa685, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -4066,17 +4154,33 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4756162119656748410, guid: fc15296a40300954f81e7074c66aa685, type: 3}
-      propertyPath: m_Color.b
+      propertyPath: m_Type
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4756162119656748410, guid: fc15296a40300954f81e7074c66aa685, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 9461da9867dce744f87b9332443c020d, type: 3}
+    - target: {fileID: 4756162119656748410, guid: fc15296a40300954f81e7074c66aa685, type: 3}
+      propertyPath: m_Color.b
+      value: 0.39648986
       objectReference: {fileID: 0}
     - target: {fileID: 4756162119656748410, guid: fc15296a40300954f81e7074c66aa685, type: 3}
       propertyPath: m_Color.g
-      value: 0
+      value: 0.6389789
       objectReference: {fileID: 0}
     - target: {fileID: 4756162119656748410, guid: fc15296a40300954f81e7074c66aa685, type: 3}
       propertyPath: m_Color.r
+      value: 0.8792453
+      objectReference: {fileID: 0}
+    - target: {fileID: 5417661614339752269, guid: fc15296a40300954f81e7074c66aa685, type: 3}
+      propertyPath: m_Type
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5417661614339752269, guid: fc15296a40300954f81e7074c66aa685, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 9461da9867dce744f87b9332443c020d, type: 3}
     - target: {fileID: 5887362059530603643, guid: fc15296a40300954f81e7074c66aa685, type: 3}
       propertyPath: m_Name
       value: SeedHotbar (1)
@@ -4221,6 +4325,14 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7524278359831969251, guid: fc15296a40300954f81e7074c66aa685, type: 3}
+      propertyPath: m_Type
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7524278359831969251, guid: fc15296a40300954f81e7074c66aa685, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 9461da9867dce744f87b9332443c020d, type: 3}
     - target: {fileID: 8494343129956558134, guid: fc15296a40300954f81e7074c66aa685, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -4269,6 +4381,14 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8675413709268441603, guid: fc15296a40300954f81e7074c66aa685, type: 3}
+      propertyPath: m_Type
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8675413709268441603, guid: fc15296a40300954f81e7074c66aa685, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 9461da9867dce744f87b9332443c020d, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6495,9 +6615,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GrowthManager
   plantRenderer: {fileID: 1146285767}
-  currentSeed: {fileID: 11400000, guid: 40555b2e89f72874f88f2ac70af9463e, type: 2}
+  PlantSadBG: {fileID: 0}
+  PlantSadFG: {fileID: 0}
+  PlantSadBGTexture: {fileID: 0}
+  PlantSadFGTexture: {fileID: 0}
+  currentSeed: {fileID: 0}
   currentStage: 0
-  ticksElapsed: 0
+  name: 
+  cropHP: 0
+  wonMinigame: 0
+  hasNoBadStats: 0
+  cropMoisture: 0
+  soilQuality: 0
+  soilMoisture: 0
+  soilSoftness: 0
+  Waterlogged: 0
+  WaterloggedCap: 0
   isPlanted: 0
 --- !u!65 &744929351
 BoxCollider:
@@ -9350,6 +9483,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MaintenencePopUp
   panels: {fileID: 750383137}
   cam: {fileID: 0}
+  name: 
+  nameText: {fileID: 0}
+  cropHP: 0
+  hpSlider: {fileID: 0}
+  plantSprite: {fileID: 0}
+  plantSpriteShower: {fileID: 0}
+  cropMoisture: 0
+  cropMoisterSlider: {fileID: 0}
+  soilQuality: 0
+  soilQualitySlider: {fileID: 0}
+  soilMoisture: 0
+  soilMoistureSlider: {fileID: 0}
+  soilSoftness: 0
+  soilSoftnessSlider: {fileID: 0}
+  enStart: 0
+  dropHandler: {fileID: 0}
 --- !u!1 &1236208289
 GameObject:
   m_ObjectHideFlags: 0
@@ -9666,6 +9815,8 @@ MonoBehaviour:
   timeScale: 3
   startHour: 5
   seasonTimer: 1
+  thelight: {fileID: 0}
+  sunriseRotation: {x: 0, y: 0, z: 0}
 --- !u!1 &1342783946
 GameObject:
   m_ObjectHideFlags: 0
@@ -9854,7 +10005,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6eee03c176cbebe4e81c858136534544, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SeedItem
-  seedType: {fileID: 11400000, guid: 40555b2e89f72874f88f2ac70af9463e, type: 2}
+  seedType: {fileID: 0}
 --- !u!114 &1346955793
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10743,9 +10894,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GrowthManager
   plantRenderer: {fileID: 1381387037}
-  currentSeed: {fileID: 11400000, guid: 40555b2e89f72874f88f2ac70af9463e, type: 2}
+  PlantSadBG: {fileID: 0}
+  PlantSadFG: {fileID: 0}
+  PlantSadBGTexture: {fileID: 0}
+  PlantSadFGTexture: {fileID: 0}
+  currentSeed: {fileID: 0}
   currentStage: 0
-  ticksElapsed: 0
+  name: 
+  cropHP: 0
+  wonMinigame: 0
+  hasNoBadStats: 0
+  cropMoisture: 0
+  soilQuality: 0
+  soilMoisture: 0
+  soilSoftness: 0
+  Waterlogged: 0
+  WaterloggedCap: 0
   isPlanted: 0
 --- !u!65 &1509816700
 BoxCollider:
@@ -11234,9 +11398,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GrowthManager
   plantRenderer: {fileID: 43610028}
-  currentSeed: {fileID: 11400000, guid: 40555b2e89f72874f88f2ac70af9463e, type: 2}
+  PlantSadBG: {fileID: 0}
+  PlantSadFG: {fileID: 0}
+  PlantSadBGTexture: {fileID: 0}
+  PlantSadFGTexture: {fileID: 0}
+  currentSeed: {fileID: 0}
   currentStage: 0
-  ticksElapsed: 0
+  name: 
+  cropHP: 0
+  wonMinigame: 0
+  hasNoBadStats: 0
+  cropMoisture: 0
+  soilQuality: 0
+  soilMoisture: 0
+  soilSoftness: 0
+  Waterlogged: 0
+  WaterloggedCap: 0
   isPlanted: 0
 --- !u!65 &1545167998
 BoxCollider:
@@ -11305,9 +11482,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GrowthManager
   plantRenderer: {fileID: 1606585786}
-  currentSeed: {fileID: 11400000, guid: 40555b2e89f72874f88f2ac70af9463e, type: 2}
+  PlantSadBG: {fileID: 0}
+  PlantSadFG: {fileID: 0}
+  PlantSadBGTexture: {fileID: 0}
+  PlantSadFGTexture: {fileID: 0}
+  currentSeed: {fileID: 0}
   currentStage: 0
-  ticksElapsed: 0
+  name: 
+  cropHP: 0
+  wonMinigame: 0
+  hasNoBadStats: 0
+  cropMoisture: 0
+  soilQuality: 0
+  soilMoisture: 0
+  soilSoftness: 0
+  Waterlogged: 0
+  WaterloggedCap: 0
   isPlanted: 0
 --- !u!65 &1563007837
 BoxCollider:
@@ -12049,6 +12239,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EventManager
   _weatherEventOdds: 000000002100000021000000
   _infestationOdds: 50
+  _weatherDuration: 20
+  _weatherCooldown: 10
+  _infestationCooldown: 10
+  _weatherDurationTimer: 0
+  _weatherCooldownTimer: 0
+  _infestationTimer: 0
 --- !u!1 &1688668503
 GameObject:
   m_ObjectHideFlags: 0
@@ -12924,9 +13120,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GrowthManager
   plantRenderer: {fileID: 1711344816}
-  currentSeed: {fileID: 11400000, guid: 40555b2e89f72874f88f2ac70af9463e, type: 2}
+  PlantSadBG: {fileID: 0}
+  PlantSadFG: {fileID: 0}
+  PlantSadBGTexture: {fileID: 0}
+  PlantSadFGTexture: {fileID: 0}
+  currentSeed: {fileID: 0}
   currentStage: 0
-  ticksElapsed: 0
+  name: 
+  cropHP: 0
+  wonMinigame: 0
+  hasNoBadStats: 0
+  cropMoisture: 0
+  soilQuality: 0
+  soilMoisture: 0
+  soilSoftness: 0
+  Waterlogged: 0
+  WaterloggedCap: 0
   isPlanted: 0
 --- !u!65 &1827505730
 BoxCollider:
@@ -13406,8 +13615,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86c4c79aa13915849b76505a26542ddf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GoalManager
-  targetCropName: Corn
+  targetCropName: []
   targetGoal: 0
+  currentHarvested: 0
   goalText: {fileID: 304643910}
 --- !u!1 &1861229309
 GameObject:
@@ -13455,9 +13665,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GrowthManager
   plantRenderer: {fileID: 321145381}
-  currentSeed: {fileID: 11400000, guid: 40555b2e89f72874f88f2ac70af9463e, type: 2}
+  PlantSadBG: {fileID: 0}
+  PlantSadFG: {fileID: 0}
+  PlantSadBGTexture: {fileID: 0}
+  PlantSadFGTexture: {fileID: 0}
+  currentSeed: {fileID: 0}
   currentStage: 0
-  ticksElapsed: 0
+  name: 
+  cropHP: 0
+  wonMinigame: 0
+  hasNoBadStats: 0
+  cropMoisture: 0
+  soilQuality: 0
+  soilMoisture: 0
+  soilSoftness: 0
+  Waterlogged: 0
+  WaterloggedCap: 0
   isPlanted: 0
 --- !u!65 &1861229312
 BoxCollider:
@@ -13738,9 +13961,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GrowthManager
   plantRenderer: {fileID: 248936938}
-  currentSeed: {fileID: 11400000, guid: 40555b2e89f72874f88f2ac70af9463e, type: 2}
+  PlantSadBG: {fileID: 0}
+  PlantSadFG: {fileID: 0}
+  PlantSadBGTexture: {fileID: 0}
+  PlantSadFGTexture: {fileID: 0}
+  currentSeed: {fileID: 0}
   currentStage: 0
-  ticksElapsed: 0
+  name: 
+  cropHP: 0
+  wonMinigame: 0
+  hasNoBadStats: 0
+  cropMoisture: 0
+  soilQuality: 0
+  soilMoisture: 0
+  soilSoftness: 0
+  Waterlogged: 0
+  WaterloggedCap: 0
   isPlanted: 0
 --- !u!65 &1909653010
 BoxCollider:
@@ -13980,9 +14216,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GrowthManager
   plantRenderer: {fileID: 943115815}
-  currentSeed: {fileID: 11400000, guid: 40555b2e89f72874f88f2ac70af9463e, type: 2}
+  PlantSadBG: {fileID: 0}
+  PlantSadFG: {fileID: 0}
+  PlantSadBGTexture: {fileID: 0}
+  PlantSadFGTexture: {fileID: 0}
+  currentSeed: {fileID: 0}
   currentStage: 0
-  ticksElapsed: 0
+  name: 
+  cropHP: 0
+  wonMinigame: 0
+  hasNoBadStats: 0
+  cropMoisture: 0
+  soilQuality: 0
+  soilMoisture: 0
+  soilSoftness: 0
+  Waterlogged: 0
+  WaterloggedCap: 0
   isPlanted: 0
 --- !u!65 &1976281918
 BoxCollider:
@@ -14184,9 +14433,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GrowthManager
   plantRenderer: {fileID: 198957759}
-  currentSeed: {fileID: 11400000, guid: 40555b2e89f72874f88f2ac70af9463e, type: 2}
+  PlantSadBG: {fileID: 0}
+  PlantSadFG: {fileID: 0}
+  PlantSadBGTexture: {fileID: 0}
+  PlantSadFGTexture: {fileID: 0}
+  currentSeed: {fileID: 0}
   currentStage: 0
-  ticksElapsed: 0
+  name: 
+  cropHP: 0
+  wonMinigame: 0
+  hasNoBadStats: 0
+  cropMoisture: 0
+  soilQuality: 0
+  soilMoisture: 0
+  soilSoftness: 0
+  Waterlogged: 0
+  WaterloggedCap: 0
   isPlanted: 0
 --- !u!65 &2001370076
 BoxCollider:
