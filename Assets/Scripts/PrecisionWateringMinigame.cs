@@ -36,6 +36,7 @@ public class PrecisionWateringMinigame : MinigameBase
 
     private void ResetMinigame()
     {
+        Debug.Log("Enableddd");
         _timeLeft = gameDuration;
         _fillAmount = 0f; // Reset fill amount
         waterFillImage.fillAmount = 0f;

@@ -196,8 +196,6 @@ public class GrowthManager : MonoBehaviour
                 for (int i = 0; i < yieldAmount; i++)
                 {
                     MaintenencePopUp ui = Object.FindFirstObjectByType<MaintenencePopUp>();
-
-
                     if (hasNoBadStats)
                     {
                         int yield = plantSimulationInstance.GetCropYield();
@@ -240,7 +238,7 @@ public class GrowthManager : MonoBehaviour
         currentSeed = data;
         isPlanted = true;
         currentStage = 0;
-
+        FindFirstObjectByType<AudioManager>().Play("Planting");
         // Fire up a brand new simulation instance
         plantSimulationInstance = new BasePlant();
         plantSimulationInstance.stats = data.plantStatsTemplate;
@@ -258,7 +256,8 @@ public class GrowthManager : MonoBehaviour
         plantSimulationInstance.soilQuality = 50f;
 
         data.remainingSeedBags--;
-
+      
+        
         UpdatePlantSprite();
         Debug.Log($"Successfully planted {data.cropName}! Calculations started.");
     }
@@ -313,15 +312,19 @@ public class GrowthManager : MonoBehaviour
     }
     public void winMinigame()
     {
+        FindFirstObjectByType<AudioManager>().Play("WinMinigame");
         SuperCharge();
         IsNotPlantable(); //Used to make sure the soil tiller is used
+        ResetPlot();
     }
     public void LoseMinigame()
     {
+        FindFirstObjectByType<AudioManager>().Play("LoseMinigame");
         GoalManager goalManager = Object.FindFirstObjectByType<GoalManager>();
         int yield = plantSimulationInstance.GetCropYield();
         goalManager.AddCrop(currentSeed.cropName, yield / 2);
         IsNotPlantable(); //Used to make sure the soil tiller is used
+        ResetPlot();
     }
 
     private void CheckStats()
