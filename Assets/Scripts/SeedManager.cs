@@ -19,6 +19,7 @@ public class SeedManager : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 
     public void OnBeginDrag(PointerEventData eventData)
     {
+        FindFirstObjectByType<AudioManager>().Play("TapSound1");
         // 1. Create a dummy object to act as our ghost drag visual
         dragIconInstance = new GameObject("SeedDragGhost");
         dragIconInstance.transform.SetParent(GameObject.Find("GameplayCanvas").transform, false);

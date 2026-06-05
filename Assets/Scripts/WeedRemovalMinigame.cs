@@ -32,23 +32,24 @@ public class WeedRemovalMinigame : MinigameBase
 // <-- Add your line sprite here
     
 
-    private void Start()
+    private void OnEnable()
     {
       ResetMinigame();
 
-        plantButton.onClick.AddListener(OnPlantTapped);
+      
+    }
+    private void ResetMinigame()
+    {
+        ResetGame();
+        _weedsLeft = totalWeeds;
+        _plantTaps = 0;
+        _timeLeft = gameDuration;
         resultText.gameObject.SetActive(false);
         instructionText.text = "Tap the weeds — not the plant!";
         SetupVisualizer();
 
         SpawnWeeds();
         RefreshUI();
-    }
-    private void ResetMinigame()
-    {
-        _weedsLeft = totalWeeds;
-        _plantTaps = 0;
-        _timeLeft = gameDuration;
     }
 
     private void Update()

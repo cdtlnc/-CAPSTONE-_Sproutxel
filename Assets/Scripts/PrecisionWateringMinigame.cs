@@ -25,13 +25,14 @@ public class PrecisionWateringMinigame : MinigameBase
     {
         // Cancel any pending closure invocations just in case
         CancelInvoke(nameof(DisableThisPanel));
-        ResetMinigame();
+     
        
 
         if (resultText != null) resultText.gameObject.SetActive(false);
         if (instructionText != null) instructionText.text = "Hold to fill - keep the level in the green zone when time runs out!";
 
-        PositionGreenZone();
+       
+        ResetMinigame();
     }
 
     private void ResetMinigame()
@@ -40,6 +41,8 @@ public class PrecisionWateringMinigame : MinigameBase
         _timeLeft = gameDuration;
         _fillAmount = 0f; // Reset fill amount
         waterFillImage.fillAmount = 0f;
+        ResetGame();
+        PositionGreenZone();
     }
     private void Update()
     {
@@ -78,7 +81,7 @@ public class PrecisionWateringMinigame : MinigameBase
             {
                 Debug.LogWarning("Minigame ended, but no CurrentPlot reference was passed!");
             }
-
+            Debug.Log("Disabling this  watering minigame");
             Invoke(nameof(DisableThisPanel), 3f);
             EndGame(won);
            

@@ -21,7 +21,7 @@ public class ItemManager : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
     {
 
         if (maxPickTime <= 0) return;
-
+        FindFirstObjectByType<AudioManager>().Play("TapSound1");
         startPos = transform.position;
         originalParent = transform.parent;
         transform.SetParent(GameObject.Find("GameplayCanvas").transform);

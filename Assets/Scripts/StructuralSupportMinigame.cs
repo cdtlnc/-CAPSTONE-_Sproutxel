@@ -26,6 +26,10 @@ public class StructuralSupportMinigame : MinigameBase
     [SerializeField] private float soilStatus;
     [SerializeField] private Image soilImage;
 
+    [Header("Faux Plant Sprite")]
+    
+    [SerializeField] private Image fakePlantImage;
+
 
     private int _promptsLeft;
     private int _currentDirection;
@@ -35,19 +39,24 @@ public class StructuralSupportMinigame : MinigameBase
     private Vector2 _swipeStart;
     private bool _swiping;
 
-    private void Start()
+    private void OnEnable()
     {
+        ResetMinigame();
+    }
+
+    private void ResetMinigame()
+    {
+        ResetGame();
         _promptsLeft = totalPrompts;
         _overallTimeLeft = overallDuration;
-        soilStatus= 1f;
+        soilStatus = 1f;
 
         resultText.gameObject.SetActive(false);
         instructionText.text = "Swipe in the direction of the arrow!";
-
+        fakePlantImage.sprite=CurrentPlot.plantRenderer.sprite;
         NextPrompt();
         RefreshUI();
     }
-
     private void Update()
     {
         if (GameOver) return;

@@ -52,11 +52,22 @@ public class NettingProtectionMinigame : MinigameBase
 
     private void ResetMinigame()
     {
+        ResetGame();
         _timeLeft = gameDuration;
 
         // Collect all anchor buttons in order
         foreach (RectTransform child in anchorContainer)
             _anchors.Add(child);
+        for (int i = lineContainer.transform.childCount - 1; i >= 0; i--)
+        {
+            // Use Destroy directly from the Object class
+            Object.Destroy(lineContainer.transform.GetChild(i).gameObject);
+        }
+
+        HighlightNextAnchor();
+
+        resultText.gameObject.SetActive(false);
+        instructionText.text = "Connect all the anchor points around the plant!";
     }
     private void Update()
     {

@@ -37,4 +37,8 @@ public abstract class MinigameBase : MonoBehaviour
         yield return new WaitForSeconds(returnDelay);
         Debug.Log("Minigame complete - return not configured yet.");
     }
+    public void ResetGame()
+    {
+        GameOver = false;
+    }
 }

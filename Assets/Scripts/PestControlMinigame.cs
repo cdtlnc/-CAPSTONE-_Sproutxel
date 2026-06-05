@@ -35,8 +35,14 @@ public class PestControlMinigame : MinigameBase
     private float _beatTimer;
     private bool _tappedThisBeat;
 
-    private void Start()
+    private void OnEnable()
     {
+        ResetMinigame();
+    }
+
+    private void ResetMinigame()
+    {
+        ResetGame();
         _pestsLeft = totalPests;
         _mistakes = 0;
         _beatTimer = 0f;

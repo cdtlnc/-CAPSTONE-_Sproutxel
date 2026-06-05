@@ -42,13 +42,29 @@ public class SoilEnrichmentMinigame : MinigameBase
     private readonly List<ItemEntry> _items = new List<ItemEntry>();
     private ItemEntry _activeItem = null; // the item currently being dragged
 
-    private void Start()
+    private void OnEnable()
     {
-        _timeLeft = gameDuration;
-        _itemsLeft = totalItems;
+        ResetMinigame();
 
         resultText.gameObject.SetActive(false);
         instructionText.text = "Swipe GREEN items DOWN into soil. Swipe GREY items UP to discard.";
+
+     
+    }
+
+    private void ResetMinigame()
+    {
+        ResetGame();
+        _items.Clear();
+        if (itemContainer)
+        {
+            for (int i = itemContainer.childCount - 1; i >= 0; i--)
+            {
+                Destroy(itemContainer.GetChild(i).gameObject);
+            }
+        }
+        _timeLeft = gameDuration;
+        _itemsLeft = totalItems;
 
         SpawnItems();
         RefreshUI();
