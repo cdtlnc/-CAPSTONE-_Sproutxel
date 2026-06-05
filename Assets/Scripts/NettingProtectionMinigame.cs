@@ -1,24 +1,3 @@
-// NettingProtectionMinigame.cs
-// Category: Fixed
-// Anchor points are arranged around the plant image.
-// The player taps and drags to draw lines connecting them in order.
-// Connecting all anchors before time runs out = win.
-// Timer runs out with anchors unconnected = lose.
-//
-// ── Scene setup ──────────────────────────────────────────────────────────────
-// Manager GameObject   → NettingProtectionMinigame component
-// Canvas
-//   PlantImage         → Image  (the plant in the centre — visual only)
-//   AnchorContainer    → RectTransform  (anchor buttons are children of this)
-//     Anchor_0..N      → Button + Image  (circular buttons placed around plant)
-//   LineContainer      → RectTransform  (drawn lines placed here)
-//   TimerText          → TMP_Text
-//   InstructionText    → TMP_Text
-//   ResultText         → TMP_Text  (inactive by default)
-//
-// Anchor positions: place them manually in a rough circle around PlantImage.
-// They don't need to be exactly circular — any arrangement works.
-
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -44,7 +23,7 @@ public class NettingProtectionMinigame : MinigameBase
     [SerializeField] private int anchorcount;              // the line currently being drawn
 
      [Header("Netting Visuals")]
-    [SerializeField] private Sprite lineTexture;             // <-- Add your line sprite here
+    [SerializeField] private Sprite lineTexture;             // <-- Add line sprite here
     [SerializeField] private float lineWidth = 20f;  
     // All completed line GameObjects (kept for visual)
     private List<GameObject> _lines = new List<GameObject>();
@@ -168,7 +147,7 @@ public class NettingProtectionMinigame : MinigameBase
         Image img = line.GetComponent<Image>();
         img.sprite = lineTexture;
         img.color = Color.white; // Keeps original texture colors intact
-        img.type = Image.Type.Simple; // Use Sliced or Tiled depending on your asset
+        img.type = Image.Type.Simple;
 
         UpdateLine(line, from, to);
         return line;
