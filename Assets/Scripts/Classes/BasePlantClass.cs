@@ -55,15 +55,15 @@ public class BasePlant
 
         if (weatherIndex == 1)
         {
-            cropMoistureMultiplier = -1.35f;
-            soilMoistureMultiplier = -1.35f;
+            cropMoistureMultiplier = -1f;
+            soilMoistureMultiplier = -1f;
             soilSoftnessMultiplier = 1.35f;
         }
         else if (weatherIndex == 2)
         {
-            cropMoistureMultiplier = -1.35f;
-            soilMoistureMultiplier = -1.35f;
-            soilSoftnessMultiplier = 1.35f;
+            cropMoistureMultiplier = 1.35f;
+            soilMoistureMultiplier = 1.35f;
+            soilSoftnessMultiplier = -1f;
         }
 
         cropMoisture += _cropMoistureMultiplier * (100 + cropMoisture) / 100 * cropMoistureMultiplier;

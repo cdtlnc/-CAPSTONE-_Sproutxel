@@ -253,7 +253,7 @@ public class GrowthManager : MonoBehaviour
         plantSimulationInstance.cropMoisture = 20f;
         plantSimulationInstance.soilMoisture = 20f;
         plantSimulationInstance.soilSoftness = 20f;
-        plantSimulationInstance.soilQuality = 50f;
+        plantSimulationInstance.soilQuality = 20f;
 
         data.remainingSeedBags--;
       
@@ -510,6 +510,8 @@ public class GrowthManager : MonoBehaviour
     public void IsNotPlantable()
     {
         isplantable = false;
+        ResetPlot();
+
     }
     public void RemovePlant()
     {

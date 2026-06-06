@@ -18,6 +18,7 @@ public class GoalManager : MonoBehaviour
         {
             if (cropName == crop)// Need to update to be more dynamic
             {
+                FindFirstObjectByType<AudioManager>().Play("Harvest");
                 Debug.Log("IM GIVING HOW MUCH?");
                 currentHarvested += yield;
                 UpdateUI();

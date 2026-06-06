@@ -21,5 +21,5 @@ MonoBehaviour:
   - {fileID: -350190288, guid: 79c33c4de8be87a4c8ee50b2995163c1, type: 3}
   - {fileID: 541011706, guid: 79c33c4de8be87a4c8ee50b2995163c1, type: 3}
   plantStatsTemplate: {fileID: 11400000, guid: 06a671cd5425d34488fa3ad1e6700f32, type: 2}
-  remainingSeedBags: 100
+  remainingSeedBags: 1000
   ticksPerStage: 1
