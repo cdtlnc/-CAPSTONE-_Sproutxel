@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.InputSystem;
 
 public class PrecisionWateringMinigame : MinigameBase
 {
@@ -23,14 +24,21 @@ public class PrecisionWateringMinigame : MinigameBase
 
     private void OnEnable()
     {
-        if (resultText != null) resultText.gameObject.SetActive(false);
-        if (instructionText != null) instructionText.text = "Hold to fill - keep the level in the green zone when time runs out!";
-
         ResetMinigame();
+        if (resultText != null) resultText.gameObject.SetActive(false);
+       
+        if (instructionText != null)
+        {
+            instructionText.gameObject.SetActive(true);
+            instructionText.text = "Hold to fill - keep the level in the green zone when time runs out!";
+
+        }
+
     }
 
     private void ResetMinigame()
     {
+        CancelInvoke(nameof(DisableThisPanel));
         _timeLeft = gameDuration;
         _fillAmount = 0f;
         waterFillImage.fillAmount = 0f;
@@ -42,8 +50,8 @@ public class PrecisionWateringMinigame : MinigameBase
     {
         if (GameOver) return;
 
-        bool holding = Input.GetMouseButton(0) ||
-                       (Input.touchCount > 0 && Input.GetTouch(0).phase != TouchPhase.Ended);
+        // 2. NEW INPUT SYSTEM: Unified holding check for both touch and mouse clicks
+        bool holding = Pointer.current != null && Pointer.current.press.isPressed;
 
         _fillAmount += (holding ? fillRate : -drainRate) * Time.deltaTime;
         _fillAmount = Mathf.Clamp01(_fillAmount);
@@ -56,7 +64,17 @@ public class PrecisionWateringMinigame : MinigameBase
         if (_timeLeft <= 0f)
         {
             bool won = _fillAmount >= zoneMin && _fillAmount <= zoneMax;
-            EndGame(won); // Manager cleanly takes the true/false result here!
+            if (won)
+            {
+                EndGame(won); // Manager cleanly takes the true/false result here!
+                Invoke(nameof(DisableThisPanel), 5f);
+            }
+            else
+            {
+                EndGame(false);
+                Invoke(nameof(DisableThisPanel), 5f);
+
+            }
         }
     }
 
@@ -74,5 +92,10 @@ public class PrecisionWateringMinigame : MinigameBase
         zoneRect.pivot = new Vector2(0.5f, 0f);
         zoneRect.anchoredPosition = new Vector2(0f, zoneMin * h);
         zoneRect.sizeDelta = new Vector2(0f, (zoneMax - zoneMin) * h);
+    }
+    private void DisableThisPanel()
+    {
+        Debug.Log("Disabling PrecisionWatering Minigame");
+        transform.parent.gameObject.SetActive(false);
     }
 }

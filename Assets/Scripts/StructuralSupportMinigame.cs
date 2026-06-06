@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.InputSystem;
 
 public class StructuralSupportMinigame : MinigameBase
 {
@@ -42,13 +43,18 @@ public class StructuralSupportMinigame : MinigameBase
 
     private void ResetMinigame()
     {
+        CancelInvoke(nameof(DisableThisPanel));
         ResetGame();
         _promptsLeft = totalPrompts;
         _overallTimeLeft = overallDuration;
         soilStatus = 1f;
 
         if (resultText != null) resultText.gameObject.SetActive(false);
-        if (instructionText != null) instructionText.text = "Swipe in the direction of the arrow!";
+        if (instructionText != null)
+        {
+            instructionText.gameObject.SetActive(true);
+            instructionText.text = "Swipe in the direction of the arrow!";
+        }
 
         if (CurrentPlot != null && CurrentPlot.plantRenderer != null && fakePlantImage != null)
             fakePlantImage.sprite = CurrentPlot.plantRenderer.sprite;
@@ -74,6 +80,7 @@ public class StructuralSupportMinigame : MinigameBase
         if (_overallTimeLeft <= 0f)
         {
             EndGame(false);
+            Invoke(nameof(DisableThisPanel), 5f);
             return;
         }
 
@@ -91,7 +98,11 @@ public class StructuralSupportMinigame : MinigameBase
         currentPlotIndex = Mathf.Clamp(currentPlotIndex, 0, soilplot.Length - 1);
         soilImage.sprite = soilplot[currentPlotIndex];
     }
-
+    private void DisableThisPanel()
+    {
+        Debug.Log("Disabling Structural Support Minigame");
+        transform.parent.gameObject.SetActive(false);
+    }
     private void NextPrompt()
     {
         _currentDirection = Random.Range(0, 4);
@@ -103,10 +114,12 @@ public class StructuralSupportMinigame : MinigameBase
 
     private void DetectSwipe()
     {
-        Vector2 inputPos = Input.touchCount > 0 ? (Vector2)Input.GetTouch(0).position : (Vector2)Input.mousePosition;
+        if (Pointer.current == null) return;
 
-        bool pressed = Input.GetMouseButtonDown(0) || (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began);
-        bool released = Input.GetMouseButtonUp(0) || (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended);
+        Vector2 inputPos = Pointer.current.position.ReadValue();
+
+        bool pressed = Pointer.current.press.wasPressedThisFrame;
+        bool released = Pointer.current.press.wasReleasedThisFrame;
 
         if (pressed) { _swipeStart = inputPos; _swiping = true; }
 
@@ -132,6 +145,7 @@ public class StructuralSupportMinigame : MinigameBase
                 if (_promptsLeft <= 0)
                 {
                     EndGame(true);
+                    Invoke(nameof(DisableThisPanel), 5f);
                 }
                 else NextPrompt();
             }

@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.InputSystem;
 
 public class NettingProtectionMinigame : MinigameBase
 {
@@ -30,6 +31,7 @@ public class NettingProtectionMinigame : MinigameBase
 
     private void OnEnable()
     {
+        CancelInvoke(nameof(DisableThisPanel));
         ResetMinigame();
 
         if (_anchors.Count == 0)
@@ -41,7 +43,12 @@ public class NettingProtectionMinigame : MinigameBase
 
         HighlightNextAnchor();
         if (resultText != null) resultText.gameObject.SetActive(false);
-        if (instructionText != null) instructionText.text = "Connect all the anchor points around the plant!";
+     
+        if (instructionText != null)
+        {
+            instructionText.gameObject.SetActive(true);
+            instructionText.text = "Connect all the anchor points around the plant!";
+        }
     }
 
     private void ResetMinigame()
@@ -63,6 +70,10 @@ public class NettingProtectionMinigame : MinigameBase
             }
         }
         _lines.Clear();
+    }private void DisableThisPanel()
+    {
+        Debug.Log("Disabling NettingProtection Minigame");
+        transform.parent.gameObject.SetActive(false);
     }
 
     private void Update()
@@ -75,6 +86,7 @@ public class NettingProtectionMinigame : MinigameBase
         if (_timeLeft <= 0f)
         {
             EndGame(false);
+            Invoke(nameof(DisableThisPanel), 5f);
             return;
         }
 
@@ -83,11 +95,13 @@ public class NettingProtectionMinigame : MinigameBase
 
     private void HandleDraw()
     {
-        Vector2 screenPos = Input.touchCount > 0 ? (Vector2)Input.GetTouch(0).position : (Vector2)Input.mousePosition;
+        if (Pointer.current == null) return;
 
-        bool pressed = Input.GetMouseButtonDown(0) || (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began);
-        bool held = Input.GetMouseButton(0) || (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Moved);
-        bool released = Input.GetMouseButtonUp(0) || (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended);
+        Vector2 screenPos = Pointer.current.position.ReadValue();
+
+        bool pressed = Pointer.current.press.wasPressedThisFrame;
+        bool held = Pointer.current.press.isPressed;
+        bool released = Pointer.current.press.wasReleasedThisFrame;
 
         if (pressed && !_dragging)
         {
@@ -122,6 +136,7 @@ public class NettingProtectionMinigame : MinigameBase
                 if (_nextAnchor == 0 && _lines.Count >= _anchors.Count)
                 {
                     EndGame(true);
+                    Invoke(nameof(DisableThisPanel), 5f);
                 }
             }
             else

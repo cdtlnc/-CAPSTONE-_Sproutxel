@@ -22,7 +22,7 @@ public abstract class MinigameBase : MonoBehaviour
     [SerializeField] protected TMP_Text resultText;
     [SerializeField] protected TMP_Text instructionText;
     [SerializeField] protected float returnDelay = 2f;
-
+    private Coroutine _returnCoroutine;
     protected bool GameOver { get; private set; } = false;
     public GrowthManager CurrentPlot { get; set; }
 
@@ -52,13 +52,22 @@ public abstract class MinigameBase : MonoBehaviour
         // Pass the context of which minigame was played back to the plot layout
         if (CurrentPlot != null)
         {
+            
             if (won)
+            {
                 CurrentPlot.ResolveMinigameWin(minigameType);
+                FindFirstObjectByType<AudioManager>().Play("WinMinigame");
+            }
+
             else
+            {
                 CurrentPlot.ResolveMinigameLose(minigameType);
+                FindFirstObjectByType<AudioManager>().Play("LoseMinigame");
+            }
+                
         }
 
-        StartCoroutine(ReturnAfterDelay());
+        _returnCoroutine = StartCoroutine(ReturnAfterDelay());
     }
 
     // Override in each minigame to customize the result messages
@@ -81,5 +90,12 @@ public abstract class MinigameBase : MonoBehaviour
     public void ResetGame()
     {
         GameOver = false;
+
+        // Stop the scene from unloading if a reset is requested
+        if (_returnCoroutine != null)
+        {
+            StopCoroutine(_returnCoroutine);
+            _returnCoroutine = null;
+        }
     }
 }

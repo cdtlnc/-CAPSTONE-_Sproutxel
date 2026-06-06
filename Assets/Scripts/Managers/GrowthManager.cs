@@ -3,11 +3,12 @@ using Unity.Android.Gradle.Manifest;
 using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEditor;
 using UnityEditor.EditorTools;
-#endif
 
+#endif
+using UnityEngine.EventSystems;
 using UnityEngine;
 
-public class GrowthManager : MonoBehaviour
+public class GrowthManager : MonoBehaviour, IPointerClickHandler
 {
     [Header("Visual Components")]
     [SerializeField] public SpriteRenderer plantRenderer;
@@ -153,62 +154,48 @@ public class GrowthManager : MonoBehaviour
     }
 
     // Tapping/clicking the plot to harvest
-    void OnMouseDown()
+    public void OnPointerClick(PointerEventData eventData)
     {
-        // Ignore clicks if nothing is planted or if things aren't set up yet
         if (!isPlanted || currentSeed == null || currentSeed.growthStages == null || currentSeed.growthStages.Length == 0) return;
 
-        // Dynamic harvest check based purely on whatever the final sprite index actually is
         int lastConfiguredStageIndex = currentSeed.growthStages.Length - 1;
         int MatureStageIndex = currentSeed.growthStages.Length - 2;
 
-        // Only let me harvest if it hits the final index slot of this specific seed data asset
         if (currentStage == MatureStageIndex || currentStage == lastConfiguredStageIndex)
         {
             int yieldAmount = 0;
 
-            // SAFE PASS: If stats template doesn't exist, bypass GetCropYield() to prevent a line 167 crash!
             if (plantSimulationInstance.stats == null)
             {
-                // Give a default number of 3 crops for testing since the formula cannot run
                 yieldAmount = 3;
                 Debug.Log($"[Bypass] Missing stats template! Dropping a fallback default of {yieldAmount} items.");
             }
             else
             {
-                // Run the official harvest yield formulas normally if the template is set up
                 yieldAmount = plantSimulationInstance.GetCropYield();
                 Debug.Log($"Harvested {yieldAmount} items of {currentSeed.cropName}!");
             }
 
-            // Grab the GoalManager directly using the modern Unity 6 command
             GoalManager goalManager = Object.FindFirstObjectByType<GoalManager>();
 
             if (goalManager != null && yieldAmount > 0)
             {
-                bool dynamicHarvestTriggered = false;
-
-                // Loop to add the items to my level objectives
-                for (int i = 0; i < yieldAmount; i++)
+                // CASE 1: The plant is perfectly healthy (No Bad Stats)
+                if (hasNoBadStats)
+                {
+                    // Directly pass the total yieldAmount ONCE, no loops needed
+                    goalManager.AddCrop(currentSeed.cropName, yieldAmount);
+                    IsNotPlantable();
+                    ResetPlot(); // Cleanly clear the plot out instantly
+                }
+                // CASE 2: The plant has issues and needs maintenance pop-up window
+                else
                 {
                     MaintenencePopUp ui = Object.FindFirstObjectByType<MaintenencePopUp>();
-                    if (hasNoBadStats)
+                    if (ui != null)
                     {
-                        int yield = plantSimulationInstance.GetCropYield();
-                        goalManager.AddCrop(currentSeed.cropName, yield);
-                        IsNotPlantable(); // Used to make sure the soil tiller is used
-                        dynamicHarvestTriggered = true;
+                        ui.OpenWindow(this); // Opens the window exactly ONCE
                     }
-                    else if (ui != null)
-                    {
-                        ui.OpenWindow(this); // Passes this specific crop's data to the screen
-                    }
-                }
-
-                // Safely clear the plot out here after loop iterations finish executing
-                if (dynamicHarvestTriggered)
-                {
-                    ResetPlot();
                 }
             }
         }
@@ -251,7 +238,7 @@ public class GrowthManager : MonoBehaviour
         plantSimulationInstance.cropMoisture = 20f;
         plantSimulationInstance.soilMoisture = 20f;
         plantSimulationInstance.soilSoftness = 20f;
-        plantSimulationInstance.soilQuality = 50f; // Restored to your original baseline value
+        plantSimulationInstance.soilQuality = 20f; 
 
         data.remainingSeedBags--;
 
@@ -283,6 +270,7 @@ public class GrowthManager : MonoBehaviour
         currentStage = 0;
         if (plantRenderer != null) plantRenderer.sprite = null;
         disableSadParts();
+        IsNotPlantable();
     }
 
     private void FixedUpdate()
@@ -365,7 +353,7 @@ public class GrowthManager : MonoBehaviour
                 plantSimulationInstance.cropHP = Mathf.Min(plantSimulationInstance.cropHP + 2.0f, 10f);
                 break;
         }
-
+        SuperCharge();
         CheckStats();
         UpdatePlantSprite();
     }
@@ -579,7 +567,7 @@ public class GrowthManager : MonoBehaviour
     public void RemovePlant()
     {
         ResetPlot();
-        RefreshPlot();
+        IsNotPlantable();
     }
 
     //Fertilizer, Super Yield
@@ -588,6 +576,8 @@ public class GrowthManager : MonoBehaviour
         GoalManager goalManager = Object.FindFirstObjectByType<GoalManager>();
         int super_yield = plantSimulationInstance.GetMaxYield();
         goalManager.AddCrop(currentSeed.cropName, super_yield);
+        RemovePlant();
+        IsNotPlantable();
     }
 
     public void GetMogged()

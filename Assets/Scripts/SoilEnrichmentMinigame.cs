@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.InputSystem;
 using TMPro;
 
 public class SoilEnrichmentMinigame : MinigameBase
@@ -42,7 +43,11 @@ public class SoilEnrichmentMinigame : MinigameBase
     {
         ResetMinigame();
         if (resultText != null) resultText.gameObject.SetActive(false);
-        if (instructionText != null) instructionText.text = "Swipe GREEN items DOWN into soil. Swipe GREY items UP to discard.";
+        if (instructionText != null)
+        {
+            instructionText.gameObject.SetActive(true);
+            instructionText.text = "Swipe GREEN items DOWN into soil. Swipe GREY items UP to discard.";
+        } 
     }
 
     private void ResetMinigame()
@@ -73,6 +78,7 @@ public class SoilEnrichmentMinigame : MinigameBase
         if (_timeLeft <= 0f)
         {
             EndGame(false);
+            Invoke(nameof(DisableThisPanel), 5f);
             return;
         }
 
@@ -119,11 +125,13 @@ public class SoilEnrichmentMinigame : MinigameBase
 
     private void HandleInput()
     {
-        Vector2 screenPos = Input.touchCount > 0 ? (Vector2)Input.GetTouch(0).position : (Vector2)Input.mousePosition;
+        if (Pointer.current == null) return;
 
-        bool pressed = Input.GetMouseButtonDown(0) || (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began);
-        bool held = Input.GetMouseButton(0) || (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Moved);
-        bool released = Input.GetMouseButtonUp(0) || (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended);
+        Vector2 screenPos = Pointer.current.position.ReadValue();
+
+        bool pressed = Pointer.current.press.wasPressedThisFrame;
+        bool held = Pointer.current.press.isPressed;
+        bool released = Pointer.current.press.wasReleasedThisFrame;
 
         if (pressed && _activeItem == null)
         {
@@ -164,6 +172,7 @@ public class SoilEnrichmentMinigame : MinigameBase
                 if (_itemsLeft <= 0)
                 {
                     EndGame(true);
+                    Invoke(nameof(DisableThisPanel), 5f);
                 }
             }
             else
@@ -183,4 +192,10 @@ public class SoilEnrichmentMinigame : MinigameBase
 
     protected override string GetWinMessage() => "Soil enriched!";
     protected override string GetLoseMessage() => "Not enough materials sorted!";
+
+    private void DisableThisPanel()
+    {
+        Debug.Log("Disabling SoilEnrichment Minigame");
+        transform.parent.gameObject.SetActive(false);
+    }
 }

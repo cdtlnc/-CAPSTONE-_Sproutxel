@@ -5,11 +5,11 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/MainMenu.unity
     guid: 99c9720ab356a0642a771bea13969a05
   - enabled: 0
-    path: Assets/Scenes/Level_1.unity
+    path: Assets/Scenes/Level_1Fake.unity
     guid: 7b8dee86c5a2c634b9d94eff324f79cf
   - enabled: 0
     path: Assets/Scenes/Level_2.unity
@@ -57,7 +57,7 @@ EditorBuildSettings:
     path: Assets/Scenes/PrecisionWateringMinigame.unity
     guid: 4db5d2ee1fe50844992862c573f33576
   - enabled: 1
-    path: Assets/Scenes/Testing Levels/Level_1_MINIGAMES_TEST.unity
+    path: Assets/Scenes/Level_1.unity
     guid: ae8bc83c3d2ec9744a9daaaec3f0db3e
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}

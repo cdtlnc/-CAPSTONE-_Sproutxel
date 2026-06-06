@@ -1,7 +1,8 @@
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
+using UnityEngine.InputSystem; // 1. ADD THIS NAMESPACE
 
 public class WeedRemovalMinigame : MinigameBase
 {
@@ -12,7 +13,7 @@ public class WeedRemovalMinigame : MinigameBase
     [SerializeField] private float weedSize = 60f;
 
     [Header("UI")]
-    [SerializeField] private Button plantButton;
+    [SerializeField] private Button plantButton; // Keeps your original button assignment intact
     [SerializeField] private RectTransform weedContainer;
     [SerializeField] private TMP_Text timerText;
     [SerializeField] private TMP_Text plantTapText;
@@ -36,14 +37,19 @@ public class WeedRemovalMinigame : MinigameBase
 
     private void ResetMinigame()
     {
+        CancelInvoke(nameof(DisableThisPanel));
         ResetGame();
         _weedsLeft = totalWeeds;
         _plantTaps = 0;
         _timeLeft = gameDuration;
 
         if (resultText != null) resultText.gameObject.SetActive(false);
-        if (instructionText != null) instructionText.text = "Tap the weeds — not the plant!";
 
+        if (instructionText != null)
+        {
+            instructionText.gameObject.SetActive(true);
+            instructionText.text = "Tap the weeds — not the plant!";
+        }
         SetupVisualizer();
         SpawnWeeds();
         RefreshUI();
@@ -58,16 +64,61 @@ public class WeedRemovalMinigame : MinigameBase
         if (timerText) timerText.text = Mathf.CeilToInt(Mathf.Max(_timeLeft, 0f)).ToString();
 
         if (_timeLeft <= 0f)
+        {
             EndGame(false);
+            Invoke(nameof(DisableThisPanel), 5f);
+            return;
+        }
+
+        // 2. NEW INPUT SYSTEM: Listen for taps directly every single frame
+        HandleInput();
+    }
+
+    private void HandleInput()
+    {
+        if (Pointer.current == null || !Pointer.current.press.wasPressedThisFrame) return;
+
+        Vector2 screenPos = Pointer.current.position.ReadValue();
+
+        // Step A: Check if we tapped a weed object first
+        for (int i = _weeds.Count - 1; i >= 0; i--)
+        {
+            if (_weeds[i] == null) continue;
+
+            RectTransform weedRt = _weeds[i].GetComponent<RectTransform>();
+            if (RectTransformUtility.RectangleContainsScreenPoint(weedRt, screenPos))
+            {
+                OnWeedTapped(_weeds[i]);
+                return; // Break instantly out of input frames so we don't accidentally tap the plant backdrop behind it
+            }
+        }
+
+        // Step B: If no weeds were clicked, check if the input missed and struck the main plant zone
+        if (plantButton != null)
+        {
+            RectTransform plantRt = plantButton.GetComponent<RectTransform>();
+            if (RectTransformUtility.RectangleContainsScreenPoint(plantRt, screenPos))
+            {
+                OnPlantTapped();
+            }
+        }
     }
 
     private void SpawnWeeds()
     {
+        // Clean up left-over weed assets from a previous game round run
+        foreach (var oldWeed in _weeds)
+        {
+            if (oldWeed != null) Destroy(oldWeed);
+        }
+        _weeds.Clear();
+
         RectTransform plantRT = plantButton.GetComponent<RectTransform>();
 
         for (int i = 0; i < totalWeeds; i++)
         {
-            var weed = new GameObject($"Weed_{i}", typeof(RectTransform), typeof(Image), typeof(Button));
+            // 3. REMOVED: Deleted runtime Button assignment additions
+            var weed = new GameObject($"Weed_{i}", typeof(RectTransform), typeof(Image));
             weed.transform.SetParent(weedContainer, false);
 
             var rt = weed.GetComponent<RectTransform>();
@@ -79,17 +130,14 @@ public class WeedRemovalMinigame : MinigameBase
 
             do
             {
-                // 1. Roll a random position inside the weed container
                 randomPos = new Vector2(
                     Random.Range(-weedContainer.rect.width * 0.4f, weedContainer.rect.width * 0.4f),
                     Random.Range(-weedContainer.rect.height * 0.4f, weedContainer.rect.height * 0.4f)
                 );
 
-                // 2. Convert this container position to the Plant Button's local coordinate space
                 Vector3 worldPos = weedContainer.TransformPoint(randomPos);
                 Vector2 positionInPlantSpace = plantRT.InverseTransformPoint(worldPos);
 
-                // 3. Check if the point falls directly inside the plant button's Rect bounds
                 float padding = plantExclusionRadius;
                 Rect paddedRect = new Rect(
                     plantRT.rect.x - padding,
@@ -109,10 +157,6 @@ public class WeedRemovalMinigame : MinigameBase
             img.sprite = WeedTexture;
             img.color = Color.white;
 
-            var btn = weed.GetComponent<Button>();
-            var captured = weed;
-            btn.onClick.AddListener(() => OnWeedTapped(captured));
-
             _weeds.Add(weed);
         }
     }
@@ -121,15 +165,15 @@ public class WeedRemovalMinigame : MinigameBase
     {
         if (GameOver) return;
 
-        weed.SetActive(false);
         _weeds.Remove(weed);
+        Destroy(weed); // Safely completely release the object asset container from memory
         _weedsLeft--;
         RefreshUI();
 
         if (_weedsLeft <= 0)
         {
-            // The manager class automatically alerts the plot and handles scene transitions
             EndGame(true);
+            Invoke(nameof(DisableThisPanel), 5f);
         }
     }
 
@@ -142,8 +186,8 @@ public class WeedRemovalMinigame : MinigameBase
 
         if (_plantTaps >= maxPlantTaps)
         {
-            // Handled safely by the manager class layout
             EndGame(false);
+            Invoke(nameof(DisableThisPanel), 5f);
         }
     }
 
@@ -167,7 +211,12 @@ public class WeedRemovalMinigame : MinigameBase
             plantTapText.text = $"Plant taps remaining: {maxPlantTaps - _plantTaps}";
     }
 
-    protected override string GetWinMessage() => "Weeds cleared!";
+    private void DisableThisPanel()
+    {
+        Debug.Log("Disabling WeedRemoval Minigame");
+        transform.parent.gameObject.SetActive(false);
+    }
 
+    protected override string GetWinMessage() => "Weeds cleared!";
     protected override string GetLoseMessage() => _plantTaps >= maxPlantTaps ? "You damaged the plant!" : "Too slow!";
 }

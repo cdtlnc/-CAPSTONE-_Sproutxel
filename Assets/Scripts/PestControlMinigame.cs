@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.InputSystem; // 1. ADD THIS NAMESPACE
 
 public class PestControlMinigame : MinigameBase
 {
@@ -15,7 +16,7 @@ public class PestControlMinigame : MinigameBase
     [SerializeField] private List<GameObject> bugList = new List<GameObject>();
 
     [Header("UI")]
-    [SerializeField] private Button pestButton;
+    // REMOVED: pestButton field is gone since we check the pointer directly
     [SerializeField] private Image beatIndicator;
     [SerializeField] private TMP_Text mistakeText;
     [SerializeField] private TMP_Text pestCountText;
@@ -37,25 +38,33 @@ public class PestControlMinigame : MinigameBase
 
     private void ResetMinigame()
     {
+        CancelInvoke(nameof(DisableThisPanel));
         ResetGame();
         _pestsLeft = totalPests;
         _mistakes = 0;
         _beatTimer = 0f;
         _tappedThisBeat = false;
 
-        pestButton.onClick.RemoveAllListeners();
-        pestButton.onClick.AddListener(OnPestTapped);
-
         if (resultText != null) resultText.gameObject.SetActive(false);
-        if (instructionText != null) instructionText.text = "Tap the pest on the beat!";
 
+        if (instructionText != null)
+        {
+            instructionText.gameObject.SetActive(true);
+            instructionText.text = "Tap the pest on the beat!";
+        }
         RefreshUI();
         SpawnBugs();
     }
 
     public void SpawnBugs()
     {
+        // FIX: Clean up old bug objects from memory before clearing the list
+        foreach (var bug in bugList)
+        {
+            if (bug != null) Destroy(bug);
+        }
         bugList.Clear();
+
         for (int i = 0; i < totalPests; i++)
         {
             Vector2 randomPosition = new Vector2(Random.Range(-XField, XField), Random.Range(-YField, YField));
@@ -80,7 +89,10 @@ public class PestControlMinigame : MinigameBase
         _beatTimer += Time.deltaTime;
 
         float t = Mathf.PingPong(_beatTimer / beatInterval * 2f, 1f);
-        beatIndicator.transform.localScale = Vector3.one * Mathf.Lerp(0.3f, 0.6f, t);
+        if (beatIndicator != null)
+        {
+            beatIndicator.transform.localScale = Vector3.one * Mathf.Lerp(0.3f, 0.6f, t);
+        }
 
         if (_beatTimer >= beatInterval)
         {
@@ -89,6 +101,12 @@ public class PestControlMinigame : MinigameBase
 
             _beatTimer -= beatInterval;
             _tappedThisBeat = false;
+        }
+
+        // 2. NEW INPUT SYSTEM: Check for screen taps/clicks every frame in Update
+        if (Pointer.current != null && Pointer.current.press.wasPressedThisFrame)
+        {
+            OnPestTapped();
         }
     }
 
@@ -108,12 +126,19 @@ public class PestControlMinigame : MinigameBase
             if (_pestsLeft <= 0)
             {
                 EndGame(true);
+                Invoke(nameof(DisableThisPanel), 5f);
             }
         }
         else
         {
             AddMistake("Off beat!");
         }
+    }
+
+    private void DisableThisPanel()
+    {
+        Debug.Log("Disabling PestControl Minigame");
+        transform.parent.gameObject.SetActive(false);
     }
 
     private void AddMistake(string reason)
@@ -125,7 +150,8 @@ public class PestControlMinigame : MinigameBase
 
         if (_mistakes >= mistakeLimit)
         {
-            EndGame(false); // Cleanly triggers the loss state now!
+            EndGame(false);
+            Invoke(nameof(DisableThisPanel), 5f);
         }
     }
 
