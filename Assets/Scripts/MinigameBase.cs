@@ -10,7 +10,8 @@ public enum MinigameType
     Weeding,
     PestControl,
     SoilEnrichment,
-    StructuralSupport
+    StructuralSupport,
+    Netting 
 }
 
 public abstract class MinigameBase : MonoBehaviour
@@ -24,6 +25,15 @@ public abstract class MinigameBase : MonoBehaviour
 
     protected bool GameOver { get; private set; } = false;
     public GrowthManager CurrentPlot { get; set; }
+
+    protected virtual void Start()
+    {
+        // Automatically link this scene's instance to the plot that launched it
+        if (MinigameLauncher.activePlot != null)
+        {
+            CurrentPlot = MinigameLauncher.activePlot;
+        }
+    }
 
     protected void EndGame(bool won)
     {
@@ -39,8 +49,7 @@ public abstract class MinigameBase : MonoBehaviour
         if (instructionText != null)
             instructionText.gameObject.SetActive(false);
 
-        // --- NEW ROUTING CODE ADDED HERE ---
-        // Pass the context of which minigame was played back to the plot kekw
+        // Pass the context of which minigame was played back to the plot layout
         if (CurrentPlot != null)
         {
             if (won)
@@ -48,7 +57,6 @@ public abstract class MinigameBase : MonoBehaviour
             else
                 CurrentPlot.ResolveMinigameLose(minigameType);
         }
-        
 
         StartCoroutine(ReturnAfterDelay());
     }
@@ -60,7 +68,14 @@ public abstract class MinigameBase : MonoBehaviour
     private IEnumerator ReturnAfterDelay()
     {
         yield return new WaitForSeconds(returnDelay);
-        Debug.Log("Minigame complete - return not configured yet.");
+
+        Debug.Log("Minigame complete - Unloading minigame scene additively.");
+
+        // Clear the active reference tracker safely
+        MinigameLauncher.activePlot = null;
+
+        // Unload this specific scene, seamlessly returning the player to the underlying farm scene
+        SceneManager.UnloadSceneAsync(gameObject.scene.name);
     }
 
     public void ResetGame()

@@ -17,37 +17,34 @@ public class WeedRemovalMinigame : MinigameBase
     [SerializeField] private TMP_Text timerText;
     [SerializeField] private TMP_Text plantTapText;
 
-
-    [Header("Weed Removal Paramaterers")]
+    [Header("Weed Removal Parameters")]
     [SerializeField] private float plantExclusionRadius = 150f; // Minimum distance from center
     [SerializeField] private int maxSpawnAttempts = 10;
     [SerializeField] private int _weedsLeft;
     [SerializeField] private int _plantTaps;
     [SerializeField] private float _timeLeft;
-    [SerializeField] private readonly List<GameObject> _weeds = new List<GameObject>();
+    private readonly List<GameObject> _weeds = new List<GameObject>();
 
     [Header("Weeding Visuals")]
-    [SerializeField] private Sprite WeedTexture;    
+    [SerializeField] private Sprite WeedTexture;
     [SerializeField] public Image exclusionVisualizer;
-// <-- Add your line sprite here
-    
 
     private void OnEnable()
     {
-      ResetMinigame();
-
-      
+        ResetMinigame();
     }
+
     private void ResetMinigame()
     {
         ResetGame();
         _weedsLeft = totalWeeds;
         _plantTaps = 0;
         _timeLeft = gameDuration;
-        resultText.gameObject.SetActive(false);
-        instructionText.text = "Tap the weeds — not the plant!";
-        SetupVisualizer();
 
+        if (resultText != null) resultText.gameObject.SetActive(false);
+        if (instructionText != null) instructionText.text = "Tap the weeds — not the plant!";
+
+        SetupVisualizer();
         SpawnWeeds();
         RefreshUI();
     }
@@ -93,7 +90,6 @@ public class WeedRemovalMinigame : MinigameBase
                 Vector2 positionInPlantSpace = plantRT.InverseTransformPoint(worldPos);
 
                 // 3. Check if the point falls directly inside the plant button's Rect bounds
-                // We use plantExclusionRadius as extra padding around the rectangle edges
                 float padding = plantExclusionRadius;
                 Rect paddedRect = new Rect(
                     plantRT.rect.x - padding,
@@ -132,26 +128,9 @@ public class WeedRemovalMinigame : MinigameBase
 
         if (_weedsLeft <= 0)
         {
-            if (CurrentPlot != null)
-            {
-                CurrentPlot.winMinigame();
-                Invoke(nameof(DisableThisPanel), 5f);
-                EndGame(true);
-            }
- 
-            else
-            {
-                Debug.LogWarning("Minigame ended, but no CurrentPlot reference was passed!");
-            }
-           
-           
+            // The manager class automatically alerts the plot and handles scene transitions
+            EndGame(true);
         }
-            
-    }
-    private void DisableThisPanel()
-    {
-        Debug.Log("Disabling Weed Removal Minigame");
-        transform.parent.gameObject.SetActive(false);
     }
 
     private void OnPlantTapped()
@@ -163,12 +142,11 @@ public class WeedRemovalMinigame : MinigameBase
 
         if (_plantTaps >= maxPlantTaps)
         {
-            CurrentPlot.LoseMinigame();
-            Invoke(nameof(DisableThisPanel), 10f);
+            // Handled safely by the manager class layout
             EndGame(false);
         }
-            
     }
+
     private void SetupVisualizer()
     {
         if (exclusionVisualizer == null) return;
@@ -176,13 +154,13 @@ public class WeedRemovalMinigame : MinigameBase
         RectTransform plantRT = plantButton.GetComponent<RectTransform>();
         RectTransform visualizerRT = exclusionVisualizer.GetComponent<RectTransform>();
 
-        // Matches your exact SpawnWeeds paddedRect math
         float paddedWidth = plantRT.rect.width + (plantExclusionRadius * 2f);
         float paddedHeight = plantRT.rect.height + (plantExclusionRadius * 2f);
 
         visualizerRT.sizeDelta = new Vector2(paddedWidth, paddedHeight);
         visualizerRT.position = plantRT.position;
     }
+
     private void RefreshUI()
     {
         if (plantTapText)
@@ -190,6 +168,6 @@ public class WeedRemovalMinigame : MinigameBase
     }
 
     protected override string GetWinMessage() => "Weeds cleared!";
-    
+
     protected override string GetLoseMessage() => _plantTaps >= maxPlantTaps ? "You damaged the plant!" : "Too slow!";
 }

@@ -23,32 +23,25 @@ public class PrecisionWateringMinigame : MinigameBase
 
     private void OnEnable()
     {
-        // Cancel any pending closure invocations just in case
-        CancelInvoke(nameof(DisableThisPanel));
-     
-       
-
         if (resultText != null) resultText.gameObject.SetActive(false);
         if (instructionText != null) instructionText.text = "Hold to fill - keep the level in the green zone when time runs out!";
 
-       
         ResetMinigame();
     }
 
     private void ResetMinigame()
     {
-        Debug.Log("Enableddd");
         _timeLeft = gameDuration;
-        _fillAmount = 0f; // Reset fill amount
+        _fillAmount = 0f;
         waterFillImage.fillAmount = 0f;
         ResetGame();
         PositionGreenZone();
     }
+
     private void Update()
     {
         if (GameOver) return;
 
-        // Input — works for both mouse and touch
         bool holding = Input.GetMouseButton(0) ||
                        (Input.touchCount > 0 && Input.GetTouch(0).phase != TouchPhase.Ended);
 
@@ -63,41 +56,13 @@ public class PrecisionWateringMinigame : MinigameBase
         if (_timeLeft <= 0f)
         {
             bool won = _fillAmount >= zoneMin && _fillAmount <= zoneMax;
-            Debug.Log("Went Into here");
-            Debug.Log("Minigame Finished. Result Won: " + won);
-
-            if (CurrentPlot != null)
-            {
-                if (won)
-                {
-                    CurrentPlot.winMinigame();
-                }
-                else
-                {
-                    CurrentPlot.LoseMinigame();
-                }
-            }
-            else
-            {
-                Debug.LogWarning("Minigame ended, but no CurrentPlot reference was passed!");
-            }
-            Debug.Log("Disabling this  watering minigame");
-            Invoke(nameof(DisableThisPanel), 3f);
-            EndGame(won);
-           
+            EndGame(won); // Manager cleanly takes the true/false result here!
         }
-    }
-    private void DisableThisPanel()
-    {
-        Debug.Log("Disabling Watering Minigame");
-        transform.parent.gameObject.SetActive(false);
-        
     }
 
     protected override string GetWinMessage() => "Great watering!";
     protected override string GetLoseMessage() => _fillAmount > zoneMax ? "Too much water!" : "Not enough water!";
 
-    // Sizes and positions the green zone image relative to the bar at runtime
     private void PositionGreenZone()
     {
         RectTransform barRect = waterFillImage.transform.parent.GetComponent<RectTransform>();

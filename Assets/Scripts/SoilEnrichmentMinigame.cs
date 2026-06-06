@@ -8,7 +8,7 @@ public class SoilEnrichmentMinigame : MinigameBase
     [Header("Settings")]
     [SerializeField] private int totalItems = 8;
     [SerializeField] private float gameDuration = 20f;
-    [SerializeField] private float swipeThreshold = 80f;  // pixels to register as a swipe
+    [SerializeField] private float swipeThreshold = 80f;
 
     [Header("UI")]
     [SerializeField] private RectTransform itemContainer;
@@ -18,18 +18,14 @@ public class SoilEnrichmentMinigame : MinigameBase
     [Header("Netting Visuals")]
     [SerializeField] private Sprite[] SoilTextures;
     [SerializeField] private Sprite[] TrashTextures;
-    
 
     [Header("SoilEnrichment Parameters")]
     [SerializeField] private float _timeLeft;
     [SerializeField] private float ItemSize;
     [SerializeField] private float XField;
-  
     [SerializeField] private float YField;
-
     [SerializeField] private int _itemsLeft;
 
-    // Track each item: is it organic, current rect, drag state
     private class ItemEntry
     {
         public bool isOrganic;
@@ -40,16 +36,13 @@ public class SoilEnrichmentMinigame : MinigameBase
     }
 
     private readonly List<ItemEntry> _items = new List<ItemEntry>();
-    private ItemEntry _activeItem = null; // the item currently being dragged
+    private ItemEntry _activeItem = null;
 
     private void OnEnable()
     {
         ResetMinigame();
-
-        resultText.gameObject.SetActive(false);
-        instructionText.text = "Swipe GREEN items DOWN into soil. Swipe GREY items UP to discard.";
-
-     
+        if (resultText != null) resultText.gameObject.SetActive(false);
+        if (instructionText != null) instructionText.text = "Swipe GREEN items DOWN into soil. Swipe GREY items UP to discard.";
     }
 
     private void ResetMinigame()
@@ -76,16 +69,12 @@ public class SoilEnrichmentMinigame : MinigameBase
 
         _timeLeft -= Time.deltaTime;
         if (timerText) timerText.text = Mathf.CeilToInt(Mathf.Max(_timeLeft, 0f)).ToString();
-        if (_timeLeft <= 0f) {
 
-
-            CurrentPlot.LoseMinigame();
-            Invoke(nameof(DisableThisPanel), 5f);
+        if (_timeLeft <= 0f)
+        {
             EndGame(false);
-
-
-
-            ; }
+            return;
+        }
 
         HandleInput();
     }
@@ -96,8 +85,7 @@ public class SoilEnrichmentMinigame : MinigameBase
         {
             bool organic = i < totalItems / 2;
 
-            var obj = new GameObject(organic ? $"Organic_{i}" : $"Inorganic_{i}",
-                typeof(RectTransform), typeof(Image));
+            var obj = new GameObject(organic ? $"Organic_{i}" : $"Inorganic_{i}", typeof(RectTransform), typeof(Image));
             obj.transform.SetParent(itemContainer, false);
 
             var rt = obj.GetComponent<RectTransform>();
@@ -107,16 +95,13 @@ public class SoilEnrichmentMinigame : MinigameBase
                 Random.Range(-YField, YField)
             );
 
-            // 1. Get the Image component reference
             Image img = obj.GetComponent<Image>();
 
             if (organic)
             {
                 if (SoilTextures != null && SoilTextures.Length > 0)
                 {
-                    // Picks a random index from 0 to the size of the array
-                    int randomIndex = Random.Range(0, SoilTextures.Length);
-                    img.sprite = SoilTextures[randomIndex];
+                    img.sprite = SoilTextures[Random.Range(0, SoilTextures.Length)];
                 }
                 img.color = Color.white;
             }
@@ -124,12 +109,8 @@ public class SoilEnrichmentMinigame : MinigameBase
             {
                 if (TrashTextures != null && TrashTextures.Length > 0)
                 {
-                    // Picks a random index from 0 to the size of the array
-                    int randomIndex = Random.Range(0, TrashTextures.Length);
-                    img.sprite = TrashTextures[randomIndex];
-
+                    img.sprite = TrashTextures[Random.Range(0, TrashTextures.Length)];
                 }
-                //img.color = Color.red;
             }
 
             _items.Add(new ItemEntry { isOrganic = organic, rect = rt });
@@ -138,15 +119,12 @@ public class SoilEnrichmentMinigame : MinigameBase
 
     private void HandleInput()
     {
-        Vector2 screenPos = Input.touchCount > 0
-            ? (Vector2)Input.GetTouch(0).position
-            : (Vector2)Input.mousePosition;
+        Vector2 screenPos = Input.touchCount > 0 ? (Vector2)Input.GetTouch(0).position : (Vector2)Input.mousePosition;
 
         bool pressed = Input.GetMouseButtonDown(0) || (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began);
         bool held = Input.GetMouseButton(0) || (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Moved);
         bool released = Input.GetMouseButtonUp(0) || (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended);
 
-        // Pick up an item
         if (pressed && _activeItem == null)
         {
             foreach (var item in _items)
@@ -162,22 +140,19 @@ public class SoilEnrichmentMinigame : MinigameBase
             }
         }
 
-        // Drag
         if (held && _activeItem != null)
         {
             Vector2 delta = screenPos - _activeItem.dragStartInput;
             _activeItem.rect.anchoredPosition = _activeItem.dragStartPos + delta;
         }
 
-        // Release — check swipe direction
         if (released && _activeItem != null)
         {
             float verticalDelta = screenPos.y - _activeItem.dragStartInput.y;
             bool swipedDown = verticalDelta < -swipeThreshold;
             bool swipedUp = verticalDelta > swipeThreshold;
 
-            bool correct = (_activeItem.isOrganic && swipedDown) ||
-                           (!_activeItem.isOrganic && swipedUp);
+            bool correct = (_activeItem.isOrganic && swipedDown) || (!_activeItem.isOrganic && swipedUp);
 
             if (correct)
             {
@@ -188,16 +163,11 @@ public class SoilEnrichmentMinigame : MinigameBase
 
                 if (_itemsLeft <= 0)
                 {
-                    CurrentPlot.winMinigame();
-                    Invoke(nameof(DisableThisPanel), 5f);
                     EndGame(true);
-
                 }
-
             }
             else
             {
-                // Snap back to original position if wrong direction
                 _activeItem.rect.anchoredPosition = _activeItem.dragStartPos;
             }
 
@@ -209,11 +179,6 @@ public class SoilEnrichmentMinigame : MinigameBase
     private void RefreshUI()
     {
         if (remainingText) remainingText.text = $"Items left: {_itemsLeft}";
-    }
-    private void DisableThisPanel()
-    {
-        Debug.Log("Disabling Soil Enrichment Minigame");
-        transform.parent.gameObject.SetActive(false);
     }
 
     protected override string GetWinMessage() => "Soil enriched!";

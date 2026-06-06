@@ -947,6 +947,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a43a860f6be5cb84097f24cabcc07c02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StructuralSupportMinigame
+  minigameType: 4
   resultText: {fileID: 1913014687}
   instructionText: {fileID: 39482647}
   returnDelay: 2
@@ -958,6 +959,10 @@ MonoBehaviour:
   promptTimerBar: {fileID: 558484845}
   overallTimerText: {fileID: 1075165500}
   progressText: {fileID: 1270173953}
+  soilplot: []
+  soilStatus: 0
+  soilImage: {fileID: 0}
+  fakePlantImage: {fileID: 0}
 --- !u!4 &1631877417
 Transform:
   m_ObjectHideFlags: 0

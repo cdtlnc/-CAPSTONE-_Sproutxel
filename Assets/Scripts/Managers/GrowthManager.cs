@@ -186,6 +186,8 @@ public class GrowthManager : MonoBehaviour
 
             if (goalManager != null && yieldAmount > 0)
             {
+                bool dynamicHarvestTriggered = false;
+
                 // Loop to add the items to my level objectives
                 for (int i = 0; i < yieldAmount; i++)
                 {
@@ -194,12 +196,19 @@ public class GrowthManager : MonoBehaviour
                     {
                         int yield = plantSimulationInstance.GetCropYield();
                         goalManager.AddCrop(currentSeed.cropName, yield);
-                        IsNotPlantable(); //Used to make sure the soil tiller is used
+                        IsNotPlantable(); // Used to make sure the soil tiller is used
+                        dynamicHarvestTriggered = true;
                     }
                     else if (ui != null)
                     {
                         ui.OpenWindow(this); // Passes this specific crop's data to the screen
                     }
+                }
+
+                // Safely clear the plot out here after loop iterations finish executing
+                if (dynamicHarvestTriggered)
+                {
+                    ResetPlot();
                 }
             }
         }
@@ -242,7 +251,7 @@ public class GrowthManager : MonoBehaviour
         plantSimulationInstance.cropMoisture = 20f;
         plantSimulationInstance.soilMoisture = 20f;
         plantSimulationInstance.soilSoftness = 20f;
-        plantSimulationInstance.soilQuality = 20f;
+        plantSimulationInstance.soilQuality = 50f; // Restored to your original baseline value
 
         data.remainingSeedBags--;
 
@@ -317,7 +326,7 @@ public class GrowthManager : MonoBehaviour
         ResetPlot();
     }
 
-    // --- NEW: LINKED MINIGAME STAT RESOLUTION ROUTINES ---
+    // --- LINKED MINIGAME STAT RESOLUTION ROUTINES ---
     public void ResolveMinigameWin(MinigameType type)
     {
         Debug.Log($"Minigame {type} WON. Correcting stats on plot!");
@@ -349,6 +358,12 @@ public class GrowthManager : MonoBehaviour
             case MinigameType.StructuralSupport:
                 plantSimulationInstance.soilSoftness = 5.0f;
                 break;
+
+            case MinigameType.Netting:
+                // SAFE PASS: When the player nails the anchor placements, award +2.0f back to the crop's health!
+                // Using Mathf.Min with 10f ensures I don't break the game logic by accidentally overflowing past max HP.
+                plantSimulationInstance.cropHP = Mathf.Min(plantSimulationInstance.cropHP + 2.0f, 10f);
+                break;
         }
 
         CheckStats();
@@ -369,6 +384,9 @@ public class GrowthManager : MonoBehaviour
             case MinigameType.PestControl:
                 plantSimulationInstance.cropHP -= 3.0f;
                 break;
+            case MinigameType.Netting:
+                plantSimulationInstance.cropHP -= 1.0f; // Custom damage deduction if they mess up netting loops
+                break;
             default:
                 plantSimulationInstance.cropHP -= 1.0f;
                 break;
@@ -376,7 +394,6 @@ public class GrowthManager : MonoBehaviour
 
         CheckStats();
     }
-    // -----------------------------------------------------
 
     private void CheckStats()
     {
@@ -557,8 +574,6 @@ public class GrowthManager : MonoBehaviour
     public void IsNotPlantable()
     {
         isplantable = false;
-        ResetPlot();
-
     }
 
     public void RemovePlant()

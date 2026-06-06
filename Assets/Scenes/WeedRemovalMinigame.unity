@@ -823,6 +823,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a039646728c1acc4ab6784b53b45c5f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WeedRemovalMinigame
+  minigameType: 1
   resultText: {fileID: 457366602}
   instructionText: {fileID: 799456789}
   returnDelay: 2
@@ -834,6 +835,13 @@ MonoBehaviour:
   weedContainer: {fileID: 1209908534}
   timerText: {fileID: 654342335}
   plantTapText: {fileID: 946558756}
+  plantExclusionRadius: 150
+  maxSpawnAttempts: 10
+  _weedsLeft: 0
+  _plantTaps: 0
+  _timeLeft: 0
+  WeedTexture: {fileID: 0}
+  exclusionVisualizer: {fileID: 0}
 --- !u!4 &847725865
 Transform:
   m_ObjectHideFlags: 0
