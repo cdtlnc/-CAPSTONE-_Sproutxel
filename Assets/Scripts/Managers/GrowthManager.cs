@@ -40,10 +40,12 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
 
     [Header("Crop Mechanics")]
     [SerializeField] private bool Waterlogged;
+    [SerializeField] private bool WaterCleared;
     [SerializeField] private float WaterloggedMeter;
     [SerializeField] private float WaterCooldown;
     [SerializeField] private float WaterloggedMax;
     [SerializeField] private float WaterFillUpRate;
+    [SerializeField] private float WaterDuration;
     [SerializeField] private GameObject Water;
 
     [Header("Seed Class")]
@@ -60,10 +62,19 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
     [Header("Item Checker")]
     [SerializeField] private bool isplantable;
 
+    [Header("Safety Net")]
+    [SerializeField] float maxLimit = 80f;
+    [SerializeField] float recoveryAmountPerTick = 2f;
+    [SerializeField] float minSafe = -20f;
+    [SerializeField] float maxSafe = 60f;
+    [SerializeField] float recoveryRate = 2f; // How many points it recovers per tick
+    [SerializeField] float targetCenter = 20f;
+    [SerializeField] float reductionFactor = 0.3f;
+
     // Direct link to the math backend script
     public BasePlant plantSimulationInstance;
 
-    [HideInInspector] public bool isPlanted = false;
+     public bool isPlanted = false;
 
     private void Start()
     {
@@ -89,8 +100,14 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
 
     public void HandleTick()
     {
+        Debug.Log("Here at waterlogged");
         if (!isPlanted)
             IsWaterLogged();
+        if (WaterCleared&&!isplantable)
+        {
+            DecreaseWaterlogged();
+        }
+
 
         // Don't calculate stuff if the plot is completely empty
         if (!isPlanted || currentSeed == null || plantSimulationInstance == null) return;
@@ -144,7 +161,7 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
 
         // LINE ADDED HERE: Run real-time condition evaluation checks
         EvaluatePlotHealth();
-
+       
         GetMogged();
         UpdatePlantSprite();
         Debug.Log("Coming up on Waterlogged");
@@ -315,22 +332,34 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
     }
 
     // --- LINKED MINIGAME STAT RESOLUTION ROUTINES ---
+    // --- LINKED MINIGAME STAT RESOLUTION ROUTINES ---
     public void ResolveMinigameWin(MinigameType type)
     {
         Debug.Log($"Minigame {type} WON. Correcting stats on plot!");
-
         if (plantSimulationInstance == null) return;
+
+        float centerPoint = 20f; // The middle of your -20 to 60 sweet spot
+
+        // Changing this to 0.3f brings the stat well inside the safe harvest zone
+        float reductionFactor = 0.3f;
 
         switch (type)
         {
             case MinigameType.Watering:
-                plantSimulationInstance.soilMoisture = 5.0f;
-                plantSimulationInstance.cropMoisture = 5.0f;
-                WaterClear(); // Reuses your existing function to clear graphics and meters
+                // Example with 0.3f: 
+                // If moisture is at 100 -> (100 - 20) * 0.3f + 20 = 44f (Safely below the 60f threshold!)
+                // If moisture is at -60 -> (-60 - 20) * 0.3f + 20 = -4f (Safely above the -20f threshold!)
+                plantSimulationInstance.soilMoisture = (plantSimulationInstance.soilMoisture - centerPoint) * reductionFactor + centerPoint;
+                plantSimulationInstance.cropMoisture = (plantSimulationInstance.cropMoisture - centerPoint) * reductionFactor + centerPoint;
+                WaterClear();
+                break;
+
+            case MinigameType.StructuralSupport:
+                plantSimulationInstance.soilSoftness = (plantSimulationInstance.soilSoftness - centerPoint) * reductionFactor + centerPoint;
                 break;
 
             case MinigameType.Weeding:
-                plantSimulationInstance.soilQuality = Mathf.Min(plantSimulationInstance.soilQuality + 2.0f, 10f);
+                plantSimulationInstance.soilQuality = Mathf.Min(plantSimulationInstance.soilQuality + 2.0f, 100f);
                 break;
 
             case MinigameType.PestControl:
@@ -340,23 +369,19 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
                 break;
 
             case MinigameType.SoilEnrichment:
-                plantSimulationInstance.soilQuality = 10.0f;
-                break;
-
-            case MinigameType.StructuralSupport:
-                plantSimulationInstance.soilSoftness = 5.0f;
+                plantSimulationInstance.soilQuality = 40.0f; // Adjusted downward from 60f so it sits comfortably inside the sweet spot
                 break;
 
             case MinigameType.Netting:
-                // SAFE PASS: When the player nails the anchor placements, award +2.0f back to the crop's health!
-                // Using Mathf.Min with 10f ensures I don't break the game logic by accidentally overflowing past max HP.
-                plantSimulationInstance.cropHP = Mathf.Min(plantSimulationInstance.cropHP + 2.0f, 10f);
+                plantSimulationInstance.cropHP = Mathf.Min(plantSimulationInstance.cropHP + 2.0f, 100f);
                 break;
         }
-        SuperCharge();
+
         CheckStats();
         UpdatePlantSprite();
     }
+
+
 
     public void ResolveMinigameLose(MinigameType type)
     {
@@ -385,61 +410,75 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
 
     private void CheckStats()
     {
-        // Safety check to prevent crashes if nothing is planted yet
         if (!isPlanted || currentSeed == null || plantSimulationInstance == null)
         {
             hasNoBadStats = false;
             return;
         }
 
-        // 1. Sync the display variables from the simulation backend
         cropMoisture = plantSimulationInstance.cropMoisture;
         soilQuality = plantSimulationInstance.soilQuality;
         soilMoisture = plantSimulationInstance.soilMoisture;
         soilSoftness = plantSimulationInstance.soilSoftness;
 
-        // 2. Set the threshold limits (80% of 100 is 80)
-        float maxLimit = 80f;
-        float minLimit = -80f;
+        // Your custom range bounds
+        float minLimit = -20f;
+        float maxLimit = 60f;
 
-        // 3. Check if ANY of the tracked stats have gone outside the safe -80 to 80 range
-        if (
-            cropMoisture < minLimit || cropMoisture > maxLimit ||
+        if (cropMoisture < minLimit || cropMoisture > maxLimit ||
             soilQuality < minLimit || soilQuality > maxLimit ||
             soilMoisture < minLimit || soilMoisture > maxLimit ||
             soilSoftness < minLimit || soilSoftness > maxLimit)
         {
-            // At least one stat is bad (outside the 80% range)
             hasNoBadStats = false;
             PlantSadFG.color = new Color(1f, 1f, 1f, 1f);
             PlantSadBG.color = new Color(1f, 1f, 1f, 1f);
         }
         else
         {
-            // All stats are safely within the -80 to 80 range!
             hasNoBadStats = true;
+            // Optionally clear the sad face overlay here if they are healthy
+            PlantSadFG.color = new Color(1f, 1f, 1f, 0f);
+            PlantSadBG.color = new Color(1f, 1f, 1f, 0f);
         }
     }
 
+
+    /// <summary>
+    /// Evaluates structural crop health conditions and handles targeted degradation logic.
+    /// </summary>
     /// <summary>
     /// Evaluates structural crop health conditions and handles targeted degradation logic.
     /// </summary>
     public void EvaluatePlotHealth()
     {
-        if (plantSimulationInstance == null) return;
+        // Safety shield
+        if (!isPlanted || plantSimulationInstance == null) return;
 
-        // Check discrete plot parameters
-        bool isThirsty = plantSimulationInstance.soilMoisture < 2.0f;
-        bool isDrowning = Waterlogged;
-        bool isInfested = bugInfestation == "INFESTEDDD";
+        float maxLimit = 80f;
+        float recoveryAmountPerTick = 2f; // How fast stats slowly decay back to 0 on their own
 
-        // Apply health breakdown modifications if environments are compromised
-        if (isThirsty || isDrowning || isInfested)
+        // If stats are outside the -20 to 60 boundary, pull them toward the center point
+        if (plantSimulationInstance.soilMoisture < minSafe || plantSimulationInstance.soilMoisture > maxSafe)
         {
-            hasNoBadStats = false;
-            plantSimulationInstance.cropHP -= 0.5f; // Apply active tick damage penalty
+            plantSimulationInstance.soilMoisture = Mathf.MoveTowards(plantSimulationInstance.soilMoisture, targetCenter, recoveryRate);
         }
+
+        if (plantSimulationInstance.cropMoisture < minSafe || plantSimulationInstance.cropMoisture > maxSafe)
+        {
+            plantSimulationInstance.cropMoisture = Mathf.MoveTowards(plantSimulationInstance.cropMoisture, targetCenter, recoveryRate);
+        }
+
+        if (plantSimulationInstance.soilSoftness < minSafe || plantSimulationInstance.soilSoftness > maxSafe)
+        {
+            plantSimulationInstance.soilSoftness = Mathf.MoveTowards(plantSimulationInstance.soilSoftness, targetCenter, recoveryRate);
+        }
+
+        IsWaterLogged();
+        // Handle waterlogging if moisture stays dangerously high
+        
     }
+
 
     private void disableSadParts()
     {
@@ -524,8 +563,9 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
 
     public void IsWaterLogged()
     {
+        if (WaterDuration > 0) return;
         Debug.Log("Entered is waterlogged");
-        if (!TimeOfDayUI.isDrySeason&&EventManager._weatherEvent==2)
+        if (!TimeOfDayUI.isDrySeason)
         {
             Debug.Log("Adding To Waterlogged");
             WaterloggedMeter += WaterFillUpRate;
@@ -535,16 +575,24 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
         {
             Water.SetActive(true);
             Waterlogged = true;
+            WaterCleared = true;
         }
         Debug.Log("Water Logged Meter: " + WaterloggedMeter);
     }
-
+    public void DecreaseWaterlogged()
+    {
+        if (WaterDuration > 0)
+        {
+            WaterDuration -= WaterFillUpRate;
+        }
+    }
     public void WaterClear()
     {
         Waterlogged = false;
         WaterloggedMeter = 0;
-        WaterCooldown = 50;
+        WaterDuration = WaterCooldown;
         Water.SetActive(false);
+
     }
 
     // Remove Bug Stats// Pesticide

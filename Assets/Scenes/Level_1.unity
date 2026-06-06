@@ -487,9 +487,7 @@ Transform:
   m_LocalPosition: {x: -390.50674, y: 31, z: 0}
   m_LocalScale: {x: 1.464531, y: 1.464531, z: 1.464531}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1516693859}
-  - {fileID: 304643912}
+  m_Children: []
   m_Father: {fileID: 1855976203}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &28097907
@@ -1509,6 +1507,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 93067985}
+  - component: {fileID: 93067986}
   m_Layer: 0
   m_Name: HeatDazeContainer
   m_TagString: Untagged
@@ -1532,6 +1531,18 @@ Transform:
   - {fileID: 861393884}
   m_Father: {fileID: 1855976203}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!225 &93067986
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 93067984}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!1 &100305948
 GameObject:
   m_ObjectHideFlags: 0
@@ -1904,7 +1915,7 @@ RectTransform:
   m_Father: {fileID: 1131815413}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -2694,10 +2705,12 @@ MonoBehaviour:
   soilMoisture: 0
   soilSoftness: 0
   Waterlogged: 0
+  WaterCleared: 0
   WaterloggedMeter: 0
   WaterCooldown: 100
   WaterloggedMax: 100
   WaterFillUpRate: 10
+  WaterDuration: 0
   Water: {fileID: 1947313819}
   seasonOutput: 
   cycleOutput: 
@@ -2708,6 +2721,13 @@ MonoBehaviour:
   weatherIndex: 0
   bugIndex: 0
   isplantable: 0
+  maxLimit: 80
+  recoveryAmountPerTick: 2
+  minSafe: -20
+  maxSafe: 60
+  recoveryRate: 2
+  targetCenter: 20
+  reductionFactor: 0.3
   isPlanted: 0
 --- !u!65 &196681577
 BoxCollider:
@@ -3495,10 +3515,12 @@ MonoBehaviour:
   soilMoisture: 0
   soilSoftness: 0
   Waterlogged: 0
+  WaterCleared: 0
   WaterloggedMeter: 0
   WaterCooldown: 100
   WaterloggedMax: 100
   WaterFillUpRate: 10
+  WaterDuration: 0
   Water: {fileID: 270469739}
   seasonOutput: 
   cycleOutput: 
@@ -3509,6 +3531,13 @@ MonoBehaviour:
   weatherIndex: 0
   bugIndex: 0
   isplantable: 0
+  maxLimit: 80
+  recoveryAmountPerTick: 2
+  minSafe: -20
+  maxSafe: 60
+  recoveryRate: 2
+  targetCenter: 20
+  reductionFactor: 0.3
   isPlanted: 0
 --- !u!65 &237207102
 BoxCollider:
@@ -4268,10 +4297,12 @@ MonoBehaviour:
   soilMoisture: 0
   soilSoftness: 0
   Waterlogged: 0
+  WaterCleared: 0
   WaterloggedMeter: 0
   WaterCooldown: 100
   WaterloggedMax: 100
   WaterFillUpRate: 10
+  WaterDuration: 0
   Water: {fileID: 685321623}
   seasonOutput: 
   cycleOutput: 
@@ -4282,6 +4313,13 @@ MonoBehaviour:
   weatherIndex: 0
   bugIndex: 0
   isplantable: 0
+  maxLimit: 80
+  recoveryAmountPerTick: 2
+  minSafe: -20
+  maxSafe: 60
+  recoveryRate: 2
+  targetCenter: 20
+  reductionFactor: 0.3
   isPlanted: 0
 --- !u!1 &304643909
 GameObject:
@@ -4410,14 +4448,14 @@ RectTransform:
   m_GameObject: {fileID: 304643909}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.6, y: 0.6, z: 0.6}
+  m_LocalScale: {x: 3.8493598, y: 1.3828137, z: 0.97826487}
   m_ConstrainProportionsScale: 1
   m_Children: []
-  m_Father: {fileID: 25818184}
+  m_Father: {fileID: 1516693859}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -82.299995, y: 108.4}
+  m_AnchoredPosition: {x: 62.873413, y: 197.05092}
   m_SizeDelta: {x: 180, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &312237864
@@ -5805,10 +5843,12 @@ MonoBehaviour:
   soilMoisture: 0
   soilSoftness: 0
   Waterlogged: 0
+  WaterCleared: 0
   WaterloggedMeter: 0
   WaterCooldown: 100
   WaterloggedMax: 100
   WaterFillUpRate: 10
+  WaterDuration: 0
   Water: {fileID: 421632894}
   seasonOutput: 
   cycleOutput: 
@@ -5819,6 +5859,13 @@ MonoBehaviour:
   weatherIndex: 0
   bugIndex: 0
   isplantable: 0
+  maxLimit: 80
+  recoveryAmountPerTick: 2
+  minSafe: -20
+  maxSafe: 60
+  recoveryRate: 2
+  targetCenter: 20
+  reductionFactor: 0.3
   isPlanted: 0
 --- !u!65 &418942612
 BoxCollider:
@@ -6701,7 +6748,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 41.83332, y: 0}
+  m_AnchoredPosition: {x: 41.833252, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &503002946
@@ -10190,10 +10237,12 @@ MonoBehaviour:
   soilMoisture: 0
   soilSoftness: 0
   Waterlogged: 0
+  WaterCleared: 0
   WaterloggedMeter: 0
   WaterCooldown: 100
   WaterloggedMax: 100
   WaterFillUpRate: 10
+  WaterDuration: 0
   Water: {fileID: 430164766}
   seasonOutput: 
   cycleOutput: 
@@ -10204,6 +10253,13 @@ MonoBehaviour:
   weatherIndex: 0
   bugIndex: 0
   isplantable: 0
+  maxLimit: 80
+  recoveryAmountPerTick: 2
+  minSafe: -20
+  maxSafe: 60
+  recoveryRate: 2
+  targetCenter: 20
+  reductionFactor: 0.3
   isPlanted: 0
 --- !u!65 &767850574
 BoxCollider:
@@ -10663,10 +10719,12 @@ MonoBehaviour:
   soilMoisture: 0
   soilSoftness: 0
   Waterlogged: 0
+  WaterCleared: 0
   WaterloggedMeter: 0
   WaterCooldown: 100
   WaterloggedMax: 100
   WaterFillUpRate: 10
+  WaterDuration: 0
   Water: {fileID: 1219158197}
   seasonOutput: 
   cycleOutput: 
@@ -10677,6 +10735,13 @@ MonoBehaviour:
   weatherIndex: 0
   bugIndex: 0
   isplantable: 0
+  maxLimit: 80
+  recoveryAmountPerTick: 2
+  minSafe: -20
+  maxSafe: 60
+  recoveryRate: 2
+  targetCenter: 20
+  reductionFactor: 0.3
   isPlanted: 0
 --- !u!65 &808631382
 BoxCollider:
@@ -11021,7 +11086,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &861393884
 RectTransform:
   m_ObjectHideFlags: 0
@@ -11031,14 +11096,14 @@ RectTransform:
   m_GameObject: {fileID: 861393883}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -18764.223}
-  m_LocalScale: {x: 19.778545, y: 10.849902, z: 10.739287}
+  m_LocalScale: {x: 18.519838, y: 10.159414, z: 10.05584}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 93067985}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 4657.0806, y: 1080}
+  m_AnchoredPosition: {x: 4571, y: 998}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &861393885
@@ -12295,10 +12360,12 @@ MonoBehaviour:
   soilMoisture: 0
   soilSoftness: 0
   Waterlogged: 0
+  WaterCleared: 0
   WaterloggedMeter: 0
   WaterCooldown: 100
   WaterloggedMax: 100
   WaterFillUpRate: 10
+  WaterDuration: 0
   Water: {fileID: 1982748370}
   seasonOutput: 
   cycleOutput: 
@@ -12309,6 +12376,13 @@ MonoBehaviour:
   weatherIndex: 0
   bugIndex: 0
   isplantable: 0
+  maxLimit: 80
+  recoveryAmountPerTick: 2
+  minSafe: -20
+  maxSafe: 60
+  recoveryRate: 2
+  targetCenter: 20
+  reductionFactor: 0.3
   isPlanted: 0
 --- !u!65 &952195046
 BoxCollider:
@@ -15060,13 +15134,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1144687511}
+  - component: {fileID: 1144687512}
   m_Layer: 0
   m_Name: RainyContainer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1144687511
 Transform:
   m_ObjectHideFlags: 0
@@ -15083,6 +15158,18 @@ Transform:
   - {fileID: 1143416550}
   m_Father: {fileID: 1855976203}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!225 &1144687512
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1144687510}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!1 &1162258368
 GameObject:
   m_ObjectHideFlags: 0
@@ -16440,7 +16527,7 @@ MonoBehaviour:
   m_MinValue: -100
   m_MaxValue: 100
   m_WholeNumbers: 0
-  m_Value: 100
+  m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -16959,7 +17046,7 @@ MonoBehaviour:
   dayColorLight: {r: 0.83396226, g: 0.7678071, b: 0.54600924, a: 1}
   twilightColor: {r: 1, g: 0.5, b: 0, a: 1}
   TICK_INTERVAL: 0.4
-  startWithDrySeason: 1
+  startWithDrySeason: 0
 --- !u!1 &1325138742
 GameObject:
   m_ObjectHideFlags: 0
@@ -17194,10 +17281,12 @@ MonoBehaviour:
   soilMoisture: 0
   soilSoftness: 0
   Waterlogged: 0
+  WaterCleared: 0
   WaterloggedMeter: 0
   WaterCooldown: 100
   WaterloggedMax: 100
   WaterFillUpRate: 10
+  WaterDuration: 0
   Water: {fileID: 1794626194}
   seasonOutput: 
   cycleOutput: 
@@ -17208,6 +17297,13 @@ MonoBehaviour:
   weatherIndex: 0
   bugIndex: 0
   isplantable: 0
+  maxLimit: 80
+  recoveryAmountPerTick: 2
+  minSafe: -20
+  maxSafe: 60
+  recoveryRate: 2
+  targetCenter: 20
+  reductionFactor: 0.3
   isPlanted: 0
 --- !u!65 &1326406118
 BoxCollider:
@@ -18851,16 +18947,17 @@ RectTransform:
   m_GameObject: {fileID: 1516693858}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.15587007, y: 0.43389794, z: 0.61333084}
+  m_LocalScale: {x: 0.22827655, y: 0.635457, z: 0.89824206}
   m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 25818184}
+  m_Children:
+  - {fileID: 304643912}
+  m_Father: {fileID: 1855976203}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -92.1, y: 22.9}
-  m_SizeDelta: {x: 865.19995, y: 556.4801}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0.5}
+  m_AnchorMax: {x: 0, y: 0.5}
+  m_AnchoredPosition: {x: 17, y: -167}
+  m_SizeDelta: {x: 865.19995, y: 555.71094}
+  m_Pivot: {x: -0, y: 0}
 --- !u!114 &1516693860
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20731,7 +20828,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 494.02008, y: -360, z: 3240.736}
-  m_LocalScale: {x: 0.6666667, y: 0.66666675, z: 0.6666667}
+  m_LocalScale: {x: 0.5865267, y: 0.58652675, z: 0.5865267}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 82361690}
@@ -21003,7 +21100,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bcea920539df2e242a4d434c465447dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EventManager
-  _weatherEventOdds: 000000002100000021000000
+  _weatherEventOdds: 000000000000000064000000
   _infestationOdds: 0
   _infestationChances: 50
   _weatherDuration: 20
@@ -21016,8 +21113,8 @@ MonoBehaviour:
   _HeatWaveDuration: 0
   _TyphoonDuration: 0
   _TyphoonTimer: 0
-  _HeatWaveChance: 10
-  _TyphoonChance: 10
+  _HeatWaveChance: 0
+  _TyphoonChance: 100
   weatherIcons:
   - {fileID: -470526965, guid: acc1e990b4beaec43b8cf17f1832b3c3, type: 3}
   - {fileID: -1095214549, guid: 9432dc4eaf8d84342bb6030d7af13815, type: 3}
@@ -21346,11 +21443,11 @@ RectTransform:
   - {fileID: 6235977093206215130}
   m_Father: {fileID: 1855976203}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 278.9674, y: -612}
-  m_SizeDelta: {x: 156.33334, y: 720}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 781.6669, y: 0}
+  m_SizeDelta: {x: 156.33337, y: 720}
+  m_Pivot: {x: 5, y: 0}
 --- !u!222 &1701718103
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -23726,6 +23823,7 @@ RectTransform:
   - {fileID: 543757403}
   - {fileID: 1864685754}
   - {fileID: 1910488279}
+  - {fileID: 1516693859}
   - {fileID: 25818184}
   m_Father: {fileID: 897671143}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -23955,6 +24053,11 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: MainMenu
     clip: {fileID: 8300000, guid: 833350daa30c1c1439a4dde1dbf3d850, type: 3}
+    volume: 0.454
+    pitch: 0.1
+    source: {fileID: 0}
+  - name: WinLevel
+    clip: {fileID: 8300000, guid: a85ad97bf5b50ce4396207fc915dcf06, type: 3}
     volume: 0.454
     pitch: 0.1
     source: {fileID: 0}
@@ -24408,6 +24511,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1900231248}
+  - component: {fileID: 1900231249}
   m_Layer: 0
   m_Name: TyphoonContainer
   m_TagString: Untagged
@@ -24431,6 +24535,18 @@ Transform:
   - {fileID: 1354687283}
   m_Father: {fileID: 1855976203}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!225 &1900231249
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1900231247}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!1 &1905784727
 GameObject:
   m_ObjectHideFlags: 0
@@ -24686,8 +24802,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1199235854}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -28166,7 +28282,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 561.8333, y: 0.000030517578}
+  m_AnchoredPosition: {x: 561.8333, y: 0}
   m_SizeDelta: {x: 1123.6666, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6463204057710573306

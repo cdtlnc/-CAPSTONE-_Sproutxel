@@ -24,6 +24,7 @@ public class WinOrLoseManager : MonoBehaviour
     {
         Debug.Log("WE STAY WINNING");
         winScreen.SetActive(true);
+        FindFirstObjectByType<AudioManager>().Play("WinLevel");
     }
     public void onLose()
     {

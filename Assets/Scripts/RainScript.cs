@@ -10,7 +10,6 @@ public class RainScript : MonoBehaviour
 
     private Image _spriteRenderer;
     private Image _image;
-    
 
     private int _currentFrame = 0;
     private float _frameTimer = 0f;
@@ -26,6 +25,8 @@ public class RainScript : MonoBehaviour
     private void OnEnable()
     {
         TickManager.OnEventTick += OnEventTick;
+        // Run a manual check when enabled so it doesn't wait up to 5 seconds for the next tick
+        EvaluateRainVisibility();
     }
 
     private void OnDisable()
@@ -35,13 +36,21 @@ public class RainScript : MonoBehaviour
 
     private void OnEventTick(object sender, TickManager.OnTickEventArgs e)
     {
-       
-        _shouldShow = EventManager._weatherEvent == 2;
+        EvaluateRainVisibility();
+    }
+
+    // FIXED: Extracted this logic so it safely checks both the active Typhoon event AND the seasonal state
+    private void EvaluateRainVisibility()
+    {
+        bool isTyphoon = EventManager._weatherEvent == 2;
+        bool isWetSeason = !TimeOfDayUI.isDrySeason;
+
+        // Show the rain if it's a typhoon OR if it's the normal wet season
+        _shouldShow = isTyphoon || isWetSeason;
     }
 
     private void Update()
     {
-        
         float targetAlpha = _shouldShow ? maxAlpha : 0f;
         _currentAlpha = Mathf.MoveTowards(_currentAlpha, targetAlpha, fadeSpeed * Time.deltaTime);
         SetAlpha(_currentAlpha);
