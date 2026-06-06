@@ -537,7 +537,7 @@ public class GrowthManager : MonoBehaviour
     public void IsWaterLogged()
     {
         Debug.Log("Entered is waterlogged");
-        if (!TimeOfDayUI.isDrySeason)
+        if (!TimeOfDayUI.isDrySeason&&EventManager._weatherEvent==2)
         {
             Debug.Log("Adding To Waterlogged");
             WaterloggedMeter += WaterFillUpRate;

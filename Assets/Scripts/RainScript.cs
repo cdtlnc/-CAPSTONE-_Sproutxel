@@ -35,11 +35,13 @@ public class RainScript : MonoBehaviour
 
     private void OnEventTick(object sender, TickManager.OnTickEventArgs e)
     {
+       
         _shouldShow = EventManager._weatherEvent == 2;
     }
 
     private void Update()
     {
+        
         float targetAlpha = _shouldShow ? maxAlpha : 0f;
         _currentAlpha = Mathf.MoveTowards(_currentAlpha, targetAlpha, fadeSpeed * Time.deltaTime);
         SetAlpha(_currentAlpha);

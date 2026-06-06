@@ -52,12 +52,13 @@ public class EventManager : MonoBehaviour
         TickManager.OnEventTick += TickManager_OnEventTick;
 
         // FORCE RAIN EVENT TO TEST, REMOVE
-        _weatherEvent = 2;
+       // _weatherEvent = 2;
     }
 
     // Everything in this function occurs on an "Event Tick"
     void TickManager_OnEventTick(object sender, TickManager.OnTickEventArgs e)
     {
+        Debug.Log("Weather Event " + _weatherEvent);
         if (_weatherEvent == 0)
         {
             _weatherCooldownTimer++; // If weather is clear, update the cooldown timer
@@ -77,8 +78,20 @@ public class EventManager : MonoBehaviour
 
             _weatherDurationTimer = 0;
             _weatherEvent = 0;
+            WeatherEventPanel(0);
+            ChangeIcon(1);
         }
+        if (TimeOfDayUI.isDrySeason)
+        {
+            ChangeIcon(0);
+            WeatherEventPanel(1);
 
+        }
+        else
+        {
+            ChangeIcon(1);
+            WeatherEventPanel(2);
+        }
         if (_weatherCooldownTimer >= _weatherCooldown)
         {
             Debug.Log("Weather event cooldown over!");
@@ -96,17 +109,7 @@ public class EventManager : MonoBehaviour
             CalcInfestationOdds();
             RollForBugInfestations();
         }
-        if (TimeOfDayUI.isDrySeason)
-        {
-            ChangeIcon(0);
-            WeatherEventPanel(1);
-
-        }
-        else
-        {
-            ChangeIcon(1);
-            WeatherEventPanel(2);
-        }
+        
     }
 
     // Calculates the odds of each weather event depending on the season
@@ -172,14 +175,14 @@ public class EventManager : MonoBehaviour
             _weatherEvent = 2;
             Debug.Log($"Player rolled {roll}, triggering a typhoon!");
             ChangeIcon(1);
-            WeatherEventPanel(2);
+            WeatherEventPanel(3);
         }
         else if (roll >= _weatherEventOdds[1] + _weatherEventOdds[2] + 1 && roll <= _weatherEventOdds[1] + _weatherEventOdds[2] + _weatherEventOdds[0])
         {
             // Clear weather
             _weatherEvent = 0;
             Debug.Log($"Player rolled {roll}, triggering no weather event!");
-            WeatherEventPanel(3);
+            WeatherEventPanel(0);
         }
     }
 
@@ -217,25 +220,31 @@ public class EventManager : MonoBehaviour
 
     public void WeatherEventPanel(int w)
     {
-        if (w == 1)
+        DisableWeatherPanels();
+        if (w == 1) //Sunny
         {
             HeatDazeContainer.SetActive(true);
-            TyphoonContinaer.SetActive(false);
         }
-        else if (w == 2)
+        else if (w == 2) //Rainy
         {
-            HeatDazeContainer.SetActive(false);
+            RainyContinaer.SetActive(true);
+        }
+        else if(w==3) //Typhoon
+        {
+            Debug.Log("Typhoon Panels opening");
             TyphoonContinaer.SetActive(true);
-        }
-        else
-        {
-            HeatDazeContainer.SetActive(false);
-            TyphoonContinaer.SetActive(false);
+            RainyContinaer.SetActive(true);
         }
 
 
 
 
 
+    }
+    public void DisableWeatherPanels()
+    {
+        HeatDazeContainer.SetActive(false);
+        TyphoonContinaer.SetActive(false);
+        RainyContinaer.SetActive(false);
     }
 }
