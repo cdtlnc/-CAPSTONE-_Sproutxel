@@ -33,6 +33,11 @@ public class EventManager : MonoBehaviour
     [SerializeField] private Sprite[] weatherIcons;
     [SerializeField] private Image weatherIcon;
 
+    [Header("UI Weather Panels")]
+    [SerializeField] private GameObject HeatDazeContainer;
+    [SerializeField] private GameObject TyphoonContinaer;
+    [SerializeField] private GameObject RainyContinaer;
+
     public static bool isInfested { get; private set; } = false; // This will communicate to other scripts whether or not a plant is infested
     public static int _weatherEvent { get; private set; } = 0;   // This will communicate to other scripts whether or not a typhoon or heat wave is occuring. 0 - Clear weather, 1 - Heat Wave, 2 - Typhoon
 
@@ -94,11 +99,13 @@ public class EventManager : MonoBehaviour
         if (TimeOfDayUI.isDrySeason)
         {
             ChangeIcon(0);
+            WeatherEventPanel(1);
 
         }
         else
         {
             ChangeIcon(1);
+            WeatherEventPanel(2);
         }
     }
 
@@ -157,6 +164,7 @@ public class EventManager : MonoBehaviour
             _weatherEvent = 1;
             Debug.Log($"Player rolled {roll}, triggering a heat wave!");
             ChangeIcon(0);
+            WeatherEventPanel(1);
         }
         else if (roll >= _weatherEventOdds[1] + 1 && roll <= _weatherEventOdds[1] + _weatherEventOdds[2])
         {
@@ -164,12 +172,14 @@ public class EventManager : MonoBehaviour
             _weatherEvent = 2;
             Debug.Log($"Player rolled {roll}, triggering a typhoon!");
             ChangeIcon(1);
+            WeatherEventPanel(2);
         }
         else if (roll >= _weatherEventOdds[1] + _weatherEventOdds[2] + 1 && roll <= _weatherEventOdds[1] + _weatherEventOdds[2] + _weatherEventOdds[0])
         {
             // Clear weather
             _weatherEvent = 0;
             Debug.Log($"Player rolled {roll}, triggering no weather event!");
+            WeatherEventPanel(3);
         }
     }
 
@@ -203,5 +213,29 @@ public class EventManager : MonoBehaviour
         {
             weatherIcon.sprite = weatherIcons[change];
         }
+    }
+
+    public void WeatherEventPanel(int w)
+    {
+        if (w == 1)
+        {
+            HeatDazeContainer.SetActive(true);
+            TyphoonContinaer.SetActive(false);
+        }
+        else if (w == 2)
+        {
+            HeatDazeContainer.SetActive(false);
+            TyphoonContinaer.SetActive(true);
+        }
+        else
+        {
+            HeatDazeContainer.SetActive(false);
+            TyphoonContinaer.SetActive(false);
+        }
+
+
+
+
+
     }
 }

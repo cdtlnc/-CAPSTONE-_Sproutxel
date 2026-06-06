@@ -1,16 +1,16 @@
 using UnityEngine;
 using UnityEngine.UI;
-
-public class RainScript : MonoBehaviour
+public class HeatDazeScript : MonoBehaviour
 {
     [SerializeField] private Sprite[] rainFrames;
     [SerializeField] private float fps = 12f;
     [SerializeField] private float fadeSpeed = 2f;
     [SerializeField] private float maxAlpha = 0.7f;
+    [SerializeField] private float minAlpha = 0.3f;
 
     private Image _spriteRenderer;
     private Image _image;
-    
+
 
     private int _currentFrame = 0;
     private float _frameTimer = 0f;
@@ -40,19 +40,14 @@ public class RainScript : MonoBehaviour
 
     private void Update()
     {
-        float targetAlpha = _shouldShow ? maxAlpha : 0f;
-        _currentAlpha = Mathf.MoveTowards(_currentAlpha, targetAlpha, fadeSpeed * Time.deltaTime);
+      
+        float t = Mathf.PingPong(Time.time * fadeSpeed, 1f);
+
+       
+        _currentAlpha = Mathf.Lerp(minAlpha, maxAlpha, t);
         SetAlpha(_currentAlpha);
 
-        if (_currentAlpha <= 0f || rainFrames == null || rainFrames.Length == 0) return;
-
-        _frameTimer += Time.deltaTime;
-        if (_frameTimer >= 1f / fps)
-        {
-            _frameTimer -= 1f / fps;
-            _currentFrame = (_currentFrame + 1) % rainFrames.Length;
-            SetSprite(rainFrames[_currentFrame]);
-        }
+     
     }
 
     private void SetAlpha(float alpha)
@@ -71,17 +66,12 @@ public class RainScript : MonoBehaviour
         }
     }
 
-    private void SetSprite(Sprite sprite)
-    {
-        if (_spriteRenderer != null)
-            _spriteRenderer.sprite = sprite;
-        else if (_image != null)
-            _image.sprite = sprite;
-    }
 
-    public void DisableTyphoone()
+    public void DisableHeatDaze()
     {
-        Debug.Log("Disabling RainScript panel");
+        Debug.Log("Disabling heatDaze panel");
         transform.parent.gameObject.SetActive(false);
     }
+
+  
 }
