@@ -8,6 +8,7 @@ public class EventManager : MonoBehaviour
     [Header("Infestation Chances")]
     [SerializeField] private int _infestationOdds;
     [SerializeField] private int _infestationChances;
+    [SerializeField] private bool _infestationStart;
 
 
     [Header("Weather Parameters")]
@@ -41,8 +42,10 @@ public class EventManager : MonoBehaviour
     public static int _weatherEvent { get; private set; } = 0;
 
 
+
     void Start()
     {
+        isInfested = _infestationStart;
         TickManager.OnEventTick += delegate (object sender, TickManager.OnTickEventArgs e)
         {
             Debug.Log("Tick: " + e.tick);

@@ -71,6 +71,10 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
     [SerializeField] float recoveryRate = 2f; // How many points it recovers per tick
     [SerializeField] float targetCenter = 20f;
     [SerializeField] float reductionFactor = 0.3f;
+    [SerializeField] float BugCooldownMeter;
+    [SerializeField] float BugCooldownMeterMax = 100f;
+    [SerializeField] float BugCooldownRate = 10;
+    [SerializeField] bool unBugged;
 
     // Direct link to the math backend script
     public BasePlant plantSimulationInstance;
@@ -108,7 +112,10 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
         {
             DecreaseWaterlogged();
         }
-
+        if (unBugged)
+        {
+            UnBugCountdown();
+        }
 
         // Don't calculate stuff if the plot is completely empty
         if (!isPlanted || currentSeed == null || plantSimulationInstance == null) return;
@@ -494,10 +501,16 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
     {
         if (EventManager.isInfested)
         {
-            bugInfestation = "INFESTEDDD";
-            bugIndex = 1;
-            plantSimulationInstance.bugIndex = bugIndex;
-            Bugging.SetActive(true);
+            if (BugCooldownMeter <= 0)
+            {
+                bugInfestation = "INFESTEDDD";
+                bugIndex = 1;
+                plantSimulationInstance.bugIndex = bugIndex;
+                unBugged = false;
+                Bugging.SetActive(true);
+                BugCooldownMeter = BugCooldownMeterMax;
+            }
+          
         }
         else
         {
@@ -507,7 +520,10 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
             Bugging.SetActive(false);
         }
     }
-
+    public void UnBugCountdown()
+    {
+        BugCooldownMeter -= BugCooldownRate;
+    }
     public void CheckWeather()
     {
         switch (EventManager._weatherEvent)
@@ -599,9 +615,11 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
     // Remove Bug Stats// Pesticide
     public void unBug()
     {
+        if (!isPlanted) return;
         bugIndex = 0;
         plantSimulationInstance.bugIndex = bugIndex;
         Bugging.SetActive(false);
+        unBugged = true;
     }
 
     public void RefreshPlot()
@@ -622,7 +640,7 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
 
     //Fertilizer, Super Yield
     public void SuperCharge()
-    {
+    {if (!isPlanted) return;
         GoalManager goalManager = Object.FindFirstObjectByType<GoalManager>();
         int super_yield = plantSimulationInstance.GetMaxYield();
         goalManager.AddCrop(currentSeed.cropName, super_yield);

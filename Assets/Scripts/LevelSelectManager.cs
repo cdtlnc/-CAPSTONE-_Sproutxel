@@ -9,14 +9,14 @@ public class LevelSelectManager : MonoBehaviour
 
     void Start()
     {
-        int unlockedLevel = PlayerPrefs.GetInt("UnlockedLevel", 1); // Stores which level is unlocked
-
-        for (int i = 0; i < levelButtons.Length; i++)               // Loops over buttons array
+        // Loops over buttons array and unlocks all of them
+        for (int i = 0; i < levelButtons.Length; i++)
         {
             int levelNumber = i + 1;        // level numbers start from one
             string sceneName = "Level_" + levelNumber;
 
-            levelButtons[i].interactable = levelNumber <= unlockedLevel;    // enable or disable button depending on whether the level is unlocked
+            // CHANGE: Always set to true so all levels are accessible
+            levelButtons[i].interactable = true;
 
             levelButtons[i].onClick.RemoveAllListeners();   // removes any existing click listeners to avoid duplicates
             levelButtons[i].onClick.AddListener(() =>   // capture sceneName with a local variable to prevent closure issues (button errors)

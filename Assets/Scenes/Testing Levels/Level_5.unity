@@ -1604,8 +1604,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 215792459}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0}
-  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -2511,7 +2511,7 @@ RectTransform:
   m_Father: {fileID: 1131815413}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -3953,8 +3953,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 825538075}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -4950,13 +4950,18 @@ MonoBehaviour:
   weatherIndex: 0
   bugIndex: 0
   isplantable: 0
-  maxLimit: 80
   recoveryAmountPerTick: 2
   minSafe: -20
   maxSafe: 60
   recoveryRate: 2
   targetCenter: 20
   reductionFactor: 0.3
+  BugCooldownMeter: 0
+  BugCooldownMeterMax: 100
+  BugCooldownRate: 10
+  unBugged: 0
+  minLimit: -20
+  maxLimit: 80
   isPlanted: 0
 --- !u!1001 &287642644
 PrefabInstance:
@@ -6901,13 +6906,18 @@ MonoBehaviour:
   weatherIndex: 0
   bugIndex: 0
   isplantable: 0
-  maxLimit: 80
   recoveryAmountPerTick: 2
   minSafe: -20
   maxSafe: 60
   recoveryRate: 2
   targetCenter: 20
   reductionFactor: 0.3
+  BugCooldownMeter: 0
+  BugCooldownMeterMax: 100
+  BugCooldownRate: 10
+  unBugged: 0
+  minLimit: -20
+  maxLimit: 80
   isPlanted: 0
 --- !u!65 &428108239
 BoxCollider:
@@ -7332,7 +7342,7 @@ RectTransform:
   m_Father: {fileID: 2044769800}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -9296,13 +9306,18 @@ MonoBehaviour:
   weatherIndex: 0
   bugIndex: 0
   isplantable: 0
-  maxLimit: 80
   recoveryAmountPerTick: 2
   minSafe: -20
   maxSafe: 60
   recoveryRate: 2
   targetCenter: 20
   reductionFactor: 0.3
+  BugCooldownMeter: 0
+  BugCooldownMeterMax: 100
+  BugCooldownRate: 10
+  unBugged: 0
+  minLimit: -20
+  maxLimit: 80
   isPlanted: 0
 --- !u!65 &615328375
 BoxCollider:
@@ -10890,7 +10905,7 @@ RectTransform:
   m_Father: {fileID: 673060423}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -15104,13 +15119,18 @@ MonoBehaviour:
   weatherIndex: 0
   bugIndex: 0
   isplantable: 0
-  maxLimit: 80
   recoveryAmountPerTick: 2
   minSafe: -20
   maxSafe: 60
   recoveryRate: 2
   targetCenter: 20
   reductionFactor: 0.3
+  BugCooldownMeter: 0
+  BugCooldownMeterMax: 100
+  BugCooldownRate: 10
+  unBugged: 0
+  minLimit: -20
+  maxLimit: 80
   isPlanted: 0
 --- !u!65 &1015656295
 BoxCollider:
@@ -17780,7 +17800,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1189987275
 RectTransform:
   m_ObjectHideFlags: 0
@@ -18032,13 +18052,18 @@ MonoBehaviour:
   weatherIndex: 0
   bugIndex: 0
   isplantable: 0
-  maxLimit: 80
   recoveryAmountPerTick: 2
   minSafe: -20
   maxSafe: 60
   recoveryRate: 2
   targetCenter: 20
   reductionFactor: 0.3
+  BugCooldownMeter: 0
+  BugCooldownMeterMax: 100
+  BugCooldownRate: 10
+  unBugged: 0
+  minLimit: -20
+  maxLimit: 80
   isPlanted: 0
 --- !u!65 &1200913975
 BoxCollider:
@@ -18996,7 +19021,7 @@ RectTransform:
   m_Father: {fileID: 1010928870}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -24081,6 +24106,7 @@ MonoBehaviour:
   _weatherEventOdds: 000000000000000064000000
   _infestationOdds: 10
   _infestationChances: 20
+  _infestationStart: 0
   _weatherDuration: 20
   _weatherCooldown: 40
   _infestationCooldown: 40
@@ -24710,8 +24736,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1957879085}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0}
-  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -26300,13 +26326,18 @@ MonoBehaviour:
   weatherIndex: 0
   bugIndex: 0
   isplantable: 0
-  maxLimit: 80
   recoveryAmountPerTick: 2
   minSafe: -20
   maxSafe: 60
   recoveryRate: 2
   targetCenter: 20
   reductionFactor: 0.3
+  BugCooldownMeter: 0
+  BugCooldownMeterMax: 100
+  BugCooldownRate: 10
+  unBugged: 0
+  minLimit: -20
+  maxLimit: 80
   isPlanted: 0
 --- !u!65 &1833157386
 BoxCollider:
@@ -28125,8 +28156,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1199235854}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0}
-  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -28806,8 +28837,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 88173631}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0}
-  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -29425,7 +29456,7 @@ RectTransform:
   m_Father: {fileID: 1895698197}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -29584,8 +29615,8 @@ Transform:
   m_GameObject: {fileID: 2023478792}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -219, y: -343, z: 322}
-  m_LocalScale: {x: 2.3641503, y: 2.3641503, z: 2.3641503}
+  m_LocalPosition: {x: -370, y: -599, z: 322}
+  m_LocalScale: {x: 3.7850044, y: 3.7850044, z: 3.7850044}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1189987275}
