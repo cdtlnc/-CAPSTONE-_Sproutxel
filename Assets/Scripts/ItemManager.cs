@@ -36,44 +36,64 @@ public class ItemManager : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
         canvasGroup.blocksRaycasts = true;
         canvasGroup.alpha = 1f;
 
+        // Use a LayerMask if your plant colliders are blocking the ground raycast
+        // Replace "Default" with whatever layer your Soil object uses
+        int groundLayerMask = LayerMask.GetMask("Default");
+
         Ray ray = Camera.main.ScreenPointToRay(eventData.position);
-        if (Physics.Raycast(ray, out RaycastHit hit, 5000f))
+
+        // Perform raycast using the layer mask to isolate the soil
+        if (Physics.Raycast(ray, out RaycastHit hit, 5000f, groundLayerMask))
         {
             if (hit.collider.CompareTag("Soil"))
             {
-                switch (gameObject.tag)
+                GrowthManager growthScript = hit.collider.GetComponent<GrowthManager>();
+
+                if (growthScript != null)
                 {
-                    case "Soil Adder":
-                        hit.collider.GetComponent<GrowthManager>().WaterClear();
-                        break;
+                    bool actionSuccessful = false;
 
-                    case "Shovel":
-                        hit.collider.GetComponent<GrowthManager>().RemovePlant();
-                        break;
+                    switch (gameObject.tag)
+                    {
+                        case "Soil Adder":
+                            growthScript.WaterClear();
+                            actionSuccessful = true;
+                            break;
 
-                    case "Soil Tiller":
-                        hit.collider.GetComponent<GrowthManager>().RefreshPlot();
-                        break;
+                        case "Shovel":
+                            growthScript.RemovePlant();
+                            actionSuccessful = true;
+                            break;
 
-                    case "Pesticide":
-                        hit.collider.GetComponent<GrowthManager>().unBug();
-                        break;
+                        case "Soil Tiller":
+                            growthScript.RefreshPlot();
+                            actionSuccessful = true;
+                            break;
 
-                    case "Fertilizer":
-                        hit.collider.GetComponent<GrowthManager>().SuperCharge();
-                        break;
+                        case "Pesticide":
+                            // Safely apply pesticide to the soil slot
+                            growthScript.unBug();
+                            actionSuccessful = true;
+                            break;
 
-                    default:
-                        break;
-                     
+                        case "Fertilizer":
+                            growthScript.SuperCharge();
+                            actionSuccessful = true;
+                            break;
+                    }
+
+                    // Only consume an item charge if a tool action actually fired
+                    if (actionSuccessful)
+                    {
+                        maxPickTime--;
+                    }
                 }
-                    
-               
-
             }
         }
+
+        // Always snap the UI element back to its original slot panel
         transform.SetParent(originalParent);
         transform.position = startPos;
-        maxPickTime--;
     }
+
 }

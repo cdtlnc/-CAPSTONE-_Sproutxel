@@ -19,15 +19,15 @@ MonoBehaviour:
   averageCropYield: {x: 1, y: 5}
   goodCropYield: {x: 5, y: 10}
   seasonalAffinities:
-  - 1
-  - 1
+  - 1.1
+  - 0.8
   weatherAffinities:
   - 1
-  - 0.2
-  - 0.6
+  - 1.1
+  - 0.8
   cycleAffinities:
-  - 1
-  - 1
+  - 1.1
+  - 0.8
   bugResistances:
-  - 1
+  - 1.1
   - 0.8

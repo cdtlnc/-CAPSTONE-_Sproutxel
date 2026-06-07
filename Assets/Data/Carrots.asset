@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d1280be23a23ba48a6fff5fcb1150cf, type: 3}
+  m_Name: Carrots
+  m_EditorClassIdentifier: Assembly-CSharp::SeedData
+  cropName: Carrots
+  seedBagIcon: {fileID: -1766526638, guid: bfa6fc51f67e0a04991c4bbe2cf5a9d0, type: 3}
+  growthStages:
+  - {fileID: -1790424750, guid: ca141d8b421970640a0bcde8a85d7b89, type: 3}
+  - {fileID: -202842086, guid: ca141d8b421970640a0bcde8a85d7b89, type: 3}
+  - {fileID: 1417567036, guid: ca141d8b421970640a0bcde8a85d7b89, type: 3}
+  - {fileID: -313771721, guid: ca141d8b421970640a0bcde8a85d7b89, type: 3}
+  - {fileID: -677360771, guid: ca141d8b421970640a0bcde8a85d7b89, type: 3}
+  plantStatsTemplate: {fileID: 11400000, guid: 87d6cb1cce3337e4d9778a8d313453e2, type: 2}
+  remainingSeedBags: 95
+  ticksPerStage: 1

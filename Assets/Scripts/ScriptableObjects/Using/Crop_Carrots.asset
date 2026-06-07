@@ -12,3 +12,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 347dff7918c33744e94c544735df7942, type: 3}
   m_Name: Crop_Carrots
   m_EditorClassIdentifier: Assembly-CSharp::PlantBase
+  plantName: Carrots
+  maxHP: 20
+  standardGrowthSpeed: 6
+  badCropYield: {x: 0, y: 1}
+  averageCropYield: {x: 2, y: 3}
+  goodCropYield: {x: 3, y: 5}
+  seasonalAffinities:
+  - 0.8
+  - 1.1
+  weatherAffinities:
+  - 1
+  - 0.8
+  - 1.2
+  cycleAffinities:
+  - 0.8
+  - 1.2
+  bugResistances:
+  - 1
+  - 1

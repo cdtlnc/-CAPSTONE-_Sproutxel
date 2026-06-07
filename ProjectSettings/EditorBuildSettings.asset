@@ -57,8 +57,14 @@ EditorBuildSettings:
     path: Assets/Scenes/PrecisionWateringMinigame.unity
     guid: 4db5d2ee1fe50844992862c573f33576
   - enabled: 1
-    path: Assets/Scenes/Level_1.unity
+    path: Assets/Scenes/Testing Levels/Level_1.unity
     guid: ae8bc83c3d2ec9744a9daaaec3f0db3e
+  - enabled: 1
+    path: Assets/Scenes/Testing Levels/Level_5.unity
+    guid: e56e6a569048a634384eaf0dd65ea18b
+  - enabled: 1
+    path: Assets/Scenes/Testing Levels/Level_8.unity
+    guid: 2f31b0b12012b8646987589261ccb353
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0

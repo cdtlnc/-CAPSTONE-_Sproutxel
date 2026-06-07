@@ -47,6 +47,7 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
     [SerializeField] private float WaterFillUpRate;
     [SerializeField] private float WaterDuration;
     [SerializeField] private GameObject Water;
+    [SerializeField] private GameObject Bugging;
 
     [Header("Seed Class")]
     [SerializeField] string seasonOutput;
@@ -363,9 +364,7 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
                 break;
 
             case MinigameType.PestControl:
-                bugInfestation = "no bugs:(";
-                bugIndex = 0;
-                plantSimulationInstance.bugIndex = bugIndex;
+                unBug();
                 break;
 
             case MinigameType.SoilEnrichment:
@@ -498,12 +497,14 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
             bugInfestation = "INFESTEDDD";
             bugIndex = 1;
             plantSimulationInstance.bugIndex = bugIndex;
+            Bugging.SetActive(true);
         }
         else
         {
             bugInfestation = "no bugs:(";
             bugIndex = 0;
             plantSimulationInstance.bugIndex = bugIndex;
+            Bugging.SetActive(false);
         }
     }
 
@@ -600,6 +601,7 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
     {
         bugIndex = 0;
         plantSimulationInstance.bugIndex = bugIndex;
+        Bugging.SetActive(false);
     }
 
     public void RefreshPlot()

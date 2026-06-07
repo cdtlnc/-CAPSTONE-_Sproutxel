@@ -152,7 +152,12 @@ public class EventManager : MonoBehaviour
         System.Random randomizer = new System.Random();
         int roll = randomizer.Next(0, 100);
 
-        if (roll >= 0 && roll <= _infestationOdds) isInfested = true;
+        if (roll >= 0 && roll <= _infestationOdds) {
+            
+            isInfested = true;
+            Debug.Log("INFESTING TIME!");
+        
+        }
         else isInfested = false;
     }
 
@@ -195,11 +200,11 @@ public class EventManager : MonoBehaviour
             weatherIcon.sprite = weatherIcons[targetIconIndex];
         }
 
-        // 3. MULTI-PANEL ACTIVATION RULES:
-        // Heat Daze is active if selected OR if it's clear weather during the dry season
+        // 3.MULTI - PANEL ACTIVATION RULES:
+// Fixed: Heat Daze now ONLY turns on if a heat wave event is actively running
         if (HeatDazeContainer != null)
         {
-            HeatDazeContainer.SetActive(_weatherEvent == 1 || (_weatherEvent == 0 && TimeOfDayUI.isDrySeason));
+            HeatDazeContainer.SetActive(_weatherEvent == 1);
         }
 
         // Typhoon panel overlay turns on ONLY when a typhoon event is actively rolling
@@ -208,7 +213,7 @@ public class EventManager : MonoBehaviour
             TyphoonContinaer.SetActive(_weatherEvent == 2);
         }
 
-        // Rainy panel is strictly forced active if it's the Wet Season (!isDrySeason) OR during a Typhoon
+        // Rainy panel is strictly forced active if it's the Wet Season OR during a Typhoon
         if (RainyContinaer != null)
         {
             bool isWetSeason = !TimeOfDayUI.isDrySeason;
