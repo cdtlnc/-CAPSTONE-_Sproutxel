@@ -65,16 +65,24 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
 
     [Header("Safety Net")]
     [SerializeField] float maxLimit = 80f;
+    [SerializeField] float minLimit = -20f;
+    [SerializeField] float centerPoint = 20f; // The middle of your -20 to 60 sweet spot
+
+    // Changing this to 0.3f brings the stat well inside the safe harvest zone
+    [SerializeField] float reductionFactor = 0.3f;
     [SerializeField] float recoveryAmountPerTick = 2f;
+    [SerializeField] float closetothecenter = 40f;
+    [Header("Stat Paremeters")]
     [SerializeField] float minSafe = -20f;
     [SerializeField] float maxSafe = 60f;
     [SerializeField] float recoveryRate = 2f; // How many points it recovers per tick
     [SerializeField] float targetCenter = 20f;
-    [SerializeField] float reductionFactor = 0.3f;
+    
     [SerializeField] float BugCooldownMeter;
     [SerializeField] float BugCooldownMeterMax = 100f;
     [SerializeField] float BugCooldownRate = 10;
     [SerializeField] bool unBugged;
+    [SerializeField] bool _IsInfested;
 
     // Direct link to the math backend script
     public BasePlant plantSimulationInstance;
@@ -346,40 +354,94 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
         Debug.Log($"Minigame {type} WON. Correcting stats on plot!");
         if (plantSimulationInstance == null) return;
 
-        float centerPoint = 20f; // The middle of your -20 to 60 sweet spot
-
-        // Changing this to 0.3f brings the stat well inside the safe harvest zone
-        float reductionFactor = 0.3f;
+        bool MinigameCorrect;
 
         switch (type)
         {
             case MinigameType.Watering:
-                // Example with 0.3f: 
-                // If moisture is at 100 -> (100 - 20) * 0.3f + 20 = 44f (Safely below the 60f threshold!)
-                // If moisture is at -60 -> (-60 - 20) * 0.3f + 20 = -4f (Safely above the -20f threshold!)
-                plantSimulationInstance.soilMoisture = (plantSimulationInstance.soilMoisture - centerPoint) * reductionFactor + centerPoint;
-                plantSimulationInstance.cropMoisture = (plantSimulationInstance.cropMoisture - centerPoint) * reductionFactor + centerPoint;
-                WaterClear();
-                break;
+                if (plantSimulationInstance.cropMoisture < minSafe|| plantSimulationInstance.cropMoisture < minSafe)
+                {
+                    plantSimulationInstance.cropMoisture = (plantSimulationInstance.cropMoisture - centerPoint) * reductionFactor + centerPoint;
+                    
+                    WaterClear();
+                    statsTowardsTheCenter();
+                }
+                else
+                {
+                    plantSimulationInstance.cropMoisture = (plantSimulationInstance.cropMoisture - centerPoint) * reductionFactor + centerPoint;
+                   
+                    Debug.Log("Wrong Minigame");
+                }
+
+
+
+                    break;
 
             case MinigameType.StructuralSupport:
-                plantSimulationInstance.soilSoftness = (plantSimulationInstance.soilSoftness - centerPoint) * reductionFactor + centerPoint;
-                break;
+                if (plantSimulationInstance.soilSoftness > maxSafe)
+                {
+                    Debug.Log("Entered Structurual Support Minigame");
+                    plantSimulationInstance.soilSoftness = (plantSimulationInstance.soilSoftness - centerPoint) * reductionFactor + centerPoint;
+                    statsTowardsTheCenter();
+                }
+                else 
+                {
+                    plantSimulationInstance.soilSoftness = (plantSimulationInstance.soilSoftness - centerPoint) * reductionFactor + centerPoint;
+                }
+
+                    break;
 
             case MinigameType.Weeding:
-                plantSimulationInstance.soilQuality = Mathf.Min(plantSimulationInstance.soilQuality + 2.0f, 100f);
-                break;
+                if ( plantSimulationInstance.soilQuality > maxSafe)
+                {
+                    plantSimulationInstance.soilQuality = Mathf.Min(plantSimulationInstance.soilQuality + 2.0f, 100f);
+                    plantSimulationInstance.soilSoftness = (plantSimulationInstance.soilSoftness - centerPoint) * reductionFactor + centerPoint;
+                    statsTowardsTheCenter();
+                }
+                else
+                {
+                    
+                }
+
+                    break;
 
             case MinigameType.PestControl:
-                unBug();
-                break;
+                if (_IsInfested|| plantSimulationInstance.soilSoftness < minSafe)
+                {
+                    unBug();
+                    statsTowardsTheCenter();
+                }
+                else
+                {
+                    
+                }
+
+                    break;
 
             case MinigameType.SoilEnrichment:
-                plantSimulationInstance.soilQuality = 40.0f; // Adjusted downward from 60f so it sits comfortably inside the sweet spot
-                break;
+                if (plantSimulationInstance.soilQuality < minSafe || plantSimulationInstance.soilMoisture > maxLimit)
+                {
+                    plantSimulationInstance.soilQuality = 40.0f; // Adjusted downward from 60f so it sits comfortably inside the sweet spot
+                    statsTowardsTheCenter();
+                }
+                else
+                {
+                    
+                }
+
+                    break;
 
             case MinigameType.Netting:
-                plantSimulationInstance.cropHP = Mathf.Min(plantSimulationInstance.cropHP + 2.0f, 100f);
+                if (plantSimulationInstance.cropMoisture > maxSafe)
+                {
+                    plantSimulationInstance.cropHP = Mathf.Min(plantSimulationInstance.cropHP + 2.0f, 100f);
+                    statsTowardsTheCenter();
+                }
+                else
+                {
+                    
+                }
+                
                 break;
         }
 
@@ -387,7 +449,16 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
         UpdatePlantSprite();
     }
 
+    public void statsTowardsTheCenter()
+    {
+        Debug.Log("STATED TOWARDED THE CENTEREDED");
+        plantSimulationInstance.soilMoisture = Mathf.MoveTowards(plantSimulationInstance.soilMoisture, targetCenter, closetothecenter);
+        plantSimulationInstance.cropMoisture = Mathf.MoveTowards(plantSimulationInstance.cropMoisture, targetCenter, closetothecenter);
+        plantSimulationInstance.soilSoftness = Mathf.MoveTowards(plantSimulationInstance.soilSoftness, targetCenter, closetothecenter);
+        plantSimulationInstance.soilSoftness = Mathf.MoveTowards(plantSimulationInstance.soilSoftness, targetCenter, closetothecenter);
+        plantSimulationInstance.soilQuality = Mathf.MoveTowards(plantSimulationInstance.soilQuality, targetCenter, closetothecenter);
 
+    }
 
     public void ResolveMinigameLose(MinigameType type)
     {
@@ -428,8 +499,7 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
         soilSoftness = plantSimulationInstance.soilSoftness;
 
         // Your custom range bounds
-        float minLimit = -20f;
-        float maxLimit = 60f;
+        
 
         if (cropMoisture < minLimit || cropMoisture > maxLimit ||
             soilQuality < minLimit || soilQuality > maxLimit ||
@@ -461,8 +531,7 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
         // Safety shield
         if (!isPlanted || plantSimulationInstance == null) return;
 
-        float maxLimit = 80f;
-        float recoveryAmountPerTick = 2f; // How fast stats slowly decay back to 0 on their own
+        // How fast stats slowly decay back to 0 on their own
 
         // If stats are outside the -20 to 60 boundary, pull them toward the center point
         if (plantSimulationInstance.soilMoisture < minSafe || plantSimulationInstance.soilMoisture > maxSafe)
@@ -509,6 +578,7 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
                 unBugged = false;
                 Bugging.SetActive(true);
                 BugCooldownMeter = BugCooldownMeterMax;
+                _IsInfested = true;
             }
           
         }
@@ -518,6 +588,7 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
             bugIndex = 0;
             plantSimulationInstance.bugIndex = bugIndex;
             Bugging.SetActive(false);
+            _IsInfested = false;
         }
     }
     public void UnBugCountdown()
@@ -620,6 +691,7 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
         plantSimulationInstance.bugIndex = bugIndex;
         Bugging.SetActive(false);
         unBugged = true;
+        _IsInfested=false;
     }
 
     public void RefreshPlot()
