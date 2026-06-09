@@ -5,37 +5,48 @@ using UnityEngine.UI;
 public class SeedManager : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
     public SeedData seedType;
+    [SerializeField] private Camera playerCamera;
     private CanvasGroup canvasGroup;
 
-    // Ghost copy variables so the actual hotbar slot never moves
     private GameObject dragIconInstance;
+    private RectTransform dragIconRect;
     private Image dragIconImage;
+    private Canvas parentCanvas;
 
     void Awake()
     {
         canvasGroup = GetComponent<CanvasGroup>() ?? gameObject.AddComponent<CanvasGroup>();
         if (seedType != null) GetComponent<Image>().sprite = seedType.seedBagIcon;
+
+        parentCanvas = GetComponentInParent<Canvas>();
     }
 
     public void OnBeginDrag(PointerEventData eventData)
     {
+        if (seedType == null) return;
+
         FindFirstObjectByType<AudioManager>().Play("TapSound1");
-        // 1. Create a dummy object to act as our ghost drag visual
+
         dragIconInstance = new GameObject("SeedDragGhost");
-        dragIconInstance.transform.SetParent(GameObject.Find("GameplayCanvas").transform, false);
 
-        // 2. Set up its size and position to match this slot exactly
+        Transform canvasTransform = parentCanvas != null ? parentCanvas.transform : GameObject.Find("GameplayCanvas").transform;
+        dragIconInstance.transform.SetParent(canvasTransform, false);
+
         RectTransform sourceRect = GetComponent<RectTransform>();
-        RectTransform ghostRect = dragIconInstance.AddComponent<RectTransform>();
-        ghostRect.sizeDelta = sourceRect.sizeDelta;
-        ghostRect.position = transform.position;
+        dragIconRect = dragIconInstance.AddComponent<RectTransform>();
 
-        // 3. Match the seed bag icon image and make it see-through
+        dragIconRect.anchorMin = new Vector2(0.5f, 0.5f);
+        dragIconRect.anchorMax = new Vector2(0.5f, 0.5f);
+        dragIconRect.pivot = sourceRect.pivot;
+
+        dragIconRect.sizeDelta = sourceRect.rect.size;
+        dragIconRect.localScale = sourceRect.localScale;
+        dragIconRect.position = transform.position;
+
         dragIconImage = dragIconInstance.AddComponent<Image>();
-        dragIconImage.sprite = seedType != null ? seedType.seedBagIcon : null;
-        dragIconImage.raycastTarget = false; // Makes it completely invisible to physics checks
+        dragIconImage.sprite = seedType.seedBagIcon;
+        dragIconImage.raycastTarget = false;
 
-        // 4. Fade out the ghost copy and the main slot slightly for visual feedback
         CanvasGroup ghostGroup = dragIconInstance.AddComponent<CanvasGroup>();
         ghostGroup.alpha = 0.6f;
         canvasGroup.alpha = 0.4f;
@@ -43,29 +54,46 @@ public class SeedManager : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 
     public void OnDrag(PointerEventData eventData)
     {
-        // Track the mouse cursor position using our ghost visual icon instead of the slot
-        if (dragIconInstance != null)
+        if (dragIconRect == null || parentCanvas == null) return;
+
+        if (parentCanvas.renderMode == RenderMode.ScreenSpaceOverlay)
         {
-            dragIconInstance.transform.position = eventData.position;
+            dragIconRect.position = eventData.position;
+        }
+        else
+        {
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(
+                parentCanvas.transform as RectTransform,
+                eventData.position,
+                eventData.pressEventCamera,
+                out Vector2 localPoint
+            );
+            dragIconRect.localPosition = localPoint;
         }
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        // Restore full opacity to the real hotbar slot box
         canvasGroup.alpha = 1f;
 
-        // Run your existing plant-on-soil raycast validation check
-        Ray ray = Camera.main.ScreenPointToRay(eventData.position);
-        if (Physics.Raycast(ray, out RaycastHit hit, 5000f))
+        Camera raycastCamera = playerCamera != null ? playerCamera : Camera.main;
+
+        if (raycastCamera != null)
         {
-            if (hit.collider.CompareTag("Soil"))
+            Ray ray = raycastCamera.ScreenPointToRay(eventData.position);
+            if (Physics.Raycast(ray, out RaycastHit hit, 5000f))
             {
-                hit.collider.GetComponent<GrowthManager>().PlantSeed(seedType);
+                if (hit.collider.CompareTag("Soil"))
+                {
+                    GrowthManager plot = hit.collider.GetComponent<GrowthManager>();
+                    if (plot != null)
+                    {
+                        plot.PlantSeed(seedType);
+                    }
+                }
             }
         }
 
-        // 5. Clean up and vaporize the ghost drag object from memory
         if (dragIconInstance != null)
         {
             Destroy(dragIconInstance);
