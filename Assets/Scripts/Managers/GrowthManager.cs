@@ -93,6 +93,7 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
     {
         Waterlogged = false;
         Water.SetActive(false);
+        BugCooldownMeter = 0;
         disableSadParts();
     }
 
@@ -297,6 +298,7 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
     //User Shovel
     void ResetPlot()
     {
+        unBug();
         isPlanted = false;
         currentSeed = null;
         plantSimulationInstance = null;
@@ -686,7 +688,8 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
     // Remove Bug Stats// Pesticide
     public void unBug()
     {
-        if (!isPlanted) return;
+        Debug.Log("YOU HAVE BEEN UNBUGGED");
+        if (!isPlanted||_IsInfested!=true) return;
         bugIndex = 0;
         plantSimulationInstance.bugIndex = bugIndex;
         Bugging.SetActive(false);
@@ -706,7 +709,9 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
 
     public void RemovePlant()
     {
+        unBug();
         ResetPlot();
+       
         IsNotPlantable();
     }
 
