@@ -10,6 +10,13 @@ using UnityEngine;
 
 public class GrowthManager_Multiplayer : MonoBehaviour, IPointerClickHandler
 {
+
+    [Header("Player-Specific UI Router Assignments")]
+    [SerializeField] private GoalManager_Multiplayer assignedGoalManager;
+    [SerializeField] private CanonFire assignedCanon;
+   
+
+
     [Header("Visual Components")]
     [SerializeField] public SpriteRenderer plantRenderer;
     [SerializeField] public SpriteRenderer PlantSadBG;
@@ -210,26 +217,20 @@ public class GrowthManager_Multiplayer : MonoBehaviour, IPointerClickHandler
                 Debug.Log($"Harvested {yieldAmount} items of {currentSeed.cropName}!");
             }
 
-            GoalManager goalManager = Object.FindFirstObjectByType<GoalManager>();
-
-            if (goalManager != null && yieldAmount > 0)
+            // FIXED: Using localized assignments instead of scene-wide searching
+            if (assignedGoalManager != null && yieldAmount > 0)
             {
                 // CASE 1: The plant is perfectly healthy (No Bad Stats)
                 if (hasNoBadStats)
                 {
-                    // Directly pass the total yieldAmount ONCE, no loops needed
-                    goalManager.AddCrop(currentSeed.cropName, yieldAmount);
+                    assignedGoalManager.AddCrop(currentSeed.cropName, yieldAmount);
                     IsNotPlantable();
-                    ResetPlot(); // Cleanly clear the plot out instantly
+                    ResetPlot();
                 }
                 // CASE 2: The plant has issues and needs maintenance pop-up window
                 else
                 {
-                    MaintenencePopUp ui = Object.FindFirstObjectByType<MaintenencePopUp>();
-                    if (ui != null)
-                    {
-                        //ui.OpenWindow(this); // Opens the window exactly ONCE
-                    }
+                    
                 }
             }
         }

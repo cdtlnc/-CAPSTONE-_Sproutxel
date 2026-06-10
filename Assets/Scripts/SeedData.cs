@@ -22,7 +22,7 @@ public class SeedData : ScriptableObject
     public PlantBase plantStatsTemplate;
 
    [Header("Level Inventory Limits")]
-    public int remainingSeedBags;
+    public int remainingSeedBags=100;
 
     [Header("Legacy/Fallback Settings")]
     [Tooltip("Keep this field to prevent other inventory scripts from breaking, though growth is now governed by stats math.")]

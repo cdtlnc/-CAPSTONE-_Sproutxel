@@ -11,6 +11,8 @@ TagManager:
   - Soil Adder
   - Fertilizer
   - Pesticide
+  - Canon1
+  - Canon2
   layers:
   - Default
   - TransparentFX

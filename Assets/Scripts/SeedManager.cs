@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -12,6 +13,9 @@ public class SeedManager : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
     private RectTransform dragIconRect;
     private Image dragIconImage;
     private Canvas parentCanvas;
+    [Header("Seed Availability")]
+    [SerializeField] public TextMeshProUGUI seedNum;
+    [SerializeField] public int available;
 
     void Awake()
     {
@@ -19,6 +23,12 @@ public class SeedManager : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
         if (seedType != null) GetComponent<Image>().sprite = seedType.seedBagIcon;
 
         parentCanvas = GetComponentInParent<Canvas>();
+        seedType.remainingSeedBags = available;
+    }
+
+    private void FixedUpdate()
+    {
+        seedNum.text=""+seedType.remainingSeedBags;
     }
 
     public void OnBeginDrag(PointerEventData eventData)
