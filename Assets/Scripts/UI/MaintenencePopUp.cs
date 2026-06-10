@@ -94,6 +94,7 @@ public class MaintenencePopUp : MonoBehaviour
 
         // Sync variables
         //name=sim.cur // Add in the names
+   
         plantSprite = sim.growthStages[3];
         plantSpriteShower.sprite = plantSprite;
         cropHP = sim.cropHP;
@@ -101,9 +102,10 @@ public class MaintenencePopUp : MonoBehaviour
         soilMoisture = sim.soilMoisture;
         soilSoftness = sim.soilSoftness;
         soilQuality = sim.soilQuality;
+        nameText.text = targetedPlot.name;
 
         // Push values directly into sliders
-       
+
         if (hpSlider != null) hpSlider.value = cropHP;
         if (soilMoistureSlider != null) soilMoistureSlider.value = cropMoisture;
         if (soilQualitySlider != null) soilQualitySlider.value = soilQuality;

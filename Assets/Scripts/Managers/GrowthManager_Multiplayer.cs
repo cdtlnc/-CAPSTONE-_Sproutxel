@@ -8,7 +8,7 @@ using UnityEditor.EditorTools;
 using UnityEngine.EventSystems;
 using UnityEngine;
 
-public class GrowthManager : MonoBehaviour, IPointerClickHandler
+public class GrowthManager_Multiplayer : MonoBehaviour, IPointerClickHandler
 {
     [Header("Visual Components")]
     [SerializeField] public SpriteRenderer plantRenderer;
