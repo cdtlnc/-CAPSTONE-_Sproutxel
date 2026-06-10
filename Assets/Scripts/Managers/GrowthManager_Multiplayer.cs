@@ -228,7 +228,7 @@ public class GrowthManager_Multiplayer : MonoBehaviour, IPointerClickHandler
                     MaintenencePopUp ui = Object.FindFirstObjectByType<MaintenencePopUp>();
                     if (ui != null)
                     {
-                        ui.OpenWindow(this); // Opens the window exactly ONCE
+                        //ui.OpenWindow(this); // Opens the window exactly ONCE
                     }
                 }
             }
