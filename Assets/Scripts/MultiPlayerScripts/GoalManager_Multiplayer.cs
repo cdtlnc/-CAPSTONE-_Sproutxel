@@ -51,7 +51,7 @@ public class GoalManager_Multiplayer : MonoBehaviour
 
     public void LoseGame(string loser)
     {
-        Debug.Log("[STEP 6] LOST THE GAME");
+        Debug.Log("[STEP 6] LOST THE GAME Loser: "+loser);
         WinOrLoseManager_Multiplayer w = FindAnyObjectByType<WinOrLoseManager_Multiplayer>();
         w.onLose(loser);
     }

@@ -13,6 +13,8 @@ TagManager:
   - Pesticide
   - Canon1
   - Canon2
+  - Farmer1
+  - Farmer2
   layers:
   - Default
   - TransparentFX

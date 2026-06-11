@@ -17,7 +17,8 @@ public class FarmerHealth : MonoBehaviour
         HealthSlider.maxValue= Health;
         HealthSlider.value = Health;
         HealthSlider.minValue= 0;
-        Update();
+        Name = gameObject.tag;
+        UpdateUI();
     }
 
     // Update is called once per frame

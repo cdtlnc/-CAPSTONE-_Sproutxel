@@ -8,7 +8,8 @@ public class WinOrLoseManager_Multiplayer : MonoBehaviour
     [SerializeField] public GameObject p1Screen;
     [SerializeField] public GameObject p2Screen;
     [SerializeField] public string[] WinLoseText = { "Winner", "Loser" };
-    [SerializeField] public TextMeshProUGUI playertexts;
+    [SerializeField] public TextMeshProUGUI player1;
+    [SerializeField] public TextMeshProUGUI player2;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -32,9 +33,20 @@ public class WinOrLoseManager_Multiplayer : MonoBehaviour
     }
     public void onLose(string loser)
     {
+        p1Screen.SetActive(true);
+        p2Screen.SetActive(true);
+        if (loser == "Farmer1")
+        {
+            player1.text = WinLoseText[1];
+            player2.text = WinLoseText[0];
+        }
+        else
+        {
+            player2.text = WinLoseText[1];
+            player1.text = WinLoseText[0];
+        }
 
-        p1Screen.SetActive(false);
-        p2Screen.SetActive(false);
-        FindFirstObjectByType<AudioManager>().Play("LoseLevel");
+
+        FindFirstObjectByType<AudioManager>().Play("WinLevel");
     }
 }

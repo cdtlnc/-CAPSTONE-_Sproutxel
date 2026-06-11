@@ -10,6 +10,8 @@ public class ItemManager_Multiplayer : MonoBehaviour, IBeginDragHandler, IDragHa
     [SerializeField] private Vector3 startPos;
     [SerializeField] private Transform originalParent;
     [SerializeField] private CanvasGroup canvasGroup;
+    [Header("Camera")]
+    [SerializeField] private Camera assignedCam;
 
     [Header("Assigned Canon")]
     [SerializeField] public string[] canons;
@@ -43,7 +45,7 @@ public class ItemManager_Multiplayer : MonoBehaviour, IBeginDragHandler, IDragHa
         // Replace "Default" with whatever layer your Soil object uses
         int groundLayerMask = LayerMask.GetMask("Default");
 
-        Ray ray = Camera.main.ScreenPointToRay(eventData.position);
+        Ray ray = assignedCam.ScreenPointToRay(eventData.position);
 
         // Perform raycast using the layer mask to isolate the soil
         if (Physics.Raycast(ray, out RaycastHit hit, 5000f, groundLayerMask))
@@ -92,55 +94,43 @@ public class ItemManager_Multiplayer : MonoBehaviour, IBeginDragHandler, IDragHa
                     }
                 }
             }
-            if (hit.collider.CompareTag($"{canons}"))
+            if (hit.collider.CompareTag($"{canons[0]}"))
             {
-                GrowthManager growthScript = hit.collider.GetComponent<GrowthManager>();
+                CanonFire Canon = hit.collider.GetComponent<CanonFire>();
 
-                if (growthScript != null)
-                {
-                    bool actionSuccessful = false;
+               
 
                     switch (gameObject.tag)
                     {
-                        case "Soil Adder":
-                            growthScript.WaterClear();
-                            actionSuccessful = true;
+                        case "Soil Adder": 
+                        
                             break;
 
                         case "Shovel":
-                            growthScript.RemovePlant();
-                            actionSuccessful = true;
+                        
                             break;
 
                         case "Soil Tiller":
-                            growthScript.RefreshPlot();
-                            actionSuccessful = true;
+                       
                             break;
 
                         case "Pesticide":
-                            // Safely apply pesticide to the soil slot
-                            growthScript.unBug();
-                            actionSuccessful = true;
+                            
+                           
                             break;
 
                         case "Fertilizer":
-                            growthScript.SuperCharge();
-                            actionSuccessful = true;
+                       
                             break;
                     }
 
-                    // Only consume an item charge if a tool action actually fired
-                    if (actionSuccessful)
-                    {
-                        maxPickTime--;
-                    }
-                }
+                 
+                    
+                
             }
         }
 
-        // Always snap the UI element back to its original slot panel
-        transform.SetParent(originalParent);
-        transform.position = startPos;
+  
     }
 
 }

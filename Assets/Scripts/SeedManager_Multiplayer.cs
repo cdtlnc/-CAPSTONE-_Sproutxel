@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class SeedManager_Multiplayer : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
     public SeedData seedType;
-    [SerializeField] private Camera playerCamera;
+ 
     private CanvasGroup canvasGroup;
 
     private GameObject dragIconInstance;
@@ -16,6 +16,7 @@ public class SeedManager_Multiplayer : MonoBehaviour, IBeginDragHandler, IDragHa
     [Header("Seed Availability")]
     [SerializeField] public TextMeshProUGUI seedNum;
     [SerializeField] public int available;
+    [SerializeField] public Camera playerCam;
 
     void Awake()
     {
@@ -86,7 +87,7 @@ public class SeedManager_Multiplayer : MonoBehaviour, IBeginDragHandler, IDragHa
     {
         canvasGroup.alpha = 1f;
 
-        Camera raycastCamera = playerCamera != null ? playerCamera : Camera.main;
+        Camera raycastCamera = playerCam != null ? playerCam : Camera.main;
 
         if (raycastCamera != null)
         {
