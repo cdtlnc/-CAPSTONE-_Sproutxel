@@ -6,6 +6,7 @@ public class WinOrLoseManager : MonoBehaviour
     [Header("UI Items")]
     [SerializeField] public GameObject winScreen;
     [SerializeField] public GameObject loseScreen;
+    
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -25,10 +26,12 @@ public class WinOrLoseManager : MonoBehaviour
         Debug.Log("WE STAY WINNING");
         winScreen.SetActive(true);
         FindFirstObjectByType<AudioManager>().Play("WinLevel");
+        FindFirstObjectByType<PauseMenuUI>().SetPaused();
     }
     public void onLose()
     {
         loseScreen.SetActive(true);
         FindFirstObjectByType<AudioManager>().Play("LoseLevel");
+        FindFirstObjectByType<PauseMenuUI>().SetPaused();
     }
 }

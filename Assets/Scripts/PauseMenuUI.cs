@@ -10,12 +10,13 @@ public class PauseMenuUI : MonoBehaviour
     [SerializeField] private string transitionName = "CrossFade";
 
     [SerializeField] private bool isPaused;
+    [SerializeField] public string nextLevel;
 
     // PAUSE
     public void Pause()
     {
         pauseMenu.SetActive(true);
-        Time.timeScale = 0f;
+        Time.timeScale = 0.0001f;
         isPaused = true;
     }
 
@@ -30,7 +31,7 @@ public class PauseMenuUI : MonoBehaviour
     // MAIN MENU
     public void Home()
     {
-        if (!isPaused) return;
+        
 
         Time.timeScale = 1f;
         pauseMenu.SetActive(false);
@@ -60,4 +61,15 @@ public class PauseMenuUI : MonoBehaviour
         string currentScene = SceneManager.GetActiveScene().name;
         LevelManager.Instance.LoadScene(currentScene, transitionName);
     }
+    public void SetPaused()
+    {
+        isPaused = true;
+    }
+    public void NextLevel()
+    {
+        
+        LevelManager.Instance.LoadScene(nextLevel, transitionName);
+    }
+
 }
+
