@@ -1,4 +1,6 @@
+using Unity.VectorGraphics;
 using UnityEngine;
+using static System.TimeZoneInfo;
 
 public class MenuManager : MonoBehaviour
 {
@@ -25,8 +27,7 @@ public class MenuManager : MonoBehaviour
     // MULTIPLAYER
     public void OpenMultiplayer()
     {
-        mainMenuPanel.SetActive(false);
-        multiplayerPanel.SetActive(true);
+        LevelManager.Instance.LoadScene("Multiplayer_Level", "CrossFade");
     }
 
     public void CloseMultiplayer()

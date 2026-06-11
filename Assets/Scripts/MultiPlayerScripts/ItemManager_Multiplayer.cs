@@ -94,43 +94,11 @@ public class ItemManager_Multiplayer : MonoBehaviour, IBeginDragHandler, IDragHa
                     }
                 }
             }
-            if (hit.collider.CompareTag($"{canons[0]}"))
-            {
-                CanonFire Canon = hit.collider.GetComponent<CanonFire>();
-
-               
-
-                    switch (gameObject.tag)
-                    {
-                        case "Soil Adder": 
-                        
-                            break;
-
-                        case "Shovel":
-                        
-                            break;
-
-                        case "Soil Tiller":
-                       
-                            break;
-
-                        case "Pesticide":
-                            
-                           
-                            break;
-
-                        case "Fertilizer":
-                       
-                            break;
-                    }
-
-                 
-                    
-                
-            }
+           
         }
 
-  
+        transform.SetParent(originalParent);
+        transform.position = startPos;
     }
 
 }

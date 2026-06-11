@@ -9,7 +9,7 @@ public class PauseMenuUI : MonoBehaviour
 
     [SerializeField] private string transitionName = "CrossFade";
 
-    private bool isPaused;
+    [SerializeField] private bool isPaused;
 
     // PAUSE
     public void Pause()
@@ -35,7 +35,7 @@ public class PauseMenuUI : MonoBehaviour
         Time.timeScale = 1f;
         pauseMenu.SetActive(false);
 
-        LevelManager.Instance.LoadScene("MainMenu", transitionName);
+        LevelManager.Instance.LoadScene("MainMenu", "CrossFade");
     }
 
     // OPTIONS

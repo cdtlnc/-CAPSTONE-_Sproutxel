@@ -29,5 +29,6 @@ public class WinOrLoseManager : MonoBehaviour
     public void onLose()
     {
         loseScreen.SetActive(true);
+        FindFirstObjectByType<AudioManager>().Play("LoseLevel");
     }
 }

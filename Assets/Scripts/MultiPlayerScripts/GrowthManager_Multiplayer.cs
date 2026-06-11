@@ -223,7 +223,7 @@ public class GrowthManager_Multiplayer : MonoBehaviour, IPointerClickHandler
                 if (hasNoBadStats)
                 {
                     Debug.Log("[STEP 2] HARVESTING SEED");
-                    assignedCanon.AddLoad(yieldAmount*10);
+                    assignedCanon.AddLoad(yieldAmount);
                     IsNotPlantable();
                     ResetPlot();
                 }
@@ -724,9 +724,10 @@ public class GrowthManager_Multiplayer : MonoBehaviour, IPointerClickHandler
     public void SuperCharge()
     {
         if (!isPlanted) return;
-        GoalManager goalManager = Object.FindFirstObjectByType<GoalManager>();
+
         int super_yield = plantSimulationInstance.GetMaxYield();
-        goalManager.AddCrop(currentSeed.cropName, super_yield);
+        Debug.Log("[STEP 2.5] SUPER");
+        assignedCanon.AddLoad(super_yield);
         RemovePlant();
         IsNotPlantable();
     }

@@ -153,10 +153,10 @@ RectTransform:
   - {fileID: 1848769301}
   m_Father: {fileID: 1840106148}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 38.1, y: -36.8665}
-  m_SizeDelta: {x: 20, y: 30}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1459801
 MonoBehaviour:
@@ -3771,10 +3771,10 @@ RectTransform:
   - {fileID: 1688668504}
   m_Father: {fileID: 1840106148}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 14.299999, y: -36.8665}
-  m_SizeDelta: {x: 20, y: 30}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &212171130
 MonoBehaviour:
@@ -6108,10 +6108,10 @@ RectTransform:
   - {fileID: 1845582489}
   m_Father: {fileID: 1840106148}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 61.899998, y: -36.8665}
-  m_SizeDelta: {x: 20, y: 30}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &329219759
 MonoBehaviour:
@@ -21304,7 +21304,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1280782916
 RectTransform:
   m_ObjectHideFlags: 0
@@ -21342,6 +21342,7 @@ MonoBehaviour:
   pauseMenu: {fileID: 1280782915}
   optionsMenu: {fileID: 7062775005358502413, guid: 5f02d6b33f3abdf4aa082e5cd8ccaf80, type: 3}
   transitionName: CrossFade
+  isPaused: 0
 --- !u!1 &1286765691
 GameObject:
   m_ObjectHideFlags: 0
@@ -31983,12 +31984,12 @@ MonoBehaviour:
   - name: MainMenu
     clip: {fileID: 8300000, guid: 833350daa30c1c1439a4dde1dbf3d850, type: 3}
     volume: 0.454
-    pitch: 0.1
+    pitch: 1.384
     source: {fileID: 0}
   - name: WinLevel
     clip: {fileID: 8300000, guid: a85ad97bf5b50ce4396207fc915dcf06, type: 3}
     volume: 0.454
-    pitch: 0.1
+    pitch: 1.465
     source: {fileID: 0}
 --- !u!82 &1875772018
 AudioSource:
@@ -35582,10 +35583,10 @@ RectTransform:
   - {fileID: 1626584079}
   m_Father: {fileID: 1840106148}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 85.7, y: -36.8665}
-  m_SizeDelta: {x: 20, y: 30}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2122455422
 MonoBehaviour:
