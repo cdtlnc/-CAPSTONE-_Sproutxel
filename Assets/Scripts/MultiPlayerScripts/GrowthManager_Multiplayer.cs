@@ -12,7 +12,6 @@ public class GrowthManager_Multiplayer : MonoBehaviour, IPointerClickHandler
 {
 
     [Header("Player-Specific UI Router Assignments")]
-    [SerializeField] private GoalManager_Multiplayer assignedGoalManager;
     [SerializeField] private CanonFire assignedCanon;
    
 
@@ -218,12 +217,13 @@ public class GrowthManager_Multiplayer : MonoBehaviour, IPointerClickHandler
             }
 
             // FIXED: Using localized assignments instead of scene-wide searching
-            if (assignedGoalManager != null && yieldAmount > 0)
+            if ( yieldAmount > 0)
             {
                 // CASE 1: The plant is perfectly healthy (No Bad Stats)
                 if (hasNoBadStats)
                 {
-                    assignedGoalManager.AddCrop(currentSeed.cropName, yieldAmount);
+                    Debug.Log("[STEP 2] HARVESTING SEED");
+                    assignedCanon.AddLoad(yieldAmount*10);
                     IsNotPlantable();
                     ResetPlot();
                 }
@@ -240,12 +240,15 @@ public class GrowthManager_Multiplayer : MonoBehaviour, IPointerClickHandler
     public void PlantSeed(SeedData data)
     {
         if (isPlanted || data == null) return;
+        Debug.LogWarning("[PASSED 1] Passed by Is Planted ");
         if (Waterlogged || !isplantable) return;
+        Debug.LogWarning("[PASSED 2] Passed by Is Plantable ");
         if (data.remainingSeedBags <= 0)
         {
             Debug.LogWarning($"[Out of Seeds] Can't plant anymore {data.cropName}! 0 bags remaining.");
             return;
         }
+        Debug.LogWarning("[PASSED 3] Passed by seedbads ");
 
         // Safety check in case I forgot to add a sprite to the asset file
         if (data.growthStages == null || data.growthStages.Length == 0)
@@ -253,6 +256,7 @@ public class GrowthManager_Multiplayer : MonoBehaviour, IPointerClickHandler
             Debug.LogError($"[GrowthManager] Can't plant {data.cropName}! The SeedData needs at least 1 sprite in the array.");
             return;
         }
+        Debug.LogWarning("[PASSED 4] PassedTS ");
 
         currentSeed = data;
         isPlanted = true;
@@ -718,7 +722,8 @@ public class GrowthManager_Multiplayer : MonoBehaviour, IPointerClickHandler
 
     //Fertilizer, Super Yield
     public void SuperCharge()
-    {if (!isPlanted) return;
+    {
+        if (!isPlanted) return;
         GoalManager goalManager = Object.FindFirstObjectByType<GoalManager>();
         int super_yield = plantSimulationInstance.GetMaxYield();
         goalManager.AddCrop(currentSeed.cropName, super_yield);

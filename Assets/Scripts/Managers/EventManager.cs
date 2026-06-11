@@ -30,8 +30,8 @@ public class EventManager : MonoBehaviour
     [SerializeField] private int _TyphoonChance = 0;
 
     [Header("UI Weather Changes")]
-    [SerializeField] private Sprite[] weatherIcons;
-    [SerializeField] private Image weatherIcon;
+    [SerializeField] public Sprite[] weatherIcons;
+    [SerializeField] public Image weatherIcon;
 
     [Header("UI Weather Panels")]
     [SerializeField] private GameObject HeatDazeContainer;

@@ -18,4 +18,13 @@ public class CanonFire : MonoBehaviour
     {
         
     }
+
+    public void AddLoad(int yield)
+    {
+        Debug.Log("[STEP 3] FIRING SEED. Yield: "+ yield);
+        canonAnim.SetTrigger("_IsFiring");
+        Instantiate(canonball, Vector3.zero, Quaternion.identity);
+        Instantiate(vfx, Vector3.zero, Quaternion.identity);
+        enemy.DepleteHealth(yield);
+    }
 }

@@ -5,12 +5,12 @@ using UnityEngine.Experimental.GlobalIllumination;
 public class TimeOfDayUI : MonoBehaviour
 {
     [Header("UI References")]
-    [SerializeField] private TMP_Text dayNightText;
-    [SerializeField] private TMP_Text clockText;
+    [SerializeField] public TMP_Text dayNightText;
+    [SerializeField] public TMP_Text clockText;
 
     [Header("Visual Settings")]
-    [SerializeField] private Color dayColor = Color.yellow;
-    [SerializeField] private Color nightColor = Color.purple;
+    [SerializeField] public Color dayColor = Color.yellow;
+    [SerializeField] public Color nightColor = Color.purple;
 
     [Header("Time Settings")]
     [SerializeField] private float timeScale = 8f; // in-game minutes per real second, change this to adjust day length

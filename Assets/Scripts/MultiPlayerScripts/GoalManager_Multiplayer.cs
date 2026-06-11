@@ -34,9 +34,7 @@ public class GoalManager_Multiplayer : MonoBehaviour
     void UpdateUI()
     {
         // FIXED: Combines all names in the array into a single string separated by commas (e.g., "Corn, Tomato, Wheat")
-        string allCrops = string.Join(", ", targetCropName);
-
-        goalText.text = $"Harvest {currentHarvested}/{targetGoal} {allCrops}";
+        
     }
 
     public void checkObjectives()
@@ -49,4 +47,13 @@ public class GoalManager_Multiplayer : MonoBehaviour
             w.onWin();
         }
     }
+
+
+    public void LoseGame(string loser)
+    {
+        Debug.Log("[STEP 6] LOST THE GAME");
+        WinOrLoseManager_Multiplayer w = FindAnyObjectByType<WinOrLoseManager_Multiplayer>();
+        w.onLose(loser);
+    }
+
 }
