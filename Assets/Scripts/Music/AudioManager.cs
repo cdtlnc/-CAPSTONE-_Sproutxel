@@ -5,6 +5,7 @@ public class AudioManager : MonoBehaviour
 {
     public Sound[] sounds;
 
+
     void Awake()
     {
         foreach (Sound s in sounds) 
@@ -14,7 +15,11 @@ public class AudioManager : MonoBehaviour
 
             s.source.volume = s.volume;
             s.source.pitch = s.pitch;
+            s.source.loop = s.loop;
+
         }
+
+    
     }
 
     public void Play(string name)
@@ -23,6 +28,11 @@ public class AudioManager : MonoBehaviour
         Sound s = System.Array.Find(sounds, s => s.name == name);
         s.source.Play();
     }
+    public void Stop(string name)
+    {
 
+        Sound s = System.Array.Find(sounds, s => s.name == name);
+        s.source.Stop();
+    }
 
 }

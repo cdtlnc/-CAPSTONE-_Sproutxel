@@ -22,7 +22,7 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
     [SerializeField] private int currentStage = 0;
 
     [Header("Plant Stats")]
-    [SerializeField] private string name;
+    [SerializeField] public string name;
     [SerializeField] private float cropHP;
     [SerializeField] private bool wonMinigame, hasNoBadStats;
 
@@ -275,7 +275,8 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
         plantSimulationInstance.soilQuality = 20f; 
 
         data.remainingSeedBags--;
-
+        EndGameManager end=GameObject.FindFirstObjectByType<EndGameManager>();
+        end.LoseSeed();
         UpdatePlantSprite();
         Debug.Log($"Successfully planted {data.cropName}! Calculations started.");
     }

@@ -44,12 +44,14 @@ public class PrecisionWateringMinigame : MinigameBase
         waterFillImage.fillAmount = 0f;
         ResetGame();
         PositionGreenZone();
+       
+
     }
 
     private void Update()
     {
         if (GameOver) return;
-
+        FindFirstObjectByType<AudioManager>().Play("WaterFilling");
         // 2. NEW INPUT SYSTEM: Unified holding check for both touch and mouse clicks
         bool holding = Pointer.current != null && Pointer.current.press.isPressed;
 
@@ -58,6 +60,8 @@ public class PrecisionWateringMinigame : MinigameBase
         waterFillImage.fillAmount = _fillAmount;
 
         _timeLeft -= Time.deltaTime;
+
+       
         if (timerText != null)
             timerText.text = Mathf.CeilToInt(Mathf.Max(_timeLeft, 0f)).ToString();
 
@@ -67,11 +71,13 @@ public class PrecisionWateringMinigame : MinigameBase
             if (won)
             {
                 EndGame(won); // Manager cleanly takes the true/false result here!
+                FindFirstObjectByType<AudioManager>().Play("WinWatering");
                 Invoke(nameof(DisableThisPanel), 5f);
             }
             else
             {
                 EndGame(false);
+                FindFirstObjectByType<AudioManager>().Stop("WaterFilling");
                 Invoke(nameof(DisableThisPanel), 5f);
 
             }
@@ -83,6 +89,7 @@ public class PrecisionWateringMinigame : MinigameBase
 
     private void PositionGreenZone()
     {
+        FindFirstObjectByType<AudioManager>().Play("WaterFilling");
         RectTransform barRect = waterFillImage.transform.parent.GetComponent<RectTransform>();
         RectTransform zoneRect = greenZoneImage.rectTransform;
         float h = barRect.rect.height;

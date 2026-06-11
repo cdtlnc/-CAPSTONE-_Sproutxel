@@ -91,13 +91,18 @@ public class PestControlMinigame : MinigameBase
         float t = Mathf.PingPong(_beatTimer / beatInterval * 2f, 1f);
         if (beatIndicator != null)
         {
+            FindFirstObjectByType<AudioManager>().Play("Pulse");
             beatIndicator.transform.localScale = Vector3.one * Mathf.Lerp(0.3f, 0.6f, t);
         }
 
         if (_beatTimer >= beatInterval)
         {
             if (!_tappedThisBeat)
+            {
+                FindFirstObjectByType<AudioManager>().Play("Offbeatmistake2");
                 AddMistake("Missed the beat!");
+            }
+                
 
             _beatTimer -= beatInterval;
             _tappedThisBeat = false;
@@ -107,6 +112,7 @@ public class PestControlMinigame : MinigameBase
         if (Pointer.current != null && Pointer.current.press.wasPressedThisFrame)
         {
             OnPestTapped();
+            FindFirstObjectByType<AudioManager>().Play("OnBeat");
         }
     }
 
@@ -126,12 +132,18 @@ public class PestControlMinigame : MinigameBase
             if (_pestsLeft <= 0)
             {
                 EndGame(true);
+                FindFirstObjectByType<AudioManager>().Stop("Pulse");
                 Invoke(nameof(DisableThisPanel), 5f);
             }
         }
         else
         {
             AddMistake("Off beat!");
+         
+       
+
+
+            FindFirstObjectByType<AudioManager>().Play("Offbeatmistake1");
         }
     }
 

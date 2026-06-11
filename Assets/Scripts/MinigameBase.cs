@@ -62,7 +62,7 @@ public abstract class MinigameBase : MonoBehaviour
             else
             {
                 CurrentPlot.ResolveMinigameLose(minigameType);
-                FindFirstObjectByType<AudioManager>().Play("LoseMinigame");
+                FindFirstObjectByType<AudioManager>().Play("FailedMinigame");
             }
                 
         }

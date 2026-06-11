@@ -99,6 +99,7 @@ public class WeedRemovalMinigame : MinigameBase
             RectTransform plantRt = plantButton.GetComponent<RectTransform>();
             if (RectTransformUtility.RectangleContainsScreenPoint(plantRt, screenPos))
             {
+                FindFirstObjectByType<AudioManager>().Play("TouchaThePlant");
                 OnPlantTapped();
             }
         }
@@ -168,6 +169,7 @@ public class WeedRemovalMinigame : MinigameBase
         _weeds.Remove(weed);
         Destroy(weed); // Safely completely release the object asset container from memory
         _weedsLeft--;
+        FindFirstObjectByType<AudioManager>().Play("PluckWeed");
         RefreshUI();
 
         if (_weedsLeft <= 0)
