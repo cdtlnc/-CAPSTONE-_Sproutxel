@@ -4578,7 +4578,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &188220625
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9271,7 +9271,7 @@ MonoBehaviour:
   seedType: {fileID: 11400000, guid: c17a12f482616904ca5fa76513828fb4, type: 2}
   playerCamera: {fileID: 330585545}
   seedNum: {fileID: 1134534630}
-  available: 1
+  available: 20
 --- !u!225 &352980875
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -24884,7 +24884,7 @@ MonoBehaviour:
   seedType: {fileID: 11400000, guid: 6c8502928703dd24b99fb7b961cc1205, type: 2}
   playerCamera: {fileID: 330585545}
   seedNum: {fileID: 1797204469}
-  available: 1
+  available: 20
 --- !u!225 &1039944038
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -31361,7 +31361,7 @@ MonoBehaviour:
   seedType: {fileID: 11400000, guid: 8c922d3a85b7e8f42b8cfd32884e40c9, type: 2}
   playerCamera: {fileID: 330585545}
   seedNum: {fileID: 1835807407}
-  available: 1
+  available: 20
 --- !u!1 &1320302867
 GameObject:
   m_ObjectHideFlags: 0
@@ -42376,7 +42376,7 @@ MonoBehaviour:
   seedType: {fileID: 11400000, guid: 8dda9ea4cf2e5524ca2c259044c9e7c0, type: 2}
   playerCamera: {fileID: 330585545}
   seedNum: {fileID: 336173586}
-  available: 1
+  available: 20
 --- !u!225 &1769859925
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -44146,7 +44146,7 @@ MonoBehaviour:
   seedType: {fileID: 11400000, guid: e736bca19f38b814cb3ba9404925ca9b, type: 2}
   playerCamera: {fileID: 330585545}
   seedNum: {fileID: 751751100}
-  available: 1
+  available: 20
 --- !u!225 &1832810624
 CanvasGroup:
   m_ObjectHideFlags: 0

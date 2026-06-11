@@ -56,15 +56,42 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/PrecisionWateringMinigame.unity
     guid: 4db5d2ee1fe50844992862c573f33576
+  - enabled: 0
+    path: Assets/Scenes/Testing Levels/Level_1_Old.unity
+    guid: ae8bc83c3d2ec9744a9daaaec3f0db3e
+  - enabled: 0
+    path: Assets/Scenes/Testing Levels/Level_5 Old.unity
+    guid: e56e6a569048a634384eaf0dd65ea18b
   - enabled: 1
     path: Assets/Scenes/Testing Levels/Level_1.unity
-    guid: ae8bc83c3d2ec9744a9daaaec3f0db3e
+    guid: bec61c33424348f49ba6fb84c3ffe095
+  - enabled: 1
+    path: Assets/Scenes/Testing Levels/Level_2.unity
+    guid: 8a152fd9aa928124aae509c14e71e32a
+  - enabled: 1
+    path: Assets/Scenes/Testing Levels/Level_3.unity
+    guid: 70bf7208b0298014aa0dce10b288a5b8
+  - enabled: 1
+    path: Assets/Scenes/Testing Levels/Level_4.unity
+    guid: bc16164d57faff14994478f64ea6d6a4
   - enabled: 1
     path: Assets/Scenes/Testing Levels/Level_5.unity
-    guid: e56e6a569048a634384eaf0dd65ea18b
+    guid: 7a4fb4eb23e04394e96d401eed68d7c5
+  - enabled: 1
+    path: Assets/Scenes/Testing Levels/Level_6.unity
+    guid: 366b11f1778187844b13467a979248ac
+  - enabled: 1
+    path: Assets/Scenes/Testing Levels/Level_7.unity
+    guid: 19decd4940ca78c4fa83ae32bd1fad36
   - enabled: 1
     path: Assets/Scenes/Testing Levels/Level_8.unity
     guid: 2f31b0b12012b8646987589261ccb353
+  - enabled: 1
+    path: Assets/Scenes/Testing Levels/Level_9.unity
+    guid: 33f94a51230e3744fa0819e23500daa5
+  - enabled: 1
+    path: Assets/Scenes/Testing Levels/Level_10.unity
+    guid: 93e24c1eade9bd84493afbb181c118e3
   - enabled: 1
     path: Assets/Scenes/Testing Levels/Multiplayer_Level.unity
     guid: b7b2378ab06bd764ebaa421f2efd200e
