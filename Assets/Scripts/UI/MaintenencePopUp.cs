@@ -102,7 +102,7 @@ public class MaintenencePopUp : MonoBehaviour
         soilMoisture = sim.soilMoisture;
         soilSoftness = sim.soilSoftness;
         soilQuality = sim.soilQuality;
-        nameText.text = targetedPlot.name;
+        nameText.text = targetedPlot.le_realname;
 
         // Push values directly into sliders
 

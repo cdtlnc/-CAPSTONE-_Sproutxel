@@ -7572,6 +7572,7 @@ MonoBehaviour:
   cropHP: 0
   wonMinigame: 0
   hasNoBadStats: 0
+  le_realname: 
   cropMoisture: 0
   soilQuality: 0
   soilMoisture: 0
@@ -10639,6 +10640,7 @@ MonoBehaviour:
   cropHP: 0
   wonMinigame: 0
   hasNoBadStats: 0
+  le_realname: 
   cropMoisture: 0
   soilQuality: 0
   soilMoisture: 0
@@ -14939,6 +14941,7 @@ MonoBehaviour:
   cropHP: 0
   wonMinigame: 0
   hasNoBadStats: 0
+  le_realname: 
   cropMoisture: 0
   soilQuality: 0
   soilMoisture: 0
@@ -23997,6 +24000,7 @@ MonoBehaviour:
   cropHP: 0
   wonMinigame: 0
   hasNoBadStats: 0
+  le_realname: 
   cropMoisture: 0
   soilQuality: 0
   soilMoisture: 0
@@ -28816,6 +28820,7 @@ MonoBehaviour:
   cropHP: 0
   wonMinigame: 0
   hasNoBadStats: 0
+  le_realname: 
   cropMoisture: 0
   soilQuality: 0
   soilMoisture: 0
@@ -38845,6 +38850,7 @@ MonoBehaviour:
   cropHP: 0
   wonMinigame: 0
   hasNoBadStats: 0
+  le_realname: 
   cropMoisture: 0
   soilQuality: 0
   soilMoisture: 0
@@ -43594,6 +43600,7 @@ MonoBehaviour:
   cropHP: 0
   wonMinigame: 0
   hasNoBadStats: 0
+  le_realname: 
   cropMoisture: 0
   soilQuality: 0
   soilMoisture: 0
@@ -44298,6 +44305,7 @@ MonoBehaviour:
   cropHP: 0
   wonMinigame: 0
   hasNoBadStats: 0
+  le_realname: 
   cropMoisture: 0
   soilQuality: 0
   soilMoisture: 0
@@ -48843,7 +48851,7 @@ MonoBehaviour:
   panels: {fileID: 1189987274}
   cam: {fileID: 0}
   name: 
-  nameText: {fileID: 0}
+  nameText: {fileID: 84433129}
   cropHP: 0
   hpSlider: {fileID: 1582980690}
   plantSprite: {fileID: 0}

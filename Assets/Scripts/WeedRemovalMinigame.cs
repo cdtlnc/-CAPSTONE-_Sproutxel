@@ -77,90 +77,85 @@ public class WeedRemovalMinigame : MinigameBase
     private void HandleInput()
     {
         if (Pointer.current == null || !Pointer.current.press.wasPressedThisFrame) return;
-
         Vector2 screenPos = Pointer.current.position.ReadValue();
 
-        // Step A: Check if we tapped a weed object first
+        // 1. Check weed hits
         for (int i = _weeds.Count - 1; i >= 0; i--)
         {
             if (_weeds[i] == null) continue;
-
             RectTransform weedRt = _weeds[i].GetComponent<RectTransform>();
             if (RectTransformUtility.RectangleContainsScreenPoint(weedRt, screenPos))
             {
                 OnWeedTapped(_weeds[i]);
-                return; // Break instantly out of input frames so we don't accidentally tap the plant backdrop behind it
+                return;
             }
         }
 
-        // Step B: If no weeds were clicked, check if the input missed and struck the main plant zone
-        if (plantButton != null)
+        // 2. Check green visualizer zone hit instead of tiny button
+        if (exclusionVisualizer != null && RectTransformUtility.RectangleContainsScreenPoint(exclusionVisualizer.rectTransform, screenPos))
         {
-            RectTransform plantRt = plantButton.GetComponent<RectTransform>();
-            if (RectTransformUtility.RectangleContainsScreenPoint(plantRt, screenPos))
-            {
-                FindFirstObjectByType<AudioManager>().Play("TouchaThePlant");
-                OnPlantTapped();
-            }
+            FindFirstObjectByType<AudioManager>().Play("TouchaThePlant");
+            OnPlantTapped();
         }
     }
 
     private void SpawnWeeds()
     {
-        // Clean up left-over weed assets from a previous game round run
-        foreach (var oldWeed in _weeds)
-        {
-            if (oldWeed != null) Destroy(oldWeed);
-        }
+        foreach (var oldWeed in _weeds) if (oldWeed != null) Destroy(oldWeed);
         _weeds.Clear();
 
-        RectTransform plantRT = plantButton.GetComponent<RectTransform>();
+        // Use the large green visualizer as the absolute blocking zone
+        RectTransform exclusionRT = (exclusionVisualizer != null) ? exclusionVisualizer.rectTransform : plantButton.GetComponent<RectTransform>();
+
+        // Get actual screen boundary box of the expanded WeedContainer
+        Vector3[] containerCorners = new Vector3[4];
+        weedContainer.GetWorldCorners(containerCorners);
+        Vector2 bottomLeftLocal = weedContainer.InverseTransformPoint(containerCorners[0]);
+        Vector2 topRightLocal = weedContainer.InverseTransformPoint(containerCorners[2]);
+
+        float halfWeed = weedSize * 0.5f;
+        float minX = bottomLeftLocal.x + halfWeed;
+        float maxX = topRightLocal.x - halfWeed;
+        float minY = bottomLeftLocal.y + halfWeed;
+        float maxY = topRightLocal.y - halfWeed;
 
         for (int i = 0; i < totalWeeds; i++)
         {
-            // 3. REMOVED: Deleted runtime Button assignment additions
             var weed = new GameObject($"Weed_{i}", typeof(RectTransform), typeof(Image));
             weed.transform.SetParent(weedContainer, false);
 
             var rt = weed.GetComponent<RectTransform>();
             rt.sizeDelta = new Vector2(weedSize, weedSize);
+            rt.anchorMin = rt.anchorMax = rt.pivot = new Vector2(0.5f, 0.5f); // Lock anchors to center
 
             Vector2 randomPos = Vector2.zero;
-            bool positionIsInsidePlant = true;
+            bool insideExclusion = true;
             int attempts = 0;
 
             do
             {
-                randomPos = new Vector2(
-                    Random.Range(-weedContainer.rect.width * 0.4f, weedContainer.rect.width * 0.4f),
-                    Random.Range(-weedContainer.rect.height * 0.4f, weedContainer.rect.height * 0.4f)
-                );
-
+                randomPos = new Vector2(Random.Range(minX, maxX), Random.Range(minY, maxY));
                 Vector3 worldPos = weedContainer.TransformPoint(randomPos);
-                Vector2 positionInPlantSpace = plantRT.InverseTransformPoint(worldPos);
+                Vector2 posInPlantSpace = exclusionRT.InverseTransformPoint(worldPos);
 
-                float padding = plantExclusionRadius;
+                float padding = halfWeed;
                 Rect paddedRect = new Rect(
-                    plantRT.rect.x - padding,
-                    plantRT.rect.y - padding,
-                    plantRT.rect.width + (padding * 2f),
-                    plantRT.rect.height + (padding * 2f)
+                    exclusionRT.rect.x - padding, exclusionRT.rect.y - padding,
+                    exclusionRT.rect.width + (padding * 2f), exclusionRT.rect.height + (padding * 2f)
                 );
 
-                positionIsInsidePlant = paddedRect.Contains(positionInPlantSpace);
+                insideExclusion = paddedRect.Contains(posInPlantSpace);
                 attempts++;
             }
-            while (positionIsInsidePlant && attempts < maxSpawnAttempts);
+            while (insideExclusion && attempts < 100);
 
             rt.anchoredPosition = randomPos;
-
             Image img = weed.GetComponent<Image>();
             img.sprite = WeedTexture;
-            img.color = Color.white;
-
             _weeds.Add(weed);
         }
     }
+
 
     private void OnWeedTapped(GameObject weed)
     {

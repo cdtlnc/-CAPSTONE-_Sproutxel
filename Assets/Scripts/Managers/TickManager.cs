@@ -1,4 +1,5 @@
 using System;
+
 using UnityEngine;
 using UnityEngine.Rendering;
 
@@ -34,6 +35,7 @@ public class TickManager : MonoBehaviour
     {
         TimeOfDayUI time = GameObject.FindAnyObjectByType<TimeOfDayUI>();
         time.GetTickSpeed(_TICK_TIMER_MAX);
+       
         CopyCatDayNight dih = GameObject.FindAnyObjectByType<CopyCatDayNight>();
         dih.GetTickSpeed(_TICK_TIMER_MAX);
     }

@@ -25,6 +25,7 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
     [SerializeField] public string name;
     [SerializeField] private float cropHP;
     [SerializeField] private bool wonMinigame, hasNoBadStats;
+    [SerializeField] public string le_realname;
 
     [Header("Crop Moisture")]
     [SerializeField] private float cropMoisture;
@@ -75,7 +76,7 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
     [Header("Stat Paremeters")]
     [SerializeField] float minSafe = -20f;
     [SerializeField] float maxSafe = 60f;
-    [SerializeField] float recoveryRate = 2f; // How many points it recovers per tick
+     float recoveryRate = 1f; // How many points it recovers per tick
     [SerializeField] float targetCenter = 20f;
     
     [SerializeField] float BugCooldownMeter;
@@ -245,7 +246,7 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
             Debug.LogWarning($"[Out of Seeds] Can't plant anymore {data.cropName}! 0 bags remaining.");
             return;
         }
-
+        le_realname = currentSeed.cropName;
         // Safety check in case I forgot to add a sprite to the asset file
         if (data.growthStages == null || data.growthStages.Length == 0)
         {
@@ -275,6 +276,7 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
         plantSimulationInstance.soilQuality = 20f; 
 
         data.remainingSeedBags--;
+        
         EndGameManager end=GameObject.FindFirstObjectByType<EndGameManager>();
         end.LoseSeed();
         UpdatePlantSprite();
