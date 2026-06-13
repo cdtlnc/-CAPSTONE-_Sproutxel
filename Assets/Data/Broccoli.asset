@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d1280be23a23ba48a6fff5fcb1150cf, type: 3}
+  m_Name: Broccoli
+  m_EditorClassIdentifier: Assembly-CSharp::SeedData
+  cropName: Broccoli
+  seedBagIcon: {fileID: -1008973225, guid: 8411fff7d4890b644947d49edb1248ab, type: 3}
+  growthStages:
+  - {fileID: -1795139194, guid: 0b73a75d272a65d4193cadca7eb3830f, type: 3}
+  - {fileID: -739460687, guid: 0b73a75d272a65d4193cadca7eb3830f, type: 3}
+  - {fileID: 1109662343, guid: 0b73a75d272a65d4193cadca7eb3830f, type: 3}
+  - {fileID: -419429716, guid: 0b73a75d272a65d4193cadca7eb3830f, type: 3}
+  - {fileID: 794855291, guid: 0b73a75d272a65d4193cadca7eb3830f, type: 3}
+  plantStatsTemplate: {fileID: 11400000, guid: 25426def60f2c8e4180d9e353a6067fd, type: 2}
+  remainingSeedBags: 10000
+  ticksPerStage: 1

@@ -12,3 +12,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 347dff7918c33744e94c544735df7942, type: 3}
   m_Name: Crop_KangKong
   m_EditorClassIdentifier: Assembly-CSharp::PlantBase
+  plantName: KangKong
+  maxHP: 20
+  standardGrowthSpeed: 6
+  badCropYield: {x: 0, y: 1}
+  averageCropYield: {x: 2, y: 4}
+  goodCropYield: {x: 5, y: 9}
+  seasonalAffinities:
+  - 0.8
+  - 1.4
+  weatherAffinities:
+  - 1
+  - 0.7
+  - 1.5
+  cycleAffinities:
+  - 0.8
+  - 1.4
+  bugResistances:
+  - 1
+  - 1.4

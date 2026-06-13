@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d1280be23a23ba48a6fff5fcb1150cf, type: 3}
+  m_Name: Corn
+  m_EditorClassIdentifier: Assembly-CSharp::SeedData
+  cropName: Corn
+  seedBagIcon: {fileID: -152068168, guid: 7a8e45b6dc8a2394288e6cc1a446f6fb, type: 3}
+  growthStages:
+  - {fileID: -1512105628, guid: 5d3eaf52b4076c644848ed89317d62b2, type: 3}
+  - {fileID: -906325453, guid: 5d3eaf52b4076c644848ed89317d62b2, type: 3}
+  - {fileID: -488960033, guid: 5d3eaf52b4076c644848ed89317d62b2, type: 3}
+  - {fileID: 173690140, guid: 5d3eaf52b4076c644848ed89317d62b2, type: 3}
+  - {fileID: 909513718, guid: 5d3eaf52b4076c644848ed89317d62b2, type: 3}
+  plantStatsTemplate: {fileID: 11400000, guid: a931e59e60c22b744b0bbb6208c383d2, type: 2}
+  remainingSeedBags: 10000
+  ticksPerStage: 1

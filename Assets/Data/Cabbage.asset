@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d1280be23a23ba48a6fff5fcb1150cf, type: 3}
+  m_Name: Cabbage
+  m_EditorClassIdentifier: Assembly-CSharp::SeedData
+  cropName: Cabbage
+  seedBagIcon: {fileID: -375498624, guid: 4ce592f5aff69624d9cd40a9d86137d1, type: 3}
+  growthStages:
+  - {fileID: -931073261, guid: 63cae5bdcf7a21542914b741520e6fd4, type: 3}
+  - {fileID: -1669616719, guid: 63cae5bdcf7a21542914b741520e6fd4, type: 3}
+  - {fileID: -899430482, guid: 63cae5bdcf7a21542914b741520e6fd4, type: 3}
+  - {fileID: -837052763, guid: 63cae5bdcf7a21542914b741520e6fd4, type: 3}
+  - {fileID: -1561091691, guid: 63cae5bdcf7a21542914b741520e6fd4, type: 3}
+  plantStatsTemplate: {fileID: 11400000, guid: 4146002d3ded55d4f94a3869022e9073, type: 2}
+  remainingSeedBags: 10000
+  ticksPerStage: 1

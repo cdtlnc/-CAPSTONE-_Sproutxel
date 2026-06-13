@@ -10,5 +10,24 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 347dff7918c33744e94c544735df7942, type: 3}
-  m_Name: Crop_Broccoli
+  m_Name: Crop_Okra
   m_EditorClassIdentifier: Assembly-CSharp::PlantBase
+  plantName: Okra
+  maxHP: 20
+  standardGrowthSpeed: 6
+  badCropYield: {x: 0, y: 1}
+  averageCropYield: {x: 2, y: 4}
+  goodCropYield: {x: 5, y: 9}
+  seasonalAffinities:
+  - 1.4
+  - 0.7
+  weatherAffinities:
+  - 1
+  - 1.5
+  - 0.7
+  cycleAffinities:
+  - 0.8
+  - 1.4
+  bugResistances:
+  - 1
+  - 1.4

@@ -28,6 +28,7 @@ public class LevelSelectManager : MonoBehaviour
 
     void LoadLevel(string sceneName)
     {
+        FindFirstObjectByType<AudioManager>().Play("Tap1");
         LevelManager.Instance.LoadScene(sceneName, transitionName);
     }
 }

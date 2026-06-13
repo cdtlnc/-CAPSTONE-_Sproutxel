@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d1280be23a23ba48a6fff5fcb1150cf, type: 3}
+  m_Name: KangKong
+  m_EditorClassIdentifier: Assembly-CSharp::SeedData
+  cropName: Tomato
+  seedBagIcon: {fileID: -1628893551, guid: 89c117cd14c8c6e4085a5a227ac17eef, type: 3}
+  growthStages:
+  - {fileID: 1260992552, guid: a2ff80b4e9d81ba48bcfb88885fa4629, type: 3}
+  - {fileID: -1900416841, guid: a2ff80b4e9d81ba48bcfb88885fa4629, type: 3}
+  - {fileID: -892370983, guid: a2ff80b4e9d81ba48bcfb88885fa4629, type: 3}
+  - {fileID: 370209146, guid: a2ff80b4e9d81ba48bcfb88885fa4629, type: 3}
+  - {fileID: -2090122754, guid: a2ff80b4e9d81ba48bcfb88885fa4629, type: 3}
+  plantStatsTemplate: {fileID: 11400000, guid: a168ebacf8439bf469f5f0375ae5ae7e, type: 2}
+  remainingSeedBags: 10000
+  ticksPerStage: 1
