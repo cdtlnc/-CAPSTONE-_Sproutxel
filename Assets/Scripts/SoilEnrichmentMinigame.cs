@@ -78,7 +78,7 @@ public class SoilEnrichmentMinigame : MinigameBase
         if (_timeLeft <= 0f)
         {
             EndGame(false);
-            Invoke(nameof(DisableThisPanel), 5f);
+            Invoke(nameof(DisableThisPanel), 1f);
             return;
         }
 
@@ -172,7 +172,7 @@ public class SoilEnrichmentMinigame : MinigameBase
                 if (_itemsLeft <= 0)
                 {
                     EndGame(true);
-                    Invoke(nameof(DisableThisPanel), 5f);
+                    Invoke(nameof(DisableThisPanel), 1f);
                 }
             }
             else

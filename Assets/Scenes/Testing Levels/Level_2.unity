@@ -3104,7 +3104,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 105.12378, y: 1831}
+  m_AnchoredPosition: {x: 105.12378, y: 3335}
   m_SizeDelta: {x: 865.2, y: 419.4}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &125835095
@@ -10752,7 +10752,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 41.833496, y: 0}
+  m_AnchoredPosition: {x: 41.833557, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &503002946
@@ -25094,7 +25094,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 105.12378, y: 430}
+  m_AnchoredPosition: {x: 105.12378, y: 1600}
   m_SizeDelta: {x: 865.2, y: 419.4}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1189987276
@@ -35125,7 +35125,7 @@ MonoBehaviour:
   optionsMenu: {fileID: 7062775005358502413, guid: 5f02d6b33f3abdf4aa082e5cd8ccaf80, type: 3}
   transitionName: CrossFade
   isPaused: 0
-  nextLevel: Level_2
+  nextLevel: Level_3
 --- !u!1 &1678629947
 GameObject:
   m_ObjectHideFlags: 0
@@ -43499,7 +43499,7 @@ MonoBehaviour:
   enStart: 1
   dropHandler: {fileID: 1775926179}
   MaintenanceScreenPos: {fileID: 1189987275}
-  topPosY: 430
+  topPosY: 1600
   MidPosY: 162.3098
   tweenduration: 1
 --- !u!1 &2030700207

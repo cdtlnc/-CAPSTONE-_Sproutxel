@@ -66,7 +66,7 @@ public class WeedRemovalMinigame : MinigameBase
         if (_timeLeft <= 0f)
         {
             EndGame(false);
-            Invoke(nameof(DisableThisPanel), 5f);
+            Invoke(nameof(DisableThisPanel), 1f);
             return;
         }
 
@@ -170,7 +170,7 @@ public class WeedRemovalMinigame : MinigameBase
         if (_weedsLeft <= 0)
         {
             EndGame(true);
-            Invoke(nameof(DisableThisPanel), 5f);
+            Invoke(nameof(DisableThisPanel), 1f);
         }
     }
 
@@ -184,7 +184,7 @@ public class WeedRemovalMinigame : MinigameBase
         if (_plantTaps >= maxPlantTaps)
         {
             EndGame(false);
-            Invoke(nameof(DisableThisPanel), 5f);
+            Invoke(nameof(DisableThisPanel), 1f);
         }
     }
 

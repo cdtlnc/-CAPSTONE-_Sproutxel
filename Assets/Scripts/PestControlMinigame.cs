@@ -133,7 +133,7 @@ public class PestControlMinigame : MinigameBase
             {
                 EndGame(true);
                 FindFirstObjectByType<AudioManager>().Stop("Pulse");
-                Invoke(nameof(DisableThisPanel), 5f);
+                Invoke(nameof(DisableThisPanel), 1f);
             }
         }
         else
@@ -163,7 +163,7 @@ public class PestControlMinigame : MinigameBase
         if (_mistakes >= mistakeLimit)
         {
             EndGame(false);
-            Invoke(nameof(DisableThisPanel), 5f);
+            Invoke(nameof(DisableThisPanel), 1f);
         }
     }
 

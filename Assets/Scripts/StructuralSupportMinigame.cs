@@ -80,7 +80,7 @@ public class StructuralSupportMinigame : MinigameBase
         if (_overallTimeLeft <= 0f)
         {
             EndGame(false);
-            Invoke(nameof(DisableThisPanel), 5f);
+            Invoke(nameof(DisableThisPanel), 1f);
             return;
         }
 
@@ -146,7 +146,7 @@ public class StructuralSupportMinigame : MinigameBase
                 if (_promptsLeft <= 0)
                 {
                     EndGame(true);
-                    Invoke(nameof(DisableThisPanel), 5f);
+                    Invoke(nameof(DisableThisPanel), 1f);
                 }
                 else NextPrompt();
             }

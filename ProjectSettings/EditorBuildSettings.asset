@@ -6,7 +6,10 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/MainMenu.unity
+    path: Assets/Scenes/Testing Levels/MainMenu_Cutscene.unity
+    guid: 54a7aba61aa16aa47b9cc5aef46a23ef
+  - enabled: 1
+    path: Assets/Scenes/Testing Levels/MainMenu.unity
     guid: 99c9720ab356a0642a771bea13969a05
   - enabled: 0
     path: Assets/Scenes/Level_1Fake.unity

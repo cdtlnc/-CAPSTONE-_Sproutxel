@@ -86,7 +86,7 @@ public class NettingProtectionMinigame : MinigameBase
         if (_timeLeft <= 0f)
         {
             EndGame(false);
-            Invoke(nameof(DisableThisPanel), 5f);
+            Invoke(nameof(DisableThisPanel), 1f);
             return;
         }
 
@@ -136,7 +136,7 @@ public class NettingProtectionMinigame : MinigameBase
                 if (_nextAnchor == 0 && _lines.Count >= _anchors.Count)
                 {
                     EndGame(true);
-                    Invoke(nameof(DisableThisPanel), 5f);
+                    Invoke(nameof(DisableThisPanel), 1f);
                 }
             }
             else

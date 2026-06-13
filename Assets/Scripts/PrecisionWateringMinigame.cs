@@ -95,13 +95,13 @@ public class PrecisionWateringMinigame : MinigameBase
             {
                 EndGame(won);
                 FindFirstObjectByType<AudioManager>().Play("WinWatering");
-                Invoke(nameof(DisableThisPanel), 5f);
+                Invoke(nameof(DisableThisPanel), 1f);
             }
             else
             {
                 EndGame(false);
                 FindFirstObjectByType<AudioManager>().Stop("WaterFilling");
-                Invoke(nameof(DisableThisPanel), 5f);
+                Invoke(nameof(DisableThisPanel), 1f);
             }
         }
     }
