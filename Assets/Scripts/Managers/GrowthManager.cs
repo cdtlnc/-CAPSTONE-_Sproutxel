@@ -178,7 +178,7 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
         CheckStats();
 
         // LINE ADDED HERE: Run real-time condition evaluation checks
-        EvaluatePlotHealth();
+        //EvaluatePlotHealth();
        
         GetMogged();
         UpdatePlantSprite();
@@ -246,7 +246,7 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
             Debug.LogWarning($"[Out of Seeds] Can't plant anymore {data.cropName}! 0 bags remaining.");
             return;
         }
-        le_realname = currentSeed.cropName;
+       
         // Safety check in case I forgot to add a sprite to the asset file
         if (data.growthStages == null || data.growthStages.Length == 0)
         {
@@ -428,6 +428,7 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
                 {
                     plantSimulationInstance.soilQuality = 40.0f; // Adjusted downward from 60f so it sits comfortably inside the sweet spot
                     statsTowardsTheCenter();
+                    WaterClear();
                 }
                 else
                 {

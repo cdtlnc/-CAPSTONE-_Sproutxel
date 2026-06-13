@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -10,11 +11,16 @@ public class ItemManager : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
     [SerializeField] private Vector3 startPos;
     [SerializeField] private Transform originalParent;
     [SerializeField] private CanvasGroup canvasGroup;
+    [SerializeField] private bool decreaseUsage;
+    [SerializeField] private TextMeshProUGUI numberofUses;
 
     void Awake()
     {
         canvasGroup = GetComponent<CanvasGroup>() ?? gameObject.AddComponent<CanvasGroup>();
         if (_itemSprite != null) GetComponent<Image>().sprite = _itemSprite;
+
+        if(decreaseUsage)
+        numberofUses.text = "" + maxPickTime;
     }
 
     public void OnBeginDrag(PointerEventData eventData)
@@ -49,7 +55,7 @@ public class ItemManager : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
             {
                 GrowthManager growthScript = hit.collider.GetComponent<GrowthManager>();
 
-                if (growthScript != null)
+                if (growthScript != null&&maxPickTime!=0||maxPickTime!<=0)
                 {
                     bool actionSuccessful = false;
 
@@ -83,9 +89,15 @@ public class ItemManager : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
                     }
 
                     // Only consume an item charge if a tool action actually fired
-                    if (actionSuccessful)
+                    if (actionSuccessful&&decreaseUsage)
                     {
-                        maxPickTime--;
+                      
+                        if(decreaseUsage)
+                        {
+                            maxPickTime--;
+                            numberofUses.text = "" + maxPickTime;
+                        }
+                     
                     }
                 }
             }
@@ -95,5 +107,5 @@ public class ItemManager : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
         transform.SetParent(originalParent);
         transform.position = startPos;
     }
-
+  
 }

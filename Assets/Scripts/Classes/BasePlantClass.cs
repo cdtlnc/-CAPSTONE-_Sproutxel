@@ -42,28 +42,28 @@ public class BasePlant
         // Tinker with the values to achieve the rate of change that you want.
         if (seasonIndex == 0)
         {
-            cropMoistureMultiplier = -1;
-            soilMoistureMultiplier = -1;
-            soilSoftnessMultiplier = 1.25f;
+            cropMoistureMultiplier = -1.5f;
+            soilMoistureMultiplier = -1.5f;
+            soilSoftnessMultiplier = 1.5f;
         }
         else if (seasonIndex == 1)
         {
-            cropMoistureMultiplier = 1.25f;
-            soilMoistureMultiplier = 1.25f;
-            soilSoftnessMultiplier = -1;
+            cropMoistureMultiplier = 1.5f;
+            soilMoistureMultiplier = 1.5f;
+            soilSoftnessMultiplier = -1.5f;
         }
 
         if (weatherIndex == 1)
         {
-            cropMoistureMultiplier = -1f;
-            soilMoistureMultiplier = -1f;
-            soilSoftnessMultiplier = 1.35f;
+            cropMoistureMultiplier = -1.5f;
+            soilMoistureMultiplier = -1.5f;
+            soilSoftnessMultiplier = 1.5f;
         }
         else if (weatherIndex == 2)
         {
-            cropMoistureMultiplier = 1.35f;
-            soilMoistureMultiplier = 1.35f;
-            soilSoftnessMultiplier = -1f;
+            cropMoistureMultiplier = 1.5f;
+            soilMoistureMultiplier = 1.5f;
+            soilSoftnessMultiplier = -1.5f;
         }
 
         cropMoisture += _cropMoistureMultiplier * (100 + cropMoisture) / 100 * cropMoistureMultiplier;

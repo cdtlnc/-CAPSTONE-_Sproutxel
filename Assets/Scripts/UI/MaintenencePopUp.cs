@@ -2,6 +2,7 @@ using System.ComponentModel;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class MaintenencePopUp : MonoBehaviour
 {
@@ -43,6 +44,10 @@ public class MaintenencePopUp : MonoBehaviour
     [Header("Drop Handler")]
     [SerializeField] private PlantViewDrop dropHandler;
 
+    [Header("Tweener")]
+    [SerializeField] public RectTransform  MaintenanceScreenPos;
+    [SerializeField] public float topPosY= 430f, MidPosY = 162.3098f;
+    [SerializeField] public float tweenduration;
 
     private GrowthManager targetedPlot;
     void Start()
@@ -59,6 +64,7 @@ public class MaintenencePopUp : MonoBehaviour
 
     public void OpenWindow(GrowthManager plot)
     {
+        MaintenanceScreenPos.DOAnchorPosY(MidPosY, tweenduration);
         targetedPlot = plot;
 
         // Pass the plot data to the drop zone so it knows which plant is being worked on
@@ -74,6 +80,7 @@ public class MaintenencePopUp : MonoBehaviour
 
     public void CloseWindow()
     {
+        MaintenanceScreenPos.DOAnchorPosY(topPosY, tweenduration);
         targetedPlot = null;
 
         // Clear out the plot data when the window closes to prevent accidental bugs
@@ -102,7 +109,7 @@ public class MaintenencePopUp : MonoBehaviour
         soilMoisture = sim.soilMoisture;
         soilSoftness = sim.soilSoftness;
         soilQuality = sim.soilQuality;
-        nameText.text = targetedPlot.le_realname;
+        nameText.text = targetedPlot.currentSeed.name;
 
         // Push values directly into sliders
 

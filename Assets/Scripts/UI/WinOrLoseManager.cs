@@ -1,11 +1,14 @@
 using UnityEngine;
-
+using DG.Tweening;
 public class WinOrLoseManager : MonoBehaviour
 {
 
     [Header("UI Items")]
     [SerializeField] public GameObject winScreen;
     [SerializeField] public GameObject loseScreen;
+    [SerializeField] public RectTransform WinScreenPos,LoseScreenPos;
+    [SerializeField] public float topPosY, MidPosY= 162.3098f;
+    [SerializeField] public float tweenduration;
     
 
 
@@ -26,12 +29,22 @@ public class WinOrLoseManager : MonoBehaviour
         Debug.Log("WE STAY WINNING");
         winScreen.SetActive(true);
         FindFirstObjectByType<AudioManager>().Play("WinLevel");
-        FindFirstObjectByType<PauseMenuUI>().SetPaused();
+        WinTween();
     }
     public void onLose()
     {
         loseScreen.SetActive(true);
         FindFirstObjectByType<AudioManager>().Play("LoseLevel");
-        FindFirstObjectByType<PauseMenuUI>().SetPaused();
+        LoseTween();
+    }
+
+    public void WinTween()
+    {
+        WinScreenPos.DOAnchorPosY(MidPosY, tweenduration);
+
+    }
+    public void LoseTween()
+    {
+        LoseScreenPos.DOAnchorPosY(MidPosY, tweenduration);
     }
 }
