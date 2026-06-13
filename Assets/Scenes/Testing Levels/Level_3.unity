@@ -12615,14 +12615,14 @@ RectTransform:
   m_GameObject: {fileID: 589519368}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -54.089233}
-  m_LocalScale: {x: 2.808156, y: 1.696654, z: 2.222617}
+  m_LocalScale: {x: 2.3317244, y: 1.4087996, z: 1.8455278}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 680815219}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -228, y: 39}
+  m_AnchoredPosition: {x: -236, y: 18}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &589519370
@@ -12645,7 +12645,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -1835571187, guid: 9345f0bbfbc9e5348a7e9b692efd3497, type: 3}
+  m_Sprite: {fileID: -85749406, guid: 32090f816a07c4f4baa5e690d02b172e, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -12790,7 +12790,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0affda578bd626442aab327542e52190, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemManager
-  maxPickTime: 20
+  maxPickTime: 10
   _itemSprite: {fileID: -307183650, guid: 9763df34e69b3d845ad0eec22a88932c, type: 3}
   startPos: {x: 0, y: 0, z: 0}
   originalParent: {fileID: 0}
@@ -13969,6 +13969,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 976502874}
+  - {fileID: 2033113104}
   - {fileID: 589519369}
   m_Father: {fileID: 124893636}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -19892,14 +19893,14 @@ RectTransform:
   m_GameObject: {fileID: 976502873}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -54.089233}
-  m_LocalScale: {x: 2.808156, y: 1.696654, z: 2.222617}
+  m_LocalScale: {x: 2.3317244, y: 1.4087996, z: 1.8455278}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 680815219}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 154, y: 39}
+  m_AnchoredPosition: {x: 165, y: 17}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &976502875
@@ -19922,7 +19923,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -152068168, guid: 7a8e45b6dc8a2394288e6cc1a446f6fb, type: 3}
+  m_Sprite: {fileID: 1245789272, guid: 26beaa5eaae695d42a250c80b51164b0, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -21780,7 +21781,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6eee03c176cbebe4e81c858136534544, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SeedManager
-  seedType: {fileID: 11400000, guid: a2f10999a0c84ab44b31f3b751d45f37, type: 2}
+  seedType: {fileID: 11400000, guid: 8c922d3a85b7e8f42b8cfd32884e40c9, type: 2}
   playerCamera: {fileID: 330585545}
   seedNum: {fileID: 1797204469}
   available: 10
@@ -27833,7 +27834,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6eee03c176cbebe4e81c858136534544, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SeedManager
-  seedType: {fileID: 11400000, guid: ca84efa1c10372a48a030cb9a2be81f8, type: 2}
+  seedType: {fileID: 11400000, guid: b5159f17a31006d4a88d70d2d5fe4e4b, type: 2}
   playerCamera: {fileID: 330585545}
   seedNum: {fileID: 1835807407}
   available: 10
@@ -28073,15 +28074,15 @@ MonoBehaviour:
   clockText: {fileID: 394468683}
   dayColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   nightColor: {r: 0.627451, g: 0.1254902, b: 0.9411765, a: 1}
-  timeScale: 10
-  startHour: 18
+  timeScale: 20
+  startHour: 6
   seasonTimer: 1
   thelight: {fileID: 410087040}
   nightColorLight: {r: 0.20536162, g: 0.10059804, b: 0.2679245, a: 1}
   dayColorLight: {r: 0.83396226, g: 0.7678071, b: 0.54600924, a: 1}
   twilightColor: {r: 1, g: 0.5, b: 0, a: 1}
   TICK_INTERVAL: 0.4
-  startWithDrySeason: 0
+  startWithDrySeason: 1
 --- !u!1 &1325138742
 GameObject:
   m_ObjectHideFlags: 0
@@ -35353,7 +35354,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bcea920539df2e242a4d434c465447dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EventManager
-  _weatherEventOdds: 000000000a00000032000000
+  _weatherEventOdds: 000000003c00000014000000
   _infestationOdds: 10
   _infestationChances: 10
   _infestationStart: 0
@@ -35368,7 +35369,7 @@ MonoBehaviour:
   _TyphoonDuration: 0
   _TyphoonTimer: 0
   _HeatWaveChance: 10
-  _TyphoonChance: 30
+  _TyphoonChance: 10
   weatherIcons:
   - {fileID: -470526965, guid: acc1e990b4beaec43b8cf17f1832b3c3, type: 3}
   - {fileID: -1095214549, guid: 9432dc4eaf8d84342bb6030d7af13815, type: 3}
@@ -39142,7 +39143,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6eee03c176cbebe4e81c858136534544, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SeedManager
-  seedType: {fileID: 11400000, guid: 817fdf3cd2f8c034bb491785d5de0898, type: 2}
+  seedType: {fileID: 11400000, guid: 6c8502928703dd24b99fb7b961cc1205, type: 2}
   playerCamera: {fileID: 330585545}
   seedNum: {fileID: 751751100}
   available: 10
@@ -40224,10 +40225,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GoalManager
   targetCropName:
-  - Broccoli
-  - Cabbage
-  - Tomato
-  targetGoal: 30
+  - Corn
+  - Ampalaya
+  - Carrots
+  targetGoal: 40
   currentHarvested: 0
   goalText: {fileID: 304643910}
 --- !u!1001 &1863921215
@@ -43559,7 +43560,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Level 2: Night Reign'
+  m_text: 'Level 3: Drying Up'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0eb2a1dea2e95314ebbaad154f8bc100, type: 2}
   m_sharedMaterial: {fileID: 3952208753250925928, guid: 0eb2a1dea2e95314ebbaad154f8bc100, type: 2}
@@ -43708,6 +43709,81 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 34a9264aae049c2469e9687c33f53b47, type: 3}
+--- !u!1 &2033113103
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2033113104}
+  - component: {fileID: 2033113106}
+  - component: {fileID: 2033113105}
+  m_Layer: 5
+  m_Name: New Item (2)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &2033113104
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2033113103}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -54.089233}
+  m_LocalScale: {x: 2.3317244, y: 1.4087996, z: 1.8455278}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 680815219}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -29, y: 98}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &2033113105
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2033113103}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 747917262, guid: 9f97f0f9b2e918a45af81eb1f2752f5f, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &2033113106
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2033113103}
+  m_CullTransparentMesh: 1
 --- !u!1001 &2034402706
 PrefabInstance:
   m_ObjectHideFlags: 0

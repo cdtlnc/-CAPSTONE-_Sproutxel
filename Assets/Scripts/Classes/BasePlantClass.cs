@@ -44,26 +44,26 @@ public class BasePlant
         {
             cropMoistureMultiplier = -1.5f;
             soilMoistureMultiplier = -1.5f;
-            soilSoftnessMultiplier = 1.5f;
+            soilSoftnessMultiplier = 1.2f;
         }
         else if (seasonIndex == 1)
         {
             cropMoistureMultiplier = 1.5f;
             soilMoistureMultiplier = 1.5f;
-            soilSoftnessMultiplier = -1.5f;
+            soilSoftnessMultiplier = -1.2f;
         }
 
         if (weatherIndex == 1)
         {
             cropMoistureMultiplier = -1.5f;
             soilMoistureMultiplier = -1.5f;
-            soilSoftnessMultiplier = 1.5f;
+            soilSoftnessMultiplier = 1.2f;
         }
         else if (weatherIndex == 2)
         {
             cropMoistureMultiplier = 1.5f;
             soilMoistureMultiplier = 1.5f;
-            soilSoftnessMultiplier = -1.5f;
+            soilSoftnessMultiplier = -1.2f;
         }
 
         cropMoisture += _cropMoistureMultiplier * (100 + cropMoisture) / 100 * cropMoistureMultiplier;
