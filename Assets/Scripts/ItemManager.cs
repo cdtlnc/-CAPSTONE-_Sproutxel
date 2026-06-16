@@ -27,7 +27,7 @@ public class ItemManager : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
     {
 
         if (maxPickTime <= 0) return;
-        FindFirstObjectByType<AudioManager>().Play("TapSound1");
+        AudioManager.instance.Play("TapSound1");
         startPos = transform.position;
         originalParent = transform.parent;
         transform.SetParent(GameObject.Find("GameplayCanvas").transform);
@@ -41,7 +41,7 @@ public class ItemManager : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
     {
         canvasGroup.blocksRaycasts = true;
         canvasGroup.alpha = 1f;
-
+        if (maxPickTime <= 0) return;
         // Use a LayerMask if your plant colliders are blocking the ground raycast
         // Replace "Default" with whatever layer your Soil object uses
         int groundLayerMask = LayerMask.GetMask("Default");
@@ -62,27 +62,32 @@ public class ItemManager : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
                     switch (gameObject.tag)
                     {
                         case "Soil Adder":
+                            AudioManager.instance.Play("SoilAddler");
                             growthScript.WaterClear();
                             actionSuccessful = true;
                             break;
 
                         case "Shovel":
+                            AudioManager.instance.Play("Shovel");
                             growthScript.RemovePlant();
                             actionSuccessful = true;
                             break;
 
                         case "Soil Tiller":
+                            AudioManager.instance.Play("SoilTiller");
                             growthScript.RefreshPlot();
                             actionSuccessful = true;
                             break;
 
                         case "Pesticide":
                             // Safely apply pesticide to the soil slot
+                            AudioManager.instance.Play("PesticideSpray");
                             growthScript.unBug();
                             actionSuccessful = true;
                             break;
 
                         case "Fertilizer":
+                            AudioManager.instance.Play("Fertilizer");
                             growthScript.SuperCharge();
                             actionSuccessful = true;
                             break;

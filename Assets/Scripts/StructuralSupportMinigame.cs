@@ -138,7 +138,7 @@ public class StructuralSupportMinigame : MinigameBase
 
             if (dir == _currentDirection)
             {
-                FindFirstObjectByType<AudioManager>().Play("Swiper");
+                AudioManager.instance.Play("Swiper");
                 _promptsLeft--;
                 soilStatus += 2f; // keeps the soil status healthy
                 RefreshUI();

@@ -258,7 +258,7 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
         currentSeed = data;
         isPlanted = true;
         currentStage = 0;
-        FindFirstObjectByType<AudioManager>().Play("Planting");
+        AudioManager.instance.Play("Planting"); 
 
         // Fire up a brand new simulation instance
         plantSimulationInstance = new BasePlant();
@@ -337,7 +337,8 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
 
     public void winMinigame()
     {
-        FindFirstObjectByType<AudioManager>().Play("WinMinigame");
+     
+        AudioManager.instance.Play("WinMinigame");
         SuperCharge();
         IsNotPlantable(); //Used to make sure the soil tiller is used
         ResetPlot();
@@ -345,7 +346,7 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
 
     public void LoseMinigame()
     {
-        FindFirstObjectByType<AudioManager>().Play("LoseMinigame");
+        AudioManager.instance.Play("LoseMinigame");
         GoalManager goalManager = Object.FindFirstObjectByType<GoalManager>();
         int yield = plantSimulationInstance.GetCropYield();
         goalManager.AddCrop(currentSeed.cropName, yield / 2);
@@ -406,7 +407,8 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
                 }
                 else
                 {
-                    
+                    plantSimulationInstance.soilQuality = Mathf.Min(plantSimulationInstance.soilQuality + 2.0f, 100f);
+                    plantSimulationInstance.soilSoftness = (plantSimulationInstance.soilSoftness - centerPoint) * reductionFactor + centerPoint;
                 }
 
                     break;
@@ -419,7 +421,7 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
                 }
                 else
                 {
-                    
+                    plantSimulationInstance.soilSoftness = 0f;
                 }
 
                     break;
@@ -433,7 +435,7 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
                 }
                 else
                 {
-                    
+                    plantSimulationInstance.soilQuality = 0f;
                 }
 
                     break;
@@ -446,7 +448,7 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
                 }
                 else
                 {
-                    
+                    plantSimulationInstance.cropMoisture  = 0f;
                 }
                 
                 break;
@@ -588,6 +590,7 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
                 BugCooldownMeter = BugCooldownMeterMax;
                 _IsInfested = true;
                 plantSimulationInstance.cropHP -= 5f;
+                AudioManager.instance.Play("BugInfestation");
             }
           
         }

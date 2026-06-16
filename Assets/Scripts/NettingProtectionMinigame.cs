@@ -129,7 +129,7 @@ public class NettingProtectionMinigame : MinigameBase
                 UpdateLine(_activeLine, GetAnchorScreenPos(_anchors[_nextAnchor]), GetAnchorScreenPos(dest));
                 _lines.Add(_activeLine);
                 _activeLine = null;
-                FindFirstObjectByType<AudioManager>().Play("ConnectingAnchor");
+                AudioManager.instance.Play("ConnectingAnchor");
                 _nextAnchor = nextIdx;
                 HighlightNextAnchor();
 
@@ -156,7 +156,7 @@ public class NettingProtectionMinigame : MinigameBase
         img.sprite = lineTexture;
         img.color = Color.white;
         img.type = Image.Type.Simple;
-        FindFirstObjectByType<AudioManager>().Play("DrawingTheLine");
+        AudioManager.instance.Play("DrawingTheLine");
         UpdateLine(line, from, to);
         return line;
     }

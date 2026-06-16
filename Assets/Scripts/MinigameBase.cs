@@ -56,13 +56,13 @@ public abstract class MinigameBase : MonoBehaviour
             if (won)
             {
                 CurrentPlot.ResolveMinigameWin(minigameType);
-                FindFirstObjectByType<AudioManager>().Play("WinMinigame");
+                AudioManager.instance.Play("WinMinigame");
             }
 
             else
             {
                 CurrentPlot.ResolveMinigameLose(minigameType);
-                FindFirstObjectByType<AudioManager>().Play("FailedMinigame");
+                AudioManager.instance.Play("FailedMinigame");
             }
                 
         }

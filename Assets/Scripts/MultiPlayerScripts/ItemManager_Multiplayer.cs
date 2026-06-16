@@ -61,27 +61,32 @@ public class ItemManager_Multiplayer : MonoBehaviour, IBeginDragHandler, IDragHa
                     switch (gameObject.tag)
                     {
                         case "Soil Adder":
+                            AudioManager.instance.Play("SoilAddler");
                             growthScript.WaterClear();
                             actionSuccessful = true;
                             break;
 
                         case "Shovel":
+                            AudioManager.instance.Play("Shovel");
                             growthScript.RemovePlant();
                             actionSuccessful = true;
                             break;
 
                         case "Soil Tiller":
+                            AudioManager.instance.Play("SoilTiller");
                             growthScript.RefreshPlot();
                             actionSuccessful = true;
                             break;
 
                         case "Pesticide":
                             // Safely apply pesticide to the soil slot
+                            AudioManager.instance.Play("PesticideSpray");
                             growthScript.unBug();
                             actionSuccessful = true;
                             break;
 
                         case "Fertilizer":
+                            AudioManager.instance.Play("Fertilizer");
                             growthScript.SuperCharge();
                             actionSuccessful = true;
                             break;

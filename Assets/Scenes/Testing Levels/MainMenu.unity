@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  m_SkyboxMaterial: {fileID: 2100000, guid: a4247488301bd404c99b240def108028, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -256,57 +256,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1038365}
   m_CullTransparentMesh: 1
---- !u!1 &1514201
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1514203}
-  - component: {fileID: 1514202}
-  m_Layer: 0
-  m_Name: MiniAudioManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1514202
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1514201}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 311695d20e6483c4fba68a132784bed5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::AudioManager
-  sounds:
-  - name: Tap1
-    clip: {fileID: 8300000, guid: 6065f73234310ca479c6c396a5716588, type: 3}
-    volume: 0.5
-    pitch: 2
-    loop: 0
-    source: {fileID: 0}
---- !u!4 &1514203
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1514201}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3470.3604, y: 0.00002, z: 12126.549}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &36177598
 GameObject:
   m_ObjectHideFlags: 0
@@ -2712,6 +2661,225 @@ MonoBehaviour:
   m_ShadowLayerMask: 1
   m_RenderingLayers: 1
   m_ShadowRenderingLayers: 1
+--- !u!1 &413349682
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 413349685}
+  - component: {fileID: 413349684}
+  m_Layer: 0
+  m_Name: Music Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &413349684
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 413349682}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 311695d20e6483c4fba68a132784bed5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AudioManager
+  sounds:
+  - name: Harvest
+    clip: {fileID: 8300000, guid: 8de0e9a9b072b214d96daa41910c83d3, type: 3}
+    volume: 0.756
+    pitch: 1.11
+    loop: 0
+    source: {fileID: 0}
+  - name: LoseMinigame
+    clip: {fileID: 8300000, guid: 22388a531a1a03c4393400787a493cc2, type: 3}
+    volume: 0.501
+    pitch: 1.026
+    loop: 0
+    source: {fileID: 0}
+  - name: WinMinigame
+    clip: {fileID: 8300000, guid: 4f73c9eba62c39046b9000454bf089c9, type: 3}
+    volume: 0.889
+    pitch: 1.007
+    loop: 0
+    source: {fileID: 0}
+  - name: TapSound1
+    clip: {fileID: 8300000, guid: 6065f73234310ca479c6c396a5716588, type: 3}
+    volume: 0.579
+    pitch: 1.511
+    loop: 0
+    source: {fileID: 0}
+  - name: TapSound2
+    clip: {fileID: 8300000, guid: e11f2333103c68b4bbe1fa853f33e1c0, type: 3}
+    volume: 0.483
+    pitch: 1.519
+    loop: 0
+    source: {fileID: 0}
+  - name: Planting
+    clip: {fileID: 8300000, guid: 5f345b7731b59e04f98b7299fccd075f, type: 3}
+    volume: 0.558
+    pitch: 1.758
+    loop: 0
+    source: {fileID: 0}
+  - name: MainMenu
+    clip: {fileID: 8300000, guid: 833350daa30c1c1439a4dde1dbf3d850, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
+  - name: WinLevel
+    clip: {fileID: 8300000, guid: a85ad97bf5b50ce4396207fc915dcf06, type: 3}
+    volume: 0.454
+    pitch: 2
+    loop: 0
+    source: {fileID: 0}
+  - name: FailedMinigame
+    clip: {fileID: 8300000, guid: 1fa41a62e77134b4b97e602ebf47b3c0, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: ConnectingAnchor
+    clip: {fileID: 8300000, guid: e44cb436b93477340951be00ad7a574d, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: DrawingTheLine
+    clip: {fileID: 8300000, guid: 67d9802d97d65414ca151b509fbf21fa, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Offbeatmistake2
+    clip: {fileID: 8300000, guid: 2d129a182b9781342932fefef08d7ee6, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Offbeatmistake1
+    clip: {fileID: 8300000, guid: ce341596d3b1e5a4a8646f5764d20bb6, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: OnBeat
+    clip: {fileID: 8300000, guid: 72719ff4c4993b549a2980838f02af81, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Pulse
+    clip: {fileID: 8300000, guid: 0881f470e29020f469b3e2db93074a03, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
+  - name: WaterFilling
+    clip: {fileID: 8300000, guid: 5fa99a3739c6b144dab6fa57068fca92, type: 3}
+    volume: 0.5
+    pitch: 2
+    loop: 0
+    source: {fileID: 0}
+  - name: WinWatering
+    clip: {fileID: 8300000, guid: 6bfda96019467bf478e905a38177722a, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Swiper
+    clip: {fileID: 8300000, guid: 398471a9848c36740a0c191b46d31337, type: 3}
+    volume: 0.5
+    pitch: 3
+    loop: 0
+    source: {fileID: 0}
+  - name: TouchaThePlant
+    clip: {fileID: 8300000, guid: 213dc8df0baf551498a90d8b002526e3, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Fertilizer
+    clip: {fileID: 8300000, guid: d4d63e601f979b24fa1c39914ed7e278, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Shovel
+    clip: {fileID: 8300000, guid: ba8d14a7d4702574d913cc6a19e0334e, type: 3}
+    volume: 0.8
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: BugInfestation
+    clip: {fileID: 8300000, guid: 1e59addeb8074e545be62e03f21830ff, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: PesticideSpray
+    clip: {fileID: 8300000, guid: aa0c8798bb8bf174d90cf6207138f7a2, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: SoilTiller
+    clip: {fileID: 8300000, guid: 077f9fde35bfdc1488afc9576f13fb9c, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: SoilAddler
+    clip: {fileID: 8300000, guid: 50d3c788e776e7049b037f77bfe8c5e0, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: LevelSelectMenu
+    clip: {fileID: 8300000, guid: 2747bb6c12e17664fb51dc52b9c01ac0, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
+  - name: CompendiumTap
+    clip: {fileID: 8300000, guid: c5dbbb8811010934bb8d2be9018f013c, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: CanonSFX2
+    clip: {fileID: 8300000, guid: ca70f542efd602b47b904d554bf767a1, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: CanonSFX1
+    clip: {fileID: 8300000, guid: 68acddd3935c4214fbacc554e5de5302, type: 3}
+    volume: 1
+    pitch: 0.5
+    loop: 0
+    source: {fileID: 0}
+--- !u!4 &413349685
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 413349682}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 56.96737, y: 46.2887, z: 465.67957}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &457844498
 GameObject:
   m_ObjectHideFlags: 0
@@ -8007,135 +8175,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1289425491}
   m_CullTransparentMesh: 1
---- !u!1 &1296943647
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1296943649}
-  - component: {fileID: 1296943648}
-  m_Layer: 0
-  m_Name: MainMusic
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!82 &1296943648
-AudioSource:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1296943647}
-  m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 8300000, guid: 833350daa30c1c1439a4dde1dbf3d850, type: 3}
-  m_PlayOnAwake: 1
-  m_Volume: 1
-  m_Pitch: 1
-  Loop: 0
-  Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
---- !u!4 &1296943649
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1296943647}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -908.14764, y: -0.00001, z: 9340.351}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1297887602
 GameObject:
   m_ObjectHideFlags: 0
@@ -12722,5 +12761,4 @@ SceneRoots:
   - {fileID: 681906985}
   - {fileID: 725262249}
   - {fileID: 1175940986}
-  - {fileID: 1296943649}
-  - {fileID: 1514203}
+  - {fileID: 413349685}

@@ -20,7 +20,7 @@ public class MinigameManager : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        FindFirstObjectByType<AudioManager>().Play("TapSound2");
+        AudioManager.instance.Play("TapSound2");
         startPos = transform.position;
         originalParent = transform.parent;
         transform.SetParent(GameObject.Find("PlaceholderUI").transform);

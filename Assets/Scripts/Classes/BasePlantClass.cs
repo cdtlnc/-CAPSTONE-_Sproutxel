@@ -51,15 +51,16 @@ public class BasePlant
         //Dry Or Wet
         if (seasonIndex == 0)//Dry 
         {
-            cropMoistureMultiplier += -2.5f;
-            soilMoistureMultiplier += -2.5f;
+            cropMoistureMultiplier += -1.8f;
+            soilMoistureMultiplier += -1.8f;
+            soilMoistureMultiplier += -1.8f;
             soilSoftnessMultiplier += 1.2f;
             
         }
         else if (seasonIndex == 1)//Wet
         {
-            cropMoistureMultiplier += 2.5f;
-            soilMoistureMultiplier += 2.5f;
+            cropMoistureMultiplier += 1.8f;
+            soilMoistureMultiplier += 1.8f;
             soilSoftnessMultiplier += -1.2f;
           
         }
@@ -67,8 +68,8 @@ public class BasePlant
         //Heat Haze or Typhoon
         if (weatherIndex == 1)//Heat Haze
         {
-            cropMoistureMultiplier += -2.5f;
-            soilMoistureMultiplier += -2.5f;
+            cropMoistureMultiplier += -1.8f;
+            soilMoistureMultiplier += -1.8f;
             soilSoftnessMultiplier += 1.2f;
            
 
@@ -76,8 +77,8 @@ public class BasePlant
 
         else if (weatherIndex == 2)//Typhoon
         {
-            cropMoistureMultiplier += 2.5f;
-            soilMoistureMultiplier += 2.5f;
+            cropMoistureMultiplier += 1.8f;
+            soilMoistureMultiplier += 1.8f;
             soilSoftnessMultiplier += -1.2f;
          
         }
@@ -86,8 +87,8 @@ public class BasePlant
         //Day or Night
         if (dayIndex == 0)//Day
         {
-            cropMoistureMultiplier += -2.5f;
-            soilMoistureMultiplier += -2.5f;
+            cropMoistureMultiplier += -1.8f;
+            soilMoistureMultiplier += -1.8f;
             soilSoftnessMultiplier += -1.2f;
          
 
@@ -95,8 +96,8 @@ public class BasePlant
 
         else if (dayIndex == 1)//Night
         {
-            cropMoistureMultiplier += 2.5f;
-            soilMoistureMultiplier += 2.5f;
+            cropMoistureMultiplier += 1.8f;
+            soilMoistureMultiplier += 1.8f;
             soilSoftnessMultiplier += 1.2f;
      
         }

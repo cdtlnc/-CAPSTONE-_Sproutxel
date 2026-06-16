@@ -27,7 +27,7 @@ public class CompendiumViewer : MonoBehaviour
     }
     public void UpdateUI(SeedData plantinfo)
     {
-        FindFirstObjectByType<AudioManager>().Play("Tap1");
+        AudioManager.instance.Play("CompendiumTap");
         name.text= plantinfo.name;
         plantSpriter.sprite = plantinfo.growthStages[3];
         if (plantinfo.plantStatsTemplate.seasonalAffinities[0] < 1)//

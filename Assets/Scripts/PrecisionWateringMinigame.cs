@@ -67,7 +67,7 @@ public class PrecisionWateringMinigame : MinigameBase
     private void Update()
     {
         if (GameOver) return;
-        FindFirstObjectByType<AudioManager>().Play("WaterFilling");
+        AudioManager.instance.Play("WaterFilling");
 
         bool holding = Pointer.current != null && Pointer.current.press.isPressed;
 
@@ -94,13 +94,13 @@ public class PrecisionWateringMinigame : MinigameBase
             if (won)
             {
                 EndGame(won);
-                FindFirstObjectByType<AudioManager>().Play("WinWatering");
+                AudioManager.instance.Play("WinWatering");
                 Invoke(nameof(DisableThisPanel), 1f);
             }
             else
             {
                 EndGame(false);
-                FindFirstObjectByType<AudioManager>().Stop("WaterFilling");
+                AudioManager.instance.Stop("WaterFilling");
                 Invoke(nameof(DisableThisPanel), 1f);
             }
         }
@@ -151,7 +151,7 @@ public class PrecisionWateringMinigame : MinigameBase
 
     private void PositionGreenZone()
     {
-        FindFirstObjectByType<AudioManager>().Play("WaterFilling");
+        AudioManager.instance.Play("WaterFilling");
         RectTransform barRect = waterFillImage.transform.parent.GetComponent<RectTransform>();
         RectTransform zoneRect = greenZoneImage.rectTransform;
         float h = barRect.rect.height;

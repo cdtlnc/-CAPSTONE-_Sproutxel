@@ -28,13 +28,13 @@ public class WinOrLoseManager : MonoBehaviour
     {
         Debug.Log("WE STAY WINNING");
         winScreen.SetActive(true);
-        FindFirstObjectByType<AudioManager>().Play("WinLevel");
+        AudioManager.instance.Play("WinLevel");
         WinTween();
     }
     public void onLose()
     {
         loseScreen.SetActive(true);
-        FindFirstObjectByType<AudioManager>().Play("LoseLevel");
+        AudioManager.instance.Play("LoseLevel");
         LoseTween();
     }
 

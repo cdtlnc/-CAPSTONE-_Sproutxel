@@ -35,7 +35,7 @@ public class SeedManager : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
     {
         if (seedType == null) return;
 
-        FindFirstObjectByType<AudioManager>().Play("TapSound1");
+        AudioManager.instance.Play("TapSound1");
 
         dragIconInstance = new GameObject("SeedDragGhost");
 

@@ -261,7 +261,7 @@ public class GrowthManager_Multiplayer : MonoBehaviour, IPointerClickHandler
         currentSeed = data;
         isPlanted = true;
         currentStage = 0;
-        FindFirstObjectByType<AudioManager>().Play("Planting");
+        AudioManager.instance.Play("Planting");
 
         // Fire up a brand new simulation instance
         plantSimulationInstance = new BasePlant();
@@ -338,7 +338,7 @@ public class GrowthManager_Multiplayer : MonoBehaviour, IPointerClickHandler
 
     public void winMinigame()
     {
-        FindFirstObjectByType<AudioManager>().Play("WinMinigame");
+        AudioManager.instance.Play("WinMinigame");
         SuperCharge();
         IsNotPlantable(); //Used to make sure the soil tiller is used
         ResetPlot();
@@ -346,7 +346,7 @@ public class GrowthManager_Multiplayer : MonoBehaviour, IPointerClickHandler
 
     public void LoseMinigame()
     {
-        FindFirstObjectByType<AudioManager>().Play("LoseMinigame");
+        AudioManager.instance.Play("LoseMinigame");
         GoalManager goalManager = Object.FindFirstObjectByType<GoalManager>();
         int yield = plantSimulationInstance.GetCropYield();
         goalManager.AddCrop(currentSeed.cropName, yield / 2);

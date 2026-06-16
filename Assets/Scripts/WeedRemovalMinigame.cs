@@ -94,7 +94,7 @@ public class WeedRemovalMinigame : MinigameBase
         // 2. Check green visualizer zone hit instead of tiny button
         if (exclusionVisualizer != null && RectTransformUtility.RectangleContainsScreenPoint(exclusionVisualizer.rectTransform, screenPos))
         {
-            FindFirstObjectByType<AudioManager>().Play("TouchaThePlant");
+            AudioManager.instance.Play("TouchaThePlant");
             OnPlantTapped();
         }
     }
@@ -164,7 +164,7 @@ public class WeedRemovalMinigame : MinigameBase
         _weeds.Remove(weed);
         Destroy(weed); // Safely completely release the object asset container from memory
         _weedsLeft--;
-        FindFirstObjectByType<AudioManager>().Play("PluckWeed");
+        AudioManager.instance.Play("PluckWeed");
         RefreshUI();
 
         if (_weedsLeft <= 0)
