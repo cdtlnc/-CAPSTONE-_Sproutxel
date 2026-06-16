@@ -65,8 +65,8 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
     [SerializeField] private bool isplantable;
 
     [Header("Safety Net")]
-    [SerializeField] float maxLimit = 80f;
-    [SerializeField] float minLimit = -20f;
+         float maxLimit = 60f;
+         float minLimit = -60f;
     [SerializeField] float centerPoint = 20f; // The middle of your -20 to 60 sweet spot
 
     // Changing this to 0.3f brings the stat well inside the safe harvest zone
@@ -129,6 +129,12 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
 
         // Don't calculate stuff if the plot is completely empty
         if (!isPlanted || currentSeed == null || plantSimulationInstance == null) return;
+        checkDead();
+        CheckWeather();
+        CheckSeason();
+        CheckDay();
+        CheckInfestation();
+        CheckStats();
 
         // SAFE PASS: If I haven't assigned a data template yet, fake the growth so it doesn't crash!
         if (plantSimulationInstance.stats == null)
@@ -171,11 +177,6 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
             currentStage = 0;
         }
 
-        CheckWeather();
-        CheckSeason();
-        CheckDay();
-        CheckInfestation();
-        CheckStats();
 
         // LINE ADDED HERE: Run real-time condition evaluation checks
         //EvaluatePlotHealth();
@@ -228,7 +229,7 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
                 {
                     MaintenencePopUp ui = Object.FindFirstObjectByType<MaintenencePopUp>();
                     if (ui != null)
-                    {
+                    {   
                         ui.OpenWindow(this); // Opens the window exactly ONCE
                     }
                 }
@@ -270,10 +271,10 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
             plantSimulationInstance.cropHP = data.plantStatsTemplate.maxHP;
         }
         plantSimulationInstance.cropGrowth = 0f;
-        plantSimulationInstance.cropMoisture = 20f;
-        plantSimulationInstance.soilMoisture = 20f;
-        plantSimulationInstance.soilSoftness = 20f;
-        plantSimulationInstance.soilQuality = 20f; 
+        plantSimulationInstance.cropMoisture = 0f;
+        plantSimulationInstance.soilMoisture = 0f;
+        plantSimulationInstance.soilSoftness = 0f;
+        plantSimulationInstance.soilQuality = 0f; 
 
         data.remainingSeedBags--;
         
@@ -461,7 +462,6 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
         plantSimulationInstance.soilMoisture = Mathf.MoveTowards(plantSimulationInstance.soilMoisture, targetCenter, closetothecenter);
         plantSimulationInstance.cropMoisture = Mathf.MoveTowards(plantSimulationInstance.cropMoisture, targetCenter, closetothecenter);
         plantSimulationInstance.soilSoftness = Mathf.MoveTowards(plantSimulationInstance.soilSoftness, targetCenter, closetothecenter);
-        plantSimulationInstance.soilSoftness = Mathf.MoveTowards(plantSimulationInstance.soilSoftness, targetCenter, closetothecenter);
         plantSimulationInstance.soilQuality = Mathf.MoveTowards(plantSimulationInstance.soilQuality, targetCenter, closetothecenter);
 
     }
@@ -475,16 +475,16 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
         switch (type)
         {
             case MinigameType.Watering:
-                plantSimulationInstance.cropHP -= 2.0f;
+                plantSimulationInstance.cropHP -= 10.0f;
                 break;
             case MinigameType.PestControl:
-                plantSimulationInstance.cropHP -= 3.0f;
+                plantSimulationInstance.cropHP -= 10.0f;
                 break;
             case MinigameType.Netting:
-                plantSimulationInstance.cropHP -= 1.0f; // Custom damage deduction if they mess up netting loops
+                plantSimulationInstance.cropHP -= 10.0f; // Custom damage deduction if they mess up netting loops
                 break;
             default:
-                plantSimulationInstance.cropHP -= 1.0f;
+                plantSimulationInstance.cropHP -= 10.0f;
                 break;
         }
 
@@ -507,6 +507,7 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
         // Your custom range bounds
         
 
+    
         if (cropMoisture < minLimit || cropMoisture > maxLimit ||
             soilQuality < minLimit || soilQuality > maxLimit ||
             soilMoisture < minLimit || soilMoisture > maxLimit ||
@@ -572,6 +573,7 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
 
     }
 
+    
     public void CheckInfestation()
     {
         if (EventManager.isInfested)
@@ -585,6 +587,7 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
                 Bugging.SetActive(true);
                 BugCooldownMeter = BugCooldownMeterMax;
                 _IsInfested = true;
+                plantSimulationInstance.cropHP -= 5f;
             }
           
         }
@@ -636,6 +639,14 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
             seasonOutput = "Wet SEASON";
             seasonIndex = 1;
             plantSimulationInstance.seasonIndex = seasonIndex;
+        }
+    }
+
+    public void checkDead()
+    {
+        if (cropHP <= 0)
+        {
+            ResetPlot();
         }
     }
 

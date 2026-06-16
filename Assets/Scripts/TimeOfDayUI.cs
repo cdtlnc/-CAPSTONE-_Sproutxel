@@ -38,6 +38,7 @@ public class TimeOfDayUI : MonoBehaviour
 
     [Header("Season Initialization")]
     [SerializeField] public bool startWithDrySeason = true;
+    [SerializeField] public bool dontchangeSeasons = true;
     public static bool isDrySeason { get; private set; } // This variable will be used to communicate to other scripts what season it is.
     public static bool isDay { get; private set; }       // This variable will be used to communicate to other scripts what time of day it is.
     private void UpdateLightRotation()
@@ -93,6 +94,7 @@ public class TimeOfDayUI : MonoBehaviour
         if (daysPassed >= seasonTimer)
         {
             daysPassed = 0;
+            if(dontchangeSeasons==false)
             UpdateSeasons();
         }
 

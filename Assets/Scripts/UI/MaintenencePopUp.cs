@@ -114,7 +114,8 @@ public class MaintenencePopUp : MonoBehaviour
         // Push values directly into sliders
 
         if (hpSlider != null) hpSlider.value = cropHP;
-        if (soilMoistureSlider != null) soilMoistureSlider.value = cropMoisture;
+        if(cropMoisterSlider!= null)cropMoisterSlider.value = cropMoisture; 
+
         if (soilQualitySlider != null) soilQualitySlider.value = soilQuality;
         if (soilMoistureSlider != null) soilMoistureSlider.value = soilMoisture;
         if (soilSoftnessSlider != null) soilSoftnessSlider.value = soilSoftness;

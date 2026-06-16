@@ -29,46 +29,82 @@ public class BasePlant
     private float _cropHealthMultiplier     = 0.6f; // 0.6f by default
     private float _harvestQualityMultiplier = 1.9f; // 1.9f by default
 
+    public float seasonIndexPlant; // This is either 0 or 1. 0 - Dry, 1 - Wet
+    public float dayIndexPlant;   // This is either 0 or 1. 0 - Day, 1 - Night
+    public float weatherIndexPlant; // This is either 0, 1 or 2. 0 - No weather event, 1 - Heat Wave, 2 - Typhoon
+    public float bugIndexPlant;
+
     public void GetStatsOvertime() // This calculates the depreciation of the cropMoisture, soilMoisture and soilSoftness stats
     {
         float cropMoistureMultiplier = 1; 
         float soilMoistureMultiplier = 1; 
-        float soilSoftnessMultiplier = 1; 
-
+        float soilSoftnessMultiplier = 1;
+        weatherIndexPlant = stats.weatherAffinities[weatherIndex];
+        seasonIndexPlant = stats.seasonalAffinities[seasonIndex];
+        dayIndexPlant = stats.cycleAffinities[dayIndex];
         // The following if-else statements affect the changes in the following stats depending on the season and the weather.
         // Setting it to a negative or a positive number makes the stat go down and up respectively.
         // Setting it below 1 makes the change slower. I recommend keeping it between 0 and 1. Think of it as 0% and 100%.
         // Setting it above 1 makes it faster. I recommend keeping it between 1 and 2. Think of it as 100% and 200%.
         // Tinker with the values to achieve the rate of change that you want.
-        if (seasonIndex == 0)
+
+        //Dry Or Wet
+        if (seasonIndex == 0)//Dry 
         {
-            cropMoistureMultiplier = -1.5f;
-            soilMoistureMultiplier = -1.5f;
-            soilSoftnessMultiplier = 1.2f;
+            cropMoistureMultiplier += -2.5f;
+            soilMoistureMultiplier += -2.5f;
+            soilSoftnessMultiplier += 1.2f;
+            
         }
-        else if (seasonIndex == 1)
+        else if (seasonIndex == 1)//Wet
         {
-            cropMoistureMultiplier = 1.5f;
-            soilMoistureMultiplier = 1.5f;
-            soilSoftnessMultiplier = -1.2f;
+            cropMoistureMultiplier += 2.5f;
+            soilMoistureMultiplier += 2.5f;
+            soilSoftnessMultiplier += -1.2f;
+          
         }
 
-        if (weatherIndex == 1)
+        //Heat Haze or Typhoon
+        if (weatherIndex == 1)//Heat Haze
         {
-            cropMoistureMultiplier = -1.5f;
-            soilMoistureMultiplier = -1.5f;
-            soilSoftnessMultiplier = 1.2f;
-        }
-        else if (weatherIndex == 2)
-        {
-            cropMoistureMultiplier = 1.5f;
-            soilMoistureMultiplier = 1.5f;
-            soilSoftnessMultiplier = -1.2f;
+            cropMoistureMultiplier += -2.5f;
+            soilMoistureMultiplier += -2.5f;
+            soilSoftnessMultiplier += 1.2f;
+           
+
         }
 
-        cropMoisture += _cropMoistureMultiplier * (100 + cropMoisture) / 100 * cropMoistureMultiplier;
-        soilMoisture += _soilMoistureMultiplier * (100 + soilMoisture) / 100 * soilMoistureMultiplier;
-        soilSoftness += _soilSoftnessMultiplier * (100 + soilSoftness) / 100 * soilSoftnessMultiplier;
+        else if (weatherIndex == 2)//Typhoon
+        {
+            cropMoistureMultiplier += 2.5f;
+            soilMoistureMultiplier += 2.5f;
+            soilSoftnessMultiplier += -1.2f;
+         
+        }
+
+
+        //Day or Night
+        if (dayIndex == 0)//Day
+        {
+            cropMoistureMultiplier += -2.5f;
+            soilMoistureMultiplier += -2.5f;
+            soilSoftnessMultiplier += -1.2f;
+         
+
+        }
+
+        else if (dayIndex == 1)//Night
+        {
+            cropMoistureMultiplier += 2.5f;
+            soilMoistureMultiplier += 2.5f;
+            soilSoftnessMultiplier += 1.2f;
+     
+        }
+
+
+        cropMoisture += _cropMoistureMultiplier * cropMoistureMultiplier * seasonIndexPlant * weatherIndexPlant * dayIndexPlant;
+        soilMoisture += _soilMoistureMultiplier * soilMoistureMultiplier * seasonIndexPlant * weatherIndexPlant * dayIndexPlant;
+        soilSoftness += _soilSoftnessMultiplier * soilSoftnessMultiplier * seasonIndexPlant * weatherIndexPlant * dayIndexPlant;
 
         cropMoisture = Mathf.Clamp(cropMoisture, -100f, 100f);
         soilMoisture = Mathf.Clamp(soilMoisture, -100f, 100f);
@@ -92,12 +128,12 @@ public class BasePlant
         {
             return;
         }
-
+        /*
         if (cropHP <= 0)
         {
             return;
         }
-
+            */
         float soilQualityBonus  = (soilQuality / 100) * 25;
         float soilMoistureBonus = BellCurve.GetFactor(soilMoisture, 15, 20) * 25f;
         float soilSoftnessBonus = BellCurve.GetFactor(soilSoftness, 15, 20) * 25f;

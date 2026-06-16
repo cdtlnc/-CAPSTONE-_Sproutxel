@@ -1970,8 +1970,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 215792459}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -3697,7 +3697,7 @@ RectTransform:
   m_Father: {fileID: 1131815413}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -6114,8 +6114,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 825538075}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMin: {x: 1, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -7522,8 +7522,6 @@ MonoBehaviour:
   weatherIndex: 0
   bugIndex: 0
   isplantable: 0
-  maxLimit: 80
-  minLimit: -20
   centerPoint: 20
   reductionFactor: 0.3
   recoveryAmountPerTick: 2
@@ -9674,8 +9672,6 @@ MonoBehaviour:
   weatherIndex: 0
   bugIndex: 0
   isplantable: 0
-  maxLimit: 80
-  minLimit: -20
   centerPoint: 20
   reductionFactor: 0.3
   recoveryAmountPerTick: 2
@@ -10759,8 +10755,6 @@ MonoBehaviour:
   weatherIndex: 0
   bugIndex: 0
   isplantable: 0
-  maxLimit: 80
-  minLimit: -20
   centerPoint: 20
   reductionFactor: 0.3
   recoveryAmountPerTick: 2
@@ -11391,7 +11385,7 @@ RectTransform:
   m_Father: {fileID: 2044769800}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -11992,7 +11986,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 41.833496, y: 0}
+  m_AnchoredPosition: {x: 41.833557, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &503002946
@@ -14425,8 +14419,6 @@ MonoBehaviour:
   weatherIndex: 0
   bugIndex: 0
   isplantable: 0
-  maxLimit: 80
-  minLimit: -20
   centerPoint: 20
   reductionFactor: 0.3
   recoveryAmountPerTick: 2
@@ -16180,7 +16172,7 @@ RectTransform:
   m_Father: {fileID: 673060423}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -27665,7 +27657,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1189987275
 RectTransform:
   m_ObjectHideFlags: 0
@@ -27997,8 +27989,6 @@ MonoBehaviour:
   weatherIndex: 0
   bugIndex: 0
   isplantable: 0
-  maxLimit: 80
-  minLimit: -20
   centerPoint: 20
   reductionFactor: 0.3
   recoveryAmountPerTick: 2
@@ -29975,7 +29965,7 @@ RectTransform:
   m_Father: {fileID: 1010928870}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -30905,6 +30895,7 @@ MonoBehaviour:
   twilightColor: {r: 1, g: 0.5, b: 0, a: 1}
   TICK_INTERVAL: 0.4
   startWithDrySeason: 1
+  dontchangeSeasons: 1
 --- !u!1 &1325138742
 GameObject:
   m_ObjectHideFlags: 0
@@ -38887,7 +38878,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bcea920539df2e242a4d434c465447dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EventManager
-  _weatherEventOdds: 00000000640000000a000000
+  _weatherEventOdds: 000000006400000000000000
   _infestationOdds: 60
   _infestationChances: 40
   _infestationStart: 0
@@ -39876,8 +39867,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1957879085}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -45350,8 +45341,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1199235854}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -45573,8 +45564,6 @@ MonoBehaviour:
   weatherIndex: 0
   bugIndex: 0
   isplantable: 0
-  maxLimit: 80
-  minLimit: -20
   centerPoint: 20
   reductionFactor: 0.3
   recoveryAmountPerTick: 2
@@ -46866,8 +46855,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 88173631}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -47436,7 +47425,7 @@ RectTransform:
   m_Father: {fileID: 1895698197}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
