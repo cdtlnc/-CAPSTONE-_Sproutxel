@@ -13,6 +13,7 @@ public class SeedManager : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
     private RectTransform dragIconRect;
     private Image dragIconImage;
     private Canvas parentCanvas;
+
     [Header("Seed Availability")]
     [SerializeField] public TextMeshProUGUI seedNum;
     [SerializeField] public int available;
@@ -23,12 +24,20 @@ public class SeedManager : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
         if (seedType != null) GetComponent<Image>().sprite = seedType.seedBagIcon;
 
         parentCanvas = GetComponentInParent<Canvas>();
-        seedType.remainingSeedBags = available;
+
+        // Initialize available seeds safely
+        if (seedType != null)
+        {
+            seedType.remainingSeedBags = available;
+        }
     }
 
     private void FixedUpdate()
     {
-        seedNum.text=""+seedType.remainingSeedBags;
+        if (seedType != null && seedNum != null)
+        {
+            seedNum.text = "" + seedType.remainingSeedBags;
+        }
     }
 
     public void OnBeginDrag(PointerEventData eventData)
@@ -39,8 +48,15 @@ public class SeedManager : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 
         dragIconInstance = new GameObject("SeedDragGhost");
 
-        Transform canvasTransform = parentCanvas != null ? parentCanvas.transform : GameObject.Find("GameplayCanvas").transform;
-        dragIconInstance.transform.SetParent(canvasTransform, false);
+        // FIX 1: Safely parent to the current player's canvas so it inherits the 180-degree rotation
+        if (parentCanvas != null)
+        {
+            dragIconInstance.transform.SetParent(parentCanvas.transform, false);
+        }
+        else
+        {
+            dragIconInstance.transform.SetParent(GameObject.FindAnyObjectByType<Canvas>().transform, false);
+        }
 
         RectTransform sourceRect = GetComponent<RectTransform>();
         dragIconRect = dragIconInstance.AddComponent<RectTransform>();
@@ -49,8 +65,9 @@ public class SeedManager : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
         dragIconRect.anchorMax = new Vector2(0.5f, 0.5f);
         dragIconRect.pivot = sourceRect.pivot;
 
+        // Uses exact screen pixels to prevent auto-layout stretching
         dragIconRect.sizeDelta = sourceRect.rect.size;
-        dragIconRect.localScale = sourceRect.localScale;
+        dragIconRect.localScale = transform.lossyScale;
         dragIconRect.position = transform.position;
 
         dragIconImage = dragIconInstance.AddComponent<Image>();
@@ -72,10 +89,12 @@ public class SeedManager : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
         }
         else
         {
+            // FIX 2: Uses parentCanvas.worldCamera instead of eventData.pressEventCamera
+            // This forces Player 2's drags to respect their upside-down viewport
             RectTransformUtility.ScreenPointToLocalPointInRectangle(
                 parentCanvas.transform as RectTransform,
                 eventData.position,
-                eventData.pressEventCamera,
+                parentCanvas.worldCamera,
                 out Vector2 localPoint
             );
             dragIconRect.localPosition = localPoint;
