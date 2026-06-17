@@ -12,6 +12,7 @@ public class ItemManager_Multiplayer : MonoBehaviour, IBeginDragHandler, IDragHa
     [SerializeField] private CanvasGroup canvasGroup;
     [Header("Camera")]
     [SerializeField] private Camera assignedCam;
+    
 
     [Header("Assigned Canon")]
     [SerializeField] public string[] canons;
@@ -41,69 +42,122 @@ public class ItemManager_Multiplayer : MonoBehaviour, IBeginDragHandler, IDragHa
         canvasGroup.blocksRaycasts = true;
         canvasGroup.alpha = 1f;
 
-        // Use a LayerMask if your plant colliders are blocking the ground raycast
-        // Replace "Default" with whatever layer your Soil object uses
         int groundLayerMask = LayerMask.GetMask("Default");
+        Vector2 finalScreenPos = eventData.position;
 
-        Ray ray = assignedCam.ScreenPointToRay(eventData.position);
-
-        // Perform raycast using the layer mask to isolate the soil
-        if (Physics.Raycast(ray, out RaycastHit hit, 5000f, groundLayerMask))
+        if (assignedCam.transform.eulerAngles.z > 160f && assignedCam.transform.eulerAngles.z < 200f)
         {
-            if (hit.collider.CompareTag("Soil"))
+            finalScreenPos.x = Screen.width - eventData.position.x;
+            finalScreenPos.y = Screen.height - eventData.position.y;
+        }
+
+        Ray ray = assignedCam.ScreenPointToRay(finalScreenPos);
+
+        // FIX: Pierce through all overlapping colliders (Soil AND Canon)
+        RaycastHit[] hits = Physics.RaycastAll(ray, 5000f, groundLayerMask);
+        bool actionSuccessful = false;
+
+        // Loop 1: Look for a Canon first to ensure priority when overlapping
+        foreach (RaycastHit hit in hits)
+        {
+            if (hit.collider.CompareTag("Canon"))
             {
-                GrowthManager_Multiplayer growthScript = hit.collider.GetComponent<GrowthManager_Multiplayer>();
+                Debug.Log($"I pierced and found a Canon: {hit.collider.gameObject.name}");
+                Debug.Log("entering canons");
+                CanonFire Canoner = hit.collider.GetComponent<CanonFire>();
 
-                if (growthScript != null)
+                if (Canoner != null)
                 {
-                    bool actionSuccessful = false;
-
                     switch (gameObject.tag)
                     {
                         case "Soil Adder":
                             AudioManager.instance.Play("SoilAddler");
-                            growthScript.WaterClear();
+                            Canoner.GetWaterLogged();
                             actionSuccessful = true;
                             break;
-
                         case "Shovel":
                             AudioManager.instance.Play("Shovel");
-                            growthScript.RemovePlant();
+                            Canoner.RemoveLePlants();
                             actionSuccessful = true;
                             break;
-
                         case "Soil Tiller":
                             AudioManager.instance.Play("SoilTiller");
-                            growthScript.RefreshPlot();
+                            Canoner.SOILEDIT();
                             actionSuccessful = true;
                             break;
-
                         case "Pesticide":
-                            // Safely apply pesticide to the soil slot
                             AudioManager.instance.Play("PesticideSpray");
-                            growthScript.unBug();
+                            Canoner.GiveBugs();
                             actionSuccessful = true;
                             break;
-
                         case "Fertilizer":
                             AudioManager.instance.Play("Fertilizer");
-                            growthScript.SuperCharge();
+                            Canoner.GetOld();
                             actionSuccessful = true;
                             break;
                     }
 
-                    // Only consume an item charge if a tool action actually fired
                     if (actionSuccessful)
                     {
                         maxPickTime--;
+                        break; // Exit the loop since action finished
                     }
                 }
             }
-           
+        }
+
+        // Loop 2: Fallback to Soil only if no Canon was hit and used
+        if (!actionSuccessful)
+        {
+            foreach (RaycastHit hit in hits)
+            {
+                if (hit.collider.CompareTag("Soil"))
+                {
+                    Debug.Log($"I hit a Soil: {hit.collider.gameObject.name}");
+                    GrowthManager_Multiplayer growthScript = hit.collider.GetComponent<GrowthManager_Multiplayer>();
+
+                    if (growthScript != null)
+                    {
+                        switch (gameObject.tag)
+                        {
+                            case "Soil Adder":
+                                AudioManager.instance.Play("SoilAddler");
+                                growthScript.WaterClear();
+                                actionSuccessful = true;
+                                break;
+                            case "Shovel":
+                                AudioManager.instance.Play("Shovel");
+                                growthScript.RemovePlant();
+                                actionSuccessful = true;
+                                break;
+                            case "Soil Tiller":
+                                AudioManager.instance.Play("SoilTiller");
+                                growthScript.RefreshPlot();
+                                actionSuccessful = true;
+                                break;
+                            case "Pesticide":
+                                AudioManager.instance.Play("PesticideSpray");
+                                growthScript.unBug();
+                                actionSuccessful = true;
+                                break;
+                            case "Fertilizer":
+                                AudioManager.instance.Play("Fertilizer");
+                                growthScript.SuperCharge();
+                                actionSuccessful = true;
+                                break;
+                        }
+
+                        if (actionSuccessful)
+                        {
+                            maxPickTime--;
+                            break; // Exit loop
+                        }
+                    }
+                }
+            }
         }
 
         transform.SetParent(originalParent);
         transform.position = startPos;
     }
-
 }

@@ -13,8 +13,5 @@ public class BugFly : MonoBehaviour
     {
         
     }
-    private void OnCollisionEnter(Collision collision)
-    {
-        Destroy(gameObject);
-    }
+   
 }

@@ -205,28 +205,37 @@ public class BasePlant
         {
             return 0;
         }
-
+        /*
         if (cropHP <= 0)
         {
             return 0;
         }
+        */
 
         System.Random randomValue = new System.Random();
 
-        if (harvestQuality >= 0 && harvestQuality <= 33)
+        if (cropGrowth != 10)
+        {
+            if (harvestQuality >= 0 && harvestQuality <= 33)
+            {
+                return randomValue.Next((int)stats.badCropYield.x, (int)stats.badCropYield.y);
+            }
+            else if (harvestQuality >= 34 && harvestQuality <= 66)
+            {
+                return randomValue.Next((int)stats.averageCropYield.x, (int)stats.averageCropYield.y);
+            }
+            else if (harvestQuality >= 67 && harvestQuality <= 100)
+            {
+                return randomValue.Next((int)stats.goodCropYield.x, (int)stats.goodCropYield.y);
+            }
+        }
+        else 
         {
             return randomValue.Next((int)stats.badCropYield.x, (int)stats.badCropYield.y);
         }
-        else if (harvestQuality >= 34 && harvestQuality <= 66)
-        {
-            return randomValue.Next((int)stats.averageCropYield.x, (int)stats.averageCropYield.y);
-        }
-        else if (harvestQuality >= 67 && harvestQuality <= 100)
-        {
-            return randomValue.Next((int)stats.goodCropYield.x, (int)stats.goodCropYield.y);
-        }
 
-        return 0;
+
+            return 0;
     }
 
     public int GetMaxYield()

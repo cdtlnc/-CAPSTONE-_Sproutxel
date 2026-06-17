@@ -192,11 +192,12 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
     // Tapping/clicking the plot to harvest
     public void OnPointerClick(PointerEventData eventData)
     {
+        Debug.Log("[STEP 1] Entering Harvesting");
         if (!isPlanted || currentSeed == null || currentSeed.growthStages == null || currentSeed.growthStages.Length == 0) return;
 
         int lastConfiguredStageIndex = currentSeed.growthStages.Length - 1;
         int MatureStageIndex = currentSeed.growthStages.Length - 2;
-
+        Debug.Log("[STEP 2] Entering Mature Stage");
         if (currentStage == MatureStageIndex || currentStage == lastConfiguredStageIndex)
         {
             int yieldAmount = 0;
@@ -211,14 +212,15 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
                 yieldAmount = plantSimulationInstance.GetCropYield();
                 Debug.Log($"Harvested {yieldAmount} items of {currentSeed.cropName}!");
             }
-
+            Debug.Log("[STEP 3] Looking for Goal Manager");
             GoalManager goalManager = Object.FindFirstObjectByType<GoalManager>();
-
+            Debug.Log("[STEP 4] Found Goal Manager");
             if (goalManager != null && yieldAmount > 0)
             {
                 // CASE 1: The plant is perfectly healthy (No Bad Stats)
                 if (hasNoBadStats)
                 {
+                    Debug.Log("[STEP 5] Has No Bad Stats");
                     // Directly pass the total yieldAmount ONCE, no loops needed
                     goalManager.AddCrop(currentSeed.cropName, yieldAmount);
                     IsNotPlantable();
@@ -227,12 +229,18 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
                 // CASE 2: The plant has issues and needs maintenance pop-up window
                 else
                 {
+                    Debug.Log("[STEP 5.B] Has Bad Stats");
                     MaintenencePopUp ui = Object.FindFirstObjectByType<MaintenencePopUp>();
                     if (ui != null)
-                    {   
+                    {
+                        Debug.Log("[STEP 6] Opening UI");
                         ui.OpenWindow(this); // Opens the window exactly ONCE
                     }
                 }
+            }
+            else
+            {
+                checkDead();
             }
         }
     }
@@ -307,6 +315,7 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
         currentSeed = null;
         plantSimulationInstance = null;
         currentStage = 0;
+        UpdatePlantSprite();
         if (plantRenderer != null) plantRenderer.sprite = null;
         disableSadParts();
         IsNotPlantable();
@@ -650,6 +659,7 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
         if (cropHP <= 0)
         {
             ResetPlot();
+            
         }
     }
 
@@ -730,6 +740,7 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
         unBug();
         ResetPlot();
        
+
         IsNotPlantable();
     }
 

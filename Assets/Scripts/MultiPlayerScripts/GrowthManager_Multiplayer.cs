@@ -179,13 +179,13 @@ public class GrowthManager_Multiplayer : MonoBehaviour, IPointerClickHandler
         CheckWeather();
         CheckSeason();
         CheckDay();
-        CheckInfestation();
-        CheckStats();
+        
+      
 
         // LINE ADDED HERE: Run real-time condition evaluation checks
-        EvaluatePlotHealth();
+
        
-        GetMogged();
+       
         UpdatePlantSprite();
         Debug.Log("Coming up on Waterlogged");
 
@@ -219,19 +219,15 @@ public class GrowthManager_Multiplayer : MonoBehaviour, IPointerClickHandler
             // FIXED: Using localized assignments instead of scene-wide searching
             if ( yieldAmount > 0)
             {
-                // CASE 1: The plant is perfectly healthy (No Bad Stats)
-                if (hasNoBadStats)
-                {
+                
+     
                     Debug.Log("[STEP 2] HARVESTING SEED");
                     assignedCanon.AddLoad(yieldAmount);
                     IsNotPlantable();
                     ResetPlot();
-                }
-                // CASE 2: The plant has issues and needs maintenance pop-up window
-                else
-                {
-                    
-                }
+                
+               
+               
             }
         }
     }
@@ -336,196 +332,11 @@ public class GrowthManager_Multiplayer : MonoBehaviour, IPointerClickHandler
         soilSoftness = plantSimulationInstance.soilSoftness;
     }
 
-    public void winMinigame()
-    {
-        AudioManager.instance.Play("WinMinigame");
-        SuperCharge();
-        IsNotPlantable(); //Used to make sure the soil tiller is used
-        ResetPlot();
-    }
 
-    public void LoseMinigame()
-    {
-        AudioManager.instance.Play("LoseMinigame");
-        GoalManager goalManager = Object.FindFirstObjectByType<GoalManager>();
-        int yield = plantSimulationInstance.GetCropYield();
-        goalManager.AddCrop(currentSeed.cropName, yield / 2);
-        IsNotPlantable(); //Used to make sure the soil tiller is used
-        ResetPlot();
-    }
 
     // --- LINKED MINIGAME STAT RESOLUTION ROUTINES ---
     // --- LINKED MINIGAME STAT RESOLUTION ROUTINES ---
-    public void ResolveMinigameWin(MinigameType type)
-    {
-        Debug.Log($"Minigame {type} WON. Correcting stats on plot!");
-        if (plantSimulationInstance == null) return;
-
-        bool MinigameCorrect;
-
-        switch (type)
-        {
-            case MinigameType.Watering:
-                if (plantSimulationInstance.cropMoisture < minSafe|| plantSimulationInstance.cropMoisture < minSafe)
-                {
-                    plantSimulationInstance.cropMoisture = (plantSimulationInstance.cropMoisture - centerPoint) * reductionFactor + centerPoint;
-                    
-                    WaterClear();
-                    statsTowardsTheCenter();
-                }
-                else
-                {
-                    plantSimulationInstance.cropMoisture = (plantSimulationInstance.cropMoisture - centerPoint) * reductionFactor + centerPoint;
-                   
-                    Debug.Log("Wrong Minigame");
-                }
-
-
-
-                    break;
-
-            case MinigameType.StructuralSupport:
-                if (plantSimulationInstance.soilSoftness > maxSafe)
-                {
-                    Debug.Log("Entered Structurual Support Minigame");
-                    plantSimulationInstance.soilSoftness = (plantSimulationInstance.soilSoftness - centerPoint) * reductionFactor + centerPoint;
-                    statsTowardsTheCenter();
-                }
-                else 
-                {
-                    plantSimulationInstance.soilSoftness = (plantSimulationInstance.soilSoftness - centerPoint) * reductionFactor + centerPoint;
-                }
-
-                    break;
-
-            case MinigameType.Weeding:
-                if ( plantSimulationInstance.soilQuality > maxSafe)
-                {
-                    plantSimulationInstance.soilQuality = Mathf.Min(plantSimulationInstance.soilQuality + 2.0f, 100f);
-                    plantSimulationInstance.soilSoftness = (plantSimulationInstance.soilSoftness - centerPoint) * reductionFactor + centerPoint;
-                    statsTowardsTheCenter();
-                }
-                else
-                {
-                    
-                }
-
-                    break;
-
-            case MinigameType.PestControl:
-                if (_IsInfested|| plantSimulationInstance.soilSoftness < minSafe)
-                {
-                    unBug();
-                    statsTowardsTheCenter();
-                }
-                else
-                {
-                    
-                }
-
-                    break;
-
-            case MinigameType.SoilEnrichment:
-                if (plantSimulationInstance.soilQuality < minSafe || plantSimulationInstance.soilMoisture > maxLimit)
-                {
-                    plantSimulationInstance.soilQuality = 40.0f; // Adjusted downward from 60f so it sits comfortably inside the sweet spot
-                    statsTowardsTheCenter();
-                }
-                else
-                {
-                    
-                }
-
-                    break;
-
-            case MinigameType.Netting:
-                if (plantSimulationInstance.cropMoisture > maxSafe)
-                {
-                    plantSimulationInstance.cropHP = Mathf.Min(plantSimulationInstance.cropHP + 2.0f, 100f);
-                    statsTowardsTheCenter();
-                }
-                else
-                {
-                    
-                }
-                
-                break;
-        }
-
-        CheckStats();
-        UpdatePlantSprite();
-    }
-
-    public void statsTowardsTheCenter()
-    {
-        Debug.Log("STATED TOWARDED THE CENTEREDED");
-        plantSimulationInstance.soilMoisture = Mathf.MoveTowards(plantSimulationInstance.soilMoisture, targetCenter, closetothecenter);
-        plantSimulationInstance.cropMoisture = Mathf.MoveTowards(plantSimulationInstance.cropMoisture, targetCenter, closetothecenter);
-        plantSimulationInstance.soilSoftness = Mathf.MoveTowards(plantSimulationInstance.soilSoftness, targetCenter, closetothecenter);
-        plantSimulationInstance.soilSoftness = Mathf.MoveTowards(plantSimulationInstance.soilSoftness, targetCenter, closetothecenter);
-        plantSimulationInstance.soilQuality = Mathf.MoveTowards(plantSimulationInstance.soilQuality, targetCenter, closetothecenter);
-
-    }
-
-    public void ResolveMinigameLose(MinigameType type)
-    {
-        Debug.Log($"Minigame {type} FAILED. Penalizing crop stats.");
-
-        if (plantSimulationInstance == null) return;
-
-        switch (type)
-        {
-            case MinigameType.Watering:
-                plantSimulationInstance.cropHP -= 2.0f;
-                break;
-            case MinigameType.PestControl:
-                plantSimulationInstance.cropHP -= 3.0f;
-                break;
-            case MinigameType.Netting:
-                plantSimulationInstance.cropHP -= 1.0f; // Custom damage deduction if they mess up netting loops
-                break;
-            default:
-                plantSimulationInstance.cropHP -= 1.0f;
-                break;
-        }
-
-        CheckStats();
-    }
-
-    private void CheckStats()
-    {
-        if (!isPlanted || currentSeed == null || plantSimulationInstance == null)
-        {
-            hasNoBadStats = false;
-            return;
-        }
-
-        cropMoisture = plantSimulationInstance.cropMoisture;
-        soilQuality = plantSimulationInstance.soilQuality;
-        soilMoisture = plantSimulationInstance.soilMoisture;
-        soilSoftness = plantSimulationInstance.soilSoftness;
-
-        // Your custom range bounds
-        
-
-        if (cropMoisture < minLimit || cropMoisture > maxLimit ||
-            soilQuality < minLimit || soilQuality > maxLimit ||
-            soilMoisture < minLimit || soilMoisture > maxLimit ||
-            soilSoftness < minLimit || soilSoftness > maxLimit)
-        {
-            hasNoBadStats = false;
-            PlantSadFG.color = new Color(1f, 1f, 1f, 1f);
-            PlantSadBG.color = new Color(1f, 1f, 1f, 1f);
-        }
-        else
-        {
-            hasNoBadStats = true;
-            // Optionally clear the sad face overlay here if they are healthy
-            PlantSadFG.color = new Color(1f, 1f, 1f, 0f);
-            PlantSadBG.color = new Color(1f, 1f, 1f, 0f);
-        }
-    }
-
+ 
 
     /// <summary>
     /// Evaluates structural crop health conditions and handles targeted degradation logic.
@@ -533,33 +344,6 @@ public class GrowthManager_Multiplayer : MonoBehaviour, IPointerClickHandler
     /// <summary>
     /// Evaluates structural crop health conditions and handles targeted degradation logic.
     /// </summary>
-    public void EvaluatePlotHealth()
-    {
-        // Safety shield
-        if (!isPlanted || plantSimulationInstance == null) return;
-
-        // How fast stats slowly decay back to 0 on their own
-
-        // If stats are outside the -20 to 60 boundary, pull them toward the center point
-        if (plantSimulationInstance.soilMoisture < minSafe || plantSimulationInstance.soilMoisture > maxSafe)
-        {
-            plantSimulationInstance.soilMoisture = Mathf.MoveTowards(plantSimulationInstance.soilMoisture, targetCenter, recoveryRate);
-        }
-
-        if (plantSimulationInstance.cropMoisture < minSafe || plantSimulationInstance.cropMoisture > maxSafe)
-        {
-            plantSimulationInstance.cropMoisture = Mathf.MoveTowards(plantSimulationInstance.cropMoisture, targetCenter, recoveryRate);
-        }
-
-        if (plantSimulationInstance.soilSoftness < minSafe || plantSimulationInstance.soilSoftness > maxSafe)
-        {
-            plantSimulationInstance.soilSoftness = Mathf.MoveTowards(plantSimulationInstance.soilSoftness, targetCenter, recoveryRate);
-        }
-
-        IsWaterLogged();
-        // Handle waterlogging if moisture stays dangerously high
-        
-    }
 
 
     private void disableSadParts()
@@ -568,10 +352,6 @@ public class GrowthManager_Multiplayer : MonoBehaviour, IPointerClickHandler
         PlantSadFG.color = new Color(1f, 1f, 1f, 0f);
     }
 
-    public void MoistureCleanse()
-    {
-
-    }
 
     public void CheckInfestation()
     {
@@ -732,24 +512,54 @@ public class GrowthManager_Multiplayer : MonoBehaviour, IPointerClickHandler
         IsNotPlantable();
     }
 
-    public void GetMogged()
-    {
-        Debug.Log(
-            "LOOK!!!!!\n" +
-            "Season: " + seasonOutput + " | Resistance: " + plantSimulationInstance.stats.seasonalAffinities[seasonIndex] + "\n"
-            + "Day: " + cycleOutput + " | Resistance: " + plantSimulationInstance.stats.cycleAffinities[cycleIndex] + "\n"
-            + "Weather Event: " + weatherOutput + " | Resistance: " + plantSimulationInstance.stats.weatherAffinities[weatherIndex] + "\n"
-            + "Infested: " + bugInfestation + " | Resistance: " + plantSimulationInstance.stats.bugResistances[bugIndex] + "\n"
 
-            + "Crop HP: " + plantSimulationInstance.cropHP + "\n"
-            + "Crop Moisture: " + plantSimulationInstance.cropMoisture + "\n"
-            + "Crop Growth: " + plantSimulationInstance.cropGrowth + "\n"
-            + "Soil Quality: " + plantSimulationInstance.soilQuality + "\n"
-            + "Soil Moisture: " + plantSimulationInstance.soilMoisture + "\n"
-            + "Soil Softness: " + plantSimulationInstance.soilSoftness + "\n"
-            + "Harvest Quality: " + plantSimulationInstance.harvestQuality + "\n"
-            + "Crop Yield: " + plantSimulationInstance.GetCropYield() + "\n"
-            + "Is Water logged?" + Waterlogged
-        );
+    public void CommitAction(string action)
+    {
+        if (!isPlanted) return;
+        {
+            switch (action)
+            {
+                case "GetWaterLogged":
+                    Water.SetActive(true);
+                    Waterlogged = true;
+                    WaterloggedMeter = WaterloggedMax;
+
+                    break;
+
+                case "RemovePlants":
+                    ResetPlot();
+                    break;
+
+                case "UnTillable":
+                    isplantable = false;
+
+                    
+                    break;
+
+                case "GETBUGGED":
+                    BugCooldownMeter = 0f;
+                    bugInfestation = "INFESTEDDD";
+                    bugIndex = 1;
+                    plantSimulationInstance.bugIndex = bugIndex;
+                    unBugged = false;
+                    Bugging.SetActive(true);
+                    _IsInfested = true;
+
+                    break;
+
+                case "FERTILIZING":
+
+                    plantSimulationInstance.cropGrowth = 10;
+                    break;
+
+
+
+            }
+
+
+
+        }
+      
     }
+
 }

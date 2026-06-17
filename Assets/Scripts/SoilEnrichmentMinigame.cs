@@ -167,6 +167,7 @@ public class SoilEnrichmentMinigame : MinigameBase
                 _activeItem.rect.gameObject.SetActive(false);
                 _items.Remove(_activeItem);
                 _itemsLeft--;
+                AudioManager.instance.Play("GoodItem");
                 RefreshUI();
 
                 if (_itemsLeft <= 0)

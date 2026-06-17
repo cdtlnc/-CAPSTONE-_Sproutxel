@@ -40,6 +40,7 @@ public class MenuManager : MonoBehaviour
     {
         AudioManager.instance.Stop("MainMenu");
         PlaySFX();
+        AudioManager.instance.Play("SproutxelBGMusic");
         LevelManager.Instance.LoadScene("Multiplayer_Level", "CrossFade");
     }
 

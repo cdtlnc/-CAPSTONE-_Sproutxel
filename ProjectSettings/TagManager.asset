@@ -15,6 +15,7 @@ TagManager:
   - Canon2
   - Farmer1
   - Farmer2
+  - Canon
   layers:
   - Default
   - TransparentFX
@@ -23,7 +24,7 @@ TagManager:
   - Water
   - UI
   - SEEDBAG
-  - 
+  - Canons
   - 
   - 
   - 

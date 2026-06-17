@@ -9,6 +9,7 @@ public class EventManager : MonoBehaviour
     [SerializeField] private int _infestationOdds;
     [SerializeField] private int _infestationChances;
     [SerializeField] private bool _infestationStart;
+    [SerializeField] private bool dontChangeWeather;
 
 
     [Header("Weather Parameters")]
@@ -77,15 +78,18 @@ public class EventManager : MonoBehaviour
         }
 
         // --- FIXED: Removed the old blocky override logic that was breaking weather states every 5 seconds ---
-
-        if (_weatherCooldownTimer >= _weatherCooldown)
+        if (!dontChangeWeather)
         {
-            Debug.Log("Weather event cooldown over!");
-            _weatherCooldownTimer = 0;
-            CalcWeatherEventOdds(TimeOfDayUI.isDrySeason);
-            RollForWeatherEvent();
-        }
+            if (_weatherCooldownTimer >= _weatherCooldown)
+            {
+                Debug.Log("Weather event cooldown over!");
+                _weatherCooldownTimer = 0;
+                CalcWeatherEventOdds(TimeOfDayUI.isDrySeason);
+                RollForWeatherEvent();
+            }
 
+          
+        }
         if (_infestationTimer >= _infestationCooldown)
         {
             Debug.Log("Bug infestation cooldown over!");

@@ -35,8 +35,9 @@ public class PauseMenuUI : MonoBehaviour
 
         Time.timeScale = 1f;
         pauseMenu.SetActive(false);
-
+        AudioManager.instance.Stop("SproutxelBGMusic");
         LevelManager.Instance.LoadScene("MainMenu", "CrossFade");
+
     }
 
     // OPTIONS

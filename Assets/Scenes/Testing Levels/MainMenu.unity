@@ -2697,174 +2697,224 @@ MonoBehaviour:
     pitch: 1.11
     loop: 0
     source: {fileID: 0}
+    mixerGroup: {fileID: 9136035942700017800, guid: a8c9b7d04a6f0df4697087e208d92e03, type: 2}
   - name: LoseMinigame
     clip: {fileID: 8300000, guid: 22388a531a1a03c4393400787a493cc2, type: 3}
     volume: 0.501
     pitch: 1.026
     loop: 0
     source: {fileID: 0}
+    mixerGroup: {fileID: 9136035942700017800, guid: a8c9b7d04a6f0df4697087e208d92e03, type: 2}
   - name: WinMinigame
     clip: {fileID: 8300000, guid: 4f73c9eba62c39046b9000454bf089c9, type: 3}
     volume: 0.889
     pitch: 1.007
     loop: 0
     source: {fileID: 0}
+    mixerGroup: {fileID: 9136035942700017800, guid: a8c9b7d04a6f0df4697087e208d92e03, type: 2}
   - name: TapSound1
     clip: {fileID: 8300000, guid: 6065f73234310ca479c6c396a5716588, type: 3}
     volume: 0.579
     pitch: 1.511
     loop: 0
     source: {fileID: 0}
+    mixerGroup: {fileID: 9136035942700017800, guid: a8c9b7d04a6f0df4697087e208d92e03, type: 2}
   - name: TapSound2
     clip: {fileID: 8300000, guid: e11f2333103c68b4bbe1fa853f33e1c0, type: 3}
     volume: 0.483
     pitch: 1.519
     loop: 0
     source: {fileID: 0}
+    mixerGroup: {fileID: 9136035942700017800, guid: a8c9b7d04a6f0df4697087e208d92e03, type: 2}
   - name: Planting
     clip: {fileID: 8300000, guid: 5f345b7731b59e04f98b7299fccd075f, type: 3}
     volume: 0.558
     pitch: 1.758
     loop: 0
     source: {fileID: 0}
+    mixerGroup: {fileID: 9136035942700017800, guid: a8c9b7d04a6f0df4697087e208d92e03, type: 2}
   - name: MainMenu
     clip: {fileID: 8300000, guid: 833350daa30c1c1439a4dde1dbf3d850, type: 3}
     volume: 0.5
     pitch: 1
     loop: 1
     source: {fileID: 0}
+    mixerGroup: {fileID: 3002645312370200697, guid: a8c9b7d04a6f0df4697087e208d92e03, type: 2}
   - name: WinLevel
     clip: {fileID: 8300000, guid: a85ad97bf5b50ce4396207fc915dcf06, type: 3}
     volume: 0.454
     pitch: 2
     loop: 0
     source: {fileID: 0}
+    mixerGroup: {fileID: 9136035942700017800, guid: a8c9b7d04a6f0df4697087e208d92e03, type: 2}
   - name: FailedMinigame
     clip: {fileID: 8300000, guid: 1fa41a62e77134b4b97e602ebf47b3c0, type: 3}
     volume: 0.5
     pitch: 1
     loop: 0
     source: {fileID: 0}
+    mixerGroup: {fileID: 9136035942700017800, guid: a8c9b7d04a6f0df4697087e208d92e03, type: 2}
   - name: ConnectingAnchor
     clip: {fileID: 8300000, guid: e44cb436b93477340951be00ad7a574d, type: 3}
     volume: 0.5
     pitch: 1
     loop: 0
     source: {fileID: 0}
+    mixerGroup: {fileID: 9136035942700017800, guid: a8c9b7d04a6f0df4697087e208d92e03, type: 2}
   - name: DrawingTheLine
     clip: {fileID: 8300000, guid: 67d9802d97d65414ca151b509fbf21fa, type: 3}
     volume: 0.5
     pitch: 1
     loop: 0
     source: {fileID: 0}
+    mixerGroup: {fileID: 9136035942700017800, guid: a8c9b7d04a6f0df4697087e208d92e03, type: 2}
   - name: Offbeatmistake2
     clip: {fileID: 8300000, guid: 2d129a182b9781342932fefef08d7ee6, type: 3}
     volume: 0.5
     pitch: 1
     loop: 0
     source: {fileID: 0}
+    mixerGroup: {fileID: 9136035942700017800, guid: a8c9b7d04a6f0df4697087e208d92e03, type: 2}
   - name: Offbeatmistake1
     clip: {fileID: 8300000, guid: ce341596d3b1e5a4a8646f5764d20bb6, type: 3}
     volume: 0.5
     pitch: 1
     loop: 0
     source: {fileID: 0}
+    mixerGroup: {fileID: 9136035942700017800, guid: a8c9b7d04a6f0df4697087e208d92e03, type: 2}
   - name: OnBeat
     clip: {fileID: 8300000, guid: 72719ff4c4993b549a2980838f02af81, type: 3}
     volume: 0.5
     pitch: 1
     loop: 0
     source: {fileID: 0}
+    mixerGroup: {fileID: 9136035942700017800, guid: a8c9b7d04a6f0df4697087e208d92e03, type: 2}
   - name: Pulse
     clip: {fileID: 8300000, guid: 0881f470e29020f469b3e2db93074a03, type: 3}
     volume: 0.5
     pitch: 1
     loop: 1
     source: {fileID: 0}
+    mixerGroup: {fileID: 9136035942700017800, guid: a8c9b7d04a6f0df4697087e208d92e03, type: 2}
   - name: WaterFilling
     clip: {fileID: 8300000, guid: 5fa99a3739c6b144dab6fa57068fca92, type: 3}
     volume: 0.5
     pitch: 2
     loop: 0
     source: {fileID: 0}
+    mixerGroup: {fileID: 9136035942700017800, guid: a8c9b7d04a6f0df4697087e208d92e03, type: 2}
   - name: WinWatering
     clip: {fileID: 8300000, guid: 6bfda96019467bf478e905a38177722a, type: 3}
     volume: 0.5
     pitch: 1
     loop: 0
     source: {fileID: 0}
+    mixerGroup: {fileID: 9136035942700017800, guid: a8c9b7d04a6f0df4697087e208d92e03, type: 2}
   - name: Swiper
     clip: {fileID: 8300000, guid: 398471a9848c36740a0c191b46d31337, type: 3}
     volume: 0.5
     pitch: 3
     loop: 0
     source: {fileID: 0}
+    mixerGroup: {fileID: 9136035942700017800, guid: a8c9b7d04a6f0df4697087e208d92e03, type: 2}
   - name: TouchaThePlant
     clip: {fileID: 8300000, guid: 213dc8df0baf551498a90d8b002526e3, type: 3}
     volume: 0.5
     pitch: 1
     loop: 0
     source: {fileID: 0}
+    mixerGroup: {fileID: 9136035942700017800, guid: a8c9b7d04a6f0df4697087e208d92e03, type: 2}
   - name: Fertilizer
     clip: {fileID: 8300000, guid: d4d63e601f979b24fa1c39914ed7e278, type: 3}
     volume: 0.5
     pitch: 1
     loop: 0
     source: {fileID: 0}
+    mixerGroup: {fileID: 9136035942700017800, guid: a8c9b7d04a6f0df4697087e208d92e03, type: 2}
   - name: Shovel
     clip: {fileID: 8300000, guid: ba8d14a7d4702574d913cc6a19e0334e, type: 3}
     volume: 0.8
     pitch: 1
     loop: 0
     source: {fileID: 0}
+    mixerGroup: {fileID: 9136035942700017800, guid: a8c9b7d04a6f0df4697087e208d92e03, type: 2}
   - name: BugInfestation
     clip: {fileID: 8300000, guid: 1e59addeb8074e545be62e03f21830ff, type: 3}
     volume: 0.5
     pitch: 1
     loop: 0
     source: {fileID: 0}
+    mixerGroup: {fileID: 9136035942700017800, guid: a8c9b7d04a6f0df4697087e208d92e03, type: 2}
   - name: PesticideSpray
     clip: {fileID: 8300000, guid: aa0c8798bb8bf174d90cf6207138f7a2, type: 3}
     volume: 0.5
     pitch: 1
     loop: 0
     source: {fileID: 0}
+    mixerGroup: {fileID: 9136035942700017800, guid: a8c9b7d04a6f0df4697087e208d92e03, type: 2}
   - name: SoilTiller
     clip: {fileID: 8300000, guid: 077f9fde35bfdc1488afc9576f13fb9c, type: 3}
     volume: 0.5
     pitch: 1
     loop: 0
     source: {fileID: 0}
+    mixerGroup: {fileID: 9136035942700017800, guid: a8c9b7d04a6f0df4697087e208d92e03, type: 2}
   - name: SoilAddler
     clip: {fileID: 8300000, guid: 50d3c788e776e7049b037f77bfe8c5e0, type: 3}
     volume: 0.5
     pitch: 1
     loop: 0
     source: {fileID: 0}
+    mixerGroup: {fileID: 9136035942700017800, guid: a8c9b7d04a6f0df4697087e208d92e03, type: 2}
   - name: LevelSelectMenu
     clip: {fileID: 8300000, guid: 2747bb6c12e17664fb51dc52b9c01ac0, type: 3}
     volume: 0.5
     pitch: 1
     loop: 1
     source: {fileID: 0}
+    mixerGroup: {fileID: 9136035942700017800, guid: a8c9b7d04a6f0df4697087e208d92e03, type: 2}
   - name: CompendiumTap
     clip: {fileID: 8300000, guid: c5dbbb8811010934bb8d2be9018f013c, type: 3}
     volume: 1
     pitch: 1
     loop: 0
     source: {fileID: 0}
+    mixerGroup: {fileID: 9136035942700017800, guid: a8c9b7d04a6f0df4697087e208d92e03, type: 2}
   - name: CanonSFX2
     clip: {fileID: 8300000, guid: ca70f542efd602b47b904d554bf767a1, type: 3}
     volume: 1
     pitch: 1
     loop: 0
     source: {fileID: 0}
+    mixerGroup: {fileID: 9136035942700017800, guid: a8c9b7d04a6f0df4697087e208d92e03, type: 2}
   - name: CanonSFX1
     clip: {fileID: 8300000, guid: 68acddd3935c4214fbacc554e5de5302, type: 3}
     volume: 1
     pitch: 0.5
     loop: 0
     source: {fileID: 0}
+    mixerGroup: {fileID: 9136035942700017800, guid: a8c9b7d04a6f0df4697087e208d92e03, type: 2}
+  - name: BadItem
+    clip: {fileID: 8300000, guid: 4bfc89e0dc0f04141a7c2e13d30f4957, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+    mixerGroup: {fileID: 9136035942700017800, guid: a8c9b7d04a6f0df4697087e208d92e03, type: 2}
+  - name: GoodItem
+    clip: {fileID: 8300000, guid: 94388daa361759b46a6a57edcfdb77fa, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+    mixerGroup: {fileID: 9136035942700017800, guid: a8c9b7d04a6f0df4697087e208d92e03, type: 2}
+  - name: SproutxelBGMusic
+    clip: {fileID: 8300000, guid: f730396b903ebcd4e83da0c9921e4b5b, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
+    mixerGroup: {fileID: 3002645312370200697, guid: a8c9b7d04a6f0df4697087e208d92e03, type: 2}
 --- !u!4 &413349685
 Transform:
   m_ObjectHideFlags: 0
@@ -6183,10 +6233,10 @@ MonoBehaviour:
   m_FillRect: {fileID: 1537278565}
   m_HandleRect: {fileID: 1156382163}
   m_Direction: 0
-  m_MinValue: 0
+  m_MinValue: 0.0001
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0
+  m_Value: 0.1
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -6590,10 +6640,10 @@ MonoBehaviour:
   m_FillRect: {fileID: 1481526063}
   m_HandleRect: {fileID: 1179159895}
   m_Direction: 0
-  m_MinValue: 0
+  m_MinValue: 0.0001
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0
+  m_Value: 0.1
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -7278,9 +7328,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80b5d2f2305b68344a023b1ce73c292a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::OptionsManager
-  MasterVolume: 1
-  MusicVolume: 1
-  SFXVolume: 1
+  audioMixer: {fileID: 0}
 --- !u!4 &1175940986
 Transform:
   m_ObjectHideFlags: 0
@@ -7690,10 +7738,10 @@ MonoBehaviour:
   m_FillRect: {fileID: 1119872384}
   m_HandleRect: {fileID: 584995258}
   m_Direction: 0
-  m_MinValue: 0
+  m_MinValue: 0.0001
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0
+  m_Value: 0.1
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -10513,6 +10561,51 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1679615344}
   m_CullTransparentMesh: 1
+--- !u!1 &1707208916
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1707208917}
+  - component: {fileID: 1707208918}
+  m_Layer: 0
+  m_Name: AudioMixer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1707208917
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1707208916}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -756.0111, y: 0.00004, z: 293.38824}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1707208918
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1707208916}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85c416a7127b99b45821b9038a73f37b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::OptionsManager
+  audioMixer: {fileID: 24100000, guid: a8c9b7d04a6f0df4697087e208d92e03, type: 2}
 --- !u!1 &1724391496
 GameObject:
   m_ObjectHideFlags: 0
@@ -12754,6 +12847,7 @@ CanvasRenderer:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 413349685}
   - {fileID: 330585546}
   - {fileID: 410087041}
   - {fileID: 832575519}
@@ -12761,4 +12855,4 @@ SceneRoots:
   - {fileID: 681906985}
   - {fileID: 725262249}
   - {fileID: 1175940986}
-  - {fileID: 413349685}
+  - {fileID: 1707208917}
