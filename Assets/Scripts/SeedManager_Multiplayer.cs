@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class SeedManager_Multiplayer : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
     public SeedData seedType;
- 
+
     private CanvasGroup canvasGroup;
 
     private GameObject dragIconInstance;
@@ -29,14 +29,22 @@ public class SeedManager_Multiplayer : MonoBehaviour, IBeginDragHandler, IDragHa
 
     private void FixedUpdate()
     {
-        seedNum.text=""+seedType.remainingSeedBags;
+        seedNum.text = "" + seedType.remainingSeedBags;
     }
 
     public void OnBeginDrag(PointerEventData eventData)
     {
         if (seedType == null) return;
 
-        FindFirstObjectByType<AudioManager>().Play("TapSound1");
+        AudioManager audioMan = FindFirstObjectByType<AudioManager>();
+        if (audioMan != null)
+        {
+            audioMan.Play("TapSound1");
+        }
+        else
+        {
+            Debug.LogWarning("SeedManager_Multiplayer: AudioManager instance not found in scene. Skipping drag sound.");
+        }
 
         dragIconInstance = new GameObject("SeedDragGhost");
 
@@ -46,12 +54,19 @@ public class SeedManager_Multiplayer : MonoBehaviour, IBeginDragHandler, IDragHa
         RectTransform sourceRect = GetComponent<RectTransform>();
         dragIconRect = dragIconInstance.AddComponent<RectTransform>();
 
+        
         dragIconRect.anchorMin = new Vector2(0.5f, 0.5f);
         dragIconRect.anchorMax = new Vector2(0.5f, 0.5f);
-        dragIconRect.pivot = sourceRect.pivot;
+        dragIconRect.pivot = new Vector2(0.5f, 0.5f);
 
-        dragIconRect.sizeDelta = sourceRect.rect.size;
-        dragIconRect.localScale = sourceRect.localScale;
+        
+        dragIconRect.sizeDelta = new Vector2(90f, 90f);
+
+        
+        dragIconRect.localScale = Vector3.one;
+
+        
+        dragIconRect.rotation = transform.rotation;
         dragIconRect.position = transform.position;
 
         dragIconImage = dragIconInstance.AddComponent<Image>();
