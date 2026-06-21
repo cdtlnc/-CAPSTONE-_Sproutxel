@@ -214,8 +214,7 @@ public class BasePlant
 
         System.Random randomValue = new System.Random();
 
-        if (cropGrowth != 10)
-        {
+       
             if (harvestQuality >= 0 && harvestQuality <= 33)
             {
                 return randomValue.Next((int)stats.badCropYield.x, (int)stats.badCropYield.y);
@@ -228,17 +227,22 @@ public class BasePlant
             {
                 return randomValue.Next((int)stats.goodCropYield.x, (int)stats.goodCropYield.y);
             }
-        }
-        else 
-        {
-            return randomValue.Next((int)stats.badCropYield.x, (int)stats.badCropYield.y);
-        }
+        
+        
 
 
-            return 0;
+            return 1;
     }
 
     public int GetMaxYield()
+    {
+        System.Random randomValue = new System.Random();
+        return randomValue.Next((int)stats.goodCropYield.x, (int)stats.goodCropYield.y);
+
+        return 0;
+    }
+
+    public int GetBadYield()
     {
         System.Random randomValue = new System.Random();
         return randomValue.Next((int)stats.goodCropYield.x, (int)stats.goodCropYield.y);

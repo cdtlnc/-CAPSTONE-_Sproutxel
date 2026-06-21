@@ -5,15 +5,18 @@ using UnityEditor;
 using UnityEditor.EditorTools;
 
 #endif
-using UnityEngine.EventSystems;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.Tilemaps;
 
 public class GrowthManager_Multiplayer : MonoBehaviour, IPointerClickHandler
 {
 
     [Header("Player-Specific UI Router Assignments")]
     [SerializeField] private CanonFire assignedCanon;
-   
+    [SerializeField] public GameObject Untilled;
+    [SerializeField] public GameObject Tilled;
+
 
 
     [Header("Visual Components")]
@@ -305,8 +308,10 @@ public class GrowthManager_Multiplayer : MonoBehaviour, IPointerClickHandler
         plantSimulationInstance = null;
         currentStage = 0;
         if (plantRenderer != null) plantRenderer.sprite = null;
+        plantableornot();
         disableSadParts();
         IsNotPlantable();
+
     }
 
     private void FixedUpdate()
@@ -353,6 +358,21 @@ public class GrowthManager_Multiplayer : MonoBehaviour, IPointerClickHandler
     }
 
 
+    public void plantableornot()
+    {
+        if (isplantable)
+        {
+
+            Untilled.SetActive(false);
+            Tilled.SetActive(true);
+        }
+        else
+        {
+            Tilled.SetActive(false);
+            Untilled.SetActive(true);
+        }
+
+    }
     public void CheckInfestation()
     {
         if (EventManager.isInfested)
@@ -484,19 +504,19 @@ public class GrowthManager_Multiplayer : MonoBehaviour, IPointerClickHandler
 
     public void RefreshPlot()
     {
-        isplantable = true;
+        isplantable = true; plantableornot();
     }
 
     public void IsNotPlantable()
     {
-        isplantable = false;
+        isplantable = false; plantableornot();
     }
 
     public void RemovePlant()
     {
         unBug();
         ResetPlot();
-       
+        plantableornot();
         IsNotPlantable();
     }
 
@@ -509,6 +529,7 @@ public class GrowthManager_Multiplayer : MonoBehaviour, IPointerClickHandler
         Debug.Log("[STEP 2.5] SUPER");
         assignedCanon.AddLoad(super_yield);
         RemovePlant();
+        plantableornot();
         IsNotPlantable();
     }
 

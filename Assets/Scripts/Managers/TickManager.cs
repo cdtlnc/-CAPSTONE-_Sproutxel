@@ -37,6 +37,7 @@ public class TickManager : MonoBehaviour
         time.GetTickSpeed(_TICK_TIMER_MAX);
        
         CopyCatDayNight dih = GameObject.FindAnyObjectByType<CopyCatDayNight>();
+       
         dih.GetTickSpeed(_TICK_TIMER_MAX);
     }
 

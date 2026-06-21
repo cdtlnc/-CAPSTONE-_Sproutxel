@@ -7,6 +7,7 @@ using UnityEditor.EditorTools;
 #endif
 using UnityEngine.EventSystems;
 using UnityEngine;
+using Unity.VisualScripting;
 
 public class GrowthManager : MonoBehaviour, IPointerClickHandler
 {
@@ -15,7 +16,8 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
     [SerializeField] public SpriteRenderer PlantSadBG;
     [SerializeField] public SpriteRenderer PlantSadFG;
     [SerializeField] public Sprite PlantSadBGTexture;
-    [SerializeField] public Sprite PlantSadFGTexture;
+    [SerializeField] public GameObject Untilled;
+    [SerializeField] public GameObject Tilled;
 
     [Header("Live Growth Debugger (Visible for Testing)")]
     [SerializeField] public SeedData currentSeed;
@@ -129,6 +131,7 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
 
         // Don't calculate stuff if the plot is completely empty
         if (!isPlanted || currentSeed == null || plantSimulationInstance == null) return;
+        plantableornot();
         checkDead();
         CheckWeather();
         CheckSeason();
@@ -240,6 +243,7 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
             }
             else
             {
+                Debug.Log("[STEP 5.C] Found Checking if Dead");
                 checkDead();
             }
         }
@@ -475,6 +479,22 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
         plantSimulationInstance.soilSoftness = Mathf.MoveTowards(plantSimulationInstance.soilSoftness, targetCenter, closetothecenter);
         plantSimulationInstance.soilQuality = Mathf.MoveTowards(plantSimulationInstance.soilQuality, targetCenter, closetothecenter);
 
+    }
+
+    public void plantableornot()
+    {
+        if (isplantable)
+        {
+
+            Untilled.SetActive(false);
+            Tilled.SetActive(true);
+        }
+        else
+        {
+            Tilled.SetActive(false);
+            Untilled.SetActive(true);
+        }
+        
     }
 
     public void ResolveMinigameLose(MinigameType type)
@@ -727,20 +747,21 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
 
     public void RefreshPlot()
     {
+        Debug.Log("YOU HAVE BEEN SOIL TILLED");
         isplantable = true;
+        plantableornot();
     }
 
     public void IsNotPlantable()
     {
         isplantable = false;
+        plantableornot();
     }
 
     public void RemovePlant()
     {
         unBug();
         ResetPlot();
-       
-
         IsNotPlantable();
     }
 

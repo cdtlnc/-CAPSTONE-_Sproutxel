@@ -2793,7 +2793,7 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 0881f470e29020f469b3e2db93074a03, type: 3}
     volume: 0.5
     pitch: 1
-    loop: 1
+    loop: 0
     source: {fileID: 0}
     mixerGroup: {fileID: 9136035942700017800, guid: a8c9b7d04a6f0df4697087e208d92e03, type: 2}
   - name: WaterFilling
