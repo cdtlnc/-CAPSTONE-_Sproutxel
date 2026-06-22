@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Broccoli
   m_EditorClassIdentifier: Assembly-CSharp::SeedData
   cropName: Broccoli
-  seedBagIcon: {fileID: -1008973225, guid: 8411fff7d4890b644947d49edb1248ab, type: 3}
+  seedBagIcon: {fileID: -866068337, guid: 16e6549936b63f64cb008a69ac32f1c2, type: 3}
   growthStages:
   - {fileID: -1795139194, guid: 0b73a75d272a65d4193cadca7eb3830f, type: 3}
   - {fileID: -739460687, guid: 0b73a75d272a65d4193cadca7eb3830f, type: 3}

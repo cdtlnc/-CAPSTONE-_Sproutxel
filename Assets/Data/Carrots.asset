@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Carrots
   m_EditorClassIdentifier: Assembly-CSharp::SeedData
   cropName: Carrots
-  seedBagIcon: {fileID: -1766526638, guid: bfa6fc51f67e0a04991c4bbe2cf5a9d0, type: 3}
+  seedBagIcon: {fileID: 215507575, guid: b235950289d98a24cac114e8ed8f03f8, type: 3}
   growthStages:
   - {fileID: -1790424750, guid: ca141d8b421970640a0bcde8a85d7b89, type: 3}
   - {fileID: -202842086, guid: ca141d8b421970640a0bcde8a85d7b89, type: 3}

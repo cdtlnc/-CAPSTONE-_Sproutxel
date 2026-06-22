@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Okra
   m_EditorClassIdentifier: Assembly-CSharp::SeedData
   cropName: Okra
-  seedBagIcon: {fileID: -85749406, guid: 32090f816a07c4f4baa5e690d02b172e, type: 3}
+  seedBagIcon: {fileID: -2108284472, guid: 99b0293e892cea84aa567464f8cb6048, type: 3}
   growthStages:
   - {fileID: -1960481537, guid: a5c1fa57bcb20bb47a8a6aa59e802ec1, type: 3}
   - {fileID: -1592820523, guid: a5c1fa57bcb20bb47a8a6aa59e802ec1, type: 3}

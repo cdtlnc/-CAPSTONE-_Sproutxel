@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Ampalaya
   m_EditorClassIdentifier: Assembly-CSharp::SeedData
   cropName: Ampalaya
-  seedBagIcon: {fileID: -1835571187, guid: 9345f0bbfbc9e5348a7e9b692efd3497, type: 3}
+  seedBagIcon: {fileID: -1402701707, guid: 808abd97d5ef1c04cbdc0972b10d445e, type: 3}
   growthStages:
   - {fileID: 1234159896, guid: 79c33c4de8be87a4c8ee50b2995163c1, type: 3}
   - {fileID: -826474002, guid: 79c33c4de8be87a4c8ee50b2995163c1, type: 3}

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Corn
   m_EditorClassIdentifier: Assembly-CSharp::SeedData
   cropName: Corn
-  seedBagIcon: {fileID: -152068168, guid: 7a8e45b6dc8a2394288e6cc1a446f6fb, type: 3}
+  seedBagIcon: {fileID: -1621323580, guid: c949aa64693ec0b47967f1cfe863b991, type: 3}
   growthStages:
   - {fileID: -1512105628, guid: 5d3eaf52b4076c644848ed89317d62b2, type: 3}
   - {fileID: -906325453, guid: 5d3eaf52b4076c644848ed89317d62b2, type: 3}
