@@ -2103,17 +2103,31 @@ MonoBehaviour:
   PlantSadBGTexture: {fileID: -519315468, guid: b3555b7d5edbf72409846ff8e1151499, type: 3}
   Untilled: {fileID: 331126305}
   Tilled: {fileID: 975670721}
+  HeatDeath: []
+  TyphoonDeath: []
+  BugDeath: []
   currentSeed: {fileID: 11400000, guid: 8c922d3a85b7e8f42b8cfd32884e40c9, type: 2}
   currentStage: 0
+  cropGrowth: 0
   name: 
   cropHP: 0
   wonMinigame: 0
   hasNoBadStats: 0
+  unBugged: 0
+  _IsInfested: 0
   le_realname: 
   cropMoisture: 0
   soilQuality: 0
   soilMoisture: 0
   soilSoftness: 0
+  seasonOutput: 
+  cycleOutput: 
+  weatherOutput: 
+  bugInfestation: 
+  seasonIndex: 0
+  cycleIndex: 0
+  weatherIndex: 0
+  bugIndex: 0
   Waterlogged: 0
   WaterCleared: 0
   WaterloggedMeter: 0
@@ -2123,27 +2137,15 @@ MonoBehaviour:
   WaterDuration: 0
   Water: {fileID: 784766818}
   Bugging: {fileID: 506601218}
-  seasonOutput: 
-  cycleOutput: 
-  weatherOutput: 
-  bugInfestation: 
-  seasonIndex: 0
-  cycleIndex: 0
-  weatherIndex: 0
-  bugIndex: 0
   isplantable: 0
   centerPoint: 20
   reductionFactor: 0.3
   recoveryAmountPerTick: 2
   closetothecenter: 40
-  minSafe: -20
-  maxSafe: 60
   targetCenter: 20
   BugCooldownMeter: 0
   BugCooldownMeterMax: 100
   BugCooldownRate: 10
-  unBugged: 0
-  _IsInfested: 0
   isPlanted: 0
 --- !u!65 &61705491
 BoxCollider:
@@ -11460,8 +11462,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 29
+  m_fontSizeBase: 29
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -11499,7 +11501,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: -13.407333, w: 0}
+  m_margin: {x: 0, y: 0, z: -0.25378418, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -11529,8 +11531,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 62.873413, y: 197.05092}
-  m_SizeDelta: {x: 180, y: 50}
+  m_AnchoredPosition: {x: 0, y: 197}
+  m_SizeDelta: {x: 189, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!4 &308275055 stripped
 Transform:
@@ -12653,17 +12655,31 @@ MonoBehaviour:
   PlantSadBGTexture: {fileID: -519315468, guid: b3555b7d5edbf72409846ff8e1151499, type: 3}
   Untilled: {fileID: 1538072833}
   Tilled: {fileID: 1806641663}
+  HeatDeath: []
+  TyphoonDeath: []
+  BugDeath: []
   currentSeed: {fileID: 11400000, guid: 8c922d3a85b7e8f42b8cfd32884e40c9, type: 2}
   currentStage: 0
+  cropGrowth: 0
   name: 
   cropHP: 0
   wonMinigame: 0
   hasNoBadStats: 0
+  unBugged: 0
+  _IsInfested: 0
   le_realname: 
   cropMoisture: 0
   soilQuality: 0
   soilMoisture: 0
   soilSoftness: 0
+  seasonOutput: 
+  cycleOutput: 
+  weatherOutput: 
+  bugInfestation: 
+  seasonIndex: 0
+  cycleIndex: 0
+  weatherIndex: 0
+  bugIndex: 0
   Waterlogged: 0
   WaterCleared: 0
   WaterloggedMeter: 0
@@ -12673,27 +12689,15 @@ MonoBehaviour:
   WaterDuration: 0
   Water: {fileID: 1429679705}
   Bugging: {fileID: 2093746019}
-  seasonOutput: 
-  cycleOutput: 
-  weatherOutput: 
-  bugInfestation: 
-  seasonIndex: 0
-  cycleIndex: 0
-  weatherIndex: 0
-  bugIndex: 0
   isplantable: 0
   centerPoint: 20
   reductionFactor: 0.3
   recoveryAmountPerTick: 2
   closetothecenter: 40
-  minSafe: -20
-  maxSafe: 60
   targetCenter: 20
   BugCooldownMeter: 0
   BugCooldownMeterMax: 100
   BugCooldownRate: 10
-  unBugged: 0
-  _IsInfested: 0
   isPlanted: 0
 --- !u!65 &345199678
 BoxCollider:
@@ -32767,17 +32771,31 @@ MonoBehaviour:
   PlantSadBGTexture: {fileID: -519315468, guid: b3555b7d5edbf72409846ff8e1151499, type: 3}
   Untilled: {fileID: 2056896204}
   Tilled: {fileID: 232770381}
+  HeatDeath: []
+  TyphoonDeath: []
+  BugDeath: []
   currentSeed: {fileID: 11400000, guid: 8c922d3a85b7e8f42b8cfd32884e40c9, type: 2}
   currentStage: 0
+  cropGrowth: 0
   name: 
   cropHP: 0
   wonMinigame: 0
   hasNoBadStats: 0
+  unBugged: 0
+  _IsInfested: 0
   le_realname: 
   cropMoisture: 0
   soilQuality: 0
   soilMoisture: 0
   soilSoftness: 0
+  seasonOutput: 
+  cycleOutput: 
+  weatherOutput: 
+  bugInfestation: 
+  seasonIndex: 0
+  cycleIndex: 0
+  weatherIndex: 0
+  bugIndex: 0
   Waterlogged: 0
   WaterCleared: 0
   WaterloggedMeter: 0
@@ -32787,27 +32805,15 @@ MonoBehaviour:
   WaterDuration: 0
   Water: {fileID: 533360072}
   Bugging: {fileID: 1938115311}
-  seasonOutput: 
-  cycleOutput: 
-  weatherOutput: 
-  bugInfestation: 
-  seasonIndex: 0
-  cycleIndex: 0
-  weatherIndex: 0
-  bugIndex: 0
   isplantable: 0
   centerPoint: 20
   reductionFactor: 0.3
   recoveryAmountPerTick: 2
   closetothecenter: 40
-  minSafe: -20
-  maxSafe: 60
   targetCenter: 20
   BugCooldownMeter: 0
   BugCooldownMeterMax: 100
   BugCooldownRate: 10
-  unBugged: 0
-  _IsInfested: 0
   isPlanted: 0
 --- !u!65 &1020356671
 BoxCollider:
@@ -34682,17 +34688,31 @@ MonoBehaviour:
   PlantSadBGTexture: {fileID: -519315468, guid: b3555b7d5edbf72409846ff8e1151499, type: 3}
   Untilled: {fileID: 1138245451}
   Tilled: {fileID: 1864515689}
+  HeatDeath: []
+  TyphoonDeath: []
+  BugDeath: []
   currentSeed: {fileID: 11400000, guid: 8c922d3a85b7e8f42b8cfd32884e40c9, type: 2}
   currentStage: 0
+  cropGrowth: 0
   name: 
   cropHP: 0
   wonMinigame: 0
   hasNoBadStats: 0
+  unBugged: 0
+  _IsInfested: 0
   le_realname: 
   cropMoisture: 0
   soilQuality: 0
   soilMoisture: 0
   soilSoftness: 0
+  seasonOutput: 
+  cycleOutput: 
+  weatherOutput: 
+  bugInfestation: 
+  seasonIndex: 0
+  cycleIndex: 0
+  weatherIndex: 0
+  bugIndex: 0
   Waterlogged: 0
   WaterCleared: 0
   WaterloggedMeter: 0
@@ -34702,27 +34722,15 @@ MonoBehaviour:
   WaterDuration: 0
   Water: {fileID: 906425430}
   Bugging: {fileID: 1613196946}
-  seasonOutput: 
-  cycleOutput: 
-  weatherOutput: 
-  bugInfestation: 
-  seasonIndex: 0
-  cycleIndex: 0
-  weatherIndex: 0
-  bugIndex: 0
   isplantable: 0
   centerPoint: 20
   reductionFactor: 0.3
   recoveryAmountPerTick: 2
   closetothecenter: 40
-  minSafe: -20
-  maxSafe: 60
   targetCenter: 20
   BugCooldownMeter: 0
   BugCooldownMeterMax: 100
   BugCooldownRate: 10
-  unBugged: 0
-  _IsInfested: 0
   isPlanted: 0
 --- !u!65 &1062243049
 BoxCollider:
@@ -53743,6 +53751,7 @@ MonoBehaviour:
   _infestationChances: 40
   _infestationStart: 0
   dontChangeWeather: 1
+  dontGetInfested: 0
   _weatherDuration: 100
   _weatherCooldown: 40
   _infestationCooldown: 10
@@ -59756,14 +59765,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86c4c79aa13915849b76505a26542ddf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GoalManager
-  targetCropName:
-  - Kangkong
-  - Cabbage
-  - Corn
-  - Okra
-  - Eggplant
-  targetGoal: 70
-  currentHarvested: 0
+  levelGoalData: {fileID: 11400000, guid: c94c41457f7d85a4fa57e47c43d0a105, type: 2}
   goalText: {fileID: 304643910}
 --- !u!1 &1859929073
 GameObject:
@@ -66273,17 +66275,31 @@ MonoBehaviour:
   PlantSadBGTexture: {fileID: -519315468, guid: b3555b7d5edbf72409846ff8e1151499, type: 3}
   Untilled: {fileID: 1129403315}
   Tilled: {fileID: 1158179373}
+  HeatDeath: []
+  TyphoonDeath: []
+  BugDeath: []
   currentSeed: {fileID: 11400000, guid: 8c922d3a85b7e8f42b8cfd32884e40c9, type: 2}
   currentStage: 0
+  cropGrowth: 0
   name: 
   cropHP: 0
   wonMinigame: 0
   hasNoBadStats: 0
+  unBugged: 0
+  _IsInfested: 0
   le_realname: 
   cropMoisture: 0
   soilQuality: 0
   soilMoisture: 0
   soilSoftness: 0
+  seasonOutput: 
+  cycleOutput: 
+  weatherOutput: 
+  bugInfestation: 
+  seasonIndex: 0
+  cycleIndex: 0
+  weatherIndex: 0
+  bugIndex: 0
   Waterlogged: 0
   WaterCleared: 0
   WaterloggedMeter: 0
@@ -66293,27 +66309,15 @@ MonoBehaviour:
   WaterDuration: 0
   Water: {fileID: 1047243433}
   Bugging: {fileID: 919700129}
-  seasonOutput: 
-  cycleOutput: 
-  weatherOutput: 
-  bugInfestation: 
-  seasonIndex: 0
-  cycleIndex: 0
-  weatherIndex: 0
-  bugIndex: 0
   isplantable: 0
   centerPoint: 20
   reductionFactor: 0.3
   recoveryAmountPerTick: 2
   closetothecenter: 40
-  minSafe: -20
-  maxSafe: 60
   targetCenter: 20
   BugCooldownMeter: 0
   BugCooldownMeterMax: 100
   BugCooldownRate: 10
-  unBugged: 0
-  _IsInfested: 0
   isPlanted: 0
 --- !u!65 &2060848120
 BoxCollider:
@@ -67153,17 +67157,31 @@ MonoBehaviour:
   PlantSadBGTexture: {fileID: -519315468, guid: b3555b7d5edbf72409846ff8e1151499, type: 3}
   Untilled: {fileID: 1516541659}
   Tilled: {fileID: 228216727}
+  HeatDeath: []
+  TyphoonDeath: []
+  BugDeath: []
   currentSeed: {fileID: 11400000, guid: 8c922d3a85b7e8f42b8cfd32884e40c9, type: 2}
   currentStage: 0
+  cropGrowth: 0
   name: 
   cropHP: 0
   wonMinigame: 0
   hasNoBadStats: 0
+  unBugged: 0
+  _IsInfested: 0
   le_realname: 
   cropMoisture: 0
   soilQuality: 0
   soilMoisture: 0
   soilSoftness: 0
+  seasonOutput: 
+  cycleOutput: 
+  weatherOutput: 
+  bugInfestation: 
+  seasonIndex: 0
+  cycleIndex: 0
+  weatherIndex: 0
+  bugIndex: 0
   Waterlogged: 0
   WaterCleared: 0
   WaterloggedMeter: 0
@@ -67173,27 +67191,15 @@ MonoBehaviour:
   WaterDuration: 0
   Water: {fileID: 171022335}
   Bugging: {fileID: 1048112111}
-  seasonOutput: 
-  cycleOutput: 
-  weatherOutput: 
-  bugInfestation: 
-  seasonIndex: 0
-  cycleIndex: 0
-  weatherIndex: 0
-  bugIndex: 0
   isplantable: 0
   centerPoint: 20
   reductionFactor: 0.3
   recoveryAmountPerTick: 2
   closetothecenter: 40
-  minSafe: -20
-  maxSafe: 60
   targetCenter: 20
   BugCooldownMeter: 0
   BugCooldownMeterMax: 100
   BugCooldownRate: 10
-  unBugged: 0
-  _IsInfested: 0
   isPlanted: 0
 --- !u!65 &2081353976
 BoxCollider:
