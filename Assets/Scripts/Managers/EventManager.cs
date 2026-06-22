@@ -49,7 +49,7 @@ public class EventManager : MonoBehaviour
         isInfested = _infestationStart;
         TickManager.OnEventTick += delegate (object sender, TickManager.OnTickEventArgs e)
         {
-            Debug.Log("Tick: " + e.tick);
+            //Debug.Log("Tick: " + e.tick);
         };
 
         TickManager.OnEventTick += TickManager_OnEventTick;

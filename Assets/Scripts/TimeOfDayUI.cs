@@ -98,7 +98,7 @@ public class TimeOfDayUI : MonoBehaviour
             UpdateSeasons();
         }
 
-        Debug.Log($"Current Time: {currentTime:0} | Days Passed: {daysPassed} | Dry Season? {isDrySeason}");
+        //Debug.Log($"Current Time: {currentTime:0} | Days Passed: {daysPassed} | Dry Season? {isDrySeason}");
     }
  
     private void UpdateSeasons()

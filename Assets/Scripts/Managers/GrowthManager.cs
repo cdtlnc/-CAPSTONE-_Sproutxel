@@ -19,15 +19,22 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
     [SerializeField] public GameObject Untilled;
     [SerializeField] public GameObject Tilled;
 
+    [Header("HeatHaze Death Animations")]
+    [SerializeField] public Sprite[] HeatDeath, TyphoonDeath, BugDeath;
+
+
     [Header("Live Growth Debugger (Visible for Testing)")]
     [SerializeField] public SeedData currentSeed;
     [SerializeField] private int currentStage = 0;
     [SerializeField] private float cropGrowth;
+    private float[] growthThresholds = new float[] { 0f, 2f, 4f, 6f, 14f };
 
     [Header("Plant Stats")]
     [SerializeField] public string name;
     [SerializeField] private float cropHP;
     [SerializeField] private bool wonMinigame, hasNoBadStats;
+    [SerializeField] bool unBugged;
+    [SerializeField] bool _IsInfested;
     [SerializeField] public string le_realname;
 
     [Header("Crop Moisture")]
@@ -42,6 +49,17 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
     [Header("Soil Softness")]
     [SerializeField] private float soilSoftness;
 
+    [Header("Seed Class")]
+    [SerializeField] string seasonOutput;
+    [SerializeField] string cycleOutput;
+    [SerializeField] string weatherOutput;
+    [SerializeField] string bugInfestation;
+
+    [SerializeField] int seasonIndex;
+    [SerializeField] int cycleIndex;
+    [SerializeField] int weatherIndex;
+    [SerializeField] int bugIndex;
+
     [Header("Crop Mechanics")]
     [SerializeField] private bool Waterlogged;
     [SerializeField] private bool WaterCleared;
@@ -53,16 +71,7 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
     [SerializeField] private GameObject Water;
     [SerializeField] private GameObject Bugging;
 
-    [Header("Seed Class")]
-    [SerializeField] string seasonOutput;
-    [SerializeField] string cycleOutput;
-    [SerializeField] string weatherOutput;
-    [SerializeField] string bugInfestation;
-
-    [SerializeField] int seasonIndex;
-    [SerializeField] int cycleIndex;
-    [SerializeField] int weatherIndex;
-    [SerializeField] int bugIndex;
+    
 
     [Header("Item Checker")]
     [SerializeField] private bool isplantable;
@@ -85,8 +94,7 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
     [SerializeField] float BugCooldownMeter;
     [SerializeField] float BugCooldownMeterMax = 100f;
     [SerializeField] float BugCooldownRate = 10;
-    [SerializeField] bool unBugged;
-    [SerializeField] bool _IsInfested;
+
 
     // Direct link to the math backend script
     public BasePlant plantSimulationInstance;
@@ -167,36 +175,32 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
         // LINE ADDED HERE: Run real-time condition evaluation checks
         //EvaluatePlotHealth();
        
-        GetMogged();
+      
         UpdatePlantSprite();
-        Debug.Log("Coming up on Waterlogged");
-
-        Debug.Log("Passed Waterlogged");
-        Debug.Log("Pickle  " + plantSimulationInstance.stats.seasonalAffinities[seasonIndex] + " " + plantSimulationInstance.stats.weatherAffinities[weatherIndex] + " " + plantSimulationInstance.stats.cycleAffinities[cycleIndex]);
+       
     }
 
     public void UpdateGrowth()
     {
-        // Map the 0-10 growth value to my sprite array frames
+
         if (currentSeed.growthStages == null || currentSeed.growthStages.Length == 0) return;
 
-        int totalSpritesAvailable = currentSeed.growthStages.Length; //How many sprites there are
-        int finalStageIndex = totalSpritesAvailable - 1;
+        float currentGrowth = plantSimulationInstance.cropGrowth;
+        int targetStage = 0;
 
-        // If I only put 1 sprite total, index is always 0. Otherwise, do the math.
-        if (finalStageIndex > 0)
+        // Loop through thresholds and find the highest one the plant has passed
+        for (int i = 0; i < growthThresholds.Length; i++)
         {
-            // Convert 0.0 - 10.0 scale to a percentage for the current sprite index
-            float growthRatio = plantSimulationInstance.cropGrowth / 10f;
-            int targetStage = Mathf.FloorToInt(growthRatio * finalStageIndex);
+            // Make sure we don't look for a threshold past our available sprites
+            if (i >= currentSeed.growthStages.Length) break;
 
-            // Keep it safe so it never breaks or goes out of bounds
-            currentStage = Mathf.Clamp(targetStage, 0, finalStageIndex);
+            if (currentGrowth >= growthThresholds[i])
+            {
+                targetStage = i;
+            }
         }
-        else
-        {
-            currentStage = 0;
-        }
+
+        currentStage = targetStage;
     }
 
     // Tapping/clicking the plot to harvest
@@ -306,18 +310,7 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
     }
 
     //User Shovel
-    void ResetPlot()
-    {
-        unBug();
-        isPlanted = false;
-        currentSeed = null;
-        plantSimulationInstance = null;
-        currentStage = 0;
-        UpdatePlantSprite();
-        if (plantRenderer != null) plantRenderer.sprite = null;
-        disableSadParts();
-        IsNotPlantable();
-    }
+  
 
     private void FixedUpdate()
     {
@@ -342,24 +335,9 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
         soilSoftness = plantSimulationInstance.soilSoftness;
     }
 
-    public void winMinigame()
-    {
-     
-        AudioManager.instance.Play("WinMinigame");
-        SuperCharge();
-        IsNotPlantable(); //Used to make sure the soil tiller is used
-        ResetPlot();
-    }
+   
 
-    public void LoseMinigame()
-    {
-        AudioManager.instance.Play("LoseMinigame");
-        GoalManager goalManager = Object.FindFirstObjectByType<GoalManager>();
-        int yield = plantSimulationInstance.GetCropYield();
-        goalManager.AddCrop(currentSeed.cropName, yield / 2);
-        IsNotPlantable(); //Used to make sure the soil tiller is used
-        ResetPlot();
-    }
+ 
 
     // --- LINKED MINIGAME STAT RESOLUTION ROUTINES ---
     // --- LINKED MINIGAME STAT RESOLUTION ROUTINES ---
@@ -475,21 +453,7 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
 
     }
 
-    public void plantableornot()
-    {
-        if (isplantable)
-        {
-
-            Untilled.SetActive(false);
-            Tilled.SetActive(true);
-        }
-        else
-        {
-            Tilled.SetActive(false);
-            Untilled.SetActive(true);
-        }
-        
-    }
+   
 
     public void ResolveMinigameLose(MinigameType type)
     {
@@ -593,10 +557,7 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
         PlantSadFG.color = new Color(1f, 1f, 1f, 0f);
     }
 
-    public void MoistureCleanse()
-    {
-
-    }
+   
 
     
     public void CheckInfestation()
@@ -624,6 +585,18 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
             plantSimulationInstance.bugIndex = bugIndex;
             Bugging.SetActive(false);
             _IsInfested = false;
+        }
+    }
+    public void checkDead()
+    {
+        if (cropHP <= 0)
+        {
+            ResetPlot();
+
+        }
+        if (plantSimulationInstance.cropGrowth==15f)
+        {
+            ResetPlot();
         }
     }
     public void UnBugCountdown()
@@ -668,14 +641,7 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
         }
     }
 
-    public void checkDead()
-    {
-        if (cropHP <= 0)
-        {
-            ResetPlot();
-            
-        }
-    }
+
 
     public void CheckDay()
     {
@@ -696,7 +662,7 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
     public void IsWaterLogged()
     {
         if (WaterDuration > 0) return;
-        Debug.Log("Entered is waterlogged");
+        //Debug.Log("Entered is waterlogged");
         if (!TimeOfDayUI.isDrySeason)
         {
             Debug.Log("Adding To Waterlogged");
@@ -709,7 +675,7 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
             Waterlogged = true;
             WaterCleared = true;
         }
-        Debug.Log("Water Logged Meter: " + WaterloggedMeter);
+        //Debug.Log("Water Logged Meter: " + WaterloggedMeter);
     }
     public void DecreaseWaterlogged()
     {
@@ -739,6 +705,37 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
         _IsInfested=false;
     }
 
+
+
+   
+    public void IsNotPlantable()
+    {
+        isplantable = false;
+        plantableornot();
+    }
+    void ResetPlot()
+    {
+        unBug();
+        isPlanted = false;
+        currentSeed = null;
+        plantSimulationInstance = null;
+        currentStage = 0;
+        UpdatePlantSprite();
+        if (plantRenderer != null) plantRenderer.sprite = null;
+        disableSadParts();
+        IsNotPlantable();
+    }
+    public void HarvestPlant() // New Shovel
+    {
+        if (!isPlanted) return;
+        int yieldAmount = plantSimulationInstance.GetCropYield();
+        GoalManager goalManager = Object.FindFirstObjectByType<GoalManager>();
+        goalManager.AddCrop(currentSeed.cropName, yieldAmount);
+        Debug.Log("Plant Harvested");
+        IsNotPlantable();
+        ResetPlot(); // Cleanly clear the plot out instantly
+    }
+
     public void RefreshPlot()
     {
         Debug.Log("YOU HAVE BEEN SOIL TILLED");
@@ -746,27 +743,22 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
         plantableornot();
     }
 
-    public void IsNotPlantable()
-    {
-        isplantable = false;
-        plantableornot();
-    }
+    
 
-    public void RemovePlant()
+    public void plantableornot()
     {
-        unBug();
-        ResetPlot();
-        IsNotPlantable();
-    }
+        if (isplantable)
+        {
 
-    public void HarvestPlant()
-    {
-     
-        int yieldAmount = plantSimulationInstance.GetCropYield();
-        GoalManager goalManager = Object.FindFirstObjectByType<GoalManager>();
-        goalManager.AddCrop(currentSeed.cropName, yieldAmount);
-        IsNotPlantable();
-        ResetPlot(); // Cleanly clear the plot out instantly
+            Untilled.SetActive(false);
+            Tilled.SetActive(true);
+        }
+        else
+        {
+            Tilled.SetActive(false);
+            Untilled.SetActive(true);
+        }
+
     }
 
     //Fertilizer, Super Yield
@@ -775,28 +767,8 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
         GoalManager goalManager = Object.FindFirstObjectByType<GoalManager>();
         int super_yield = plantSimulationInstance.GetMaxYield();
         goalManager.AddCrop(currentSeed.cropName, super_yield);
-        RemovePlant();
+        ResetPlot();
         IsNotPlantable();
     }
 
-    public void GetMogged()
-    {
-        Debug.Log(
-            "LOOK!!!!!\n" +
-            "Season: " + seasonOutput + " | Resistance: " + plantSimulationInstance.stats.seasonalAffinities[seasonIndex] + "\n"
-            + "Day: " + cycleOutput + " | Resistance: " + plantSimulationInstance.stats.cycleAffinities[cycleIndex] + "\n"
-            + "Weather Event: " + weatherOutput + " | Resistance: " + plantSimulationInstance.stats.weatherAffinities[weatherIndex] + "\n"
-            + "Infested: " + bugInfestation + " | Resistance: " + plantSimulationInstance.stats.bugResistances[bugIndex] + "\n"
-
-            + "Crop HP: " + plantSimulationInstance.cropHP + "\n"
-            + "Crop Moisture: " + plantSimulationInstance.cropMoisture + "\n"
-            + "Crop Growth: " + plantSimulationInstance.cropGrowth + "\n"
-            + "Soil Quality: " + plantSimulationInstance.soilQuality + "\n"
-            + "Soil Moisture: " + plantSimulationInstance.soilMoisture + "\n"
-            + "Soil Softness: " + plantSimulationInstance.soilSoftness + "\n"
-            + "Harvest Quality: " + plantSimulationInstance.harvestQuality + "\n"
-            + "Crop Yield: " + plantSimulationInstance.GetCropYield() + "\n"
-            + "Is Water logged?" + Waterlogged
-        );
-    }
 }

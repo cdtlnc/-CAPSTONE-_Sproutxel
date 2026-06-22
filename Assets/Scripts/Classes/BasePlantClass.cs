@@ -168,7 +168,7 @@ public class BasePlant
         float maxCropGrowth = stats.standardGrowthSpeed * 2;
 
         cropGrowth += rawCropGrowth * stats.seasonalAffinities[seasonIndex] * stats.weatherAffinities[weatherIndex] * stats.cycleAffinities[dayIndex] / maxCropGrowth;
-        cropGrowth = Mathf.Clamp(cropGrowth, 0f, 10f); // At the worst case scenario, we want the plant to stop growing instead of reversing in growth. To achieve this, we set its minimum value to 0.
+        cropGrowth = Mathf.Clamp(cropGrowth, 0f, 15f); // At the worst case scenario, we want the plant to stop growing instead of reversing in growth. To achieve this, we set its minimum value to 0.
     }
 
     public void GetHarvestQuality() // This uses cropHP and soilQuality to get the harvestQuality.

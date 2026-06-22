@@ -69,7 +69,7 @@ public class ItemManager : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 
                         case "Shovel":
                             AudioManager.instance.Play("Shovel");
-                            growthScript.RemovePlant();
+                            growthScript.HarvestPlant();
                             actionSuccessful = true;
                             break;
 
