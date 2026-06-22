@@ -513,7 +513,14 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
             PlantSadFG.color = new Color(1f, 1f, 1f, 0f);
             PlantSadBG.color = new Color(1f, 1f, 1f, 0f);
         }
-    }
+
+
+        if (cropMoisture >= 100f || cropMoisture <= -100f || soilQuality >= 100f || soilQuality <= -100f || soilMoisture >= 100f || soilMoisture <= -100f || soilSoftness >= 100f || soilSoftness <= -100f )
+        {
+            ResetPlot();// Kill plant
+        }
+
+        }
 
 
     /// <summary>
@@ -587,24 +594,14 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
             _IsInfested = false;
         }
     }
-    public void checkDead()
-    {
-        if (cropHP <= 0)
-        {
-            ResetPlot();
-
-        }
-        if (plantSimulationInstance.cropGrowth==15f)
-        {
-            ResetPlot();
-        }
-    }
+ 
     public void UnBugCountdown()
     {
         BugCooldownMeter -= BugCooldownRate;
     }
     public void CheckWeather()
     {
+        if (!isPlanted) return;
         switch (EventManager._weatherEvent)
         {
             case 0:
@@ -705,9 +702,21 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
         _IsInfested=false;
     }
 
+    public void checkDead() // For Health and Growth
+    {
+        if (cropHP <= 0)
+        {
+            ResetPlot();
+
+        }
+        if (plantSimulationInstance.cropGrowth == 15f)
+        {
+            ResetPlot();
+        }
+    }
 
 
-   
+
     public void IsNotPlantable()
     {
         isplantable = false;

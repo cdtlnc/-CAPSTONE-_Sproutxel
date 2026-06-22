@@ -9,7 +9,9 @@ public class EventManager : MonoBehaviour
     [SerializeField] private int _infestationOdds;
     [SerializeField] private int _infestationChances;
     [SerializeField] private bool _infestationStart;
+
     [SerializeField] private bool dontChangeWeather;
+    [SerializeField] private bool dontGetInfested;
 
 
     [Header("Weather Parameters")]
@@ -90,13 +92,17 @@ public class EventManager : MonoBehaviour
 
           
         }
-        if (_infestationTimer >= _infestationCooldown)
+        if (!dontGetInfested)
         {
-            Debug.Log("Bug infestation cooldown over!");
-            _infestationTimer = 0;
-            CalcInfestationOdds();
-            RollForBugInfestations();
+            if (_infestationTimer >= _infestationCooldown)
+            {
+                Debug.Log("Bug infestation cooldown over!");
+                _infestationTimer = 0;
+                CalcInfestationOdds();
+                RollForBugInfestations();
+            }
         }
+      
 
         // Update the screen state once at the end of the tick loop
         UpdateEssentialsUI();
