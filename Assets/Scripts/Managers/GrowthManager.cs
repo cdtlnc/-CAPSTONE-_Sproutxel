@@ -22,6 +22,7 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
     [Header("Live Growth Debugger (Visible for Testing)")]
     [SerializeField] public SeedData currentSeed;
     [SerializeField] private int currentStage = 0;
+    [SerializeField] private float cropGrowth;
 
     [Header("Plant Stats")]
     [SerializeField] public string name;
@@ -67,8 +68,8 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
     [SerializeField] private bool isplantable;
 
     [Header("Safety Net")]
-         float maxLimit = 60f;
-         float minLimit = -60f;
+         float maxLimit = 50f;
+         float minLimit = -50f;
     [SerializeField] float centerPoint = 20f; // The middle of your -20 to 60 sweet spot
 
     // Changing this to 0.3f brings the stat well inside the safe harvest zone
@@ -76,8 +77,8 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
     [SerializeField] float recoveryAmountPerTick = 2f;
     [SerializeField] float closetothecenter = 40f;
     [Header("Stat Paremeters")]
-    [SerializeField] float minSafe = -20f;
-    [SerializeField] float maxSafe = 60f;
+     float minSafe = -50f;
+     float maxSafe = 50f;
      float recoveryRate = 1f; // How many points it recovers per tick
     [SerializeField] float targetCenter = 20f;
     
@@ -155,14 +156,31 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
             plantSimulationInstance.GetSoilQuality();
 
             plantSimulationInstance.GetHealth();
-            plantSimulationInstance.GetGrowth();
+            plantSimulationInstance.GetGrowth();// THis is whats causing the growth
             plantSimulationInstance.GetHarvestQuality();
+            cropGrowth=plantSimulationInstance.cropGrowth;
         }
+        if (currentSeed.growthStages == null || currentSeed.growthStages.Length == 0) return;
+        UpdateGrowth();
 
+
+        // LINE ADDED HERE: Run real-time condition evaluation checks
+        //EvaluatePlotHealth();
+       
+        GetMogged();
+        UpdatePlantSprite();
+        Debug.Log("Coming up on Waterlogged");
+
+        Debug.Log("Passed Waterlogged");
+        Debug.Log("Pickle  " + plantSimulationInstance.stats.seasonalAffinities[seasonIndex] + " " + plantSimulationInstance.stats.weatherAffinities[weatherIndex] + " " + plantSimulationInstance.stats.cycleAffinities[cycleIndex]);
+    }
+
+    public void UpdateGrowth()
+    {
         // Map the 0-10 growth value to my sprite array frames
         if (currentSeed.growthStages == null || currentSeed.growthStages.Length == 0) return;
 
-        int totalSpritesAvailable = currentSeed.growthStages.Length;
+        int totalSpritesAvailable = currentSeed.growthStages.Length; //How many sprites there are
         int finalStageIndex = totalSpritesAvailable - 1;
 
         // If I only put 1 sprite total, index is always 0. Otherwise, do the math.
@@ -179,30 +197,18 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
         {
             currentStage = 0;
         }
-
-
-        // LINE ADDED HERE: Run real-time condition evaluation checks
-        //EvaluatePlotHealth();
-       
-        GetMogged();
-        UpdatePlantSprite();
-        Debug.Log("Coming up on Waterlogged");
-
-        Debug.Log("Passed Waterlogged");
-        Debug.Log("Pickle  " + plantSimulationInstance.stats.seasonalAffinities[seasonIndex] + " " + plantSimulationInstance.stats.weatherAffinities[weatherIndex] + " " + plantSimulationInstance.stats.cycleAffinities[cycleIndex]);
     }
 
     // Tapping/clicking the plot to harvest
     public void OnPointerClick(PointerEventData eventData)
     {
         Debug.Log("[STEP 1] Entering Harvesting");
-        if (!isPlanted || currentSeed == null || currentSeed.growthStages == null || currentSeed.growthStages.Length == 0) return;
+        if (!isPlanted || currentSeed == null || currentSeed.growthStages == null) return;
 
         int lastConfiguredStageIndex = currentSeed.growthStages.Length - 1;
         int MatureStageIndex = currentSeed.growthStages.Length - 2;
         Debug.Log("[STEP 2] Entering Mature Stage");
-        if (currentStage == MatureStageIndex || currentStage == lastConfiguredStageIndex)
-        {
+       
             int yieldAmount = 0;
 
             if (plantSimulationInstance.stats == null)
@@ -215,23 +221,15 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
                 yieldAmount = plantSimulationInstance.GetCropYield();
                 Debug.Log($"Harvested {yieldAmount} items of {currentSeed.cropName}!");
             }
+
             Debug.Log("[STEP 3] Looking for Goal Manager");
             GoalManager goalManager = Object.FindFirstObjectByType<GoalManager>();
             Debug.Log("[STEP 4] Found Goal Manager");
-            if (goalManager != null && yieldAmount > 0)
+
+            if (goalManager != null)
+            if (goalManager != null)
             {
-                // CASE 1: The plant is perfectly healthy (No Bad Stats)
-                if (hasNoBadStats)
-                {
-                    Debug.Log("[STEP 5] Has No Bad Stats");
-                    // Directly pass the total yieldAmount ONCE, no loops needed
-                    goalManager.AddCrop(currentSeed.cropName, yieldAmount);
-                    IsNotPlantable();
-                    ResetPlot(); // Cleanly clear the plot out instantly
-                }
-                // CASE 2: The plant has issues and needs maintenance pop-up window
-                else
-                {
+                
                     Debug.Log("[STEP 5.B] Has Bad Stats");
                     MaintenencePopUp ui = Object.FindFirstObjectByType<MaintenencePopUp>();
                     if (ui != null)
@@ -239,14 +237,10 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
                         Debug.Log("[STEP 6] Opening UI");
                         ui.OpenWindow(this); // Opens the window exactly ONCE
                     }
-                }
+                
             }
-            else
-            {
-                Debug.Log("[STEP 5.C] Found Checking if Dead");
-                checkDead();
-            }
-        }
+           
+        
     }
 
     // Called by my drag and drop system to start planting
@@ -763,6 +757,16 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
         unBug();
         ResetPlot();
         IsNotPlantable();
+    }
+
+    public void HarvestPlant()
+    {
+     
+        int yieldAmount = plantSimulationInstance.GetCropYield();
+        GoalManager goalManager = Object.FindFirstObjectByType<GoalManager>();
+        goalManager.AddCrop(currentSeed.cropName, yieldAmount);
+        IsNotPlantable();
+        ResetPlot(); // Cleanly clear the plot out instantly
     }
 
     //Fertilizer, Super Yield
