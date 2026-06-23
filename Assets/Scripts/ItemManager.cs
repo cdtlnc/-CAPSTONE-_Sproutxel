@@ -41,68 +41,69 @@ public class ItemManager : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
     {
         canvasGroup.blocksRaycasts = true;
         canvasGroup.alpha = 1f;
-        if (maxPickTime <= 0) return;
-        // Use a LayerMask if your plant colliders are blocking the ground raycast
-        // Replace "Default" with whatever layer your Soil object uses
-        int groundLayerMask = LayerMask.GetMask("Default");
 
-        Ray ray = Camera.main.ScreenPointToRay(eventData.position);
-
-        // Perform raycast using the layer mask to isolate the soil
-        if (Physics.Raycast(ray, out RaycastHit hit, 5000f, groundLayerMask))
+        if (maxPickTime > 0)
         {
-            if (hit.collider.CompareTag("Soil"))
+            // Use a LayerMask if your plant colliders are blocking the ground raycast
+            // Replace "Default" with whatever layer your Soil object uses
+            int groundLayerMask = LayerMask.GetMask("Default");
+
+            Ray ray = Camera.main.ScreenPointToRay(eventData.position);
+
+            // Perform raycast using the layer mask to isolate the soil
+            if (Physics.Raycast(ray, out RaycastHit hit, 5000f, groundLayerMask))
             {
-                GrowthManager growthScript = hit.collider.GetComponent<GrowthManager>();
-
-                if (growthScript != null&&maxPickTime!=0||maxPickTime!<=0)
+                if (hit.collider.CompareTag("Soil"))
                 {
-                    bool actionSuccessful = false;
+                    GrowthManager growthScript = hit.collider.GetComponent<GrowthManager>();
 
-                    switch (gameObject.tag)
+                    if (growthScript != null)
                     {
-                        case "Soil Adder":
-                            AudioManager.instance.Play("SoilAddler");
-                            growthScript.WaterClear();
-                            actionSuccessful = true;
-                            break;
+                        bool actionSuccessful = false;
 
-                        case "Shovel":
-                            AudioManager.instance.Play("Shovel");
-                            growthScript.HarvestPlant();
-                            actionSuccessful = true;
-                            break;
-
-                        case "Soil Tiller":
-                            AudioManager.instance.Play("SoilTiller");
-                            growthScript.RefreshPlot();
-                            actionSuccessful = true;
-                            break;
-
-                        case "Pesticide":
-                            // Safely apply pesticide to the soil slot
-                            AudioManager.instance.Play("PesticideSpray");
-                            growthScript.unBug();
-                            actionSuccessful = true;
-                            break;
-
-                        case "Fertilizer":
-                            AudioManager.instance.Play("Fertilizer");
-                            growthScript.SuperCharge();
-                            actionSuccessful = true;
-                            break;
-                    }
-
-                    // Only consume an item charge if a tool action actually fired
-                    if (actionSuccessful&&decreaseUsage)
-                    {
-                      
-                        if(decreaseUsage)
+                        switch (gameObject.tag)
                         {
-                            maxPickTime--;
-                            numberofUses.text = "" + maxPickTime;
+                            case "Soil Adder":
+                                AudioManager.instance.Play("SoilAddler");
+                                growthScript.WaterClear();
+                                actionSuccessful = true;
+                                break;
+
+                            case "Shovel":
+                                AudioManager.instance.Play("Shovel");
+                                growthScript.HarvestPlant();
+                                actionSuccessful = true;
+                                break;
+
+                            case "Soil Tiller":
+                                AudioManager.instance.Play("SoilTiller");
+                                growthScript.RefreshPlot();
+                                actionSuccessful = true;
+                                break;
+
+                            case "Pesticide":
+                                // Safely apply pesticide to the soil slot
+                                AudioManager.instance.Play("PesticideSpray");
+                                growthScript.unBug();
+                                actionSuccessful = true;
+                                break;
+
+                            case "Fertilizer":
+                                AudioManager.instance.Play("Fertilizer");
+                                growthScript.SuperCharge();
+                                actionSuccessful = true;
+                                break;
                         }
-                     
+
+                        // Only consume an item charge if a tool action actually fired
+                        if (actionSuccessful&&decreaseUsage)
+                        {
+                            if(decreaseUsage)
+                            {
+                                maxPickTime--;
+                                numberofUses.text = "" + maxPickTime;
+                            }
+                        }
                     }
                 }
             }
@@ -112,5 +113,5 @@ public class ItemManager : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
         transform.SetParent(originalParent);
         transform.position = startPos;
     }
-  
+
 }
