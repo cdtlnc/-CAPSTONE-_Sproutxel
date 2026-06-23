@@ -14,14 +14,24 @@ public class NettingProtectionMinigame : MinigameBase
     [SerializeField] private RectTransform lineContainer;
     [SerializeField] private TMP_Text timerText;
 
+    [Header("Anchor Pool / Difficulty")]
+    [SerializeField] private int minAnchorCount = 4;
+    [SerializeField] private int maxAnchorCount = 6;
+
+    [Header("Random Ring Placement")]
+    [SerializeField] private RectTransform ringCenter;
+    [SerializeField] private float ringRadius = 220f;
+    [SerializeField] private float radiusJitter = 40f;
+    [SerializeField] private float angleJitter = 15f;
+
     [Header("Netting Parameters")]
     [SerializeField] private float _timeLeft;
-    [SerializeField] private List<RectTransform> _anchors = new List<RectTransform>();
+    [SerializeField] private List<RectTransform> _allAnchors = new List<RectTransform>();
+    [SerializeField] private List<RectTransform> _activeAnchors = new List<RectTransform>();
     [SerializeField] private int _nextAnchor = 0;
     [SerializeField] private bool _dragging = false;
     [SerializeField] private Vector2 _dragStart;
     [SerializeField] private GameObject _activeLine;
-    [SerializeField] private int anchorcount;
 
     [Header("Netting Visuals")]
     [SerializeField] private Sprite lineTexture;
@@ -34,20 +44,23 @@ public class NettingProtectionMinigame : MinigameBase
         CancelInvoke(nameof(DisableThisPanel));
         ResetMinigame();
 
-        if (_anchors.Count == 0)
+        if (_allAnchors.Count == 0)
         {
             Debug.LogWarning("[NettingProtection] No anchors found in AnchorContainer.");
             EndGame(false);
             return;
         }
 
+        PickActiveAnchorSubset();
+        RandomizeAnchorPositions();
         HighlightNextAnchor();
+
         if (resultText != null) resultText.gameObject.SetActive(false);
-     
+
         if (instructionText != null)
         {
             instructionText.gameObject.SetActive(true);
-            instructionText.text = "Connect all the anchor points around the plant!";
+            instructionText.text = "Connect the anchor points in order!";
         }
     }
 
@@ -55,22 +68,83 @@ public class NettingProtectionMinigame : MinigameBase
     {
         ResetGame();
         _timeLeft = gameDuration;
-        _anchors.Clear();
         _nextAnchor = 0;
         _dragging = false;
 
+        _allAnchors.Clear();
         foreach (RectTransform child in anchorContainer)
-            _anchors.Add(child);
+            _allAnchors.Add(child);
 
         if (lineContainer)
         {
             for (int i = lineContainer.transform.childCount - 1; i >= 0; i--)
-            {
                 Destroy(lineContainer.transform.GetChild(i).gameObject);
-            }
         }
         _lines.Clear();
-    }private void DisableThisPanel()
+        _activeAnchors.Clear();
+    }
+
+    private void PickActiveAnchorSubset()
+    {
+        int count = Random.Range(minAnchorCount, maxAnchorCount + 1);
+        count = Mathf.Clamp(count, 1, _allAnchors.Count);
+
+        _activeAnchors.Clear();
+
+        for (int i = 0; i < _allAnchors.Count; i++)
+        {
+            bool isActive = i < count;
+            _allAnchors[i].gameObject.SetActive(isActive);
+
+            if (isActive)
+                _activeAnchors.Add(_allAnchors[i]);
+        }
+
+        Debug.Log($"[NettingProtection] Round using {count} anchors.");
+    }
+
+    private void RandomizeAnchorPositions()
+    {
+        if (ringCenter == null)
+        {
+            Debug.LogWarning("[NettingProtection] No Ring Center assigned — anchors will use their existing positions.");
+            return;
+        }
+
+        int count = _activeAnchors.Count;
+
+        // Build a list of evenly-spaced ring slot angles then shuffle the order in which anchors are assigned to those slots.
+        List<int> slotOrder = new List<int>(count);
+        for (int i = 0; i < count; i++) slotOrder.Add(i);
+        ShuffleList(slotOrder);
+
+        float baseAngle = 360f / count;
+        float startOffset = Random.Range(0f, 360f);
+
+        for (int i = 0; i < count; i++)
+        {
+            int slot = slotOrder[i]; // which ring position this anchor (in sequence order) gets
+            float angle = startOffset + (baseAngle * slot) + Random.Range(-angleJitter, angleJitter);
+            float radius = ringRadius + Random.Range(-radiusJitter, radiusJitter);
+
+            float radians = angle * Mathf.Deg2Rad;
+            Vector2 offset = new Vector2(Mathf.Cos(radians), Mathf.Sin(radians)) * radius;
+
+            _activeAnchors[i].anchoredPosition = ringCenter.anchoredPosition + offset;
+        }
+    }
+
+    // Fisher-Yates shuffle
+    private void ShuffleList(List<int> list)
+    {
+        for (int i = list.Count - 1; i > 0; i--)
+        {
+            int j = Random.Range(0, i + 1);
+            (list[i], list[j]) = (list[j], list[i]);
+        }
+    }
+
+    private void DisableThisPanel()
     {
         Debug.Log("Disabling NettingProtection Minigame");
         transform.parent.gameObject.SetActive(false);
@@ -105,7 +179,7 @@ public class NettingProtectionMinigame : MinigameBase
 
         if (pressed && !_dragging)
         {
-            RectTransform target = _anchors[_nextAnchor];
+            RectTransform target = _activeAnchors[_nextAnchor];
             if (RectTransformUtility.RectangleContainsScreenPoint(target, screenPos))
             {
                 _dragging = true;
@@ -121,28 +195,38 @@ public class NettingProtectionMinigame : MinigameBase
         {
             _dragging = false;
 
-            int nextIdx = (_nextAnchor + 1) % _anchors.Count;
-            RectTransform dest = _anchors[nextIdx];
+            bool isLastAnchor = _nextAnchor >= _activeAnchors.Count - 1;
 
-            if (RectTransformUtility.RectangleContainsScreenPoint(dest, screenPos))
-            {
-                UpdateLine(_activeLine, GetAnchorScreenPos(_anchors[_nextAnchor]), GetAnchorScreenPos(dest));
-                _lines.Add(_activeLine);
-                _activeLine = null;
-                AudioManager.instance.Play("ConnectingAnchor");
-                _nextAnchor = nextIdx;
-                HighlightNextAnchor();
-
-                if (_nextAnchor == 0 && _lines.Count >= _anchors.Count)
-                {
-                    EndGame(true);
-                    Invoke(nameof(DisableThisPanel), 1f);
-                }
-            }
-            else
+            if (isLastAnchor)
             {
                 if (_activeLine != null) Destroy(_activeLine);
                 _activeLine = null;
+            }
+            else
+            {
+                int nextIdx = _nextAnchor + 1;
+                RectTransform dest = _activeAnchors[nextIdx];
+
+                if (RectTransformUtility.RectangleContainsScreenPoint(dest, screenPos))
+                {
+                    UpdateLine(_activeLine, GetAnchorScreenPos(_activeAnchors[_nextAnchor]), GetAnchorScreenPos(dest));
+                    _lines.Add(_activeLine);
+                    _activeLine = null;
+                    AudioManager.instance.Play("ConnectingAnchor");
+                    _nextAnchor = nextIdx;
+                    HighlightNextAnchor();
+
+                    if (_nextAnchor >= _activeAnchors.Count - 1)
+                    {
+                        EndGame(true);
+                        Invoke(nameof(DisableThisPanel), 1f);
+                    }
+                }
+                else
+                {
+                    if (_activeLine != null) Destroy(_activeLine);
+                    _activeLine = null;
+                }
             }
         }
     }
@@ -186,9 +270,9 @@ public class NettingProtectionMinigame : MinigameBase
 
     private void HighlightNextAnchor()
     {
-        for (int i = 0; i < _anchors.Count; i++)
+        for (int i = 0; i < _activeAnchors.Count; i++)
         {
-            var img = _anchors[i].GetComponent<Image>();
+            var img = _activeAnchors[i].GetComponent<Image>();
             if (img == null) continue;
             img.color = (i == _nextAnchor) ? Color.yellow : Color.white;
         }

@@ -16058,13 +16058,19 @@ MonoBehaviour:
   anchorContainer: {fileID: 1634886760}
   lineContainer: {fileID: 1662031436}
   timerText: {fileID: 760326979}
+  minAnchorCount: 4
+  maxAnchorCount: 6
+  ringCenter: {fileID: 387966420}
+  ringRadius: 220
+  radiusJitter: 40
+  angleJitter: 15
   _timeLeft: 0
-  _anchors: []
+  _allAnchors: []
+  _activeAnchors: []
   _nextAnchor: 0
   _dragging: 0
   _dragStart: {x: 0, y: 0}
   _activeLine: {fileID: 0}
-  anchorcount: 5
   lineTexture: {fileID: 21300000, guid: 1ad519f250cdebf4caca002c9ec66cc0, type: 3}
   lineWidth: 20
 --- !u!1 &647412353
