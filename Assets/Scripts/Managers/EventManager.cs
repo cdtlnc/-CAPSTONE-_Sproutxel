@@ -40,6 +40,8 @@ public class EventManager : MonoBehaviour
     [SerializeField] private GameObject HeatDazeContainer;
     [SerializeField] private GameObject TyphoonContinaer;
     [SerializeField] private GameObject RainyContinaer;
+    [SerializeField] private Image WeatherText;
+    [SerializeField] private Sprite[] WeatherTextSprites;
 
     public static bool isInfested { get; private set; } = false;
     public static int _weatherEvent { get; private set; } = 0;
@@ -181,20 +183,24 @@ public class EventManager : MonoBehaviour
     {
         GameObject activeContainer = null;
         int targetIconIndex = 0;
+        int targetText = 2;
 
         // 1. Evaluate state based on weather events and seasonal conditions
         if (_weatherEvent == 2) // Typhoon Event active
         {
             activeContainer = TyphoonContinaer; // Main event identifier
             targetIconIndex = 1;                // Typhoon/Storm Icon
+            targetText = 1; 
         }
         else if (_weatherEvent == 1) // Heat Wave Event active
         {
             activeContainer = HeatDazeContainer;
-            targetIconIndex = 0;                 // Sunny Icon
+            targetIconIndex = 0;
+            targetText = 0; // Sunny Icon
         }
         else // Base weather clear (Checks seasonal state)
         {
+
             if (!TimeOfDayUI.isDrySeason) // Wet Season active (!isDrySeason)
             {
                 activeContainer = RainyContinaer;
@@ -211,6 +217,7 @@ public class EventManager : MonoBehaviour
         if (weatherIcon != null && weatherIcons != null && targetIconIndex < weatherIcons.Length)
         {
             weatherIcon.sprite = weatherIcons[targetIconIndex];
+            WeatherText.sprite = WeatherTextSprites[targetText];
         }
 
         // 3.MULTI - PANEL ACTIVATION RULES:

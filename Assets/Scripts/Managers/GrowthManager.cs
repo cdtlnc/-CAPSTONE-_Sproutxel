@@ -8,6 +8,7 @@ using UnityEditor.EditorTools;
 using UnityEngine.EventSystems;
 using UnityEngine;
 using Unity.VisualScripting;
+using System.Collections;
 
 public class GrowthManager : MonoBehaviour, IPointerClickHandler
 {
@@ -19,8 +20,10 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
     [SerializeField] public GameObject Untilled;
     [SerializeField] public GameObject Tilled;
 
-    [Header("HeatHaze Death Animations")]
-    [SerializeField] public Sprite[] HeatDeath, TyphoonDeath, BugDeath;
+    [Header("Weather Death Animations")]
+    [SerializeField] public Sprite[] HeatDeath, TyphoonDeath, Harvestable;
+    [SerializeField] public Sprite TyphoonBG;
+    [SerializeField] public Animator Anim;
 
 
     [Header("Live Growth Debugger (Visible for Testing)")]
@@ -620,8 +623,40 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
                 plantSimulationInstance.weatherIndex = weatherIndex;
                 break;
         }
+        WeatherAnimationPlayFG(weatherIndex);
     }
+    public void WeatherAnimationPlayFG(int play)
+    {
+        if (!isPlanted) return;
+        switch (play)
+        {
+            case 0:// HeatDaze
+                PlantSadFG.transform.localScale = new Vector3(0.02685377f, 0.01804939f, 0.03480541f);
+                break;
+            case 1://Typhoon
+                PlantSadFG.transform.localScale = new Vector3(0.01527228f, 0.01026505f, 0.01979453f);
+                break;
+           
+        }
+        Anim.SetInteger("WeatherCondition", play);
 
+    }
+    public void AnimationBG(int play)
+    {
+
+        if (!isPlanted) return;
+        switch (play)
+        {
+            case 0://DangerSign
+                PlantSadFG.transform.localScale = new Vector3(0.04057862f, 0.03080479f, 0.04490717f);
+                break;
+            case 1://Harvestable
+                PlantSadFG.transform.localScale = new Vector3(0.02421894f, 0.01838553f, 0.0268024f);
+                break;
+
+        }
+        Anim.SetInteger("BgConditions", play);
+    }
     public void CheckSeason()
     {
         if (TimeOfDayUI.isDrySeason)
