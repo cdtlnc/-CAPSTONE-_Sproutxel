@@ -23,7 +23,7 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
     [Header("Weather Death Animations")]
     [SerializeField] public Sprite[] HeatDeath, TyphoonDeath, Harvestable;
     [SerializeField] public Sprite TyphoonBG;
-    [SerializeField] public Animator Anim;
+    [SerializeField] public Animator ForeAnim,BackAnim;
 
 
     [Header("Live Growth Debugger (Visible for Testing)")]
@@ -82,6 +82,9 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
     [Header("Safety Net")]
          float maxLimit = 50f;
          float minLimit = -50f;
+
+    float maxRange = 100f;
+    float minRange = -100f;
     [SerializeField] float centerPoint = 20f; // The middle of your -20 to 60 sweet spot
 
     // Changing this to 0.3f brings the stat well inside the safe harvest zone
@@ -202,13 +205,18 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
                 targetStage = i;
                 if (currentGrowth >= growthThresholds[3])
                 {
-                    Anim.SetInteger("HarvestingTrigger", 1);
+                    PlantSadBG.color = new Color(1f, 1f, 1f, 1f);
+                    BackAnim.SetInteger("HarvestingTrigger", 1);
                 }
                
             }
         }
 
         currentStage = targetStage;
+        if (currentGrowth >= 12f)
+        {
+            AnimationBG();
+        }
     }
 
     // Tapping/clicking the plot to harvest
@@ -347,8 +355,7 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
 
  
 
-    // --- LINKED MINIGAME STAT RESOLUTION ROUTINES ---
-    // --- LINKED MINIGAME STAT RESOLUTION ROUTINES ---
+
     public void ResolveMinigameWin(MinigameType type)
     {
         Debug.Log($"Minigame {type} WON. Correcting stats on plot!");
@@ -490,6 +497,7 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
 
     private void CheckStats()
     {
+        
         if (!isPlanted || currentSeed == null || plantSimulationInstance == null)
         {
             hasNoBadStats = false;
@@ -511,21 +519,27 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
             soilSoftness < minLimit || soilSoftness > maxLimit)
         {
             hasNoBadStats = false;
-            PlantSadFG.color = new Color(1f, 1f, 1f, 1f);
-            PlantSadBG.color = new Color(1f, 1f, 1f, 1f);
+           
         }
         else
         {
             hasNoBadStats = true;
-            // Optionally clear the sad face overlay here if they are healthy
-            PlantSadFG.color = new Color(1f, 1f, 1f, 0f);
-            PlantSadBG.color = new Color(1f, 1f, 1f, 0f);
+        
+        
         }
 
 
-        if (cropMoisture >= 100f || cropMoisture <= -100f || soilQuality >= 100f || soilQuality <= -100f || soilMoisture >= 100f || soilMoisture <= -100f || soilSoftness >= 100f || soilSoftness <= -100f )
+        //Check if 100 of anything
+        if (cropMoisture >= maxRange || cropMoisture <= minRange || soilQuality >= maxRange || soilQuality <= minRange || soilMoisture >= maxRange || soilMoisture <= minRange || soilSoftness >= maxRange || soilSoftness <= minRange)
         {
             ResetPlot();// Kill plant
+        }
+        else if (cropMoisture >= maxLimit || cropMoisture <= minLimit || 
+            soilQuality >= maxLimit || soilQuality <= minLimit || 
+            soilMoisture >= maxLimit || soilMoisture <= minLimit || 
+            soilSoftness >= maxLimit || soilSoftness <= minLimit)
+        {
+            AnimationBG();
         }
 
         }
@@ -570,6 +584,8 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
     {
         PlantSadBG.color = new Color(1f, 1f, 1f, 0f);
         PlantSadFG.color = new Color(1f, 1f, 1f, 0f);
+        BackAnim.SetInteger("HarvestingTrigger", 0);
+        ForeAnim.SetInteger("WeatherTrigger", 0);
     }
 
    
@@ -632,33 +648,48 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
     }
     public void WeatherAnimationPlayFG(int play)
     {
+        
         if (!isPlanted) return;
         switch (play)
         {
             case 0:
-                
+                PlantSadFG.color = new Color(1f, 1f, 1f, 0f);
                 break;
             case 1:// HeatDaze
+                PlantSadFG.color = new Color(1f, 1f, 1f, 1f);
                 PlantSadFG.transform.localScale = new Vector3(0.02685377f, 0.01804939f, 0.03480541f);
                 break;
             case 2://Typhoon
+                PlantSadFG.color = new Color(1f, 1f, 1f, 1f);
                 PlantSadFG.transform.localScale = new Vector3(0.01527228f, 0.01026505f, 0.01979453f);
                 break;
            
         }
-        Anim.SetInteger("WeatherTrigger", play);
+        ForeAnim.SetInteger("WeatherTrigger", play);
 
     }
-    public void AnimationBG(int play)
+    public void AnimationBG()
     {
-
+        Debug.Log("Entered Animation BG");
+        float animationTimer = 0f;
         if (!isPlanted) return;
-       
-                plantRenderer.color = Color.Lerp(Color.white, Color.red, Mathf.PingPong(Time.deltaTime, 1));
-           
 
-        
-        
+       
+        Color end1 = Color.white;
+        Color end2 = new Color(255f / 255f, 77f / 255f, 77f / 255f);
+
+   
+        animationTimer += Time.deltaTime;
+
+      
+        float lerpPercentage = Mathf.PingPong(animationTimer * 2.0f, 1.0f);
+
+   
+        plantRenderer.color = Color.Lerp(end1, end2, lerpPercentage);
+
+        PlantSadFG.color = new Color(1f, 1f, 1f, 1f);
+        PlantSadFG.transform.localScale = new Vector3(0.01527228f, 0.01026505f, 0.01979453f);
+        ForeAnim.SetBool("Danger", true);
     }
     public void CheckSeason()
     {
@@ -763,8 +794,10 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
     void ResetPlot()
     {
         unBug();
-        Anim.SetInteger("HarvestingTrigger", 0);
-        Anim.SetInteger("WeatherTrigger", 0);
+        BackAnim.SetInteger("HarvestingTrigger", 0);
+        ForeAnim.SetInteger("WeatherTrigger", 0);
+
+        ForeAnim.SetBool("Danger", true);
         isPlanted = false;
         currentSeed = null;
         plantSimulationInstance = null;

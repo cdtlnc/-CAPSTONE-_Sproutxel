@@ -983,7 +983,7 @@ GameObject:
   - component: {fileID: 56224328}
   - component: {fileID: 56224327}
   m_Layer: 5
-  m_Name: Soil
+  m_Name: SoilMaintenenace
   m_TagString: Untagged
   m_Icon: {fileID: -5397416234189338067, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -2677,7 +2677,7 @@ Animator:
   m_GameObject: {fileID: 115637564}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 56c1ab2dc6bca844a8fd2700c8fb79ec, type: 2}
+  m_Controller: {fileID: 9100000, guid: d2f693478269d4a4794d10f19e91c6d5, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -3685,7 +3685,8 @@ MonoBehaviour:
   - {fileID: -2110200123, guid: 15a29dfb97a594d4a89eb100278f7cbb, type: 3}
   - {fileID: 325460591, guid: 15a29dfb97a594d4a89eb100278f7cbb, type: 3}
   TyphoonBG: {fileID: -267318199, guid: ca03d941a8b914f438a4bd64c03e69ff, type: 3}
-  Anim: {fileID: 616343404}
+  ForeAnim: {fileID: 1777189556}
+  BackAnim: {fileID: 115637567}
   currentSeed: {fileID: 11400000, guid: 8c922d3a85b7e8f42b8cfd32884e40c9, type: 2}
   currentStage: 0
   cropGrowth: 0
@@ -12310,7 +12311,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 616343403}
-  - component: {fileID: 616343404}
   - component: {fileID: 616343405}
   m_Layer: 0
   m_Name: Soil
@@ -12342,28 +12342,6 @@ Transform:
   - {fileID: 1059719577}
   m_Father: {fileID: 743334808}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &616343404
-Animator:
-  serializedVersion: 7
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 616343402}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: d2f693478269d4a4794d10f19e91c6d5, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!212 &616343405
 SpriteRenderer:
   serializedVersion: 2
@@ -36451,7 +36429,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 1346499787, guid: 55940aa6aab30354fb67d148df3cd4c5, type: 3}
+  m_Sprite: {fileID: -1410550861, guid: d811ce821d1eb7b49aa28fc21877c4fb, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -36471,7 +36449,7 @@ Animator:
   m_GameObject: {fileID: 1777189553}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 616fb667dd40e0541ae47f8a463f5461, type: 2}
+  m_Controller: {fileID: 9100000, guid: a90d2f1f50c43044996680ca5a830708, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
