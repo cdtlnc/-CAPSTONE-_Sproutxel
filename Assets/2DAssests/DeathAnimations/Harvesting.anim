@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Harvestable
+  m_Name: Harvesting
   serializedVersion: 7
   m_Legacy: 0
   m_Compressed: 0
@@ -24,28 +24,28 @@ AnimationClip:
       value: {fileID: -467434018, guid: 15a29dfb97a594d4a89eb100278f7cbb, type: 3}
     - time: 0.083333336
       value: {fileID: -1566712516, guid: 15a29dfb97a594d4a89eb100278f7cbb, type: 3}
-    - time: 0.18333334
+    - time: 0.15
       value: {fileID: -2042584160, guid: 15a29dfb97a594d4a89eb100278f7cbb, type: 3}
-    - time: 0.26666668
+    - time: 0.23333333
       value: {fileID: -1516615083, guid: 15a29dfb97a594d4a89eb100278f7cbb, type: 3}
-    - time: 0.35
+    - time: 0.3
       value: {fileID: 48581067, guid: 15a29dfb97a594d4a89eb100278f7cbb, type: 3}
-    - time: 0.45
+    - time: 0.38333333
       value: {fileID: 1875253364, guid: 15a29dfb97a594d4a89eb100278f7cbb, type: 3}
-    - time: 0.53333336
+    - time: 0.45
       value: {fileID: -1052311723, guid: 15a29dfb97a594d4a89eb100278f7cbb, type: 3}
-    - time: 0.6333333
+    - time: 0.53333336
       value: {fileID: -732836302, guid: 15a29dfb97a594d4a89eb100278f7cbb, type: 3}
-    - time: 0.71666664
+    - time: 0.6
       value: {fileID: 1392933277, guid: 15a29dfb97a594d4a89eb100278f7cbb, type: 3}
-    - time: 0.8
+    - time: 0.68333334
       value: {fileID: -1373738016, guid: 15a29dfb97a594d4a89eb100278f7cbb, type: 3}
-    - time: 0.9
+    - time: 0.75
       value: {fileID: -2110200123, guid: 15a29dfb97a594d4a89eb100278f7cbb, type: 3}
-    - time: 0.98333335
+    - time: 0.8333333
       value: {fileID: 325460591, guid: 15a29dfb97a594d4a89eb100278f7cbb, type: 3}
     attribute: m_Sprite
-    path: 
+    path: PlantVisual BG
     classID: 212
     script: {fileID: 0}
     flags: 2
@@ -57,7 +57,7 @@ AnimationClip:
   m_ClipBindingConstant:
     genericBindings:
     - serializedVersion: 2
-      path: 0
+      path: 2744456702
       attribute: 0
       script: {fileID: 0}
       typeID: 212
@@ -83,7 +83,7 @@ AnimationClip:
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 1
+    m_StopTime: 0.84999996
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0

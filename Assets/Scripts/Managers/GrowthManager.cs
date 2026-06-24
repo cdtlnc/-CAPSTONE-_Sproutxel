@@ -200,6 +200,11 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
             if (currentGrowth >= growthThresholds[i])
             {
                 targetStage = i;
+                if (currentGrowth >= growthThresholds[3])
+                {
+                    Anim.SetInteger("HarvestingTrigger", 1);
+                }
+               
             }
         }
 
@@ -630,32 +635,30 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
         if (!isPlanted) return;
         switch (play)
         {
-            case 0:// HeatDaze
+            case 0:
+                
+                break;
+            case 1:// HeatDaze
                 PlantSadFG.transform.localScale = new Vector3(0.02685377f, 0.01804939f, 0.03480541f);
                 break;
-            case 1://Typhoon
+            case 2://Typhoon
                 PlantSadFG.transform.localScale = new Vector3(0.01527228f, 0.01026505f, 0.01979453f);
                 break;
            
         }
-        Anim.SetInteger("WeatherCondition", play);
+        Anim.SetInteger("WeatherTrigger", play);
 
     }
     public void AnimationBG(int play)
     {
 
         if (!isPlanted) return;
-        switch (play)
-        {
-            case 0://DangerSign
-                PlantSadFG.transform.localScale = new Vector3(0.04057862f, 0.03080479f, 0.04490717f);
-                break;
-            case 1://Harvestable
-                PlantSadFG.transform.localScale = new Vector3(0.02421894f, 0.01838553f, 0.0268024f);
-                break;
+       
+                plantRenderer.color = Color.Lerp(Color.white, Color.red, Mathf.PingPong(Time.deltaTime, 1));
+           
 
-        }
-        Anim.SetInteger("BgConditions", play);
+        
+        
     }
     public void CheckSeason()
     {
@@ -760,6 +763,8 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
     void ResetPlot()
     {
         unBug();
+        Anim.SetInteger("HarvestingTrigger", 0);
+        Anim.SetInteger("WeatherTrigger", 0);
         isPlanted = false;
         currentSeed = null;
         plantSimulationInstance = null;
