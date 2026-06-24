@@ -119,7 +119,7 @@ public class MaintenencePopUp : MonoBehaviour
         if (soilQualitySlider != null) soilQualitySlider.value = soilQuality;
         if (soilMoistureSlider != null) soilMoistureSlider.value = soilMoisture;
         if (soilSoftnessSlider != null) soilSoftnessSlider.value = soilSoftness;
-        Debug.Log("HpSlider" + hpSlider.value+" "+cropMoisterSlider.value+" "+soilQualitySlider.value+" "+soilMoistureSlider.value+" "+soilSoftnessSlider.value);
+        //Debug.Log("HpSlider" + hpSlider.value+" "+cropMoisterSlider.value+" "+soilQualitySlider.value+" "+soilMoistureSlider.value+" "+soilSoftnessSlider.value);
     }
 
   
