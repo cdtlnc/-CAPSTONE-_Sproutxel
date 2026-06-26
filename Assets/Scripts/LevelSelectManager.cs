@@ -31,7 +31,10 @@ public class LevelSelectManager : MonoBehaviour
         AudioManager.instance.Play("TapSound1");
         AudioManager.instance.Stop("MainMenu");
         AudioManager.instance.Stop("LevelSelectMenu");
+
+
         AudioManager.instance.Play("SproutxelBGMusic");
+  
 
         LevelManager.Instance.LoadScene(sceneName, transitionName);
     }

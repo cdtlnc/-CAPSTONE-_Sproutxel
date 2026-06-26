@@ -94,7 +94,7 @@ public class TimeOfDayUI : MonoBehaviour
         if (daysPassed >= seasonTimer)
         {
             daysPassed = 0;
-            if(dontchangeSeasons==false)
+            if(dontchangeSeasons==true)
             UpdateSeasons();
         }
 

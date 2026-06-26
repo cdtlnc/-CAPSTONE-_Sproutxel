@@ -19,12 +19,12 @@ MonoBehaviour:
   averageCropYield: {x: 2, y: 4}
   goodCropYield: {x: 3, y: 5}
   seasonalAffinities:
-  - 0.8
   - 1.4
+  - 0.8
   weatherAffinities:
   - 1
-  - 0.7
   - 1.5
+  - 0.7
   cycleAffinities:
   - 1.4
   - 0.8

@@ -36,12 +36,16 @@ public class AudioManager : MonoBehaviour
     public void Play(string name)
     {
         Sound s = System.Array.Find(sounds, s => s.name == name);
-
+        
         // Safety check to avoid crash if sound name is misspelled
         if (s == null)
         {
             Debug.LogWarning("Sound: " + name + " not found!");
             return;
+        }
+        if (s.source.isPlaying)
+        {
+            return; // Exit the function so it doesn't play again
         }
 
         s.source.Play();
@@ -58,6 +62,31 @@ public class AudioManager : MonoBehaviour
         }
 
         s.source.Stop();
+    }
+
+    public void LowerVolume(string name)
+    {
+        Sound s = System.Array.Find(sounds, s => s.name == name);
+
+        if (s == null)
+        {
+            Debug.LogWarning("Sound: " + name + " not found!");
+            return;
+        }
+
+        s.volume=0f;
+    }
+    public void RaiseVolume(string name)
+    {
+        Sound s = System.Array.Find(sounds, s => s.name == name);
+
+        if (s == null)
+        {
+            Debug.LogWarning("Sound: " + name + " not found!");
+            return;
+        }
+
+        s.volume = 0.5f;
     }
 }
 

@@ -3036,6 +3036,20 @@ MonoBehaviour:
     loop: 1
     source: {fileID: 0}
     mixerGroup: {fileID: 3002645312370200697, guid: a8c9b7d04a6f0df4697087e208d92e03, type: 2}
+  - name: HeatDaze
+    clip: {fileID: 8300000, guid: f65e2f12d8f81064f988dfb80c035c01, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
+    mixerGroup: {fileID: 3002645312370200697, guid: a8c9b7d04a6f0df4697087e208d92e03, type: 2}
+  - name: Typhoon
+    clip: {fileID: 8300000, guid: 07ced7b022b60804c9301d4b83567f1f, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
+    mixerGroup: {fileID: 3002645312370200697, guid: a8c9b7d04a6f0df4697087e208d92e03, type: 2}
 --- !u!4 &413349685
 Transform:
   m_ObjectHideFlags: 0

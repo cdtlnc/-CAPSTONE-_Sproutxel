@@ -12,6 +12,8 @@ public class EventManager : MonoBehaviour
 
     [SerializeField] private bool dontChangeWeather;
     [SerializeField] private bool dontGetInfested;
+    [SerializeField] private bool StartOnTyphoon;
+    [SerializeField] private bool StartOnHeatDaze;
 
 
     [Header("Weather Parameters")]
@@ -59,6 +61,15 @@ public class EventManager : MonoBehaviour
         TickManager.OnEventTick += TickManager_OnEventTick;
 
         UpdateEssentialsUI();
+
+        if (StartOnHeatDaze)
+        {
+            _weatherEvent = 1; // Typhoon
+        }
+        if (StartOnTyphoon)
+        {
+            _weatherEvent = 2; // Typhoon
+        }
     }
 
     void TickManager_OnEventTick(object sender, TickManager.OnTickEventArgs e)
@@ -76,6 +87,7 @@ public class EventManager : MonoBehaviour
 
         if (_weatherDurationTimer >= _weatherDuration)
         {
+            if (dontChangeWeather) return;
             Debug.Log("Weather event over!");
             _weatherDurationTimer = 0;
             _weatherEvent = 0;
@@ -190,17 +202,25 @@ public class EventManager : MonoBehaviour
         {
             activeContainer = TyphoonContinaer; // Main event identifier
             targetIconIndex = 1;                // Typhoon/Storm Icon
-            targetText = 1; 
+            targetText = 1;
+            AudioManager.instance.Play("Typhoon");
+            AudioManager.instance.Stop("HeatDaze");
+            AudioManager.instance.Stop("SproutxelBGMusic");
         }
         else if (_weatherEvent == 1) // Heat Wave Event active
         {
             activeContainer = HeatDazeContainer;
             targetIconIndex = 0;
             targetText = 0; // Sunny Icon
+            AudioManager.instance.Play("HeatDaze");
+            AudioManager.instance.Stop("Typhoon");
+            AudioManager.instance.Stop("SproutxelBGMusic");
         }
         else // Base weather clear (Checks seasonal state)
         {
-
+            AudioManager.instance.Stop("HeatDaze");
+            AudioManager.instance.Stop("Typhoon");
+            AudioManager.instance.Play("SproutxelBGMusic");
             if (!TimeOfDayUI.isDrySeason) // Wet Season active (!isDrySeason)
             {
                 activeContainer = RainyContinaer;
@@ -221,16 +241,19 @@ public class EventManager : MonoBehaviour
         }
 
         // 3.MULTI - PANEL ACTIVATION RULES:
-// Fixed: Heat Daze now ONLY turns on if a heat wave event is actively running
+        // Fixed: Heat Daze now ONLY turns on if a heat wave event is actively running
         if (HeatDazeContainer != null)
         {
             HeatDazeContainer.SetActive(_weatherEvent == 1);
+           
         }
 
         // Typhoon panel overlay turns on ONLY when a typhoon event is actively rolling
         if (TyphoonContinaer != null)
         {
             TyphoonContinaer.SetActive(_weatherEvent == 2);
+   
+
         }
 
         // Rainy panel is strictly forced active if it's the Wet Season OR during a Typhoon

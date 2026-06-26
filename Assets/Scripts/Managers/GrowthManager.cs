@@ -23,7 +23,8 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
     [Header("Weather Death Animations")]
     [SerializeField] public Sprite[] HeatDeath, TyphoonDeath, Harvestable;
     [SerializeField] public Sprite TyphoonBG;
-    [SerializeField] public Animator ForeAnim,BackAnim;
+    [SerializeField] public Animator ForeAnim,BackAnim,Danger;
+    [SerializeField] public bool Dangerino;
 
 
     [Header("Live Growth Debugger (Visible for Testing)")]
@@ -112,6 +113,7 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
         Waterlogged = false;
         Water.SetActive(false);
         BugCooldownMeter = 0;
+        Dangerino = false;
         disableSadParts();
     }
 
@@ -213,7 +215,7 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
         }
 
         currentStage = targetStage;
-        if (currentGrowth >= 12f)
+        if (currentGrowth >= 11f)
         {
             AnimationBG();
         }
@@ -540,6 +542,9 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
             soilSoftness >= maxLimit || soilSoftness <= minLimit)
         {
             AnimationBG();
+
+
+
         }
 
         }
@@ -689,7 +694,8 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
 
         PlantSadFG.color = new Color(1f, 1f, 1f, 1f);
         PlantSadFG.transform.localScale = new Vector3(0.01527228f, 0.01026505f, 0.01979453f);
-        ForeAnim.SetBool("Danger", true);
+        Dangerino = true;
+        Danger.SetBool("Danger", Dangerino);
     }
     public void CheckSeason()
     {
@@ -796,8 +802,8 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
         unBug();
         BackAnim.SetInteger("HarvestingTrigger", 0);
         ForeAnim.SetInteger("WeatherTrigger", 0);
-
-        ForeAnim.SetBool("Danger", true);
+        Dangerino = false;
+        Danger.SetBool("Danger", Dangerino);
         isPlanted = false;
         currentSeed = null;
         plantSimulationInstance = null;
@@ -810,7 +816,16 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
     public void HarvestPlant() // New Shovel
     {
         if (!isPlanted) return;
-        int yieldAmount = plantSimulationInstance.GetCropYield();
+        int yieldAmount;
+        if (Dangerino)
+        {
+            yieldAmount=plantSimulationInstance.GetBadYield();
+        }
+        else
+        {
+            yieldAmount = plantSimulationInstance.GetCropYield();
+        }
+
         GoalManager goalManager = Object.FindFirstObjectByType<GoalManager>();
         goalManager.AddCrop(currentSeed.cropName, yieldAmount);
         Debug.Log("Plant Harvested");

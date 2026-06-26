@@ -3687,6 +3687,8 @@ MonoBehaviour:
   TyphoonBG: {fileID: -267318199, guid: ca03d941a8b914f438a4bd64c03e69ff, type: 3}
   ForeAnim: {fileID: 1777189556}
   BackAnim: {fileID: 115637567}
+  Danger: {fileID: 1688300351}
+  Dangerino: 0
   currentSeed: {fileID: 11400000, guid: 8c922d3a85b7e8f42b8cfd32884e40c9, type: 2}
   currentStage: 0
   cropGrowth: 0
@@ -12335,6 +12337,7 @@ Transform:
   - {fileID: 166126091}
   - {fileID: 720402118340618530}
   - {fileID: 1069099894}
+  - {fileID: 1688300350}
   - {fileID: 1777189554}
   - {fileID: 115637565}
   - {fileID: 1298883779}
@@ -25986,7 +25989,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -1135741775, guid: c6ef9c885a5fbe440913f560981425d6, type: 3}
+  m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -25994,7 +25997,7 @@ SpriteRenderer:
   m_Size: {x: 0.64, y: 0.64}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_SpriteSortPoint: 0
 --- !u!1 &1299625425
 GameObject:
@@ -26915,8 +26918,8 @@ MonoBehaviour:
   nightColorLight: {r: 0.20536162, g: 0.10059804, b: 0.2679245, a: 1}
   dayColorLight: {r: 0.83396226, g: 0.7678071, b: 0.54600924, a: 1}
   twilightColor: {r: 1, g: 0.5, b: 0, a: 1}
-  TICK_INTERVAL: 0.4
-  startWithDrySeason: 1
+  TICK_INTERVAL: 0.2
+  startWithDrySeason: 0
   dontchangeSeasons: 1
 --- !u!1 &1325138742
 GameObject:
@@ -34018,12 +34021,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bcea920539df2e242a4d434c465447dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EventManager
-  _weatherEventOdds: 000000006400000064000000
+  _weatherEventOdds: 000000000000000064000000
   _infestationOdds: 10
   _infestationChances: 10
   _infestationStart: 0
-  dontChangeWeather: 0
+  dontChangeWeather: 1
   dontGetInfested: 0
+  StartOnTyphoon: 1
+  StartOnHeatDaze: 0
   _weatherDuration: 20
   _weatherCooldown: 20
   _infestationCooldown: 40
@@ -34034,7 +34039,7 @@ MonoBehaviour:
   _HeatWaveDuration: 0
   _TyphoonDuration: 0
   _TyphoonTimer: 0
-  _HeatWaveChance: 100
+  _HeatWaveChance: 0
   _TyphoonChance: 100
   weatherIcons:
   - {fileID: -470526965, guid: acc1e990b4beaec43b8cf17f1832b3c3, type: 3}
@@ -34048,6 +34053,120 @@ MonoBehaviour:
   - {fileID: 1276760407, guid: 75df2ea7751fb584fb58115c66dd431e, type: 3}
   - {fileID: 203120107, guid: 6ef0e2c72401b0440b7e77ea021acfb2, type: 3}
   - {fileID: 1607255803, guid: 26968b0e5e9ce764683996d57865130a, type: 3}
+--- !u!1 &1688300349
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1688300350}
+  - component: {fileID: 1688300352}
+  - component: {fileID: 1688300351}
+  m_Layer: 0
+  m_Name: PlantVisual Danger
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1688300350
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1688300349}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.8922437, y: 0.000000039001208, z: 0.000000019738065, w: 0.4515543}
+  m_LocalPosition: {x: 0.0008, y: -0.0016, z: 0.0088}
+  m_LocalScale: {x: 0.024991551, y: 0.016797729, z: 0.03239177}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 616343403}
+  m_LocalEulerAnglesHint: {x: 126.313, y: 0, z: 0}
+--- !u!95 &1688300351
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1688300349}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 5237ed891e949544fa3284b90fef5c36, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!212 &1688300352
+SpriteRenderer:
+  serializedVersion: 2
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1688300349}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_MaskInteraction: 0
+  m_Sprite: {fileID: -1410550861, guid: d811ce821d1eb7b49aa28fc21877c4fb, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 1.28, y: 1.28}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_SpriteSortPoint: 0
 --- !u!1 &1701379162
 GameObject:
   m_ObjectHideFlags: 0

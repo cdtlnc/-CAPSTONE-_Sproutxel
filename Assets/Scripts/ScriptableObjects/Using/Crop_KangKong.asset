@@ -26,8 +26,8 @@ MonoBehaviour:
   - 0.7
   - 1.5
   cycleAffinities:
-  - 0.8
   - 1.4
+  - 0.8
   bugResistances:
   - 1
   - -2
