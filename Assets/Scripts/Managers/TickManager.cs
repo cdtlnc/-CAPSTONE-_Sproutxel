@@ -1,28 +1,26 @@
 using System;
-
 using UnityEngine;
-using UnityEngine.Rendering;
+using Photon.Pun;
 
-public class TickManager : MonoBehaviour
+public class TickManager : MonoBehaviourPun
 {
     public class OnTickEventArgs : EventArgs
     {
         public int tick;
     }
 
-    public static event EventHandler<OnTickEventArgs> OnTick;          // Whatever is assigned to this tick happens every tick.
-    public static event EventHandler<OnTickEventArgs> OnTimeCycleTick; // This tick is when the day cycle is updated. 
-    public static event EventHandler<OnTickEventArgs> OnEventTick;     // This tick is when miscellaneous events, such as bug infestations, are updated. 
-    public static event EventHandler<OnTickEventArgs> OnPlantCalcTick; // This tick is when plant calculations are updated. 
+    public static event EventHandler<OnTickEventArgs> OnTick;
+    public static event EventHandler<OnTickEventArgs> OnTimeCycleTick;
+    public static event EventHandler<OnTickEventArgs> OnEventTick;
+    public static event EventHandler<OnTickEventArgs> OnPlantCalcTick;
 
-    // The following stats affect when different calculations are made. Feel free to tinker with these to experiment with the pace of the gameplay.
     [Header("Tick Timers")]
-    [SerializeField] public int timeCycleTickTimer; // Set to happen every two ticks by default.
-    [SerializeField] public int eventTickTimer;     // Set to happen every four ticks by default.
-    [SerializeField] public int plantCalcTickTimer; // Set to happen every six ticks by default.
+    [SerializeField] public int timeCycleTickTimer = 2;
+    [SerializeField] public int eventTickTimer = 4;
+    [SerializeField] public int plantCalcTickTimer = 6;
 
     [Header("Tick Speed")]
-    [SerializeField] public float _TICK_TIMER_MAX = 0.2f; // This decides when a tick happens. Right now it's set to 0.2,or 200ms. A whole number represents a second (i.e. 1 = 1 second).
+    [SerializeField] public float _TICK_TIMER_MAX = 0.2f;
 
     private int _tick;
     private float _tickTimer;
@@ -31,19 +29,24 @@ public class TickManager : MonoBehaviour
     {
         _tick = 0;
     }
+
     private void Start()
     {
         TimeOfDayUI time = GameObject.FindAnyObjectByType<TimeOfDayUI>();
-        time.GetTickSpeed(_TICK_TIMER_MAX);
-       
+        if (time != null) time.GetTickSpeed(_TICK_TIMER_MAX);
+
         CopyCatDayNight dih = GameObject.FindAnyObjectByType<CopyCatDayNight>();
-       
-        dih.GetTickSpeed(_TICK_TIMER_MAX);
+        if (dih != null) dih.GetTickSpeed(_TICK_TIMER_MAX);
     }
 
-    // This counts the ticks that pass and triggers each tick event on the nth tick
     void Update()
     {
+        // MULTIPLAYER CHECK: Only the host controls the universal time ticker
+        if (PhotonNetwork.IsConnected && !PhotonNetwork.IsMasterClient)
+        {
+            return;
+        }
+
         _tickTimer += Time.deltaTime;
 
         if (_tickTimer < _TICK_TIMER_MAX)
@@ -54,21 +57,40 @@ public class TickManager : MonoBehaviour
         _tickTimer -= _TICK_TIMER_MAX;
         _tick++;
 
-        if (OnTick != null) OnTick(this, new OnTickEventArgs { tick = _tick });
+        // Broadcast the ticks to the local Host systems
+        TriggerTickEvents(_tick);
 
-        if (_tick % timeCycleTickTimer == 0)
+        // Send the tick over the network so Player 2 stays perfectly in sync!
+        if (PhotonNetwork.IsConnected)
         {
-            if (OnTimeCycleTick != null) OnTimeCycleTick(this, new OnTickEventArgs { tick = _tick });
+            photonView.RPC("RPC_SyncTick", RpcTarget.Others, _tick);
+        }
+    }
+
+    [PunRPC]
+    private void RPC_SyncTick(int incomingTick)
+    {
+        _tick = incomingTick;
+        TriggerTickEvents(_tick);
+    }
+
+    private void TriggerTickEvents(int currentTick)
+    {
+        if (OnTick != null) OnTick(this, new OnTickEventArgs { tick = currentTick });
+
+        if (currentTick % timeCycleTickTimer == 0)
+        {
+            if (OnTimeCycleTick != null) OnTimeCycleTick(this, new OnTickEventArgs { tick = currentTick });
         }
 
-        if (_tick % eventTickTimer == 0)
+        if (currentTick % eventTickTimer == 0)
         {
-            if (OnEventTick != null) OnEventTick(this, new OnTickEventArgs { tick = _tick });
+            if (OnEventTick != null) OnEventTick(this, new OnTickEventArgs { tick = currentTick });
         }
 
-        if (_tick % plantCalcTickTimer == 0)
+        if (currentTick % plantCalcTickTimer == 0)
         {
-            if (OnPlantCalcTick != null) OnPlantCalcTick(this, new OnTickEventArgs { tick = _tick });
+            if (OnPlantCalcTick != null) OnPlantCalcTick(this, new OnTickEventArgs { tick = currentTick });
         }
     }
 }

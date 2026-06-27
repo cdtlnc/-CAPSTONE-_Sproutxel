@@ -3,21 +3,18 @@ using Unity.Android.Gradle.Manifest;
 using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEditor;
 using UnityEditor.EditorTools;
-
 #endif
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Tilemaps;
+using Photon.Pun;
 
-public class GrowthManager_Multiplayer : MonoBehaviour, IPointerClickHandler
+public class GrowthManager_Multiplayer : MonoBehaviourPun, IPointerClickHandler
 {
-
     [Header("Player-Specific UI Router Assignments")]
     [SerializeField] private CanonFire assignedCanon;
     [SerializeField] public GameObject Untilled;
     [SerializeField] public GameObject Tilled;
-
-
 
     [Header("Visual Components")]
     [SerializeField] public SpriteRenderer plantRenderer;
@@ -31,7 +28,7 @@ public class GrowthManager_Multiplayer : MonoBehaviour, IPointerClickHandler
     [SerializeField] private int currentStage = 0;
 
     [Header("Plant Stats")]
-    [SerializeField] private string name;
+    [SerializeField] private string cropNameDisplay; // renamed 'name' to avoid hiding GameObject.name
     [SerializeField] private float cropHP;
     [SerializeField] private bool wonMinigame, hasNoBadStats;
 
@@ -75,28 +72,22 @@ public class GrowthManager_Multiplayer : MonoBehaviour, IPointerClickHandler
     [Header("Safety Net")]
     [SerializeField] float maxLimit = 80f;
     [SerializeField] float minLimit = -20f;
-    [SerializeField] float centerPoint = 20f; // The middle of your -20 to 60 sweet spot
+    [SerializeField] float centerPoint = 20f;
 
-    // Changing this to 0.3f brings the stat well inside the safe harvest zone
-    [SerializeField] float reductionFactor = 0.3f;
-    [SerializeField] float recoveryAmountPerTick = 2f;
-    [SerializeField] float closetothecenter = 40f;
-    [Header("Stat Paremeters")]
+    [Header("Stat Parameters")]
     [SerializeField] float minSafe = -20f;
     [SerializeField] float maxSafe = 60f;
-    [SerializeField] float recoveryRate = 2f; // How many points it recovers per tick
+    [SerializeField] float recoveryRate = 2f;
     [SerializeField] float targetCenter = 20f;
-    
+
     [SerializeField] float BugCooldownMeter;
     [SerializeField] float BugCooldownMeterMax = 100f;
     [SerializeField] float BugCooldownRate = 10;
     [SerializeField] bool unBugged;
     [SerializeField] bool _IsInfested;
 
-    // Direct link to the math backend script
     public BasePlant plantSimulationInstance;
-
-     public bool isPlanted = false;
+    public bool isPlanted = false;
 
     private void Start()
     {
@@ -118,15 +109,18 @@ public class GrowthManager_Multiplayer : MonoBehaviour, IPointerClickHandler
 
     private void LinkToOfficialClock(object sender, TickManager.OnTickEventArgs e)
     {
-        HandleTick();
+        // Only run tick calculations if we are the MasterClient to prevent data drift
+        if (PhotonNetwork.IsMasterClient)
+        {
+            HandleTick();
+        }
     }
 
     public void HandleTick()
     {
-        Debug.Log("Here at waterlogged");
         if (!isPlanted)
             IsWaterLogged();
-        if (WaterCleared&&!isplantable)
+        if (WaterCleared && !isplantable)
         {
             DecreaseWaterlogged();
         }
@@ -135,43 +129,31 @@ public class GrowthManager_Multiplayer : MonoBehaviour, IPointerClickHandler
             UnBugCountdown();
         }
 
-        // Don't calculate stuff if the plot is completely empty
         if (!isPlanted || currentSeed == null || plantSimulationInstance == null) return;
 
-        // SAFE PASS: If I haven't assigned a data template yet, fake the growth so it doesn't crash!
         if (plantSimulationInstance.stats == null)
         {
-            // Just manually step up the growth value by 1.0f every tick so I can test the sprites
             plantSimulationInstance.cropGrowth += 1.0f;
             plantSimulationInstance.cropGrowth = Mathf.Clamp(plantSimulationInstance.cropGrowth, 0f, 10f);
         }
         else
         {
-            // Run the formula scripts normally if the template asset exists
             plantSimulationInstance.GetStatsOvertime();
-
-            // Skipping the soil quality calculation for now since it isn't built yet anyway
             plantSimulationInstance.GetSoilQuality();
-
             plantSimulationInstance.GetHealth();
             plantSimulationInstance.GetGrowth();
             plantSimulationInstance.GetHarvestQuality();
         }
 
-        // Map the 0-10 growth value to my sprite array frames
         if (currentSeed.growthStages == null || currentSeed.growthStages.Length == 0) return;
 
         int totalSpritesAvailable = currentSeed.growthStages.Length;
         int finalStageIndex = totalSpritesAvailable - 1;
 
-        // If I only put 1 sprite total, index is always 0. Otherwise, do the math.
         if (finalStageIndex > 0)
         {
-            // Convert 0.0 - 10.0 scale to a percentage for the current sprite index
             float growthRatio = plantSimulationInstance.cropGrowth / 10f;
             int targetStage = Mathf.FloorToInt(growthRatio * finalStageIndex);
-
-            // Keep it safe so it never breaks or goes out of bounds
             currentStage = Mathf.Clamp(targetStage, 0, finalStageIndex);
         }
         else
@@ -182,21 +164,22 @@ public class GrowthManager_Multiplayer : MonoBehaviour, IPointerClickHandler
         CheckWeather();
         CheckSeason();
         CheckDay();
-        
-      
 
-        // LINE ADDED HERE: Run real-time condition evaluation checks
-
-       
-       
-        UpdatePlantSprite();
-        Debug.Log("Coming up on Waterlogged");
-
-        Debug.Log("Passed Waterlogged");
-        Debug.Log("Pickle  " + plantSimulationInstance.stats.seasonalAffinities[seasonIndex] + " " + plantSimulationInstance.stats.weatherAffinities[weatherIndex] + " " + plantSimulationInstance.stats.cycleAffinities[cycleIndex]);
+        // Broadcast visual growth changes across the network
+        photonView.RPC("RPC_UpdateGrowthVisuals", RpcTarget.All, currentStage, plantSimulationInstance.cropGrowth);
     }
 
-    // Tapping/clicking the plot to harvest
+    [PunRPC]
+    private void RPC_UpdateGrowthVisuals(int synchronizedStage, float synchronizedGrowth)
+    {
+        currentStage = synchronizedStage;
+        if (plantSimulationInstance != null)
+        {
+            plantSimulationInstance.cropGrowth = synchronizedGrowth;
+        }
+        UpdatePlantSprite();
+    }
+
     public void OnPointerClick(PointerEventData eventData)
     {
         if (!isPlanted || currentSeed == null || currentSeed.growthStages == null || currentSeed.growthStages.Length == 0) return;
@@ -211,63 +194,62 @@ public class GrowthManager_Multiplayer : MonoBehaviour, IPointerClickHandler
             if (plantSimulationInstance.stats == null)
             {
                 yieldAmount = 3;
-                Debug.Log($"[Bypass] Missing stats template! Dropping a fallback default of {yieldAmount} items.");
             }
             else
             {
                 yieldAmount = plantSimulationInstance.GetCropYield();
-                Debug.Log($"Harvested {yieldAmount} items of {currentSeed.cropName}!");
             }
 
-            // FIXED: Using localized assignments instead of scene-wide searching
-            if ( yieldAmount > 0)
+            if (yieldAmount > 0)
             {
-                
-     
-                    Debug.Log("[STEP 2] HARVESTING SEED");
-                    assignedCanon.AddLoad(yieldAmount);
-                    IsNotPlantable();
-                    ResetPlot();
-                
-               
-               
+                // Harvest action is synced over network
+                photonView.RPC("RPC_HarvestPlot", RpcTarget.All, yieldAmount);
             }
         }
     }
 
-    // Called by my drag and drop system to start planting
+    [PunRPC]
+    private void RPC_HarvestPlot(int yieldAmount)
+    {
+        if (assignedCanon != null)
+        {
+            assignedCanon.AddLoad(yieldAmount);
+        }
+        IsNotPlantable();
+        ResetPlot();
+    }
+
     public void PlantSeed(SeedData data)
     {
-        if (isPlanted || data == null) return;
-        Debug.LogWarning("[PASSED 1] Passed by Is Planted ");
-        if (Waterlogged || !isplantable) return;
-        Debug.LogWarning("[PASSED 2] Passed by Is Plantable ");
-        if (data.remainingSeedBags <= 0)
-        {
-            Debug.LogWarning($"[Out of Seeds] Can't plant anymore {data.cropName}! 0 bags remaining.");
-            return;
-        }
-        Debug.LogWarning("[PASSED 3] Passed by seedbads ");
+        if (data == null) return;
+        // Redirect standard local calls to networked version passing its name asset string
+        photonView.RPC("RPC_PlantSeedByName", RpcTarget.All, data.name);
+    }
 
-        // Safety check in case I forgot to add a sprite to the asset file
-        if (data.growthStages == null || data.growthStages.Length == 0)
+    [PunRPC]
+    public void RPC_PlantSeedByName(string seedAssetName)
+    {
+        if (isPlanted || Waterlogged || !isplantable) return;
+
+        // CRITICAL WORKFLOW REQUIREMENT: 
+        // Put your SeedData assets inside a folder named 'Resources' so Photon can look them up by name string!
+        SeedData data = Resources.Load<SeedData>(seedAssetName);
+        if (data == null)
         {
-            Debug.LogError($"[GrowthManager] Can't plant {data.cropName}! The SeedData needs at least 1 sprite in the array.");
+            Debug.LogError($"[Photon Growth] Could not find asset '{seedAssetName}' inside any Resources folder!");
             return;
         }
-        Debug.LogWarning("[PASSED 4] PassedTS ");
 
         currentSeed = data;
         isPlanted = true;
         currentStage = 0;
-        AudioManager.instance.Play("Planting");
 
-        // Fire up a brand new simulation instance
+        if (AudioManager.instance != null) AudioManager.instance.Play("Planting");
+
         plantSimulationInstance = new BasePlant();
         plantSimulationInstance.stats = data.plantStatsTemplate;
         plantSimulationInstance.growthStages = data.growthStages;
 
-        // Set up my starting values for the parameters
         if (data.plantStatsTemplate != null)
         {
             plantSimulationInstance.cropHP = data.plantStatsTemplate.maxHP;
@@ -276,30 +258,23 @@ public class GrowthManager_Multiplayer : MonoBehaviour, IPointerClickHandler
         plantSimulationInstance.cropMoisture = 20f;
         plantSimulationInstance.soilMoisture = 20f;
         plantSimulationInstance.soilSoftness = 20f;
-        plantSimulationInstance.soilQuality = 20f; 
+        plantSimulationInstance.soilQuality = 20f;
 
         data.remainingSeedBags--;
-
         UpdatePlantSprite();
-        Debug.Log($"Successfully planted {data.cropName}! Calculations started.");
     }
 
     private void UpdatePlantSprite()
     {
-        Debug.Log("Entered Plant Sprite Update");
         if (plantRenderer != null && currentSeed != null && currentSeed.growthStages != null && currentStage < currentSeed.growthStages.Length)
         {
-            Debug.Log("Entered Plant Sprite Update 1st PHASE");
-            // Only swap the sprite if the slot isn't empty, otherwise keep whatever it's showing
             if (currentSeed.growthStages[currentStage] != null)
             {
-                Debug.Log("Entered Plant Sprite Update 2nd PHASE");
                 plantRenderer.sprite = currentSeed.growthStages[currentStage];
             }
         }
     }
 
-    //User Shovel
     void ResetPlot()
     {
         unBug();
@@ -311,25 +286,22 @@ public class GrowthManager_Multiplayer : MonoBehaviour, IPointerClickHandler
         plantableornot();
         disableSadParts();
         IsNotPlantable();
-
     }
 
     private void FixedUpdate()
     {
-        // SAFETY SHIELD: Stops the code from running and crashing if the plot is empty!
         if (!isPlanted || currentSeed == null || plantSimulationInstance == null)
         {
-            name = "Empty Plot";
+            cropNameDisplay = "Empty Plot";
             cropHP = 0f;
             cropMoisture = 0f;
             soilQuality = 0f;
             soilMoisture = 0f;
             soilSoftness = 0f;
-            return; // Exits the function early
+            return;
         }
 
-        // This updates the inspector display LIVE when values change from watering
-        name = currentSeed.cropName;
+        cropNameDisplay = currentSeed.cropName;
         cropHP = plantSimulationInstance.cropHP;
         cropMoisture = plantSimulationInstance.cropMoisture;
         soilQuality = plantSimulationInstance.soilQuality;
@@ -337,42 +309,26 @@ public class GrowthManager_Multiplayer : MonoBehaviour, IPointerClickHandler
         soilSoftness = plantSimulationInstance.soilSoftness;
     }
 
-
-
-    // --- LINKED MINIGAME STAT RESOLUTION ROUTINES ---
-    // --- LINKED MINIGAME STAT RESOLUTION ROUTINES ---
- 
-
-    /// <summary>
-    /// Evaluates structural crop health conditions and handles targeted degradation logic.
-    /// </summary>
-    /// <summary>
-    /// Evaluates structural crop health conditions and handles targeted degradation logic.
-    /// </summary>
-
-
     private void disableSadParts()
     {
-        PlantSadBG.color = new Color(1f, 1f, 1f, 0f);
-        PlantSadFG.color = new Color(1f, 1f, 1f, 0f);
+        if (PlantSadBG != null) PlantSadBG.color = new Color(1f, 1f, 1f, 0f);
+        if (PlantSadFG != null) PlantSadFG.color = new Color(1f, 1f, 1f, 0f);
     }
-
 
     public void plantableornot()
     {
         if (isplantable)
         {
-
-            Untilled.SetActive(false);
-            Tilled.SetActive(true);
+            if (Untilled != null) Untilled.SetActive(false);
+            if (Tilled != null) Tilled.SetActive(true);
         }
         else
         {
-            Tilled.SetActive(false);
-            Untilled.SetActive(true);
+            if (Tilled != null) Tilled.SetActive(false);
+            if (Untilled != null) Untilled.SetActive(true);
         }
-
     }
+
     public void CheckInfestation()
     {
         if (EventManager.isInfested)
@@ -381,27 +337,28 @@ public class GrowthManager_Multiplayer : MonoBehaviour, IPointerClickHandler
             {
                 bugInfestation = "INFESTEDDD";
                 bugIndex = 1;
-                plantSimulationInstance.bugIndex = bugIndex;
+                if (plantSimulationInstance != null) plantSimulationInstance.bugIndex = bugIndex;
                 unBugged = false;
-                Bugging.SetActive(true);
+                if (Bugging != null) Bugging.SetActive(true);
                 BugCooldownMeter = BugCooldownMeterMax;
                 _IsInfested = true;
             }
-          
         }
         else
         {
             bugInfestation = "no bugs:(";
             bugIndex = 0;
-            plantSimulationInstance.bugIndex = bugIndex;
-            Bugging.SetActive(false);
+            if (plantSimulationInstance != null) plantSimulationInstance.bugIndex = bugIndex;
+            if (Bugging != null) Bugging.SetActive(false);
             _IsInfested = false;
         }
     }
+
     public void UnBugCountdown()
     {
         BugCooldownMeter -= BugCooldownRate;
     }
+
     public void CheckWeather()
     {
         switch (EventManager._weatherEvent)
@@ -409,19 +366,17 @@ public class GrowthManager_Multiplayer : MonoBehaviour, IPointerClickHandler
             case 0:
                 weatherOutput = "CLEAR";
                 weatherIndex = 0;
-                plantSimulationInstance.weatherIndex = weatherIndex;
                 break;
             case 1:
                 weatherOutput = "HEAT HAZE";
                 weatherIndex = 1;
-                plantSimulationInstance.weatherIndex = weatherIndex;
                 break;
             case 2:
                 weatherOutput = "TYPHOON";
                 weatherIndex = 2;
-                plantSimulationInstance.weatherIndex = weatherIndex;
                 break;
         }
+        if (plantSimulationInstance != null) plantSimulationInstance.weatherIndex = weatherIndex;
     }
 
     public void CheckSeason()
@@ -430,14 +385,13 @@ public class GrowthManager_Multiplayer : MonoBehaviour, IPointerClickHandler
         {
             seasonOutput = "DRY SEASON";
             seasonIndex = 0;
-            plantSimulationInstance.seasonIndex = seasonIndex;
         }
         else
         {
             seasonOutput = "Wet SEASON";
             seasonIndex = 1;
-            plantSimulationInstance.seasonIndex = seasonIndex;
         }
+        if (plantSimulationInstance != null) plantSimulationInstance.seasonIndex = seasonIndex;
     }
 
     public void CheckDay()
@@ -446,34 +400,31 @@ public class GrowthManager_Multiplayer : MonoBehaviour, IPointerClickHandler
         {
             cycleOutput = "Day";
             cycleIndex = 0;
-            plantSimulationInstance.dayIndex = cycleIndex;
         }
         else
         {
             cycleOutput = "Night";
             cycleIndex = 1;
-            plantSimulationInstance.dayIndex = cycleIndex;
         }
+        if (plantSimulationInstance != null) plantSimulationInstance.dayIndex = cycleIndex;
     }
 
     public void IsWaterLogged()
     {
         if (WaterDuration > 0) return;
-        Debug.Log("Entered is waterlogged");
         if (!TimeOfDayUI.isDrySeason)
         {
-            Debug.Log("Adding To Waterlogged");
             WaterloggedMeter += WaterFillUpRate;
         }
 
         if (WaterloggedMeter >= WaterloggedMax)
         {
-            Water.SetActive(true);
+            if (Water != null) Water.SetActive(true);
             Waterlogged = true;
             WaterCleared = true;
         }
-        Debug.Log("Water Logged Meter: " + WaterloggedMeter);
     }
+
     public void DecreaseWaterlogged()
     {
         if (WaterDuration > 0)
@@ -481,106 +432,108 @@ public class GrowthManager_Multiplayer : MonoBehaviour, IPointerClickHandler
             WaterDuration -= WaterFillUpRate;
         }
     }
-    public void WaterClear()
+
+    [PunRPC]
+    public void RPC_WaterClear()
     {
         Waterlogged = false;
         WaterloggedMeter = 0;
         WaterDuration = WaterCooldown;
-        Water.SetActive(false);
-
+        if (Water != null) Water.SetActive(false);
     }
 
-    // Remove Bug Stats// Pesticide
-    public void unBug()
+    public void WaterClear() { photonView.RPC("RPC_WaterClear", RpcTarget.All); }
+
+    [PunRPC]
+    public void RPC_unBug()
     {
-        Debug.Log("YOU HAVE BEEN UNBUGGED");
-        if (!isPlanted||_IsInfested!=true) return;
+        if (!isPlanted || !_IsInfested) return;
         bugIndex = 0;
-        plantSimulationInstance.bugIndex = bugIndex;
-        Bugging.SetActive(false);
+        if (plantSimulationInstance != null) plantSimulationInstance.bugIndex = bugIndex;
+        if (Bugging != null) Bugging.SetActive(false);
         unBugged = true;
-        _IsInfested=false;
+        _IsInfested = false;
     }
 
-    public void RefreshPlot()
+    public void unBug() { photonView.RPC("RPC_unBug", RpcTarget.All); }
+
+    [PunRPC]
+    public void RPC_RefreshPlot()
     {
-        isplantable = true; plantableornot();
+        isplantable = true;
+        plantableornot();
     }
 
-    public void IsNotPlantable()
+    public void RefreshPlot() { photonView.RPC("RPC_RefreshPlot", RpcTarget.All); }
+
+    [PunRPC]
+    public void RPC_IsNotPlantable()
     {
-        isplantable = false; plantableornot();
+        isplantable = false;
+        plantableornot();
     }
 
-    public void RemovePlant()
+    public void IsNotPlantable() { photonView.RPC("RPC_IsNotPlantable", RpcTarget.All); }
+
+    [PunRPC]
+    public void RPC_RemovePlant()
     {
-        unBug();
+        RPC_unBug();
         ResetPlot();
         plantableornot();
         IsNotPlantable();
     }
 
-    //Fertilizer, Super Yield
-    public void SuperCharge()
+    public void RemovePlant() { photonView.RPC("RPC_RemovePlant", RpcTarget.All); }
+
+    [PunRPC]
+    public void RPC_SuperCharge()
     {
         if (!isPlanted) return;
 
         int super_yield = plantSimulationInstance.GetMaxYield();
-        Debug.Log("[STEP 2.5] SUPER");
-        assignedCanon.AddLoad(super_yield);
-        RemovePlant();
+        if (assignedCanon != null)
+        {
+            assignedCanon.AddLoad(super_yield);
+        }
+        ResetPlot();
         plantableornot();
         IsNotPlantable();
     }
 
+    public void SuperCharge() { photonView.RPC("RPC_SuperCharge", RpcTarget.All); }
 
-    public void CommitAction(string action)
+    [PunRPC]
+    public void RPC_CommitAction(string action)
     {
         if (!isPlanted) return;
+        switch (action)
         {
-            switch (action)
-            {
-                case "GetWaterLogged":
-                    Water.SetActive(true);
-                    Waterlogged = true;
-                    WaterloggedMeter = WaterloggedMax;
-
-                    break;
-
-                case "RemovePlants":
-                    ResetPlot();
-                    break;
-
-                case "UnTillable":
-                    isplantable = false;
-
-                    
-                    break;
-
-                case "GETBUGGED":
-                    BugCooldownMeter = 0f;
-                    bugInfestation = "INFESTEDDD";
-                    bugIndex = 1;
-                    plantSimulationInstance.bugIndex = bugIndex;
-                    unBugged = false;
-                    Bugging.SetActive(true);
-                    _IsInfested = true;
-
-                    break;
-
-                case "FERTILIZING":
-
-                    plantSimulationInstance.cropGrowth = 10;
-                    break;
-
-
-
-            }
-
-
-
+            case "GetWaterLogged":
+                if (Water != null) Water.SetActive(true);
+                Waterlogged = true;
+                WaterloggedMeter = WaterloggedMax;
+                break;
+            case "RemovePlants":
+                ResetPlot();
+                break;
+            case "UnTillable":
+                isplantable = false;
+                break;
+            case "GETBUGGED":
+                BugCooldownMeter = 0f;
+                bugInfestation = "INFESTEDDD";
+                bugIndex = 1;
+                if (plantSimulationInstance != null) plantSimulationInstance.bugIndex = bugIndex;
+                unBugged = false;
+                if (Bugging != null) Bugging.SetActive(true);
+                _IsInfested = true;
+                break;
+            case "FERTILIZING":
+                if (plantSimulationInstance != null) plantSimulationInstance.cropGrowth = 10;
+                break;
         }
-      
     }
 
+    public void CommitAction(string action) { photonView.RPC("RPC_CommitAction", RpcTarget.All, action); }
 }

@@ -41,9 +41,11 @@ public class TimeOfDayUI : MonoBehaviour
     [SerializeField] public bool dontchangeSeasons = true;
     public static bool isDrySeason { get; private set; } // This variable will be used to communicate to other scripts what season it is.
     public static bool isDay { get; private set; }       // This variable will be used to communicate to other scripts what time of day it is.
+
     private void UpdateLightRotation()
     {
- 
+        if (thelight == null) return;
+
         float minutesSinceSunrise = currentTime - 360f;
 
         if (minutesSinceSunrise < 0)
@@ -51,10 +53,10 @@ public class TimeOfDayUI : MonoBehaviour
             minutesSinceSunrise += 1440f;
         }
 
- 
+
         float currentAngle = (minutesSinceSunrise / 1440f) * 360f;
 
-    
+
         thelight.transform.localRotation = Quaternion.Euler(sunriseRotation) * Quaternion.AngleAxis(currentAngle, Vector3.up);
     }
     private void Start()
@@ -88,19 +90,19 @@ public class TimeOfDayUI : MonoBehaviour
             daysPassed++;
 
         }
-       
+
         UpdateUI();
-        
+
         if (daysPassed >= seasonTimer)
         {
             daysPassed = 0;
-            if(dontchangeSeasons==true)
-            UpdateSeasons();
+            if (dontchangeSeasons == true)
+                UpdateSeasons();
         }
 
         //Debug.Log($"Current Time: {currentTime:0} | Days Passed: {daysPassed} | Dry Season? {isDrySeason}");
     }
- 
+
     private void UpdateSeasons()
     {
         isDrySeason = !isDrySeason;
@@ -114,29 +116,40 @@ public class TimeOfDayUI : MonoBehaviour
         int hours12 = hours24 % 12;         // converts to 12-hour format
         if (hours12 == 0) hours12 = 12;
 
-        clockText.text = $"{hours12}{(isPM ? "pm" : "am")}";
+        if (clockText != null)
+        {
+            clockText.text = $"{hours12}{(isPM ? "pm" : "am")}";
+        }
 
         if (hours24 >= 6 && hours24 < 18)       // Daytime is from 6:00 AM to 5:59 PM
         {
             isDay = true;
-            dayNightText.text = "Day";
-            dayNightText.color = dayColor;
+
+            if (dayNightText != null)
+            {
+                dayNightText.text = "Day";
+                dayNightText.color = dayColor;
+            }
         }
         else
         {
             isDay = false;
-            dayNightText.text = "Night";
-            dayNightText.color = nightColor;
+
+            if (dayNightText != null)
+            {
+                dayNightText.text = "Night";
+                dayNightText.color = nightColor;
+            }
         }
 
         //Debug.Log($"{hours12}{(isPM ? "pm" : "am")}");
     }
 
-   
+
 
     public void setDay()
     {
-        
+
     }
     public void setNight()
     {
@@ -144,6 +157,8 @@ public class TimeOfDayUI : MonoBehaviour
     }
     private void UpdateLightColor()
     {
+        if (thelight == null) return;
+
         // Peaks at 1.0 during noon, drops to 0.0 at midnight
         float lerpPercent = Mathf.Sin((currentTime / 1440f) * Mathf.PI);
 
