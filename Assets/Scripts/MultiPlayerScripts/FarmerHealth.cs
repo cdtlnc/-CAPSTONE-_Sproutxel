@@ -1,8 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
-using Photon.Pun;
 
-public class FarmerHealth : MonoBehaviourPun
+public class FarmerHealth : MonoBehaviour
 {
     [Header("Farmer ")]
     [SerializeField] public int Health;
@@ -11,59 +10,55 @@ public class FarmerHealth : MonoBehaviourPun
     [SerializeField] public int damagedealt;
     [SerializeField] public string Name;
 
+
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        HealthSlider.maxValue = Health;
+        HealthSlider.maxValue= Health;
         HealthSlider.value = Health;
-        HealthSlider.minValue = 0;
-
-        // Grab the network nickname if connected online, otherwise default to the tag
-        if (PhotonNetwork.InRoom)
-        {
-            Name = PhotonNetwork.NickName;
-        }
-        else
-        {
-            Name = gameObject.tag;
-        }
-
+        HealthSlider.minValue= 0;
+        Name = gameObject.tag;
         UpdateUI();
     }
 
-    // This is the core logic that now syncs over the network!
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+
     public void DepleteHealth(int damage)
     {
-        // We use photonView.RPC to ensure health drops on BOTH players' screens simultaneously
-        photonView.RPC("RPC_DepleteHealth", RpcTarget.All, damage);
-    }
-
-    [PunRPC]
-    private void RPC_DepleteHealth(int damage)
-    {
+       
         Health -= damage;
-        Debug.Log("[MULTIPLAYER] DEPLETING HEALTH. Current Health: " + Health + " Damage: " + damage);
+        Debug.Log("[STEP 4] DEPLETING HEALTH. Healht: " + Health + " Damage: " + damage);
         Checkhealth();
         UpdateUI();
+        
+    }
+
+    public void GetInfested()
+    {
+        
+    }
+
+    public void GetWaterlogged()
+    {
+
     }
 
     public void Checkhealth()
     {
+        Debug.Log("[STEP 5] CHECKING HEALTH");
         if (Health <= 0)
         {
-            // Only let the master server client declare the game over to prevent conflicts
-            if (PhotonNetwork.IsMasterClient)
-            {
-                // Pass our synchronized Name variable instead of the generic lowercase scene name
-                GoalManagerMulti.LoseGame(Name);
-            }
+            GoalManagerMulti.LoseGame(name);
         }
     }
 
     public void UpdateUI()
     {
-        if (HealthSlider != null)
-        {
-            HealthSlider.value = Health;
-        }
+        HealthSlider.value = Health;
     }
+
 }

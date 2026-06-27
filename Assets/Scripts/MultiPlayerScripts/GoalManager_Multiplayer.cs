@@ -33,12 +33,8 @@ public class GoalManager_Multiplayer : MonoBehaviour
 
     void UpdateUI()
     {
-        if (goalText != null && targetCropName != null && targetCropName.Length > 0)
-        {
-            // Combines all names in the array into a single string separated by commas
-            string cropListString = string.Join(", ", targetCropName);
-            goalText.text = $"Harvest {cropListString}: {currentHarvested} / {targetGoal}";
-        }
+        // FIXED: Combines all names in the array into a single string separated by commas (e.g., "Corn, Tomato, Wheat")
+        
     }
 
     public void checkObjectives()
@@ -47,33 +43,17 @@ public class GoalManager_Multiplayer : MonoBehaviour
         if (currentHarvested >= targetGoal)
         {
             Debug.Log("SENDING TO THE WIN MANAGER");
-
-            // Look for the specific multiplayer win/lose script wrapper
-            WinOrLoseManager_Multiplayer w = FindAnyObjectByType<WinOrLoseManager_Multiplayer>();
-            if (w != null)
-            {
-                w.onWin(); // Replace or supplement this based on your network victory setup
-            }
-            else
-            {
-                // Fallback loop check for singleplayer setups
-                WinOrLoseManager fallbackWin = FindAnyObjectByType<WinOrLoseManager>();
-                if (fallbackWin != null) fallbackWin.onWin();
-            }
+            WinOrLoseManager w = FindAnyObjectByType<WinOrLoseManager>();
+            w.onWin();
         }
     }
+
 
     public void LoseGame(string loser)
     {
-        Debug.Log("[STEP 6] LOST THE GAME Loser: " + loser);
+        Debug.Log("[STEP 6] LOST THE GAME Loser: "+loser);
         WinOrLoseManager_Multiplayer w = FindAnyObjectByType<WinOrLoseManager_Multiplayer>();
-        if (w != null)
-        {
-            w.onLose(loser);
-        }
-        else
-        {
-            Debug.LogError("WinOrLoseManager_Multiplayer missing from the active map hierarchy!");
-        }
+        w.onLose(loser);
     }
+
 }

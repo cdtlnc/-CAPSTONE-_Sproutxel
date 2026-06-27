@@ -2,18 +2,17 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-using Photon.Pun;
 
 public class SeedManager_Multiplayer : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
     public SeedData seedType;
 
     private CanvasGroup canvasGroup;
+
     private GameObject dragIconInstance;
     private RectTransform dragIconRect;
     private Image dragIconImage;
     private Canvas parentCanvas;
-
     [Header("Seed Availability")]
     [SerializeField] public TextMeshProUGUI seedNum;
     [SerializeField] public int available;
@@ -42,20 +41,31 @@ public class SeedManager_Multiplayer : MonoBehaviour, IBeginDragHandler, IDragHa
         {
             audioMan.Play("TapSound1");
         }
+        else
+        {
+            Debug.LogWarning("SeedManager_Multiplayer: AudioManager instance not found in scene. Skipping drag sound.");
+        }
 
         dragIconInstance = new GameObject("SeedDragGhost");
 
         Transform canvasTransform = parentCanvas != null ? parentCanvas.transform : GameObject.Find("GameplayCanvas").transform;
         dragIconInstance.transform.SetParent(canvasTransform, false);
 
+        RectTransform sourceRect = GetComponent<RectTransform>();
         dragIconRect = dragIconInstance.AddComponent<RectTransform>();
 
+        
         dragIconRect.anchorMin = new Vector2(0.5f, 0.5f);
         dragIconRect.anchorMax = new Vector2(0.5f, 0.5f);
         dragIconRect.pivot = new Vector2(0.5f, 0.5f);
+
+        
         dragIconRect.sizeDelta = new Vector2(90f, 90f);
+
+        
         dragIconRect.localScale = Vector3.one;
 
+        
         dragIconRect.rotation = transform.rotation;
         dragIconRect.position = transform.position;
 
@@ -92,7 +102,6 @@ public class SeedManager_Multiplayer : MonoBehaviour, IBeginDragHandler, IDragHa
     {
         canvasGroup.alpha = 1f;
 
-        // Auto-finds the local main camera setup if it wasn't assigned in the inspector
         Camera raycastCamera = playerCam != null ? playerCam : Camera.main;
 
         if (raycastCamera != null)
@@ -105,19 +114,8 @@ public class SeedManager_Multiplayer : MonoBehaviour, IBeginDragHandler, IDragHa
                     GrowthManager_Multiplayer plot = hit.collider.GetComponent<GrowthManager_Multiplayer>();
                     if (plot != null)
                     {
-                        PhotonView plotPV = plot.GetComponent<PhotonView>();
-                        if (plotPV != null)
-                        {
-                            Debug.Log("[MULTIPLAYER STEP 1] SENDING NETWORK SEED TO PLOT ID: " + plotPV.ViewID);
-
-                            // We pass the seed item name over the network via RPC so the soil script knows what to grow!
-                            plotPV.RPC("RPC_PlantSeedByName", RpcTarget.All, seedType.name);
-                        }
-                        else
-                        {
-                            // Fallback to local execution if testing without setup elements
-                            plot.PlantSeed(seedType);
-                        }
+                        Debug.Log("[STEP 1] PLANTING SEED");
+                        plot.PlantSeed(seedType);
                     }
                 }
             }
