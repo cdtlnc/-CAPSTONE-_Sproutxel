@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,6 +15,7 @@ public class EventManager : MonoBehaviour
     [SerializeField] private bool dontGetInfested;
     [SerializeField] private bool StartOnTyphoon;
     [SerializeField] private bool StartOnHeatDaze;
+    [SerializeField] private TextMeshProUGUI WeatherTimer;
 
 
     [Header("Weather Parameters")]
@@ -24,7 +26,7 @@ public class EventManager : MonoBehaviour
     [SerializeField] private int _weatherCooldownTimer = 0;
     [SerializeField] private int _infestationTimer = 0;
 
-    [Header("Weather Meters")]
+   $mu [Header("Weather Meters")]
     [SerializeField] private int _HeatWaveTimer = 0;
     [SerializeField] private int _HeatWaveDuration = 0;
     [SerializeField] private int _TyphoonDuration = 0;
@@ -196,7 +198,8 @@ public class EventManager : MonoBehaviour
         GameObject activeContainer = null;
         int targetIconIndex = 0;
         int targetText = 2;
-
+        Debug.Log("Updating Weather Duration");
+        WeatherTimer.text = ""+ _weatherDurationTimer;
         // 1. Evaluate state based on weather events and seasonal conditions
         if (_weatherEvent == 2) // Typhoon Event active
         {

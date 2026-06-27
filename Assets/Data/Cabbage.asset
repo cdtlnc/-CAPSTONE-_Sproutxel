@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Cabbage
   m_EditorClassIdentifier: Assembly-CSharp::SeedData
   cropName: Cabbage
-  seedBagIcon: {fileID: -772767006, guid: a6d62e040c1d13f409c9c3dbe8f97670, type: 3}
+  seedBagIcon: {fileID: 987635135, guid: 2ae2faf83cda0ec448622f4b99518973, type: 3}
   growthStages:
   - {fileID: -931073261, guid: 63cae5bdcf7a21542914b741520e6fd4, type: 3}
   - {fileID: -1669616719, guid: 63cae5bdcf7a21542914b741520e6fd4, type: 3}
