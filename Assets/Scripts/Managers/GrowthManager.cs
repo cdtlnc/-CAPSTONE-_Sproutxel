@@ -208,6 +208,7 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
                 if (currentGrowth >= growthThresholds[3])
                 {
                     PlantSadBG.color = new Color(1f, 1f, 1f, 1f);
+                    AudioManager.instance.Play("Harvestable");
                     BackAnim.SetInteger("HarvestingTrigger", 1);
                 }
                
@@ -696,6 +697,7 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
         PlantSadFG.transform.localScale = new Vector3(0.01527228f, 0.01026505f, 0.01979453f);
         Dangerino = true;
         Danger.SetBool("Danger", Dangerino);
+        AudioManager.instance.Play("Danger");
     }
     public void CheckSeason()
     {

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Eggplant
   m_EditorClassIdentifier: Assembly-CSharp::SeedData
   cropName: Eggplant
-  seedBagIcon: {fileID: -170646465, guid: 48d465ec5707add458d1078239eb6d83, type: 3}
+  seedBagIcon: {fileID: -97875299, guid: 045a9359760b42f4e9a0c978d87e1849, type: 3}
   growthStages:
   - {fileID: 329457259, guid: 4ae391643f14e844f8187ba06fe7b6d6, type: 3}
   - {fileID: -566926776, guid: 4ae391643f14e844f8187ba06fe7b6d6, type: 3}

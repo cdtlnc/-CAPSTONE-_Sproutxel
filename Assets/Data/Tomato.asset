@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Tomato
   m_EditorClassIdentifier: Assembly-CSharp::SeedData
   cropName: Tomato
-  seedBagIcon: {fileID: -298689990, guid: 413e371440014cb4790047ccd98289f4, type: 3}
+  seedBagIcon: {fileID: 517444946, guid: bad32e7a0471dbf4caaec031f9c2ead9, type: 3}
   growthStages:
   - {fileID: -1933487613, guid: 18bada0f178c8fc4fb464a03715766b1, type: 3}
   - {fileID: 2135914149, guid: 18bada0f178c8fc4fb464a03715766b1, type: 3}

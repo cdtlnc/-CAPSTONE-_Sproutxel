@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: KangKong
   m_EditorClassIdentifier: Assembly-CSharp::SeedData
   cropName: Kangkong
-  seedBagIcon: {fileID: 49462127, guid: 741fba748f831de4d900ba7fcb4aa68a, type: 3}
+  seedBagIcon: {fileID: 1812693854, guid: aa8c3bb57caaf8e449012dec87e54a97, type: 3}
   growthStages:
   - {fileID: 1260992552, guid: a2ff80b4e9d81ba48bcfb88885fa4629, type: 3}
   - {fileID: -1900416841, guid: a2ff80b4e9d81ba48bcfb88885fa4629, type: 3}

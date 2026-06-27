@@ -3050,6 +3050,20 @@ MonoBehaviour:
     loop: 1
     source: {fileID: 0}
     mixerGroup: {fileID: 3002645312370200697, guid: a8c9b7d04a6f0df4697087e208d92e03, type: 2}
+  - name: Danger
+    clip: {fileID: 8300000, guid: efca6a1d0ddc2844b8f9894a9e11ca9e, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+    mixerGroup: {fileID: 9136035942700017800, guid: a8c9b7d04a6f0df4697087e208d92e03, type: 2}
+  - name: Harvestable
+    clip: {fileID: 8300000, guid: 1e59addeb8074e545be62e03f21830ff, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+    mixerGroup: {fileID: 9136035942700017800, guid: a8c9b7d04a6f0df4697087e208d92e03, type: 2}
 --- !u!4 &413349685
 Transform:
   m_ObjectHideFlags: 0
