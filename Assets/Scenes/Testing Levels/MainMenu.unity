@@ -13060,6 +13060,9 @@ MonoBehaviour:
   compendiumPanel: {fileID: 1806787236}
   optionsMenu: {fileID: 584643481}
   CompendiumMenu: {fileID: 0}
+  nameInputField: {fileID: 0}
+  joinMatchButton: {fileID: 0}
+  networkStatusText: {fileID: 0}
 --- !u!1 &1969165515
 GameObject:
   m_ObjectHideFlags: 0

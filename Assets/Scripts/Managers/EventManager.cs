@@ -26,7 +26,7 @@ public class EventManager : MonoBehaviour
     [SerializeField] private int _weatherCooldownTimer = 0;
     [SerializeField] private int _infestationTimer = 0;
 
-   $mu [Header("Weather Meters")]
+   [Header("Weather Meters")]
     [SerializeField] private int _HeatWaveTimer = 0;
     [SerializeField] private int _HeatWaveDuration = 0;
     [SerializeField] private int _TyphoonDuration = 0;
