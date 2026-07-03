@@ -102,7 +102,7 @@ public class MaintenencePopUp : MonoBehaviour
         // Sync variables
         //name=sim.cur // Add in the names
    
-        plantSprite = sim.growthStages[3];
+        plantSprite = targetedPlot.currentSeed.growthStages[targetedPlot.currentStage];
         plantSpriteShower.sprite = plantSprite;
         cropHP = sim.cropHP;
         cropMoisture = sim.cropMoisture;

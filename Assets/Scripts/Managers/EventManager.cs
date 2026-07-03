@@ -26,11 +26,7 @@ public class EventManager : MonoBehaviour
     [SerializeField] private int _weatherCooldownTimer = 0;
     [SerializeField] private int _infestationTimer = 0;
 
-   [Header("Weather Meters")]
-    [SerializeField] private int _HeatWaveTimer = 0;
-    [SerializeField] private int _HeatWaveDuration = 0;
-    [SerializeField] private int _TyphoonDuration = 0;
-    [SerializeField] private int _TyphoonTimer = 0;
+ 
 
     [Header("Weather Chances")]
     [SerializeField] private int _HeatWaveChance = 0;
@@ -46,6 +42,9 @@ public class EventManager : MonoBehaviour
     [SerializeField] private GameObject RainyContinaer;
     [SerializeField] private Image WeatherText;
     [SerializeField] private Sprite[] WeatherTextSprites;
+    [SerializeField] private Animator naviAnim;
+    [SerializeField] private TextMeshProUGUI naviText;
+    [SerializeField] private bool Animstatus;
 
     public static bool isInfested { get; private set; } = false;
     public static int _weatherEvent { get; private set; } = 0;
@@ -54,6 +53,7 @@ public class EventManager : MonoBehaviour
 
     void Start()
     {
+        Animstatus = false;
         isInfested = _infestationStart;
         TickManager.OnEventTick += delegate (object sender, TickManager.OnTickEventArgs e)
         {
@@ -66,7 +66,7 @@ public class EventManager : MonoBehaviour
 
         if (StartOnHeatDaze)
         {
-            _weatherEvent = 1; // Typhoon
+            _weatherEvent = 1; // HeatDAze
         }
         if (StartOnTyphoon)
         {
@@ -209,6 +209,10 @@ public class EventManager : MonoBehaviour
             AudioManager.instance.Play("Typhoon");
             AudioManager.instance.Stop("HeatDaze");
             AudioManager.instance.Stop("SproutxelBGMusic");
+            naviAnim.SetTrigger("Typhoon");
+            naviText.text = "Typhoon!!";
+            Animstatus = true;
+
         }
         else if (_weatherEvent == 1) // Heat Wave Event active
         {
@@ -218,6 +222,9 @@ public class EventManager : MonoBehaviour
             AudioManager.instance.Play("HeatDaze");
             AudioManager.instance.Stop("Typhoon");
             AudioManager.instance.Stop("SproutxelBGMusic");
+            naviAnim.SetTrigger("HeatDaze");
+            naviText.text = "HeatDaze!!";
+            Animstatus = true;
         }
         else // Base weather clear (Checks seasonal state)
         {
@@ -234,6 +241,7 @@ public class EventManager : MonoBehaviour
                 activeContainer = HeatDazeContainer;
                 targetIconIndex = 0;              // Sunny/Clear Icon
             }
+            Animstatus = false;
         }
 
         // 2. Safely swap the UI icon image
@@ -267,6 +275,7 @@ public class EventManager : MonoBehaviour
 
             RainyContinaer.SetActive(isWetSeason || isTyphoon);
         }
+        naviAnim.SetBool("Status", Animstatus);
     }
 
 
