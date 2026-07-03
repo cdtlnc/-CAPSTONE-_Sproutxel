@@ -2914,7 +2914,6 @@ GameObject:
   - component: {fileID: 124893636}
   - component: {fileID: 124893635}
   - component: {fileID: 124893634}
-  - component: {fileID: 124893637}
   m_Layer: 5
   m_Name: WinScreen
   m_TagString: Untagged
@@ -2986,28 +2985,6 @@ RectTransform:
   m_AnchoredPosition: {x: 105.12378, y: 1853}
   m_SizeDelta: {x: 865.2, y: 419.4}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!95 &124893637
-Animator:
-  serializedVersion: 7
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 124893633}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: d5304f46e137991478e2044420192173, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &125737205
 GameObject:
   m_ObjectHideFlags: 0
@@ -11048,6 +11025,7 @@ MonoBehaviour:
   tweenduration: 1
   BG: {fileID: 1708793311}
   WinLoseAnim: {fileID: 238465325}
+  WinLoseText: {fileID: 206683735}
 --- !u!1 &543757402
 GameObject:
   m_ObjectHideFlags: 0
@@ -28613,9 +28591,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
+  m_Maskable: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -29747,9 +29725,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
+  m_Maskable: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -30150,9 +30128,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
+  m_Maskable: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -35103,6 +35081,7 @@ MonoBehaviour:
   naviAnim: {fileID: 625452680}
   naviText: {fileID: 1605162926}
   Animstatus: 0
+  notClear: 0
 --- !u!1 &1688300349
 GameObject:
   m_ObjectHideFlags: 0

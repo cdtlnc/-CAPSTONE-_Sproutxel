@@ -45,6 +45,7 @@ public class EventManager : MonoBehaviour
     [SerializeField] private Animator naviAnim;
     [SerializeField] private TextMeshProUGUI naviText;
     [SerializeField] private bool Animstatus;
+    [SerializeField] private bool notClear;
 
     public static bool isInfested { get; private set; } = false;
     public static int _weatherEvent { get; private set; } = 0;
@@ -53,8 +54,7 @@ public class EventManager : MonoBehaviour
 
     void Start()
     {
-        Animstatus = false;
-        isInfested = _infestationStart;
+    
         TickManager.OnEventTick += delegate (object sender, TickManager.OnTickEventArgs e)
         {
             //Debug.Log("Tick: " + e.tick);
@@ -62,7 +62,7 @@ public class EventManager : MonoBehaviour
 
         TickManager.OnEventTick += TickManager_OnEventTick;
 
-        UpdateEssentialsUI();
+       
 
         if (StartOnHeatDaze)
         {
@@ -72,6 +72,9 @@ public class EventManager : MonoBehaviour
         {
             _weatherEvent = 2; // Typhoon
         }
+        UpdateEssentialsUI();
+        Animstatus = false;
+        isInfested = _infestationStart;
     }
 
     void TickManager_OnEventTick(object sender, TickManager.OnTickEventArgs e)
@@ -82,17 +85,18 @@ public class EventManager : MonoBehaviour
         }
         else
         {
-            _weatherDurationTimer++;
+            _weatherDurationTimer--;
         }
 
         _infestationTimer++;
 
-        if (_weatherDurationTimer >= _weatherDuration)
+        if (_weatherDurationTimer <= 0)
         {
             if (dontChangeWeather) return;
             Debug.Log("Weather event over!");
             _weatherDurationTimer = 0;
             _weatherEvent = 0;
+            notClear =false;
         }
 
         // --- FIXED: Removed the old blocky override logic that was breaking weather states every 5 seconds ---
@@ -123,7 +127,11 @@ public class EventManager : MonoBehaviour
         // Update the screen state once at the end of the tick loop
         UpdateEssentialsUI();
     }
-
+    void OnDestroy()
+    {
+        // SAFELY disconnects the entire script loop when the scene restarts
+        TickManager.OnEventTick -= TickManager_OnEventTick;
+    }
     void CalcWeatherEventOdds(bool isDrySeason)
     {
         if (isDrySeason)
@@ -200,6 +208,7 @@ public class EventManager : MonoBehaviour
         int targetText = 2;
         Debug.Log("Updating Weather Duration");
         WeatherTimer.text = ""+ _weatherDurationTimer;
+        
         // 1. Evaluate state based on weather events and seasonal conditions
         if (_weatherEvent == 2) // Typhoon Event active
         {
@@ -212,7 +221,7 @@ public class EventManager : MonoBehaviour
             naviAnim.SetTrigger("Typhoon");
             naviText.text = "Typhoon!!";
             Animstatus = true;
-
+            setDuration();
         }
         else if (_weatherEvent == 1) // Heat Wave Event active
         {
@@ -225,6 +234,7 @@ public class EventManager : MonoBehaviour
             naviAnim.SetTrigger("HeatDaze");
             naviText.text = "HeatDaze!!";
             Animstatus = true;
+           setDuration() ;
         }
         else // Base weather clear (Checks seasonal state)
         {
@@ -232,9 +242,10 @@ public class EventManager : MonoBehaviour
             AudioManager.instance.Stop("Typhoon");
             AudioManager.instance.Play("SproutxelBGMusic");
             if (!TimeOfDayUI.isDrySeason) // Wet Season active (!isDrySeason)
-            {
+            { 
                 activeContainer = RainyContinaer;
-                targetIconIndex = 1;              // Rainy Icon
+                targetIconIndex = 1;
+                targetText = 1;// Rainy Icon
             }
             else // Dry Season active
             {
@@ -242,6 +253,7 @@ public class EventManager : MonoBehaviour
                 targetIconIndex = 0;              // Sunny/Clear Icon
             }
             Animstatus = false;
+
         }
 
         // 2. Safely swap the UI icon image
@@ -283,4 +295,11 @@ public class EventManager : MonoBehaviour
     // Keep old references so external calls from other scripts do not break compilation
     public void ChangeIcon(int change) { }
     public void WeatherEventPanel(int w) { }
+
+    public void setDuration()
+    {
+        if (notClear) return;
+        _weatherDurationTimer = _weatherDuration;
+        notClear = true;
+    }
 }
