@@ -10,26 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 98dc2338816fbe74eb38bc6d08b5d06f, type: 3}
-  m_Name: Level_10_Goals
+  m_Name: Level_6_Goals
   m_EditorClassIdentifier: Assembly-CSharp::LevelGoalData
   cropGoals:
-  - cropName: Eggplant
-    target: 10
-  - cropName: Kangkong
-    target: 10
-  - cropName: Lettuce
-    target: 5
-  - cropName: Okra
-    target: 5
-  - cropName: Tomato
-    target: 5
-  - cropName: Ampalaya
-    target: 5
   - cropName: Broccoli
-    target: 5
+    target: 20
   - cropName: Cabbage
-    target: 5
-  - cropName: Carrots
-    target: 5
+    target: 20
+  - cropName: Eggplant
+    target: 40
+  - cropName: Ampalaya
+    target: 40
   - cropName: Corn
-    target: 5
+    target: 40

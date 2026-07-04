@@ -66,38 +66,65 @@ EditorBuildSettings:
     path: Assets/Scenes/Testing Levels/Level_5 Old.unity
     guid: e56e6a569048a634384eaf0dd65ea18b
   - enabled: 1
-    path: Assets/Scenes/Testing Levels/Level_1.unity
+    path: Assets/Scenes/NewScenes/Level_1.unity
     guid: bec61c33424348f49ba6fb84c3ffe095
-  - enabled: 1
-    path: Assets/Scenes/Testing Levels/Level_2.unity
+  - enabled: 0
+    path: Assets/Scenes/Testing Levels/Level_2_Old.unity
     guid: 6a13b5f8281773242bb0594a202a4b0c
-  - enabled: 1
-    path: Assets/Scenes/Testing Levels/Level_3.unity
+  - enabled: 0
+    path: Assets/Scenes/Testing Levels/Level_3_Old.unity
     guid: 7cfd50611c794bd4fa67808da1b3bc09
-  - enabled: 1
-    path: Assets/Scenes/Testing Levels/Level_4.unity
+  - enabled: 0
+    path: Assets/Scenes/Testing Levels/Level_4_Old.unity
     guid: 6587a816058242b44ba7f869d14945cc
-  - enabled: 1
-    path: Assets/Scenes/Testing Levels/Level_5.unity
+  - enabled: 0
+    path: Assets/Scenes/Testing Levels/Level_5_Old.unity
     guid: a675b5131d1b1ee4a89aab1a420db0de
-  - enabled: 1
-    path: Assets/Scenes/Testing Levels/Level_6.unity
+  - enabled: 0
+    path: Assets/Scenes/Testing Levels/Level_6_Old.unity
     guid: 235f701342c3332488649625bc67ea8c
-  - enabled: 1
-    path: Assets/Scenes/Testing Levels/Level_7.unity
+  - enabled: 0
+    path: Assets/Scenes/Testing Levels/Level_7_Old.unity
     guid: 8b795cb596a68bd47a40b59bee40fc59
-  - enabled: 1
-    path: Assets/Scenes/Testing Levels/Level_8.unity
+  - enabled: 0
+    path: Assets/Scenes/Testing Levels/Level_8_Old.unity
     guid: ba4abff5b99c30d4bb0b2fd0177f3722
-  - enabled: 1
-    path: Assets/Scenes/Testing Levels/Level_9.unity
+  - enabled: 0
+    path: Assets/Scenes/Testing Levels/Level_9_Old.unity
     guid: 9f1fd6156dc383949985feef1b03f0d3
-  - enabled: 1
-    path: Assets/Scenes/Testing Levels/Level_10.unity
+  - enabled: 0
+    path: Assets/Scenes/Testing Levels/Level_10_Old.unity
     guid: e13fd03b0c66c9e48b4f09ce81c4317f
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Testing Levels/Multiplayer_Level.unity
     guid: b7b2378ab06bd764ebaa421f2efd200e
+  - enabled: 1
+    path: Assets/Scenes/NewScenes/Level_2.unity
+    guid: aec7fcfe9754bbc41a9f497e9904abdb
+  - enabled: 1
+    path: Assets/Scenes/NewScenes/Level_3.unity
+    guid: 71ced92fddea09540afbbd4c1e7d21bc
+  - enabled: 1
+    path: Assets/Scenes/NewScenes/Level_4.unity
+    guid: 60c37dc147cb2d14ca6c97e90ac9fd4c
+  - enabled: 1
+    path: Assets/Scenes/NewScenes/Level_5.unity
+    guid: b8a5ff3415a50934eb54e2626272fd47
+  - enabled: 1
+    path: Assets/Scenes/NewScenes/Level_6.unity
+    guid: 8af970ba91f458741aec17d78e5764e1
+  - enabled: 1
+    path: Assets/Scenes/NewScenes/Level_7.unity
+    guid: 330374c1184c5284981af600e53538d2
+  - enabled: 1
+    path: Assets/Scenes/NewScenes/Level_8.unity
+    guid: ee791e44a013da343b231a66bd546e0c
+  - enabled: 1
+    path: Assets/Scenes/NewScenes/Level_9.unity
+    guid: 19d36c04765f67e4db40f1f2ce8ec5d6
+  - enabled: 1
+    path: Assets/Scenes/NewScenes/Level_10.unity
+    guid: 6872fc660bc051d4c8efc6429133b1a3
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0

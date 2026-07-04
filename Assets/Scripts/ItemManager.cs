@@ -30,7 +30,7 @@ public class ItemManager : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
         AudioManager.instance.Play("TapSound1");
         startPos = transform.position;
         originalParent = transform.parent;
-        transform.SetParent(GameObject.Find("GameplayCanvas").transform);
+        transform.SetParent(GameObject.Find("GoalManager").transform);
         canvasGroup.blocksRaycasts = false; // Essential for the raycast to see the soil
         canvasGroup.alpha = 0.6f;
     }

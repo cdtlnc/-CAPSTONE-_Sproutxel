@@ -164,7 +164,7 @@ public class WeedRemovalMinigame : MinigameBase
         _weeds.Remove(weed);
         Destroy(weed); // Safely completely release the object asset container from memory
         _weedsLeft--;
-        AudioManager.instance.Play("PluckWeed");
+        AudioManager.instance.Play("OnBeat");
         RefreshUI();
 
         if (_weedsLeft <= 0)

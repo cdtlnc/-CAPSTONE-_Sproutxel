@@ -376,6 +376,7 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
                 if (plantSimulationInstance.cropMoisture < minSafe || plantSimulationInstance.cropMoisture < minSafe)
                 {
                     plantSimulationInstance.cropMoisture = (plantSimulationInstance.cropMoisture - centerPoint) * reductionFactor + centerPoint;
+                    plantSimulationInstance.soilMoisture = (plantSimulationInstance.soilMoisture - centerPoint) * reductionFactor + centerPoint;
 
                     WaterClear();
                     statsTowardsTheCenter();
@@ -436,7 +437,8 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
             case MinigameType.SoilEnrichment:
                 if (plantSimulationInstance.soilQuality < minSafe || plantSimulationInstance.soilMoisture > maxLimit)
                 {
-                    plantSimulationInstance.soilQuality = 40.0f; // Adjusted downward from 60f so it sits comfortably inside the sweet spot
+                    plantSimulationInstance.soilQuality = (plantSimulationInstance.soilQuality - centerPoint) * reductionFactor + centerPoint;
+                    plantSimulationInstance.soilMoisture = (plantSimulationInstance.soilMoisture - centerPoint) * reductionFactor + centerPoint;
                     statsTowardsTheCenter();
                     WaterClear();
                 }
@@ -450,7 +452,7 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
             case MinigameType.Netting:
                 if (plantSimulationInstance.cropMoisture > maxSafe)
                 {
-                    plantSimulationInstance.cropHP = Mathf.Min(plantSimulationInstance.cropHP + 2.0f, 100f);
+                    plantSimulationInstance.cropMoisture = (plantSimulationInstance.cropMoisture - centerPoint) * reductionFactor + centerPoint;
                     statsTowardsTheCenter();
                 }
                 else
@@ -826,20 +828,43 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
     {
         if (!isPlanted) return;
         int yieldAmount;
-        if (Dangerino)
+        float currentGrowth = plantSimulationInstance.cropGrowth;
+        float currentSoilQuality = plantSimulationInstance.soilQuality;
+
+        // Get a reference to the stats scriptable object from the simulation instance
+        // (Ensure 'stats' or whatever name your simulation script uses to hold seed stats is public)
+        var cropStats = plantSimulationInstance.stats;
+        System.Random randomValue = new System.Random();
+
+        if (currentGrowth <= growthThresholds[3])
         {
+            Debug.Log("Dis le bad yield");
             yieldAmount = plantSimulationInstance.GetBadYield();
         }
         else
         {
-            yieldAmount = plantSimulationInstance.GetCropYield();
+            // Check if the soil quality falls within the optimal sweet spot (-70 to 70)
+            if (currentSoilQuality >= -70f && currentSoilQuality <= 70f)
+            {
+                Debug.Log("Dis le best yield! Soil is perfect: " + currentSoilQuality);
+
+                // BYPASS: Generate a high yield directly here using the stats values, adding +1 for exclusivity
+                yieldAmount = randomValue.Next((int)cropStats.goodCropYield.x, (int)cropStats.goodCropYield.y + 1);
+            }
+            else
+            {
+                Debug.Log("Dis le average yield! Soil is outside sweet spot: " + currentSoilQuality);
+
+                // Force an average yield generation directly here since the soil failed the check
+                yieldAmount = randomValue.Next((int)cropStats.averageCropYield.x, (int)cropStats.averageCropYield.y + 1);
+            }
         }
 
         GoalManager goalManager = Object.FindFirstObjectByType<GoalManager>();
         goalManager.AddCrop(currentSeed.cropName, yieldAmount);
-        Debug.Log("Plant Harvested");
+        Debug.Log("Plant Harvested with yield: " + yieldAmount);
         IsNotPlantable();
-        ResetPlot(); // Cleanly clear the plot out instantly
+        ResetPlot();
     }
 
     public void RefreshPlot()

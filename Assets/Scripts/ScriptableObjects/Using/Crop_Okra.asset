@@ -15,7 +15,7 @@ MonoBehaviour:
   plantName: Okra
   maxHP: 20
   standardGrowthSpeed: 6
-  badCropYield: {x: 0, y: 1}
+  badCropYield: {x: 1, y: 1}
   averageCropYield: {x: 2, y: 4}
   goodCropYield: {x: 5, y: 9}
   seasonalAffinities:
