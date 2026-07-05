@@ -15,7 +15,7 @@ MonoBehaviour:
   plantName: Cabbage
   maxHP: 20
   standardGrowthSpeed: 6
-  badCropYield: {x: 1, y: 2}
+  badCropYield: {x: 0, y: 2}
   averageCropYield: {x: 3, y: 5}
   goodCropYield: {x: 5, y: 10}
   seasonalAffinities:

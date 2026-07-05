@@ -19,8 +19,8 @@ public class CopyCatDayNight : MonoBehaviour
     [SerializeField] private TimeOfDayUI TimeOfDay;
     [Header("Tick Timer")]
     [SerializeField] private float TICK_INTERVAL = 0.4f;
-  
-    
+
+
 
     private void Start()
     {

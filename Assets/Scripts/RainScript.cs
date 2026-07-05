@@ -1,3 +1,4 @@
+using Photon.Pun;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,7 +9,6 @@ public class RainScript : MonoBehaviour
     [SerializeField] private float fadeSpeed = 2f;
     [SerializeField] private float maxAlpha = 0.7f;
 
-    private Image _spriteRenderer;
     private Image _image;
 
     private int _currentFrame = 0;
@@ -18,14 +18,13 @@ public class RainScript : MonoBehaviour
 
     private void Awake()
     {
-        _spriteRenderer = GetComponent<Image>();
+        _image = GetComponent<Image>();
         SetAlpha(0f);
     }
 
     private void OnEnable()
     {
         TickManager.OnEventTick += OnEventTick;
-        // Run a manual check when enabled so it doesn't wait up to 5 seconds for the next tick
         EvaluateRainVisibility();
     }
 
@@ -39,13 +38,26 @@ public class RainScript : MonoBehaviour
         EvaluateRainVisibility();
     }
 
-    // FIXED: Extracted this logic so it safely checks both the active Typhoon event AND the seasonal state
     private void EvaluateRainVisibility()
     {
-        bool isTyphoon = EventManager._weatherEvent == 2;
-        bool isWetSeason = !TimeOfDayUI.isDrySeason;
+        bool isTyphoon;
+        bool isWetSeason;
 
-        // Show the rain if it's a typhoon OR if it's the normal wet season
+        bool isMultiplayerClient = PhotonNetwork.IsConnected && !PhotonNetwork.IsMasterClient;
+
+        // reads from NetworkTimeState when running on the multiplayer client device
+        // since EventManager and TimeOfDayUI are disabled on the client.
+        if (isMultiplayerClient)
+        {
+            isTyphoon = NetworkTimeState.weatherEvent == 2;
+            isWetSeason = !NetworkTimeState.isDrySeason;
+        }
+        else     // on the host or singleplayer, reads directly from EventManager and TimeOfDayUI.
+        {
+            isTyphoon = EventManager._weatherEvent == 2;
+            isWetSeason = !TimeOfDayUI.isDrySeason;
+        }
+
         _shouldShow = isTyphoon || isWetSeason;
     }
 
@@ -68,13 +80,7 @@ public class RainScript : MonoBehaviour
 
     private void SetAlpha(float alpha)
     {
-        if (_spriteRenderer != null)
-        {
-            Color c = _spriteRenderer.color;
-            c.a = alpha;
-            _spriteRenderer.color = c;
-        }
-        else if (_image != null)
+        if (_image != null)
         {
             Color c = _image.color;
             c.a = alpha;
@@ -84,10 +90,7 @@ public class RainScript : MonoBehaviour
 
     private void SetSprite(Sprite sprite)
     {
-        if (_spriteRenderer != null)
-            _spriteRenderer.sprite = sprite;
-        else if (_image != null)
-            _image.sprite = sprite;
+        if (_image != null) _image.sprite = sprite;
     }
 
     public void DisableTyphoone()

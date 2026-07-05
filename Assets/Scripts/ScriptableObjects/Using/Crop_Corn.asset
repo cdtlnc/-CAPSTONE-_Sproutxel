@@ -15,7 +15,7 @@ MonoBehaviour:
   plantName: Corn
   maxHP: 20
   standardGrowthSpeed: 6
-  badCropYield: {x: 1, y: 1}
+  badCropYield: {x: 0, y: 1}
   averageCropYield: {x: 2, y: 4}
   goodCropYield: {x: 4, y: 8}
   seasonalAffinities:
@@ -26,8 +26,8 @@ MonoBehaviour:
   - 0.7
   - 1.5
   cycleAffinities:
-  - 0.8
   - 1.4
+  - 0.8
   bugResistances:
   - 1
   - -2

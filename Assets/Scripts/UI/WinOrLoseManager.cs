@@ -1,6 +1,5 @@
 using UnityEngine;
 using DG.Tweening;
-using TMPro;
 public class WinOrLoseManager : MonoBehaviour
 {
 
@@ -10,9 +9,6 @@ public class WinOrLoseManager : MonoBehaviour
     [SerializeField] public RectTransform WinScreenPos,LoseScreenPos;
     [SerializeField] public float topPosY, MidPosY= 162.3098f;
     [SerializeField] public float tweenduration;
-    [SerializeField] public GameObject BG;
-    [SerializeField] public Animator WinLoseAnim;
-    [SerializeField] public TextMeshProUGUI   WinLoseText;
     
 
 
@@ -21,8 +17,6 @@ public class WinOrLoseManager : MonoBehaviour
     {
         winScreen.SetActive(false);
         loseScreen.SetActive(false);
-       BG.SetActive(false);
-        WinLoseAnim.SetInteger("Status", 0);
     }
 
     // Update is called once per frame
@@ -35,31 +29,22 @@ public class WinOrLoseManager : MonoBehaviour
         Debug.Log("WE STAY WINNING");
         winScreen.SetActive(true);
         AudioManager.instance.Play("WinLevel");
-        WinLoseAnim.SetInteger("Status", 2);
-        BG.SetActive(true);
-        WinLoseText.text = "GOOD JOB!";
         WinTween();
-
     }
     public void onLose()
     {
         loseScreen.SetActive(true);
         AudioManager.instance.Play("LoseLevel");
         LoseTween();
-        BG.SetActive(true);
-        WinLoseText.text = "LETS RETRY!";
-        WinLoseAnim.SetInteger("Status", 1);
     }
 
     public void WinTween()
     {
-        BG.SetActive(true);
         WinScreenPos.DOAnchorPosY(MidPosY, tweenduration);
 
     }
     public void LoseTween()
     {
-        BG.SetActive(true);
         LoseScreenPos.DOAnchorPosY(MidPosY, tweenduration);
     }
 }
