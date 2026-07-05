@@ -43242,7 +43242,7 @@ MonoBehaviour:
   RainyContinaer: {fileID: 1144687510}
   WeatherText: {fileID: 1047501851}
   WeatherTextSprites:
-  - {fileID: 1276760407, guid: 75df2ea7751fb584fb58115c66dd431e, type: 3}
+  - {fileID: 21300000, guid: 8ca7655e5d321eb4bae48837678a5599, type: 3}
   - {fileID: 203120107, guid: 6ef0e2c72401b0440b7e77ea021acfb2, type: 3}
   - {fileID: 1607255803, guid: 26968b0e5e9ce764683996d57865130a, type: 3}
   naviAnim: {fileID: 625452680}

@@ -233,7 +233,7 @@ public class EventManager : MonoBehaviour
                 AudioManager.instance.Stop("Typhoon");
                 AudioManager.instance.Stop("SproutxelBGMusic");
                 naviAnim.SetTrigger("HeatDaze");
-                naviText.text = "HeatDaze!!";
+                naviText.text = "HeatWave!!";
                 setDuration();
             }
         }
