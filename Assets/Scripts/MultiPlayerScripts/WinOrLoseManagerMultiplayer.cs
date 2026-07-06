@@ -1,52 +1,70 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class WinOrLoseManager_Multiplayer : MonoBehaviour
 {
+    [Header("UI")]
+    [SerializeField] private GameObject resultPanel;
+    [SerializeField] private TMP_Text resultText;
+    [SerializeField] private Image resultPanelImage;
 
-    [Header("UI Items")]
-    [SerializeField] public GameObject p1Screen;
-    [SerializeField] public GameObject p2Screen;
-    [SerializeField] public string[] WinLoseText = { "Winner", "Loser" };
-    [SerializeField] public TextMeshProUGUI player1;
-    [SerializeField] public TextMeshProUGUI player2;
+    [Header("Panel Colors")]
+    [SerializeField] private Color winnerColor = Color.green;
+    [SerializeField] private Color loserColor = Color.red;
 
+    private bool gameEnded;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private void Start()
     {
-        p1Screen.SetActive(false);
-        p2Screen.SetActive(false);
+        gameEnded = false;
+
+        if (resultPanel != null)
+            resultPanel.SetActive(false);
+
+        if (resultPanelImage != null)
+            resultPanelImage.color = loserColor;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void ShowWinner()
     {
-        
-    }
-    public void onWin()
-    {
-        Debug.Log("WE STAY WINNING");
-        p1Screen.SetActive(true);
-        p2Screen.SetActive(true);
-        FindFirstObjectByType<AudioManager>().Play("WinLevel");
-    }
-    public void onLose(string loser)
-    {
-        p1Screen.SetActive(true);
-        p2Screen.SetActive(true);
-        if (loser == "Farmer1")
-        {
-            player1.text = WinLoseText[1];
-            player2.text = WinLoseText[0];
-        }
-        else
-        {
-            player2.text = WinLoseText[1];
-            player1.text = WinLoseText[0];
-        }
+        if (gameEnded)
+            return;
 
+        gameEnded = true;
 
-        FindFirstObjectByType<AudioManager>().Play("WinLevel");
+        if (resultPanel != null)
+            resultPanel.SetActive(true);
+
+        if (resultText != null)
+            resultText.text = "Winner";
+
+        if (resultPanelImage != null)
+            resultPanelImage.color = winnerColor;
+
+        AudioManager.instance.Play("WinLevel");
+
+        Debug.Log("[Win/Lose] Winner screen shown.");
+    }
+
+    public void ShowLoser()
+    {
+        if (gameEnded)
+            return;
+
+        gameEnded = true;
+
+        if (resultPanel != null)
+            resultPanel.SetActive(true);
+
+        if (resultText != null)
+            resultText.text = "Loser";
+
+        if (resultPanelImage != null)
+            resultPanelImage.color = loserColor;
+
+        AudioManager.instance.Play("WinLevel");
+
+        Debug.Log("[Win/Lose] Loser screen shown.");
     }
 }

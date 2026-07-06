@@ -33,13 +33,18 @@ public class TickManager : MonoBehaviour
     }
     private void Start()
     {
+        // Null checks — these objects are disabled on the multiplayer client device
         TimeOfDayUI time = GameObject.FindAnyObjectByType<TimeOfDayUI>();
-        time.GetTickSpeed(_TICK_TIMER_MAX);
-       /*
+        if (time != null)
+            time.GetTickSpeed(_TICK_TIMER_MAX);
+        else
+            Debug.Log("[TickManager] TimeOfDayUI not found — likely disabled on client. Skipping GetTickSpeed.");
+
         CopyCatDayNight dih = GameObject.FindAnyObjectByType<CopyCatDayNight>();
-       
-        dih.GetTickSpeed(_TICK_TIMER_MAX);
-       */
+        if (dih != null)
+            dih.GetTickSpeed(_TICK_TIMER_MAX);
+        else
+            Debug.Log("[TickManager] CopyCatDayNight not found — skipping GetTickSpeed.");
     }
 
     // This counts the ticks that pass and triggers each tick event on the nth tick

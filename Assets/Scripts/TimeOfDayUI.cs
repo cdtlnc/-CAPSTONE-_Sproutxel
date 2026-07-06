@@ -1,3 +1,4 @@
+using Photon.Pun;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Experimental.GlobalIllumination;
@@ -41,6 +42,7 @@ public class TimeOfDayUI : MonoBehaviour
     [SerializeField] public bool dontchangeSeasons = true;
     public static bool isDrySeason { get; private set; } // This variable will be used to communicate to other scripts what season it is.
     public static bool isDay { get; private set; }       // This variable will be used to communicate to other scripts what time of day it is.
+    public float GetCurrentTime() => currentTime;
     private void UpdateLightRotation()
     {
  
@@ -65,7 +67,9 @@ public class TimeOfDayUI : MonoBehaviour
 
         UpdateLightRotation();
 
-        TickManager.OnTimeCycleTick += TickManager_OnTimeCycleTick;
+        bool isMultiplayerClient = PhotonNetwork.IsConnected && !PhotonNetwork.IsMasterClient;
+        if (!isMultiplayerClient)
+            TickManager.OnTimeCycleTick += TickManager_OnTimeCycleTick;
     }
 
     private void OnDestroy()
@@ -100,7 +104,17 @@ public class TimeOfDayUI : MonoBehaviour
 
         //Debug.Log($"Current Time: {currentTime:0} | Days Passed: {daysPassed} | Dry Season? {isDrySeason}");
     }
- 
+    public void SetFromNetwork(bool dry, bool day, float broadcastedTime)
+    {
+        isDrySeason = dry;
+        isDay = day;
+        currentTime = broadcastedTime;
+
+        UpdateLightRotation();
+        UpdateLightColor();
+        UpdateUI();
+    }
+
     private void UpdateSeasons()
     {
         isDrySeason = !isDrySeason;

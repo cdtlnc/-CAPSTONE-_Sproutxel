@@ -26,7 +26,11 @@ public class EventManager : MonoBehaviour
     [SerializeField] private int _weatherCooldownTimer = 0;
     [SerializeField] private int _infestationTimer = 0;
 
- 
+   [Header("Weather Meters")]
+    [SerializeField] private int _HeatWaveTimer = 0;
+    [SerializeField] private int _HeatWaveDuration = 0;
+    [SerializeField] private int _TyphoonDuration = 0;
+    [SerializeField] private int _TyphoonTimer = 0;
 
     [Header("Weather Chances")]
     [SerializeField] private int _HeatWaveChance = 0;
@@ -42,31 +46,32 @@ public class EventManager : MonoBehaviour
     [SerializeField] private GameObject RainyContinaer;
     [SerializeField] private Image WeatherText;
     [SerializeField] private Sprite[] WeatherTextSprites;
-    [SerializeField] private Animator naviAnim;
-    [SerializeField] private TextMeshProUGUI naviText;
-    [SerializeField] private bool Animstatus;
-    [SerializeField] private bool notClear;
 
     public static bool isInfested { get; private set; } = false;
     public static int _weatherEvent { get; private set; } = 0;
 
 
-    private int _lastWeatherEvent = -1; // Track state changes to prevent infinite loops
 
     void Start()
     {
-        TickManager.OnEventTick += delegate (object sender, TickManager.OnTickEventArgs e) { };
+        isInfested = _infestationStart;
+        TickManager.OnEventTick += delegate (object sender, TickManager.OnTickEventArgs e)
+        {
+            //Debug.Log("Tick: " + e.tick);
+        };
+
         TickManager.OnEventTick += TickManager_OnEventTick;
 
-        if (StartOnHeatDaze) { _weatherEvent = 1; }
-        if (StartOnTyphoon) { _weatherEvent = 2; }
-
-        Animstatus = false;
-        isInfested = _infestationStart;
-
-        // Force initial setup
-        _lastWeatherEvent = -1;
         UpdateEssentialsUI();
+
+        if (StartOnHeatDaze)
+        {
+            _weatherEvent = 1; // Typhoon
+        }
+        if (StartOnTyphoon)
+        {
+            _weatherEvent = 2; // Typhoon
+        }
     }
 
     void TickManager_OnEventTick(object sender, TickManager.OnTickEventArgs e)
@@ -77,18 +82,17 @@ public class EventManager : MonoBehaviour
         }
         else
         {
-            _weatherDurationTimer--;
+            _weatherDurationTimer++;
         }
 
         _infestationTimer++;
 
-        if (_weatherDurationTimer <= 0)
+        if (_weatherDurationTimer >= _weatherDuration)
         {
             if (dontChangeWeather) return;
             Debug.Log("Weather event over!");
             _weatherDurationTimer = 0;
             _weatherEvent = 0;
-            notClear =false;
         }
 
         // --- FIXED: Removed the old blocky override logic that was breaking weather states every 5 seconds ---
@@ -119,11 +123,7 @@ public class EventManager : MonoBehaviour
         // Update the screen state once at the end of the tick loop
         UpdateEssentialsUI();
     }
-    void OnDestroy()
-    {
-        // SAFELY disconnects the entire script loop when the scene restarts
-        TickManager.OnEventTick -= TickManager_OnEventTick;
-    }
+
     void CalcWeatherEventOdds(bool isDrySeason)
     {
         if (isDrySeason)
@@ -195,100 +195,78 @@ public class EventManager : MonoBehaviour
     // --- NEW ESSENTIALS UI CONTROLLER ---
     private void UpdateEssentialsUI()
     {
-        Debug.Log("Updating Weather Duration");
-        WeatherTimer.text = "" + _weatherDurationTimer;
-
+        GameObject activeContainer = null;
         int targetIconIndex = 0;
         int targetText = 2;
-        bool weatherChanged = (_weatherEvent != _lastWeatherEvent);
-
-        // 1. Evaluate state based on weather events and seasonal conditions 
-        if (_weatherEvent == 2) // Typhoon Event active 
+        Debug.Log("Updating Weather Duration");
+        WeatherTimer.text = ""+ _weatherDurationTimer;
+        // 1. Evaluate state based on weather events and seasonal conditions
+        if (_weatherEvent == 2) // Typhoon Event active
         {
-            targetIconIndex = 1;
+            activeContainer = TyphoonContinaer; // Main event identifier
+            targetIconIndex = 1;                // Typhoon/Storm Icon
             targetText = 1;
-            Animstatus = true;
-
-            // Trigger ONLY ONCE when the weather event actually switches
-            if (weatherChanged)
-            {
-                AudioManager.instance.Play("Typhoon");
-                AudioManager.instance.Stop("HeatDaze");
-                AudioManager.instance.Stop("SproutxelBGMusic");
-                naviAnim.SetTrigger("Typhoon");
-                naviText.text = "Typhoon!!";
-                setDuration();
-            }
+            AudioManager.instance.Play("Typhoon");
+            AudioManager.instance.Stop("HeatDaze");
+            AudioManager.instance.Stop("SproutxelBGMusic");
         }
-        else if (_weatherEvent == 1) // Heat Wave Event active 
+        else if (_weatherEvent == 1) // Heat Wave Event active
         {
+            activeContainer = HeatDazeContainer;
             targetIconIndex = 0;
-            targetText = 0;
-            Animstatus = true;
-
-            // Trigger ONLY ONCE when the weather event actually switches
-            if (weatherChanged)
-            {
-                AudioManager.instance.Play("HeatDaze");
-                AudioManager.instance.Stop("Typhoon");
-                AudioManager.instance.Stop("SproutxelBGMusic");
-                naviAnim.SetTrigger("HeatDaze");
-                naviText.text = "HeatWave!!";
-                setDuration();
-            }
+            targetText = 0; // Sunny Icon
+            AudioManager.instance.Play("HeatDaze");
+            AudioManager.instance.Stop("Typhoon");
+            AudioManager.instance.Stop("SproutxelBGMusic");
         }
-        else // Base weather clear (Checks seasonal state) 
+        else // Base weather clear (Checks seasonal state)
         {
-            Animstatus = false;
-
-            if (weatherChanged)
+            AudioManager.instance.Stop("HeatDaze");
+            AudioManager.instance.Stop("Typhoon");
+            AudioManager.instance.Play("SproutxelBGMusic");
+            if (!TimeOfDayUI.isDrySeason) // Wet Season active (!isDrySeason)
             {
-                AudioManager.instance.Stop("HeatDaze");
-                AudioManager.instance.Stop("Typhoon");
-                AudioManager.instance.Play("SproutxelBGMusic");
+                activeContainer = RainyContinaer;
+                targetIconIndex = 1;              // Rainy Icon
             }
-
-            if (!TimeOfDayUI.isDrySeason) // Wet Season active 
+            else // Dry Season active
             {
-                targetIconIndex = 1;
-                targetText = 1;
-            }
-            else // Dry Season active 
-            {
-                targetIconIndex = 0;
+                activeContainer = HeatDazeContainer;
+                targetIconIndex = 0;              // Sunny/Clear Icon
             }
         }
 
-        // Save current state for next tick comparison
-        _lastWeatherEvent = _weatherEvent;
-
-        // 2. Safely swap the UI icon image 
+        // 2. Safely swap the UI icon image
         if (weatherIcon != null && weatherIcons != null && targetIconIndex < weatherIcons.Length)
         {
             weatherIcon.sprite = weatherIcons[targetIconIndex];
             WeatherText.sprite = WeatherTextSprites[targetText];
         }
 
-        // 3. MULTI - PANEL ACTIVATION RULES: 
+        // 3.MULTI - PANEL ACTIVATION RULES:
+        // Fixed: Heat Daze now ONLY turns on if a heat wave event is actively running
         if (HeatDazeContainer != null)
         {
             HeatDazeContainer.SetActive(_weatherEvent == 1);
+           
         }
 
+        // Typhoon panel overlay turns on ONLY when a typhoon event is actively rolling
         if (TyphoonContinaer != null)
         {
             TyphoonContinaer.SetActive(_weatherEvent == 2);
+   
+
         }
 
+        // Rainy panel is strictly forced active if it's the Wet Season OR during a Typhoon
         if (RainyContinaer != null)
         {
             bool isWetSeason = !TimeOfDayUI.isDrySeason;
             bool isTyphoon = (_weatherEvent == 2);
-            bool isHeatWave = (_weatherEvent == 1);
-            RainyContinaer.SetActive((isWetSeason || isTyphoon) && !isHeatWave);
-        }
 
-        naviAnim.SetBool("Status", Animstatus);
+            RainyContinaer.SetActive(isWetSeason || isTyphoon);
+        }
     }
 
 
@@ -296,10 +274,4 @@ public class EventManager : MonoBehaviour
     // Keep old references so external calls from other scripts do not break compilation
     public void ChangeIcon(int change) { }
     public void WeatherEventPanel(int w) { }
-    public void setDuration()
-    {
-        if (notClear) return;
-        _weatherDurationTimer = _weatherDuration;
-        notClear = true;
-    }
 }

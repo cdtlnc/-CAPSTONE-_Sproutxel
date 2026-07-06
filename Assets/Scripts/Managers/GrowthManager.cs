@@ -9,7 +9,6 @@ using UnityEngine.EventSystems;
 using UnityEngine;
 using Unity.VisualScripting;
 using System.Collections;
-using TMPro;
 
 public class GrowthManager : MonoBehaviour, IPointerClickHandler
 {
@@ -24,13 +23,13 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
     [Header("Weather Death Animations")]
     [SerializeField] public Sprite[] HeatDeath, TyphoonDeath, Harvestable;
     [SerializeField] public Sprite TyphoonBG;
-    [SerializeField] public Animator ForeAnim, BackAnim, Danger;
+    [SerializeField] public Animator ForeAnim,BackAnim,Danger;
     [SerializeField] public bool Dangerino;
 
 
     [Header("Live Growth Debugger (Visible for Testing)")]
     [SerializeField] public SeedData currentSeed;
-    [SerializeField] public int currentStage = 0;
+    [SerializeField] private int currentStage = 0;
     [SerializeField] private float cropGrowth;
     private float[] growthThresholds = new float[] { 0f, 2f, 4f, 6f, 14f };
 
@@ -75,17 +74,15 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
     [SerializeField] private float WaterDuration;
     [SerializeField] private GameObject Water;
     [SerializeField] private GameObject Bugging;
-    [SerializeField] private Animator NaviAnim;
-    [SerializeField] private TextMeshProUGUI NaviText;
 
-
+    
 
     [Header("Item Checker")]
     [SerializeField] private bool isplantable;
 
     [Header("Safety Net")]
-    float maxLimit = 50f;
-    float minLimit = -50f;
+         float maxLimit = 50f;
+         float minLimit = -50f;
 
     float maxRange = 100f;
     float minRange = -100f;
@@ -96,11 +93,11 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
     [SerializeField] float recoveryAmountPerTick = 2f;
     [SerializeField] float closetothecenter = 40f;
     [Header("Stat Paremeters")]
-    float minSafe = -50f;
-    float maxSafe = 50f;
-    float recoveryRate = 1f; // How many points it recovers per tick
+     float minSafe = -50f;
+     float maxSafe = 50f;
+     float recoveryRate = 1f; // How many points it recovers per tick
     [SerializeField] float targetCenter = 20f;
-
+    
     [SerializeField] float BugCooldownMeter;
     [SerializeField] float BugCooldownMeterMax = 100f;
     [SerializeField] float BugCooldownRate = 10;
@@ -109,7 +106,7 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
     // Direct link to the math backend script
     public BasePlant plantSimulationInstance;
 
-    public bool isPlanted = false;
+     public bool isPlanted = false;
 
     private void Start()
     {
@@ -140,7 +137,7 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
         Debug.Log("Here at waterlogged");
         if (!isPlanted)
             IsWaterLogged();
-        if (WaterCleared && !isplantable)
+        if (WaterCleared&&!isplantable)
         {
             DecreaseWaterlogged();
         }
@@ -177,7 +174,7 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
             plantSimulationInstance.GetHealth();
             plantSimulationInstance.GetGrowth();// THis is whats causing the growth
             plantSimulationInstance.GetHarvestQuality();
-            cropGrowth = plantSimulationInstance.cropGrowth;
+            cropGrowth=plantSimulationInstance.cropGrowth;
         }
         if (currentSeed.growthStages == null || currentSeed.growthStages.Length == 0) return;
         UpdateGrowth();
@@ -185,10 +182,10 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
 
         // LINE ADDED HERE: Run real-time condition evaluation checks
         //EvaluatePlotHealth();
-
-
+       
+      
         UpdatePlantSprite();
-
+       
     }
 
     public void UpdateGrowth()
@@ -212,10 +209,9 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
                 {
                     PlantSadBG.color = new Color(1f, 1f, 1f, 1f);
                     AudioManager.instance.Play("Harvestable");
-                    AnimSetter(1);
                     BackAnim.SetInteger("HarvestingTrigger", 1);
                 }
-
+               
             }
         }
 
@@ -235,39 +231,39 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
         int lastConfiguredStageIndex = currentSeed.growthStages.Length - 1;
         int MatureStageIndex = currentSeed.growthStages.Length - 2;
         Debug.Log("[STEP 2] Entering Mature Stage");
+       
+            int yieldAmount = 0;
 
-        int yieldAmount = 0;
-
-        if (plantSimulationInstance.stats == null)
-        {
-            yieldAmount = 3;
-            Debug.Log($"[Bypass] Missing stats template! Dropping a fallback default of {yieldAmount} items.");
-        }
-        else
-        {
-            yieldAmount = plantSimulationInstance.GetCropYield();
-            Debug.Log($"Harvested {yieldAmount} items of {currentSeed.cropName}!");
-        }
-
-        Debug.Log("[STEP 3] Looking for Goal Manager");
-        GoalManager goalManager = Object.FindFirstObjectByType<GoalManager>();
-        Debug.Log("[STEP 4] Found Goal Manager");
-
-        if (goalManager != null)
-            if (goalManager != null)
+            if (plantSimulationInstance.stats == null)
             {
-
-                Debug.Log("[STEP 5.B] Has Bad Stats");
-                MaintenencePopUp ui = Object.FindFirstObjectByType<MaintenencePopUp>();
-                if (ui != null)
-                {
-                    Debug.Log("[STEP 6] Opening UI");
-                    ui.OpenWindow(this); // Opens the window exactly ONCE
-                }
-
+                yieldAmount = 3;
+                Debug.Log($"[Bypass] Missing stats template! Dropping a fallback default of {yieldAmount} items.");
+            }
+            else
+            {
+                yieldAmount = plantSimulationInstance.GetCropYield();
+                Debug.Log($"Harvested {yieldAmount} items of {currentSeed.cropName}!");
             }
 
+            Debug.Log("[STEP 3] Looking for Goal Manager");
+            GoalManager goalManager = Object.FindFirstObjectByType<GoalManager>();
+            Debug.Log("[STEP 4] Found Goal Manager");
 
+            if (goalManager != null)
+            if (goalManager != null)
+            {
+                
+                    Debug.Log("[STEP 5.B] Has Bad Stats");
+                    MaintenencePopUp ui = Object.FindFirstObjectByType<MaintenencePopUp>();
+                    if (ui != null)
+                    {
+                        Debug.Log("[STEP 6] Opening UI");
+                        ui.OpenWindow(this); // Opens the window exactly ONCE
+                    }
+                
+            }
+           
+        
     }
 
     // Called by my drag and drop system to start planting
@@ -280,7 +276,7 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
             Debug.LogWarning($"[Out of Seeds] Can't plant anymore {data.cropName}! 0 bags remaining.");
             return;
         }
-
+       
         // Safety check in case I forgot to add a sprite to the asset file
         if (data.growthStages == null || data.growthStages.Length == 0)
         {
@@ -291,7 +287,7 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
         currentSeed = data;
         isPlanted = true;
         currentStage = 0;
-        AudioManager.instance.Play("Planting");
+        AudioManager.instance.Play("Planting"); 
 
         // Fire up a brand new simulation instance
         plantSimulationInstance = new BasePlant();
@@ -307,11 +303,11 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
         plantSimulationInstance.cropMoisture = 0f;
         plantSimulationInstance.soilMoisture = 0f;
         plantSimulationInstance.soilSoftness = 0f;
-        plantSimulationInstance.soilQuality = 0f;
+        plantSimulationInstance.soilQuality = 0f; 
 
         data.remainingSeedBags--;
-
-        EndGameManager end = GameObject.FindFirstObjectByType<EndGameManager>();
+        
+        EndGameManager end=GameObject.FindFirstObjectByType<EndGameManager>();
         end.LoseSeed();
         UpdatePlantSprite();
         Debug.Log($"Successfully planted {data.cropName}! Calculations started.");
@@ -333,7 +329,7 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
     }
 
     //User Shovel
-
+  
 
     private void FixedUpdate()
     {
@@ -358,9 +354,9 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
         soilSoftness = plantSimulationInstance.soilSoftness;
     }
 
+   
 
-
-
+ 
 
 
     public void ResolveMinigameWin(MinigameType type)
@@ -373,24 +369,23 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
         switch (type)
         {
             case MinigameType.Watering:
-                if (plantSimulationInstance.cropMoisture < minSafe || plantSimulationInstance.cropMoisture < minSafe)
+                if (plantSimulationInstance.cropMoisture < minSafe|| plantSimulationInstance.cropMoisture < minSafe)
                 {
                     plantSimulationInstance.cropMoisture = (plantSimulationInstance.cropMoisture - centerPoint) * reductionFactor + centerPoint;
-                    plantSimulationInstance.soilMoisture = (plantSimulationInstance.soilMoisture - centerPoint) * reductionFactor + centerPoint;
-
+                    
                     WaterClear();
                     statsTowardsTheCenter();
                 }
                 else
                 {
                     plantSimulationInstance.cropMoisture = (plantSimulationInstance.cropMoisture - centerPoint) * reductionFactor + centerPoint;
-
+                   
                     Debug.Log("Wrong Minigame");
                 }
 
 
 
-                break;
+                    break;
 
             case MinigameType.StructuralSupport:
                 if (plantSimulationInstance.soilSoftness > maxSafe)
@@ -399,15 +394,15 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
                     plantSimulationInstance.soilSoftness = (plantSimulationInstance.soilSoftness - centerPoint) * reductionFactor + centerPoint;
                     statsTowardsTheCenter();
                 }
-                else
+                else 
                 {
                     plantSimulationInstance.soilSoftness = (plantSimulationInstance.soilSoftness - centerPoint) * reductionFactor + centerPoint;
                 }
 
-                break;
+                    break;
 
             case MinigameType.Weeding:
-                if (plantSimulationInstance.soilQuality > maxSafe)
+                if ( plantSimulationInstance.soilQuality > maxSafe)
                 {
                     plantSimulationInstance.soilQuality = Mathf.Min(plantSimulationInstance.soilQuality + 2.0f, 100f);
                     plantSimulationInstance.soilSoftness = (plantSimulationInstance.soilSoftness - centerPoint) * reductionFactor + centerPoint;
@@ -419,10 +414,10 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
                     plantSimulationInstance.soilSoftness = (plantSimulationInstance.soilSoftness - centerPoint) * reductionFactor + centerPoint;
                 }
 
-                break;
+                    break;
 
             case MinigameType.PestControl:
-                if (_IsInfested || plantSimulationInstance.soilSoftness < minSafe)
+                if (_IsInfested|| plantSimulationInstance.soilSoftness < minSafe)
                 {
                     unBug();
                     statsTowardsTheCenter();
@@ -432,13 +427,12 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
                     plantSimulationInstance.soilSoftness = 0f;
                 }
 
-                break;
+                    break;
 
             case MinigameType.SoilEnrichment:
                 if (plantSimulationInstance.soilQuality < minSafe || plantSimulationInstance.soilMoisture > maxLimit)
                 {
-                    plantSimulationInstance.soilQuality = (plantSimulationInstance.soilQuality - centerPoint) * reductionFactor + centerPoint;
-                    plantSimulationInstance.soilMoisture = (plantSimulationInstance.soilMoisture - centerPoint) * reductionFactor + centerPoint;
+                    plantSimulationInstance.soilQuality = 40.0f; // Adjusted downward from 60f so it sits comfortably inside the sweet spot
                     statsTowardsTheCenter();
                     WaterClear();
                 }
@@ -447,19 +441,19 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
                     plantSimulationInstance.soilQuality = 0f;
                 }
 
-                break;
+                    break;
 
             case MinigameType.Netting:
                 if (plantSimulationInstance.cropMoisture > maxSafe)
                 {
-                    plantSimulationInstance.cropMoisture = (plantSimulationInstance.cropMoisture - centerPoint) * reductionFactor + centerPoint;
+                    plantSimulationInstance.cropHP = Mathf.Min(plantSimulationInstance.cropHP + 2.0f, 100f);
                     statsTowardsTheCenter();
                 }
                 else
                 {
-                    plantSimulationInstance.cropMoisture = 0f;
+                    plantSimulationInstance.cropMoisture  = 0f;
                 }
-
+                
                 break;
         }
 
@@ -477,7 +471,7 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
 
     }
 
-
+   
 
     public void ResolveMinigameLose(MinigameType type)
     {
@@ -506,7 +500,7 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
 
     private void CheckStats()
     {
-
+        
         if (!isPlanted || currentSeed == null || plantSimulationInstance == null)
         {
             hasNoBadStats = false;
@@ -519,22 +513,22 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
         soilSoftness = plantSimulationInstance.soilSoftness;
 
         // Your custom range bounds
+        
 
-
-
+    
         if (cropMoisture < minLimit || cropMoisture > maxLimit ||
             soilQuality < minLimit || soilQuality > maxLimit ||
             soilMoisture < minLimit || soilMoisture > maxLimit ||
             soilSoftness < minLimit || soilSoftness > maxLimit)
         {
             hasNoBadStats = false;
-
+           
         }
         else
         {
             hasNoBadStats = true;
-
-
+        
+        
         }
 
 
@@ -543,9 +537,9 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
         {
             ResetPlot();// Kill plant
         }
-        else if (cropMoisture >= maxLimit || cropMoisture <= minLimit ||
-            soilQuality >= maxLimit || soilQuality <= minLimit ||
-            soilMoisture >= maxLimit || soilMoisture <= minLimit ||
+        else if (cropMoisture >= maxLimit || cropMoisture <= minLimit || 
+            soilQuality >= maxLimit || soilQuality <= minLimit || 
+            soilMoisture >= maxLimit || soilMoisture <= minLimit || 
             soilSoftness >= maxLimit || soilSoftness <= minLimit)
         {
             AnimationBG();
@@ -554,7 +548,7 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
 
         }
 
-    }
+        }
 
 
     /// <summary>
@@ -588,7 +582,7 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
 
         IsWaterLogged();
         // Handle waterlogging if moisture stays dangerously high
-
+        
     }
 
 
@@ -600,9 +594,9 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
         ForeAnim.SetInteger("WeatherTrigger", 0);
     }
 
+   
 
-
-
+    
     public void CheckInfestation()
     {
         if (EventManager.isInfested)
@@ -619,7 +613,7 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
                 plantSimulationInstance.cropHP -= 5f;
                 AudioManager.instance.Play("BugInfestation");
             }
-
+          
         }
         else
         {
@@ -630,7 +624,7 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
             _IsInfested = false;
         }
     }
-
+ 
     public void UnBugCountdown()
     {
         BugCooldownMeter -= BugCooldownRate;
@@ -660,7 +654,7 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
     }
     public void WeatherAnimationPlayFG(int play)
     {
-
+        
         if (!isPlanted) return;
         switch (play)
         {
@@ -675,7 +669,7 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
                 PlantSadFG.color = new Color(1f, 1f, 1f, 1f);
                 PlantSadFG.transform.localScale = new Vector3(0.01527228f, 0.01026505f, 0.01979453f);
                 break;
-
+           
         }
         ForeAnim.SetInteger("WeatherTrigger", play);
 
@@ -686,17 +680,17 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
         float animationTimer = 0f;
         if (!isPlanted) return;
 
-
+       
         Color end1 = Color.white;
         Color end2 = new Color(255f / 255f, 77f / 255f, 77f / 255f);
 
-
+   
         animationTimer += Time.deltaTime;
 
-
+      
         float lerpPercentage = Mathf.PingPong(animationTimer * 2.0f, 1.0f);
 
-
+   
         plantRenderer.color = Color.Lerp(end1, end2, lerpPercentage);
 
         PlantSadFG.color = new Color(1f, 1f, 1f, 1f);
@@ -704,8 +698,6 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
         Dangerino = true;
         Danger.SetBool("Danger", Dangerino);
         AudioManager.instance.Play("Danger");
-        AnimSetter(2);
-
     }
     public void CheckSeason()
     {
@@ -779,12 +771,12 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
     public void unBug()
     {
         Debug.Log("YOU HAVE BEEN UNBUGGED");
-        if (!isPlanted || _IsInfested != true) return;
+        if (!isPlanted||_IsInfested!=true) return;
         bugIndex = 0;
         plantSimulationInstance.bugIndex = bugIndex;
         Bugging.SetActive(false);
         unBugged = true;
-        _IsInfested = false;
+        _IsInfested=false;
     }
 
     public void checkDead() // For Health and Growth
@@ -809,7 +801,6 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
     }
     void ResetPlot()
     {
-        AnimSetter(3);
         unBug();
         BackAnim.SetInteger("HarvestingTrigger", 0);
         ForeAnim.SetInteger("WeatherTrigger", 0);
@@ -828,43 +819,20 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
     {
         if (!isPlanted) return;
         int yieldAmount;
-        float currentGrowth = plantSimulationInstance.cropGrowth;
-        float currentSoilQuality = plantSimulationInstance.soilQuality;
-
-        // Get a reference to the stats scriptable object from the simulation instance
-        // (Ensure 'stats' or whatever name your simulation script uses to hold seed stats is public)
-        var cropStats = plantSimulationInstance.stats;
-        System.Random randomValue = new System.Random();
-
-        if (currentGrowth <= growthThresholds[3])
+        if (Dangerino)
         {
-            Debug.Log("Dis le bad yield");
-            yieldAmount = plantSimulationInstance.GetBadYield();
+            yieldAmount=plantSimulationInstance.GetBadYield();
         }
         else
         {
-            // Check if the soil quality falls within the optimal sweet spot (-70 to 70)
-            if (currentSoilQuality >= -70f && currentSoilQuality <= 70f)
-            {
-                Debug.Log("Dis le best yield! Soil is perfect: " + currentSoilQuality);
-
-                // BYPASS: Generate a high yield directly here using the stats values, adding +1 for exclusivity
-                yieldAmount = randomValue.Next((int)cropStats.goodCropYield.x, (int)cropStats.goodCropYield.y + 1);
-            }
-            else
-            {
-                Debug.Log("Dis le average yield! Soil is outside sweet spot: " + currentSoilQuality);
-
-                // Force an average yield generation directly here since the soil failed the check
-                yieldAmount = randomValue.Next((int)cropStats.averageCropYield.x, (int)cropStats.averageCropYield.y + 1);
-            }
+            yieldAmount = plantSimulationInstance.GetCropYield();
         }
 
         GoalManager goalManager = Object.FindFirstObjectByType<GoalManager>();
         goalManager.AddCrop(currentSeed.cropName, yieldAmount);
-        Debug.Log("Plant Harvested with yield: " + yieldAmount);
+        Debug.Log("Plant Harvested");
         IsNotPlantable();
-        ResetPlot();
+        ResetPlot(); // Cleanly clear the plot out instantly
     }
 
     public void RefreshPlot()
@@ -874,27 +842,7 @@ public class GrowthManager : MonoBehaviour, IPointerClickHandler
         plantableornot();
     }
 
-    public void AnimSetter(int set)
-    {
-        switch (set)
-        {
-            case 1://Harvesting
-                NaviAnim.SetBool("Harvesting",true);
-                NaviText.text = "HARVEST!!!";
-                break;
-
-             case 2://Danger
-                NaviAnim.SetBool("Dying", true);
-                NaviText.text = "DANGER!!!";
-                break;
-
-            case 3://Back to normal
-                NaviAnim.SetBool("Harvesting", false);
-                NaviAnim.SetBool("Dying", false);
-                NaviText.text = "";
-                break;
-        }
-    }
+    
 
     public void plantableornot()
     {

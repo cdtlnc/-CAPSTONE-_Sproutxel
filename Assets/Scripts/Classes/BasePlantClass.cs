@@ -111,19 +111,14 @@ public class BasePlant
         soilSoftness = Mathf.Clamp(soilSoftness, -100f, 100f);
     }
 
-    public void GetSoilQuality()
+    public void GetSoilQuality() // This uses soilMoisture and soilSoftness to calculate soilQuality
     {
         float soilMoistureBonus = BellCurve.GetFactor(soilMoisture, 15, 20) * 50f;
         float soilSoftnessBonus = BellCurve.GetFactor(soilSoftness, 15, 20) * 50f;
 
         float rawSoilQualityChange = _soilQualityMultiplier * (soilMoistureBonus + soilSoftnessBonus) / 50;
 
-        // Change element 0 in unity inspector to 0 (no penalty)
-        // Change element 1 in unity inspector to 15 or 20 (flat penalty deduction)
-        float bugPenalty = stats.bugResistances[bugIndex];
-
-        // Apply the clean change, then subtract the infestation penalty
-        soilQuality += (rawSoilQualityChange) - bugPenalty;
+        soilQuality += (rawSoilQualityChange / 100) * stats.bugResistances[bugIndex] * 100;
         soilQuality = Mathf.Clamp(soilQuality, -100f, 100f);
     }
 
@@ -218,25 +213,24 @@ public class BasePlant
 
         System.Random randomValue = new System.Random();
 
+       
+            if (harvestQuality >= 0 && harvestQuality <= 33)
+            {
+                return randomValue.Next((int)stats.badCropYield.x, (int)stats.badCropYield.y);
+            }
+            else if (harvestQuality >= 34 && harvestQuality <= 66)
+            {
+                return randomValue.Next((int)stats.averageCropYield.x, (int)stats.averageCropYield.y);
+            }
+            else if (harvestQuality >= 67 && harvestQuality <= 100)
+            {
+                return randomValue.Next((int)stats.goodCropYield.x, (int)stats.goodCropYield.y);
+            }
+        
+        
 
-        // FIXED: Changed thresholds to direct inequalities (< and >=) so float fractions (like 66.5) don't slip through
-        if (harvestQuality < 34f)
-        {
-            // FIXED: Added + 1 to upper limits because System.Random.Next is exclusive of the max bound
-            return randomValue.Next((int)stats.badCropYield.x, (int)stats.badCropYield.y + 1);
-        }
-        else if (harvestQuality >= 34f && harvestQuality < 67f)
-        {
-            return randomValue.Next((int)stats.averageCropYield.x, (int)stats.averageCropYield.y + 1);
-        }
-        else // This handles everything from 67 to 100+ safely
-        {
-            return randomValue.Next((int)stats.goodCropYield.x, (int)stats.goodCropYield.y + 1);
-        }
 
-
-
-        return 1;
+            return 1;
     }
 
     public int GetMaxYield()

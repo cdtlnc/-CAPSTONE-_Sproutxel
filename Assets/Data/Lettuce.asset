@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Lettuce
   m_EditorClassIdentifier: Assembly-CSharp::SeedData
   cropName: Lettuce
-  seedBagIcon: {fileID: -1018907269, guid: 3e28fcc2b10ae584d99a55af36121e2e, type: 3}
+  seedBagIcon: {fileID: 452815971, guid: bbe22ca7e85c81d42849fe29f3fdac2c, type: 3}
   growthStages:
   - {fileID: 363228105, guid: 0707b0c65b26f044cb7bf153951fbe5e, type: 3}
   - {fileID: -470491034, guid: 0707b0c65b26f044cb7bf153951fbe5e, type: 3}
