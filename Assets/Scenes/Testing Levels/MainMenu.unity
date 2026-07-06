@@ -5969,7 +5969,12 @@ MonoBehaviour:
   - {fileID: 21300000, guid: f7b279c1a79fb6c4e93419e79af15b5d, type: 3}
   - {fileID: 21300000, guid: df5ccb2c5a4b89747a3b208146aa52bc, type: 3}
   - {fileID: 21300000, guid: ee72935422d7896458532b1a2d6eb95d, type: 3}
-  Tutorial2: []
+  Tutorial2:
+  - {fileID: 21300000, guid: f57a024dd6a6be34c91d35d7bf7715e3, type: 3}
+  - {fileID: 21300000, guid: 7d1b2b01ebaeb4a48a27ceea88a648ac, type: 3}
+  - {fileID: 21300000, guid: ec284f6c2629be34eb0cc5d268d43cda, type: 3}
+  - {fileID: 21300000, guid: d6c5147c6090ac542bf1b391fc27fc06, type: 3}
+  - {fileID: 21300000, guid: fe5ad43ef30c800489d337db0390cb99, type: 3}
   tutorialLength: {fileID: 1584819535}
   Selected_Tutorial: 0
   Selected_Tutorial_Length: 0
@@ -8640,7 +8645,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80b5d2f2305b68344a023b1ce73c292a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::OptionsManager
-  audioMixer: {fileID: 0}
 --- !u!4 &1175940986
 Transform:
   m_ObjectHideFlags: 0
